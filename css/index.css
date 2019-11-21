@@ -1,0 +1,11 @@
+span {
+    display: inline-block;
+}
+.container {
+    position: relative;
+}
+.search {
+    position: absolute;
+    width: 100%;
+    top: 200px;
+}
