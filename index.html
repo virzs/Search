@@ -15,7 +15,18 @@
     <div class="container">
         <div class="row search">
             <span>
-                <input type="text" class="form-control" name="" id="" placeholder="请输入搜索的内容">
+            </span>
+            <span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <select class="input-group-text custom-select" id="select-engine">
+                            <option selected value="1">谷歌</option>
+                            <option value="2">百度</option>
+                            <option value="3">搜狗</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" name="" id="" placeholder="请输入搜索的内容">
+                </div>
             </span>
             <span>
                 <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
@@ -25,6 +36,7 @@
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 
 </html>
