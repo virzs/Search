@@ -1,7 +1,18 @@
 {
-    "engine": {
-        "google": "谷歌",
-        "baidu": "百度",
-        "sougou": "搜狗"
-    }
+    "engine": [{
+        "name": "谷歌",
+        "value": "google",
+        "icon": "fa fa-google",
+        "select": "selected"
+    }, {
+        "name": "百度",
+        "value": "baidu",
+        "icon": "",
+        "select": ""
+    }, {
+        "name": "搜狗",
+        "value": "sougou",
+        "icon": "",
+        "select": ""
+    }]
 }
