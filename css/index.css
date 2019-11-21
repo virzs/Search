@@ -1,11 +1,34 @@
 span {
     display: inline-block;
 }
-.container {
-    position: relative;
+
+.input-group>.form-control {
+    width: 500px;
 }
-.search {
-    position: absolute;
-    width: 100%;
-    top: 200px;
+
+.search-content {
+    margin: 200px auto;
+    height: 50px;
+}
+
+.search-select,
+.search-input,
+.search-btn {
+    height: 50px;
+    border-radius: 0;
+}
+
+.search-select {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+}
+
+.search-input {
+    width: 500px;
+}
+
+.search-btn {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
