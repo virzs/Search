@@ -21,10 +21,10 @@ request.onload = function () {
     });
     engine.innerHTML = html
 }
-// 百度搜索参数测试
 
-var txt = document.getElementById("text");
-var oUl = document.getElementById("list");
+// 百度搜索参数测试
+var txt = document.getElementById("search");
+var oUl = document.getElementById("searchList");
 txt.onkeyup = function () {
     var val = txt.value;
     var oScript = document.createElement("script"); //动态创建script标签 
@@ -43,7 +43,10 @@ function callback(data) {
     oUl.innerHTML = str;
     oUl.style.display = "block";
 }
-
+function goSearch() {
+    var value = txt.value
+    window.location.href = "https://www.baidu.com/s?wd=" + value
+}
 
 function myHandle(data) {
     console.log(data)
