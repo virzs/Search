@@ -8,7 +8,7 @@
         "name": "百度",
         "value": "baidu",
         "icon": "",
-        "select": ""
+        "select": "selected"
     }, {
         "name": "搜狗",
         "value": "sougou",
