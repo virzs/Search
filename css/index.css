@@ -11,10 +11,6 @@ span {
     display: inline-block;
 }
 
-.input-group>.form-control {
-    width: 500px;
-}
-
 .search-content {
     margin: 200px auto 0;
     height: 50px;
@@ -31,10 +27,6 @@ span {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 
-}
-
-.search-input {
-    width: 500px;
 }
 
 .search-btn {
