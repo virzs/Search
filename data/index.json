@@ -3,7 +3,7 @@
         "name": "谷歌",
         "value": "google",
         "icon": "fa fa-google",
-        "select": "selected"
+        "select": ""
     }, {
         "name": "百度",
         "value": "baidu",
