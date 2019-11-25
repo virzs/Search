@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <div class="row search-content">
+        <form action="https://www.baidu.com/s?ie=utf-8" method="get" target="_self" class="row search-content">
             <span>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -25,7 +25,12 @@
             <span>
                 <button type="button" class="btn btn-primary search-btn"><i class="fa fa-search"></i> 搜索&nbsp;</button>
             </span>
+        </form>
+        <div id="wei">
+            <input type="text" id="text">
+            <ul id="list"></ul>
         </div>
+        <input type="text" id="target">
     </div>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
