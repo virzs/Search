@@ -1,3 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
 span {
     display: inline-block;
 }
@@ -7,7 +16,7 @@ span {
 }
 
 .search-content {
-    margin: 200px auto;
+    margin: 200px auto 0;
     height: 50px;
 }
 
