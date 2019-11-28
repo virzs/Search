@@ -2,16 +2,19 @@
     "engine": [{
         "name": "谷歌",
         "value": "google",
+        "href": "",
         "icon": "fa fa-google",
         "select": ""
     }, {
         "name": "百度",
         "value": "baidu",
+        "href": "https://www.baidu.com/s?wd=",
         "icon": "",
         "select": "selected"
     }, {
         "name": "搜狗",
         "value": "sougou",
+        "href": "https://www.sogou.com/web?query=",
         "icon": "",
         "select": ""
     }]
