@@ -46,6 +46,7 @@ function callback(data) {
 function goSearch() {
     var value = txt.value
     window.location.href = "https://www.baidu.com/s?wd=" + value
+    //搜狗链接 "https://www.sogou.com/web?query="
 }
 
 function myHandle(data) {
@@ -71,16 +72,12 @@ function myJsonp(url, data, callback) {
 }
 //当页面加载完毕，调用函数
 window.onload = function () {
-
     //获取元素
     var target = document.getElementById('target');
-
     //当键盘抬起时触发jsonp函数
     target.onkeyup = function () {
         let value = target.value.trim()
-
         if (!value) return;
-
         // 调用封装的jsonp函数
         myJsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
             "wd": value
