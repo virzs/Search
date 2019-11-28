@@ -3,6 +3,14 @@
     padding: 0;
 }
 
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 ul {
     list-style: none;
 }
@@ -12,7 +20,7 @@ span {
 }
 
 .search-content {
-    margin: 200px auto 0;
+    margin: 300px auto 0;
     height: 50px;
 }
 
@@ -32,4 +40,13 @@ span {
 .search-btn {
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
+}
+
+#searchList {
+    margin: 10px;
+    text-align: center;
+}
+
+#searchList li {
+    margin: 5px 0;
 }
