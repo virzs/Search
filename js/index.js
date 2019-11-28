@@ -22,13 +22,12 @@ function loadData(data) {
         html += '<option ' + data.engine[index].select + ' value="' + data.engine[index].value + '">' + data.engine[index].name + '</option>'
     });
     engine.innerHTML = html
-    console.log("Data", data)
 }
 // 百度搜索参数测试
-var txt = document.getElementById("search");
-var oUl = document.getElementById("searchList");
-txt.onkeyup = function () {
-    var val = txt.value;
+var searchInput = document.getElementById("search");
+var searchList = document.getElementById("searchList");
+searchInput.onkeyup = function () {
+    var val = searchInput.value;
     var oScript = document.createElement("script"); //动态创建script标签 
     oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + val + "&cb=callback";
     //添加链接及回调函数 
@@ -42,12 +41,12 @@ function callback(data) {
         str += "<li><a href=\"https://www.baidu.com/s?wd=" + data.s[i] + "\">" + data.s[i] + "</a></li>";
     }
     //console.log(str); 
-    oUl.innerHTML = str;
-    oUl.style.display = "block";
+    searchList.innerHTML = str;
+    searchList.style.display = "block";
 }
 
 function goSearch() {
-    var value = txt.value
+    var value = searchInput.value
     window.location.href = "https://www.baidu.com/s?wd=" + value
     //搜狗链接 "https://www.sogou.com/web?query="
 }
