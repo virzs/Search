@@ -1,27 +1,29 @@
 var url = "./data/index.json"
 var request = new XMLHttpRequest();
 var engine = document.querySelector("#select-engine")
-// 设置请求方法与路径
-request.open("get", url);
-//  不发送数据到服务器
-request.send(null);
+request.open("get", url); // 设置请求方法与路径
+request.send(null); //  不发送数据到服务器
 request.onload = function () {
     // XHR对象获取到返回信息后执行
+    // 返回状态为200，即为数据获取成功
     if (request.status == 200) {
-        // 返回状态为200，即为数据获取成功
         var json = JSON.parse(request.responseText);
         for (let i = 0; i < json.length; i++) {
             console.log(json[i].name);
         }
+        loadData(json)
     }
+}
+// 加载json数据
+function loadData(data) {
     // 搜索引擎数据
     var html = null
-    json.engine.forEach(function (element, index) {
-        html += '<option ' + json.engine[index].select + ' value="' + json.engine[index].value + '">' + json.engine[index].name + '</option>'
+    data.engine.forEach(function (element, index) {
+        html += '<option ' + data.engine[index].select + ' value="' + data.engine[index].value + '">' + data.engine[index].name + '</option>'
     });
     engine.innerHTML = html
+    console.log("Data", data)
 }
-
 // 百度搜索参数测试
 var txt = document.getElementById("search");
 var oUl = document.getElementById("searchList");
@@ -43,6 +45,7 @@ function callback(data) {
     oUl.innerHTML = str;
     oUl.style.display = "block";
 }
+
 function goSearch() {
     var value = txt.value
     window.location.href = "https://www.baidu.com/s?wd=" + value
