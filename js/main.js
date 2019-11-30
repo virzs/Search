@@ -1,7 +1,19 @@
-var url = "./data/index.json"
-var jsonData = {}
-var engine = document.querySelector("#select-engine")
-var html = null
+/*
+ * @Author: VirZhang 
+ * @Date: 2019-11-28 14:32:57 
+ * @Last Modified by: VirZhang
+ * @Last Modified time: 2019-11-30 11:43:30
+ */
+
+//配置变量
+var url = "./data/index.json"; //json文件路径
+var jsonData = {}; //获取的json文件数据
+var searchEngine = null; //搜索框左侧选择搜索引擎数据
+
+//获取的DOM元素
+var engine = document.querySelector("#select-engine"); //搜索框左侧选择引擎标签
+var searchInput = document.getElementById("search"); //搜索输入框
+var searchList = document.getElementById("searchList"); //搜索时显示的相关信息列表
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -13,16 +25,13 @@ $.ajax({
         jsonData = response
     }
 });
-console.log("json数据", jsonData)
 
 jsonData.engine.forEach(function (element, index) {
-    html += '<option ' + jsonData.engine[index].select + ' value="' + jsonData.engine[index].value + '">' + jsonData.engine[index].name + '</option>'
+    searchEngine += '<option ' + jsonData.engine[index].select + ' value="' + jsonData.engine[index].value + '">' + jsonData.engine[index].name + '</option>'
 });
-engine.innerHTML = html
+engine.innerHTML = searchEngine
 
 // 百度搜索参数测试
-var searchInput = document.getElementById("search");
-var searchList = document.getElementById("searchList");
 searchInput.onkeyup = function () {
     var val = searchInput.value;
     var oScript = document.createElement("script"); //动态创建script标签 
