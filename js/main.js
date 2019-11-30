@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-11-30 11:43:30
+ * @Last Modified time: 2019-11-30 14:24:50
  */
 
 //配置变量
@@ -26,10 +26,32 @@ $.ajax({
     }
 });
 
+//拼接搜索栏左侧选择引擎
 jsonData.engine.forEach(function (element, index) {
     searchEngine += '<option ' + jsonData.engine[index].select + ' value="' + jsonData.engine[index].value + '">' + jsonData.engine[index].name + '</option>'
 });
 engine.innerHTML = searchEngine
+
+//监听按下键盘事件，实现按下Enter跳转搜索
+document.onkeydown = function (e) {
+    var event = e || event
+    if (event.keyCode == 13) {
+        goSearch()
+    }
+}
+
+//搜索事件
+function goSearch() {
+    let value = searchInput.value //获取输入框的值
+    let engineValue = engine.options[engine.selectedIndex].value //获取选择的搜索引擎
+    let searchHref = '' //定义搜索链接变量
+    jsonData.engine.forEach((item) => {
+        if (item.value == engineValue) {
+            searchHref = item.href
+        }
+    })
+    window.location.href = searchHref + value //拼接搜索链接
+}
 
 // 百度搜索参数测试
 searchInput.onkeyup = function () {
@@ -40,6 +62,7 @@ searchInput.onkeyup = function () {
     document.body.appendChild(oScript); //添加script标签 
     document.body.removeChild(oScript); //删除script标签 
 }
+
 //回调函数 
 function callback(data) {
     var str = "";
@@ -49,12 +72,6 @@ function callback(data) {
     //console.log(str); 
     searchList.innerHTML = str;
     searchList.style.display = "block";
-}
-
-function goSearch() {
-    var value = searchInput.value
-    window.location.href = "https://www.baidu.com/s?wd=" + value
-    //搜狗链接 "https://www.sogou.com/web?query="
 }
 
 function myHandle(data) {
