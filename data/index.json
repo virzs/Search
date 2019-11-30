@@ -6,11 +6,17 @@
         "icon": "fa fa-google",
         "select": ""
     }, {
+        "name": "必应",
+        "value": "bing",
+        "href": "https://cn.bing.com/search?q=",
+        "icon": "",
+        "select": "selected"
+    }, {
         "name": "百度",
         "value": "baidu",
         "href": "https://www.baidu.com/s?wd=",
         "icon": "",
-        "select": "selected"
+        "select": ""
     }, {
         "name": "搜狗",
         "value": "sougou",
