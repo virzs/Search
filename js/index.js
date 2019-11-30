@@ -1,28 +1,25 @@
 var url = "./data/index.json"
-var request = new XMLHttpRequest();
+var jsonData = {}
 var engine = document.querySelector("#select-engine")
-request.open("get", url); // 设置请求方法与路径
-request.send(null); //  不发送数据到服务器
-request.onload = function () {
-    // XHR对象获取到返回信息后执行
-    // 返回状态为200，即为数据获取成功
-    if (request.status == 200) {
-        var json = JSON.parse(request.responseText);
-        for (let i = 0; i < json.length; i++) {
-            console.log(json[i].name);
-        }
-        loadData(json)
+var html = null
+
+// ajax同步获取json文件数据
+$.ajax({
+    type: "get",
+    url: url,
+    dataType: "json",
+    async: false,
+    success: function (response) {
+        jsonData = response
     }
-}
-// 加载json数据
-function loadData(data) {
-    // 搜索引擎数据
-    var html = null
-    data.engine.forEach(function (element, index) {
-        html += '<option ' + data.engine[index].select + ' value="' + data.engine[index].value + '">' + data.engine[index].name + '</option>'
-    });
-    engine.innerHTML = html
-}
+});
+console.log("json数据", jsonData)
+
+jsonData.engine.forEach(function (element, index) {
+    html += '<option ' + jsonData.engine[index].select + ' value="' + jsonData.engine[index].value + '">' + jsonData.engine[index].name + '</option>'
+});
+engine.innerHTML = html
+
 // 百度搜索参数测试
 var searchInput = document.getElementById("search");
 var searchList = document.getElementById("searchList");
