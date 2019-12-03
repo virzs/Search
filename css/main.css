@@ -3,6 +3,13 @@
     padding: 0;
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 a {
     color: black;
 }
@@ -20,7 +27,6 @@ span {
 }
 
 .search-content {
-    margin: 300px auto 0;
     height: 50px;
 }
 
@@ -49,4 +55,40 @@ span {
 
 #searchList li {
     margin: 5px 0;
+}
+
+.side-bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 28px;
+}
+
+.title-content,
+.content-content {
+    height: 100%;
+    float: left;
+}
+
+.title-content {
+    width: 30px;
+}
+
+.title-icon {
+    margin: -5px 0;
+    color: #8f8f8f;
+    text-align: center;
+    cursor: pointer;
+}
+
+.title-icon:hover {
+    color: #5f5f5f;
+}
+
+.sideBarContent {
+    background: #ccc;
+    display: none;
+    width: 300px;
+    height: 100%;
 }
