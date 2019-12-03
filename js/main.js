@@ -2,18 +2,21 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-02 17:28:26
+ * @Last Modified time: 2019-12-03 21:49:06
  */
 
 //配置变量
 var url = "./data/index.json"; //json文件路径
 var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
+var showList = 0 //右侧弹窗标记
 
 //获取的DOM元素
 var engine = document.querySelector("#select-engine"); //搜索框左侧选择引擎标签
 var searchInput = document.getElementById("search"); //搜索输入框
 var searchList = document.getElementById("searchList"); //搜索时显示的相关信息列表
+var sideBarIcon = document.querySelectorAll('.title-icon') //弹窗图标
+var sideBar = document.querySelectorAll('.sideBarContent') //弹窗内容
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -77,35 +80,56 @@ function callback(data) {
 function myHandle(data) {
     console.log(data)
 }
+for (let i = 0; i < sideBarIcon.length; i++) {
+    sideBarIcon[i].onclick = function () {
+        if (showList == 0) {
+            for (let j = 0; j < sideBarIcon.length; j++) {
+                sideBar[j].style.display = "none"
+            }
+            sideBar[i].style.display = 'block'
+            showList = 1
+            console.log(showList)
+        } else {
+            sideBar[i].style.display = 'none'
+            showList = 0
+            console.log(showList)
+        }
+    }
+}
+
+
+// 废弃
+
+
 
 //封装的jsonp函数（url为传入的地址，data为参数对象，callback为回调函数）
-function myJsonp(url, data, callback) {
-    let params = '';
-    url += url.indexOf('?') > -1 ? '&' : '?';
-    for (var key in data) {
-        params += '&' + key + '=' + data[key];
-    }
-    url += params;
+// function myJsonp(url, data, callback) {
+//     let params = '';
+//     url += url.indexOf('?') > -1 ? '&' : '?';
+//     for (var key in data) {
+//         params += '&' + key + '=' + data[key];
+//     }
+//     url += params;
 
-    //cb为百度后端回调函数的键名，后面接上你的回调函数名
-    url += '&' + 'cb=' + callback
-    let script = document.createElement('script')
-    script.setAttribute('src', url)
-    document.body.appendChild(script);
-    document.body.removeChild(script);
+//     //cb为百度后端回调函数的键名，后面接上你的回调函数名
+//     url += '&' + 'cb=' + callback
+//     let script = document.createElement('script')
+//     script.setAttribute('src', url)
+//     document.body.appendChild(script);
+//     document.body.removeChild(script);
 
-}
+// }
 //当页面加载完毕，调用函数
-window.onload = function () {
-    //获取元素
-    var target = document.getElementById('target');
-    //当键盘抬起时触发jsonp函数
-    target.onkeyup = function () {
-        let value = target.value.trim()
-        if (!value) return;
-        // 调用封装的jsonp函数
-        myJsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
-            "wd": value
-        }, 'myHandle')
-    };
-};
+// window.onload = function () {
+//     //获取元素
+//     var target = document.getElementById('target');
+//     //当键盘抬起时触发jsonp函数
+//     target.onkeyup = function () {
+//         let value = target.value.trim()
+//         if (!value) return;
+//         // 调用封装的jsonp函数
+//         myJsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
+//             "wd": value
+//         }, 'myHandle')
+//     };
+// };
