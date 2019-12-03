@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-03 21:49:06
+ * @Last Modified time: 2019-12-03 22:04:35
  */
 
 //配置变量
@@ -13,8 +13,8 @@ var showList = 0 //右侧弹窗标记
 
 //获取的DOM元素
 var engine = document.querySelector("#select-engine"); //搜索框左侧选择引擎标签
-var searchInput = document.getElementById("search"); //搜索输入框
-var searchList = document.getElementById("searchList"); //搜索时显示的相关信息列表
+var searchInput = document.querySelector("#search"); //搜索输入框
+var searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
 var sideBarIcon = document.querySelectorAll('.title-icon') //弹窗图标
 var sideBar = document.querySelectorAll('.sideBarContent') //弹窗内容
 
