@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-03 22:04:35
+ * @Last Modified time: 2019-12-04 09:15:14
  */
 
 //配置变量
@@ -17,6 +17,7 @@ var searchInput = document.querySelector("#search"); //搜索输入框
 var searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
 var sideBarIcon = document.querySelectorAll('.title-icon') //弹窗图标
 var sideBar = document.querySelectorAll('.sideBarContent') //弹窗内容
+var closeSideBar = document.querySelector(".closeSideBar") //关闭弹窗图标
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -80,21 +81,31 @@ function callback(data) {
 function myHandle(data) {
     console.log(data)
 }
+
+// 侧边栏点击显示，切换
 for (let i = 0; i < sideBarIcon.length; i++) {
     sideBarIcon[i].onclick = function () {
-        if (showList == 0) {
-            for (let j = 0; j < sideBarIcon.length; j++) {
-                sideBar[j].style.display = "none"
-            }
-            sideBar[i].style.display = 'block'
-            showList = 1
-            console.log(showList)
-        } else {
-            sideBar[i].style.display = 'none'
-            showList = 0
-            console.log(showList)
+        // if (showList == 0) {
+        for (let j = 0; j < sideBarIcon.length; j++) {
+            sideBar[j].style.display = "none"
         }
+        closeSideBar.style.display = "block"
+        sideBar[i].style.display = "block"
+        // showList = 1
+        // console.log("showList为0时：", showList)
+        // } else {
+        //     sideBar[i].style.display = 'none'
+        //     showList = 0
+        //     console.log("showList为1时：", showList)
+        // }
     }
+}
+// 关闭侧边栏
+closeSideBar.onclick = function () {
+    for (let i = 0; i < sideBarIcon.length; i++) {
+        sideBar[i].style.display = "none"
+    }
+    closeSideBar.style.display = "none"
 }
 
 
