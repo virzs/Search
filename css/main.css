@@ -75,11 +75,16 @@ span {
     width: 30px;
 }
 
-.title-icon {
+.title-icon,
+.closeSideBar {
     margin: -5px 0;
     color: #8f8f8f;
     text-align: center;
     cursor: pointer;
+}
+
+.closeSideBar {
+    display: none;
 }
 
 .title-icon:hover {
