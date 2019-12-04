@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-04 09:15:14
+ * @Last Modified time: 2019-12-04 17:58:44
  */
 
 //配置变量
@@ -107,8 +107,7 @@ closeSideBar.onclick = function () {
     }
     closeSideBar.style.display = "none"
 }
-
-
+sideBar[0].innerHTML = "<p>" + jsonData.website.social.content[0].name + "</p>"
 // 废弃
 
 
