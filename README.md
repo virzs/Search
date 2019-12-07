@@ -70,14 +70,14 @@
 
    ┌website（收藏网址数据）
 
-   ├─social/shopping/....（网址分类主题）
+   ├─name（网址分类标题）
 
-   ├──title（网址分类标题）
+   ├─value（分类英文名）
 
-   ├──content（网址分类内容）
+   ├─content（网址分类内容）
 
-   ├───name（网站名称）
+   ├──name（网站名称）
 
-   ├───href（网站链接）
+   ├──href（网站链接）
 
-   └───icon（网站图标）
+   └──icon（网站图标）
