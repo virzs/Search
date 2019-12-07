@@ -24,70 +24,69 @@
         "icon": "",
         "select": ""
     }],
-    "website": {
-        "social": {
-            "title": "社交",
-            "content": [{
-                "name": "新浪微博",
-                "href": "https://www.weibo.com",
-                "icon": ""
-            }, {
-                "name": "百度贴吧",
-                "href": "https://tieba.baidu.com",
-                "icon": ""
-            }]
-        },
-        "shopping": {
-            "title": "购物",
-            "content": [{
-                "name": "淘宝",
-                "href": "https://www.taobao.com",
-                "icon": ""
-            }, {
-                "name": "京东",
-                "href": "https://www.jd.com",
-                "icon": ""
-            }, {
-                "name": "天猫",
-                "href": "https://www.tmall.com",
-                "icon": ""
-            }, {
-                "name": "小米有品",
-                "href": "https://www.xiaomiyoupin.com",
-                "icon": ""
-            }, {
-                "name": "网易严选",
-                "href": "http://you.163.com",
-                "icon": ""
-            }]
-        },
-        "video": {
-            "title": "视频",
-            "content": [{
-                "name": "腾讯视频",
-                "href": "https://v.qq.com",
-                "icon": ""
-            }, {
-                "name": "优酷",
-                "href": "https://www.youku.com",
-                "icon": ""
-            }, {
-                "name": "https://www.bilibili.com",
-                "href": "哔哩哔哩",
-                "icon": ""
-            }]
-        },
-        "email": {
-            "title": "邮件",
-            "content": [{
-                "name": "QQ邮箱",
-                "href": "https://mail.qq.com",
-                "icon": ""
-            }, {
-                "name": "Outlook",
-                "href": "https://outlook.live.com",
-                "icon": ""
-            }]
-        }
-    }
+    "website": [{
+        "name": "社交",
+        "value": "social",
+        "content": [{
+            "name": "新浪微博",
+            "href": "https://www.weibo.com",
+            "icon": ""
+        }, {
+            "name": "百度贴吧",
+            "href": "https://tieba.baidu.com",
+            "icon": ""
+        }]
+    }, {
+        "name": "购物",
+        "value": "shopping",
+        "content": [{
+            "name": "淘宝",
+            "href": "https://www.taobao.com",
+            "icon": ""
+        }, {
+            "name": "京东",
+            "href": "https://www.jd.com",
+            "icon": ""
+        }, {
+            "name": "天猫",
+            "href": "https://www.tmall.com",
+            "icon": ""
+        }, {
+            "name": "小米有品",
+            "href": "https://www.xiaomiyoupin.com",
+            "icon": ""
+        }, {
+            "name": "网易严选",
+            "href": "http://you.163.com",
+            "icon": ""
+        }]
+    }, {
+        "name": "视频",
+        "value": "video",
+        "content": [{
+            "name": "腾讯视频",
+            "href": "https://v.qq.com",
+            "icon": ""
+        }, {
+            "name": "优酷",
+            "href": "https://www.youku.com",
+            "icon": ""
+        }, {
+            "name": "哔哩哔哩",
+            "href": "https://www.bilibili.com",
+            "icon": ""
+        }]
+    }, {
+        "name": "邮件",
+        "value": "email",
+        "content": [{
+            "name": "QQ邮箱",
+            "href": "https://mail.qq.com",
+            "icon": ""
+        }, {
+            "name": "Outlook",
+            "href": "https://outlook.live.com",
+            "icon": ""
+        }]
+    }]
 }
