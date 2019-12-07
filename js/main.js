@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-04 17:58:44
+ * @Last Modified time: 2019-12-07 13:48:09
  */
 
 //配置变量
@@ -81,15 +81,28 @@ function callback(data) {
 function myHandle(data) {
     console.log(data)
 }
-
+var sideBarTitle = ""
+var sideBarContent = ""
+var website = jsonData.website
 // 侧边栏点击显示，切换
 for (let i = 0; i < sideBarIcon.length; i++) {
     sideBarIcon[i].onclick = function () {
         // if (showList == 0) {
         for (let j = 0; j < sideBarIcon.length; j++) {
             sideBar[j].style.display = "none"
+            sideBarContent = ""
+        }
+        if (i == 1) {
+            for (let k = 0; k < website.length; k++) {
+                sideBarTitle += "<p>" + website[k].name + "</p>"
+                for (let l = 0; l < website[k].content.length; l++) {
+                    sideBarContent += "<a href='" + website[k].content[l].href + "'>" + website[k].content[l].name + "</a>"
+                }
+                sideBarTitle = sideBarTitle + sideBarContent
+            }
         }
         closeSideBar.style.display = "block"
+        sideBar[i].innerHTML = sideBarTitle
         sideBar[i].style.display = "block"
         // showList = 1
         // console.log("showList为0时：", showList)
@@ -107,7 +120,6 @@ closeSideBar.onclick = function () {
     }
     closeSideBar.style.display = "none"
 }
-sideBar[0].innerHTML = "<p>" + jsonData.website.social.content[0].name + "</p>"
 // 废弃
 
 
