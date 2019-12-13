@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-07 13:48:09
+ * @Last Modified time: 2019-12-13 13:43:39
  */
 
 //配置变量
@@ -15,8 +15,8 @@ var showList = 0 //右侧弹窗标记
 var engine = document.querySelector("#select-engine"); //搜索框左侧选择引擎标签
 var searchInput = document.querySelector("#search"); //搜索输入框
 var searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
+var sideBar = document.querySelector("#sideBar")
 var sideBarIcon = document.querySelectorAll('.title-icon') //弹窗图标
-var sideBar = document.querySelectorAll('.sideBarContent') //弹窗内容
 var closeSideBar = document.querySelector(".closeSideBar") //关闭弹窗图标
 
 // ajax同步获取json文件数据
@@ -81,43 +81,49 @@ function callback(data) {
 function myHandle(data) {
     console.log(data)
 }
-var sideBarTitle = ""
-var sideBarContent = ""
+// var sideBarInfo = ""
+// var sideBarContent = ""
 var website = jsonData.website
-// 侧边栏点击显示，切换
-for (let i = 0; i < sideBarIcon.length; i++) {
-    sideBarIcon[i].onclick = function () {
-        // if (showList == 0) {
-        for (let j = 0; j < sideBarIcon.length; j++) {
-            sideBar[j].style.display = "none"
-            sideBarContent = ""
-        }
-        if (i == 1) {
-            for (let k = 0; k < website.length; k++) {
-                sideBarTitle += "<p>" + website[k].name + "</p>"
-                for (let l = 0; l < website[k].content.length; l++) {
-                    sideBarContent += "<a href='" + website[k].content[l].href + "'>" + website[k].content[l].name + "</a>"
-                }
-                sideBarTitle = sideBarTitle + sideBarContent
-            }
-        }
+sideBarIcon.forEach((item, index) => {
+    item.onclick = () => {
+        console.log(index)
+        sideBar.className = "moveLeft"
         closeSideBar.style.display = "block"
-        sideBar[i].innerHTML = sideBarTitle
-        sideBar[i].style.display = "block"
-        // showList = 1
-        // console.log("showList为0时：", showList)
-        // } else {
-        //     sideBar[i].style.display = 'none'
-        //     showList = 0
-        //     console.log("showList为1时：", showList)
-        // }
     }
-}
+})
+// 侧边栏点击显示，切换
+// for (let i = 0; i < sideBarIcon.length; i++) {
+//     sideBarIcon[i].onclick = function () {
+//         for (let j = 0; j < sideBarIcon.length; j++) {
+//             sideBar[j].style.display = "none"
+//             sideBarInfo = ""
+//             sideBar[i].innerHTML = ""
+//         }
+//         content.className = "move"
+//         console.log("渲染前", sideBarInfo)
+//         if (i == 1 && sideBarInfo == "" && sideBar[i].innerHTML == "") {
+//             for (let k = 0; k < website.length; k++) {
+//                 sideBarInfo += "<p>" + website[k].name + "</p>"
+//                 for (let l = 0; l < website[k].content.length; l++) {
+//                     sideBarContent += "<a href='" + website[k].content[l].href + "'>" + website[k].content[l].name + "</a>"
+//                 }
+//                 sideBarInfo = sideBarInfo + sideBarContent
+//             }
+//             sideBar[i].innerHTML = sideBarInfo
+//         }
+//         console.log("渲染后", sideBar[i].innerHTML)
+//         if (sideBar[i].style.display == "block") {
+//             closeSideBar.style.display = "none"
+//             sideBar[i].style.display = "none"
+//         } else {
+//             closeSideBar.style.display = "block"
+//             sideBar[i].style.display = "block"
+//         }
+//     }
+// }
 // 关闭侧边栏
 closeSideBar.onclick = function () {
-    for (let i = 0; i < sideBarIcon.length; i++) {
-        sideBar[i].style.display = "none"
-    }
+    sideBar.className = "moveRight"
     closeSideBar.style.display = "none"
 }
 // 废弃
