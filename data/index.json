@@ -2,7 +2,7 @@
     "engine": [{
         "name": "谷歌",
         "value": "google",
-        "href": "",
+        "href": "https://www.google.com/search?q=",
         "icon": "fa fa-google",
         "select": ""
     }, {
