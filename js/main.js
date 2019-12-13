@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-13 16:53:04
+ * @Last Modified time: 2019-12-13 17:15:06
  */
 
 //配置变量
@@ -11,12 +11,12 @@ var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
 
 //获取的DOM元素
-var engine = document.querySelector("#select-engine"); //搜索框左侧选择引擎标签
-var searchInput = document.querySelector("#search"); //搜索输入框
-var searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
-var sideBar = document.querySelector("#sideBar"); //侧边栏
-var sideBarIcon = document.querySelectorAll('.title-icon'); //弹窗图标
-var sideBarContent = document.querySelector("#sideBarContent") //侧边栏内容
+const engine = document.querySelector("#select-engine"); //搜索框左侧选择引擎标签
+const searchInput = document.querySelector("#search"); //搜索输入框
+const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
+const sideBar = document.querySelector("#sideBar"); //侧边栏
+const sideBarIcon = document.querySelectorAll('.title-icon'); //弹窗图标
+const sideBarContent = document.querySelector("#sideBarContent") //侧边栏内容
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -45,7 +45,7 @@ document.onkeydown = function (e) {
 //监听鼠标按下事件，实现点击空白处关闭侧边栏
 document.onmousedown = function (e) {
     let event = e || event;
-    if (window.screen.width - e.screenX > 380) {
+    if (window.screen.width - e.screenX > 380 && sideBar.className == "moveLeft") {
         sideBar.className = "moveRight";
     }
 }
