@@ -93,17 +93,11 @@ span {
     animation: moveRight 0.5s forwards;
 }
 
-.title-icon,
-.closeSideBar {
+.title-icon {
     margin: -5px 0;
     color: #8f8f8f;
     text-align: center;
     cursor: pointer;
-}
-
-
-.closeSideBar {
-    display: none;
 }
 
 .title-icon:hover {
