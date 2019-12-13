@@ -8,6 +8,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 a {
@@ -57,22 +58,39 @@ span {
     margin: 5px 0;
 }
 
-.side-bar {
+#sideBar {
     position: absolute;
-    right: 0;
+    width: 380px;
+    right: -350px;
     top: 0;
     bottom: 0;
     font-size: 28px;
+    z-index: 1000;
 }
 
-.title-content,
-.content-content {
+#sideBarTitle,
+#sideBarContent,
+.move {
     height: 100%;
-    float: left;
+    display: inline-block;
 }
 
-.title-content {
+#sideBarTitle {
     width: 30px;
+}
+
+#sideBarContent {
+    width: 350px;
+    position: absolute;
+    background: #8f8f8f;
+}
+
+.moveLeft {
+    animation: moveLeft 0.5s forwards;
+}
+
+.moveRight {
+    animation: moveRight 0.5s forwards;
 }
 
 .title-icon,
@@ -83,6 +101,7 @@ span {
     cursor: pointer;
 }
 
+
 .closeSideBar {
     display: none;
 }
@@ -91,9 +110,22 @@ span {
     color: #5f5f5f;
 }
 
-.sideBarContent {
-    background: #ccc;
-    display: none;
-    width: 300px;
-    height: 100%;
+@keyframes moveLeft {
+    from {
+        right: -350px;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes moveRight {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -350px;
+    }
 }
