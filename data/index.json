@@ -30,11 +30,11 @@
         "content": [{
             "name": "新浪微博",
             "href": "https://www.weibo.com",
-            "icon": ""
+            "icon": "weibo"
         }, {
             "name": "百度贴吧",
             "href": "https://tieba.baidu.com",
-            "icon": ""
+            "icon": "tieba"
         }]
     }, {
         "name": "购物",
@@ -42,15 +42,15 @@
         "content": [{
             "name": "淘宝",
             "href": "https://www.taobao.com",
-            "icon": ""
+            "icon": "taobao"
         }, {
             "name": "京东",
             "href": "https://www.jd.com",
-            "icon": ""
+            "icon": "jd"
         }, {
             "name": "天猫",
             "href": "https://www.tmall.com",
-            "icon": ""
+            "icon": "tmall"
         }, {
             "name": "小米有品",
             "href": "https://www.xiaomiyoupin.com",
@@ -58,7 +58,7 @@
         }, {
             "name": "网易严选",
             "href": "http://you.163.com",
-            "icon": ""
+            "icon": "you163"
         }]
     }, {
         "name": "视频",
@@ -66,15 +66,15 @@
         "content": [{
             "name": "腾讯视频",
             "href": "https://v.qq.com",
-            "icon": ""
+            "icon": "vqq"
         }, {
             "name": "优酷",
             "href": "https://www.youku.com",
-            "icon": ""
+            "icon": "youku"
         }, {
             "name": "哔哩哔哩",
             "href": "https://www.bilibili.com",
-            "icon": ""
+            "icon": "bilibili"
         }]
     }, {
         "name": "邮件",
@@ -82,11 +82,11 @@
         "content": [{
             "name": "QQ邮箱",
             "href": "https://mail.qq.com",
-            "icon": ""
+            "icon": "mailqq"
         }, {
             "name": "Outlook",
             "href": "https://outlook.live.com",
-            "icon": ""
+            "icon": "outlook"
         }]
     }]
 }
