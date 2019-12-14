@@ -83,6 +83,7 @@ span {
     width: 350px;
     position: absolute;
     background: #8f8f8f;
+    padding: 10px 20px;
 }
 
 .moveLeft {
@@ -102,6 +103,77 @@ span {
 
 .title-icon:hover {
     color: #5f5f5f;
+}
+
+.capsule {
+    display: inline-block;
+    width: 94px;
+    height: 32px;
+    border: 1px solid sienna;
+    border-radius: 15px;
+    margin: 3px;
+    clear: both;
+    overflow: hidden;
+}
+
+.capsule a {
+    height: 32px;
+    display: block;
+    font-size: 16px;
+    line-height: 32px;
+    float: left;
+}
+
+.icon {
+    float: left;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-size:100% 100%;
+}
+
+.weibo {
+    background: url(../img/icon/weibo.svg);
+}
+
+.tieba {
+    background: url(../img/icon/baidutieba.svg);
+}
+
+.taobao {
+    background: url(../img/icon/taobao.svg);
+}
+
+.jd {
+    background: url(../img/icon/jd.svg);
+}
+
+.tmall {
+    background: url(../img/icon/tmall.svg);
+}
+
+.you163 {
+    background: url(../img/icon/you163.svg);
+}
+
+.vqq {
+    background: url(../img/icon/vqq.svg);
+}
+
+.youku {
+    background: url(../img/icon/youku.svg);
+}
+
+.bilibili {
+    background: url(../img/icon/bilibili.svg);
+}
+
+.mailqq {
+    background: url(../img/icon/mailqq.svg);
+}
+
+.outlook {
+    background: url(../img/icon/outlook.svg);
 }
 
 @keyframes moveLeft {
