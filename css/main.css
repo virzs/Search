@@ -82,8 +82,16 @@ span {
 #sideBarContent {
     width: 350px;
     position: absolute;
-    background: #8f8f8f;
+    background: #f1f1f1;
     padding: 10px 20px;
+}
+
+#sideBarContent p {
+    width: 100%;
+    margin: 0 10px 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #8f8f8f;
+    font-size: 18px;
 }
 
 .moveLeft {
@@ -109,17 +117,19 @@ span {
     display: inline-block;
     width: 84px;
     height: 24px;
-    border: 1px solid sienna;
+    border: 3px solid sienna;
     border-radius: 15px;
     margin: 8px;
+    background: sienna;
     overflow: hidden;
 }
 
 .capsule a {
     height: 24px;
     display: block;
+    font-weight: bolder;
     font-size: 12px;
-    line-height: 24px;
+    line-height: 20px;
     text-align: center;
 }
 
