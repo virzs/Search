@@ -27,6 +27,7 @@
     "website": [{
         "name": "社交",
         "value": "social",
+        "icon": "fa fa-group",
         "content": [{
             "name": "新浪微博",
             "href": "https://www.weibo.com",
@@ -39,6 +40,7 @@
     }, {
         "name": "购物",
         "value": "shopping",
+        "icon": "fa fa-shopping-cart",
         "content": [{
             "name": "淘宝",
             "href": "https://www.taobao.com",
@@ -63,6 +65,7 @@
     }, {
         "name": "视频",
         "value": "video",
+        "icon": "fa fa-youtube-play",
         "content": [{
             "name": "腾讯视频",
             "href": "https://v.qq.com",
@@ -79,6 +82,7 @@
     }, {
         "name": "邮件",
         "value": "email",
+        "icon": "fa fa-envelope",
         "content": [{
             "name": "QQ邮箱",
             "href": "https://mail.qq.com",
