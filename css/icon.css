@@ -1,0 +1,50 @@
+.icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-size:100% 100%;
+}
+
+.weibo {
+    background: url(../img/icon/weibo.svg);
+}
+
+.tieba {
+    background: url(../img/icon/baidutieba.svg);
+}
+
+.taobao {
+    background: url(../img/icon/taobao.svg);
+}
+
+.jd {
+    background: url(../img/icon/jd.svg);
+}
+
+.tmall {
+    background: url(../img/icon/tmall.svg);
+}
+
+.you163 {
+    background: url(../img/icon/you163.svg);
+}
+
+.vqq {
+    background: url(../img/icon/vqq.svg);
+}
+
+.youku {
+    background: url(../img/icon/youku.svg);
+}
+
+.bilibili {
+    background: url(../img/icon/bilibili.svg);
+}
+
+.mailqq {
+    background: url(../img/icon/mailqq.svg);
+}
+
+.outlook {
+    background: url(../img/icon/outlook.svg);
+}
