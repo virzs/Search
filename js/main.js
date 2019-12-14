@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-14 13:06:01
+ * @Last Modified time: 2019-12-14 13:37:36
  */
 
 //配置变量
@@ -11,7 +11,6 @@ var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
 var sideBarInfo = "";
 var sideBarHtml = "";
-var website = "";
 
 //获取的DOM元素
 const engine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
@@ -84,9 +83,8 @@ function callback(data) {
     searchList.innerHTML = str;
     searchList.style.display = "block";
 }
-website = jsonData.website;
-website.forEach(item => {
-    sideBarInfo += `<p>${item.name}</p>`;
+jsonData.website.forEach(item => {
+    sideBarInfo += `<p><i class="${item.icon}"></i> ${item.name}</p>`;
     item.content.forEach(inner => {
         sideBarHtml += `<span class="capsule"></i><a href='${inner.href}' target="_blank">${inner.name}</a></span>`;
     })
