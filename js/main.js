@@ -2,13 +2,16 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-14 09:34:26
+ * @Last Modified time: 2019-12-14 10:47:33
  */
 
 //配置变量
 var url = "./data/index.json"; //json文件路径
 var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
+var sideBarInfo = "";
+var sideBarHtml = "";
+var website = "";
 
 //获取的DOM元素
 const engine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
@@ -81,17 +84,11 @@ function callback(data) {
     searchList.innerHTML = str;
     searchList.style.display = "block";
 }
-
-function myHandle(data) {
-    console.log(data);
-}
-var sideBarInfo = "";
-var sideBarHtml = "";
-var website = jsonData.website;
+website = jsonData.website;
 website.forEach(item => {
     sideBarInfo += `<p>${item.name}</p>`;
     item.content.forEach(inner => {
-        sideBarHtml += `<a href='${inner.href}'>${inner.name}</a>`;
+        sideBarHtml += `<span class="capsule"><i class="icon ${inner.icon}"></i><a href='${inner.href}' target="_blank">${inner.name}</a></span>`;
     })
     sideBarInfo = sideBarInfo + sideBarHtml;
     sideBarHtml = "";
