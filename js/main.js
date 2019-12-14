@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-14 14:18:21
+ * @Last Modified time: 2019-12-14 16:14:32
  */
 
 //配置变量
@@ -18,8 +18,8 @@ const searchInput = document.querySelector("#search"); //搜索输入框
 const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
 const sideBar = document.querySelector("#sideBar"); //侧边栏
 const sideBarIcon = document.querySelectorAll('.title-icon'); //侧边栏图标
-const sideBarContent = document.querySelector("#sideBarContent") //侧边栏内容
-
+const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
+const scrollContent = document.querySelector("#scrollContent");
 // ajax同步获取json文件数据
 $.ajax({
     type: "get",
@@ -84,7 +84,7 @@ function callback(data) {
     searchList.style.display = "block";
 }
 jsonData.website.forEach(item => {
-    sideBarInfo += `<p><i class="${item.icon}"></i> ${item.name}</p>`;
+    sideBarInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
     item.content.forEach(inner => {
         sideBarHtml += `<span class="capsule"></i><a href='${inner.href}' target="_blank">${inner.name}</a></span>`;
     })
@@ -95,13 +95,13 @@ sideBarIcon.forEach((item, index) => {
     item.onclick = () => {
         switch (index) {
             case 0:
-                sideBarContent.innerHTML = "game";
+                scrollContent.innerHTML = "game";
                 break;
             case 1:
-                sideBarContent.innerHTML = sideBarInfo;
+                scrollContent.innerHTML = sideBarInfo;
                 break;
             case 2:
-                sideBarContent.innerHTML = "setting";
+                scrollContent.innerHTML = "setting";
                 break;
         }
         sideBar.className = "moveLeft";
