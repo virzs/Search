@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-14 10:47:33
+ * @Last Modified time: 2019-12-14 13:06:01
  */
 
 //配置变量
@@ -88,7 +88,7 @@ website = jsonData.website;
 website.forEach(item => {
     sideBarInfo += `<p>${item.name}</p>`;
     item.content.forEach(inner => {
-        sideBarHtml += `<span class="capsule"><i class="icon ${inner.icon}"></i><a href='${inner.href}' target="_blank">${inner.name}</a></span>`;
+        sideBarHtml += `<span class="capsule"></i><a href='${inner.href}' target="_blank">${inner.name}</a></span>`;
     })
     sideBarInfo = sideBarInfo + sideBarHtml;
     sideBarHtml = "";
