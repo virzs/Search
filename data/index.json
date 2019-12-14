@@ -56,7 +56,7 @@
         }, {
             "name": "小米有品",
             "href": "https://www.xiaomiyoupin.com",
-            "icon": ""
+            "icon": "youpin"
         }, {
             "name": "网易严选",
             "href": "http://you.163.com",
@@ -75,9 +75,21 @@
             "href": "https://www.youku.com",
             "icon": "youku"
         }, {
+            "name": "爱奇艺",
+            "href": "https://www.iqiyi.com",
+            "icon": "iqiyi"
+        }, {
             "name": "哔哩哔哩",
             "href": "https://www.bilibili.com",
             "icon": "bilibili"
+        }, {
+            "name": "ACFUN",
+            "href": "https://www.acfun.cn",
+            "icon": "acfun"
+        }, {
+            "name": "Youtube",
+            "href": "https://www.youtube.com",
+            "icon": "youtube"
         }]
     }, {
         "name": "邮件",
@@ -91,6 +103,10 @@
             "name": "Outlook",
             "href": "https://outlook.live.com",
             "icon": "outlook"
+        }, {
+            "name": "Gmail",
+            "href": "https://mail.google.com",
+            "icon": "gmail"
         }]
     }]
 }
