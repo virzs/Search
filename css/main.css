@@ -101,13 +101,13 @@ span {
 /*正常情况下滑块的样式*/
 #sideBarContent::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, .05);
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 /*鼠标悬浮在该类指向的控件上时滑块的样式*/
 #sideBarContent:hover::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, .2);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
 }
 
@@ -119,9 +119,9 @@ span {
 
 /*正常时候的主干部分*/
 #sideBarContent::-webkit-scrollbar-track {
-    border-radius: 10px;
+    /* border-radius: 10px; */
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-    background-color: white;
+    background-color: #5f5f5f;
 }
 
 /*鼠标悬浮在滚动条上的主干部分*/
