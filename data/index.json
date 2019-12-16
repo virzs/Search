@@ -224,6 +224,31 @@
         "name": "关于",
         "value": "about",
         "href": "",
-        "icon": ""
+        "icon": "",
+        "content": [{
+            "name": "",
+            "value": "",
+            "href": "",
+            "icon": "",
+            "content": ""
+        }, {
+            "name": "",
+            "value": "",
+            "href": "",
+            "icon": "",
+            "content": ""
+        }, {
+            "name": "",
+            "value": "",
+            "href": "",
+            "icon": "",
+            "content": ""
+        }, {
+            "name": "",
+            "value": "",
+            "href": "",
+            "icon": "",
+            "content": ""
+        }]
     }]
 }
