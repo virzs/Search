@@ -219,5 +219,11 @@
             "icon": "aliyun",
             "color": "#FF6A00"
         }]
+    }],
+    "Setting": [{
+        "name": "关于",
+        "value": "about",
+        "href": "",
+        "icon": ""
     }]
 }
