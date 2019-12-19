@@ -7,8 +7,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
+    overflow: hidden;
     background: rgb(255, 250, 250);
 }
 
@@ -29,7 +28,7 @@ span {
     display: inline-block;
 }
 
-.container{
+.container {
     height: 100%;
     display: flex;
     flex-direction: column;
