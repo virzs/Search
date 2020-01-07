@@ -193,16 +193,23 @@ span {
     overflow: hidden;
 }
 
+.capsule span {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .capsule:hover {
     animation: capsuleShadow 0.3s forwards;
 }
 
 .capsule a {
-    height: 24px;
+    /* height: 24px; */
     display: block;
     font-weight: bolder;
     font-size: 12px;
-    line-height: 23px;
+    /* line-height: 23px; */
     text-align: center;
 }
 
