@@ -89,6 +89,30 @@ span {
     margin: 5px 0;
 }
 
+.poetry {
+    box-sizing: border-box;
+    width: 40%;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+}
+
+.poetry-content,
+.poetry-info {
+    width: 100%;
+    height: 24px;
+}
+
+.poetry-content {
+    color: #333;
+}
+
+.poetry-info {
+    font-weight: 200;
+    text-align: right;
+    align-self: flex-end;
+}
+
 #sideBar {
     position: absolute;
     width: 380px;
