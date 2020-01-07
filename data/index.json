@@ -82,6 +82,42 @@
             "color": "#CC9756"
         }]
     }, {
+        "name": "新闻",
+        "value": "news",
+        "icon": "fa fa-newspaper-o",
+        "color": "",
+        "content": [{
+            "name": "腾讯新闻",
+            "href": "https://news.qq.com",
+            "icon": "newsqq",
+            "color": "#5184eb"
+        }, {
+            "name": "网易新闻",
+            "href": "https://news.163.com",
+            "icon": "news163",
+            "color": "#f34540"
+        }, {
+            "name": "央视新闻",
+            "href": "http://news.cctv.com",
+            "icon": "newscctv",
+            "color": "#1B7AB5"
+        }, {
+            "name": "今日头条",
+            "href": "https://www.toutiao.com",
+            "icon": "toutiao",
+            "color": "#ed4040"
+        }, {
+            "name": "IT之家",
+            "href": "https://www.ithome.com",
+            "icon": "ithome",
+            "color": "#d22222"
+        }, {
+            "name": "中关村在线",
+            "href": "http://www.zol.com.cn",
+            "icon": "zol",
+            "color": "#3686f1"
+        }]
+    }, {
         "name": "视频",
         "value": "video",
         "icon": "fa fa-youtube-play",
