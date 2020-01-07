@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-07 11:22:13
+ * @Last Modified time: 2020-01-07 12:01:39
  */
 
 //配置变量
@@ -95,18 +95,26 @@ jsonData.website.forEach(item => {
     sideBarInfo = sideBarInfo + sideBarHtml;
     sideBarHtml = "";
 })
-
+var sideBarIconFlag = ""
 sideBarIcon.forEach((item, index) => {
     item.onclick = () => {
+        if (sideBarIconFlag == index) {
+            sideBar.className = "moveRight";
+            sideBarIconFlag = ""
+            return;
+        }
         switch (index) {
             case 0:
                 scrollContent.innerHTML = "Gaming";
+                sideBarIconFlag = index;
                 break;
             case 1:
                 scrollContent.innerHTML = sideBarInfo;
+                sideBarIconFlag = index;
                 break;
             case 2:
                 scrollContent.innerHTML = "Setting";
+                sideBarIconFlag = index;
                 break;
         }
         sideBar.className = "moveLeft";
