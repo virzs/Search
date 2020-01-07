@@ -2,7 +2,7 @@
  * @Author: VirZhang 
  * @Date: 2019-11-28 14:32:57 
  * @Last Modified by: VirZhang
- * @Last Modified time: 2019-12-15 18:43:30
+ * @Last Modified time: 2020-01-07 11:22:13
  */
 
 //配置变量
@@ -67,25 +67,25 @@ function goSearch() {
     window.location.href = searchHref + value; //拼接搜索链接
 }
 
-// 百度搜索参数测试
-searchInput.onkeyup = function () {
-    var val = searchInput.value;
-    var oScript = document.createElement("script"); //动态创建script标签 
-    oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
-    //添加链接及回调函数 
-    document.body.appendChild(oScript); //添加script标签 
-    document.body.removeChild(oScript); //删除script标签 
-}
+// // 百度搜索参数测试
+// searchInput.onkeyup = function () {
+//     var val = searchInput.value;
+//     var oScript = document.createElement("script"); //动态创建script标签 
+//     oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
+//     //添加链接及回调函数 
+//     document.body.appendChild(oScript); //添加script标签 
+//     document.body.removeChild(oScript); //删除script标签 
+// }
 
-//回调函数 
-function callback(data) {
-    var str = "";
-    for (var i = 0; i < data.s.length; i++) {
-        str += `<li><a href=\"https://www.baidu.com/s?wd=${data.s[i]}\">${data.s[i]}</a></li>`;
-    }
-    searchList.innerHTML = str;
-    searchList.style.display = "block";
-}
+// //回调函数 
+// function callback(data) {
+//     var str = "";
+//     for (var i = 0; i < data.s.length; i++) {
+//         str += `<li><a href=\"https://www.baidu.com/s?wd=${data.s[i]}\">${data.s[i]}</a></li>`;
+//     }
+//     searchList.innerHTML = str;
+//     searchList.style.display = "block";
+// }
 
 jsonData.website.forEach(item => {
     sideBarInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
