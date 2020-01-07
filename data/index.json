@@ -286,5 +286,17 @@
             "icon": "",
             "content": ""
         }]
+    }, {
+        "name": "感谢",
+        "value": "thanks",
+        "href": "",
+        "icon": "",
+        "content": [{
+            "name": "今日诗词 API",
+            "value": "jinrishici",
+            "href": "https://www.jinrishici.com",
+            "icon": "",
+            "content": ""
+        }]
     }]
 }
