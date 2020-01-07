@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-07 17:16:27
+ * @Last Modified time: 2020-01-07 18:13:25
  */
 
 //配置变量
@@ -11,6 +11,7 @@ var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
 var sideBarInfo = "";
 var sideBarHtml = "";
+var sideBarIconFlag = -1
 
 //获取的DOM元素
 const engine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
@@ -54,6 +55,7 @@ document.onmousedown = function (e) {
     let event = e || event;
     if ((window.screen.width - e.screenX > 380 || (window.screen.width - e.screenX > 350 && e.screenY > 180)) && sideBar.className == "moveLeft") {
         sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
     }
 }
 
@@ -78,12 +80,11 @@ jsonData.website.forEach(item => {
     sideBarInfo = sideBarInfo + sideBarHtml;
     sideBarHtml = "";
 })
-var sideBarIconFlag = ""
 sideBarIcon.forEach((item, index) => {
     item.onclick = () => {
         if (sideBarIconFlag == index) {
             sideBar.className = "moveRight";
-            sideBarIconFlag = ""
+            sideBarIconFlag = -1
             return;
         }
         switch (index) {
