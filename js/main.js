@@ -1,8 +1,8 @@
 /*
- * @Author: VirZhang 
- * @Date: 2019-11-28 14:32:57 
+ * @Author: VirZhang
+ * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-07 12:01:39
+ * @Last Modified time: 2020-01-07 12:58:00
  */
 
 //配置变量
@@ -19,7 +19,7 @@ const searchList = document.querySelector("#searchList"); //搜索时显示的�
 const sideBar = document.querySelector("#sideBar"); //侧边栏
 const sideBarIcon = document.querySelectorAll('.title-icon'); //侧边栏图标
 const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
-const scrollContent = document.querySelector("#scrollContent");
+const scrollContent = document.querySelector("#scrollContent"); //侧边栏滚动内容
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -70,14 +70,14 @@ function goSearch() {
 // // 百度搜索参数测试
 // searchInput.onkeyup = function () {
 //     var val = searchInput.value;
-//     var oScript = document.createElement("script"); //动态创建script标签 
+//     var oScript = document.createElement("script"); //动态创建script标签
 //     oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
-//     //添加链接及回调函数 
-//     document.body.appendChild(oScript); //添加script标签 
-//     document.body.removeChild(oScript); //删除script标签 
+//     //添加链接及回调函数
+//     document.body.appendChild(oScript); //添加script标签
+//     document.body.removeChild(oScript); //删除script标签
 // }
 
-// //回调函数 
+// //回调函数
 // function callback(data) {
 //     var str = "";
 //     for (var i = 0; i < data.s.length; i++) {
