@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-07 12:58:00
+ * @Last Modified time: 2020-01-07 13:21:56
  */
 
 //配置变量
@@ -90,7 +90,7 @@ function goSearch() {
 jsonData.website.forEach(item => {
     sideBarInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
     item.content.forEach(inner => {
-        sideBarHtml += `<span class="capsule" style="border:2px solid ${inner.color};"></i><a style="color:${inner.color};" href='${inner.href}' target="_blank">${inner.name}</a></span>`;
+        sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><span></i><a style="color:${inner.color};" href='${inner.href}' target="_blank">${inner.name}</a></span></div>`;
     })
     sideBarInfo = sideBarInfo + sideBarHtml;
     sideBarHtml = "";
