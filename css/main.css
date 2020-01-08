@@ -15,7 +15,7 @@ html {
 
 body {
     overflow: hidden;
-    background: rgb(255, 250, 250);
+    background: rgb(252, 252, 252);
 }
 
 a {
@@ -231,6 +231,7 @@ span {
     margin: 8px;
     background: rgb(255, 250, 250);
     overflow: hidden;
+    transition: 0.3s;
 }
 
 .capsule span {
@@ -241,7 +242,7 @@ span {
 }
 
 .capsule:hover {
-    animation: capsuleShadow 0.3s forwards;
+    box-shadow: 1px 1px 5px 1px rgb(255, 250, 250);
 }
 
 .capsule a {
@@ -253,8 +254,15 @@ span {
 
 .setlist {
     box-sizing: border-box;
-    margin-left: 10px;
+    margin: 10px 15px;
+    padding: 6px 10px;
+    border-radius: 8px;
     font-size: 16px;
+    background: rgb(255, 250, 250);
+    transition: 0.3s;
+}
+.setlist:hover {
+    box-shadow: 1px 1px 5px 1px rgb(255, 250, 250);
 }
 
 .innerlist {
@@ -296,16 +304,6 @@ span {
 
     to {
         right: -340px;
-    }
-}
-
-@keyframes capsuleShadow {
-    from {
-        box-shadow: 0 0 0 0 rgb(255, 255, 255);
-    }
-
-    to {
-        box-shadow: 1px 1px 5px 1px rgb(255, 250, 250);
     }
 }
 
