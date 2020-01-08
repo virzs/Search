@@ -143,7 +143,7 @@ span {
 }
 
 #sideBarContent {
-    width: 360px;
+    width: 340px;
     position: absolute;
     background: rgb(105, 105, 105);
     overflow-y: hidden;
@@ -190,7 +190,7 @@ span {
 }
 
 #sideBarContent p {
-    width: 100%;
+    box-sizing: border-box;
     margin: 0 10px 5px;
     padding-bottom: 5px;
     border-bottom: 2px solid #8f8f8f;
@@ -199,7 +199,8 @@ span {
 }
 
 #scrollContent {
-    padding: 10px 20px;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .moveLeft {
@@ -250,6 +251,16 @@ span {
     text-align: center;
 }
 
+.setlist {
+    box-sizing: border-box;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.innerlist {
+    margin-left: 30px;
+}
+
 .copyright {
     position: absolute;
     left: 0;
@@ -261,10 +272,11 @@ span {
     height: 20px;
     line-height: 20px;
     font-size: 12px;
+    transition: 0.5s;
 }
 
 .copyright:hover {
-    animation: copyrightColor 0.1s normal;
+    color: #5f5f5f;
 }
 
 @keyframes moveLeft {
@@ -294,16 +306,6 @@ span {
 
     to {
         box-shadow: 1px 1px 5px 1px rgb(255, 250, 250);
-    }
-}
-
-@keyframes copyrightColor {
-    from {
-        color: #999;
-    }
-
-    to {
-        color: #5f5f5f;
     }
 }
 
