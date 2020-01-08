@@ -2,14 +2,15 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-08 10:16:17
+ * @Last Modified time: 2020-01-08 14:34:27
  */
 
 //配置变量
 var url = "./data/index.json"; //json文件路径
 var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
-var sideBarInfo = "";
+var websiteInfo = "";
+var settingInfo = "";
 var sideBarHtml = "";
 var sideBarIconFlag = -1 //侧边栏按钮标记
 
@@ -79,11 +80,33 @@ for (let item in jsonData.sideBar.content) {
 }
 
 jsonData.sideBar.content.Website.content.forEach(item => {
-    sideBarInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
+    websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
     item.content.forEach(inner => {
-        sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><span></i><a style="color:${inner.color};" href='${inner.href}' target="_blank">${inner.name}</a></span></div>`;
+        sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><span><a style="color:${inner.color};" href='${inner.href}' target="_blank">${inner.name}</a></span></div>`;
     })
-    sideBarInfo = sideBarInfo + sideBarHtml;
+    websiteInfo = websiteInfo + sideBarHtml;
+    sideBarHtml = "";
+})
+
+jsonData.sideBar.content.Setting.content.forEach(item => {
+    settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
+    item.content.forEach(inner => {
+        if (typeof inner.content === "string" && inner.content !== "") {
+            sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
+        } else if (typeof inner.content !== "string") {
+            sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span></div>`;
+            inner.content.forEach(inners => {
+                if (inners.value == "email") {
+                    sideBarHtml += `<div class="setlist ${inners.type}"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span></div>`;
+                } else {
+                    sideBarHtml += `<div class="setlist ${inners.type}"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='${inners.href}' target="_blank">${inners.content}</a></span></div>`;
+                }
+            })
+        } else {
+            sideBarHtml += `<div class="setlist"><a href="${inner.href}" target="_blank">${inner.name}</a></div>`
+        }
+    })
+    settingInfo = settingInfo + sideBarHtml;
     sideBarHtml = "";
 })
 
@@ -102,11 +125,11 @@ Array.prototype.forEach.call(sideBarTitle.children, (item, index) => {
                 sideBarIconFlag = index;
                 break;
             case 1:
-                scrollContent.innerHTML = sideBarInfo;
+                scrollContent.innerHTML = websiteInfo;
                 sideBarIconFlag = index;
                 break;
             case 2:
-                scrollContent.innerHTML = "Setting";
+                scrollContent.innerHTML = settingInfo;
                 sideBarIconFlag = index;
                 break;
         }
