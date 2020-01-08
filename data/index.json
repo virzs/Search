@@ -274,37 +274,39 @@
                     "name": "关于",
                     "value": "about",
                     "href": "",
-                    "icon": "",
+                    "icon": "fa fa-question-circle-o",
                     "content": [{
-                        "name": "",
-                        "value": "",
+                        "name": "作者",
+                        "value": "author",
                         "href": "",
-                        "icon": "",
-                        "content": ""
+                        "icon": "fa fa-user-o",
+                        "content": "VirZhang"
                     }, {
-                        "name": "",
-                        "value": "",
+                        "name": "联系方式",
+                        "value": "contact",
                         "href": "",
-                        "icon": "",
-                        "content": ""
-                    }, {
-                        "name": "",
-                        "value": "",
-                        "href": "",
-                        "icon": "",
-                        "content": ""
-                    }, {
-                        "name": "",
-                        "value": "",
-                        "href": "",
-                        "icon": "",
-                        "content": ""
+                        "icon": "fa fa-commenting-o",
+                        "content": [{
+                            "name": "邮箱",
+                            "value": "email",
+                            "type": "innerlist",
+                            "href": "",
+                            "icon": "fa fa-envelope-o",
+                            "content": "zcccxyss@outlook.com"
+                        }, {
+                            "name": "GitHub",
+                            "value": "github",
+                            "type": "innerlist",
+                            "href": "https://github.com/virzs",
+                            "icon": "fa fa-github-alt",
+                            "content": "https://github.com/virzs"
+                        }]
                     }]
                 }, {
                     "name": "感谢",
                     "value": "thanks",
                     "href": "",
-                    "icon": "",
+                    "icon": "fa fa-thumbs-o-up",
                     "content": [{
                         "name": "今日诗词 API",
                         "value": "jinrishici",
@@ -317,7 +319,7 @@
         }
     },
     "copyright": {
-        "content": "©2018-2020 VirZhang. All rights reserved.",
+        "content": "©2018-2020 by VirZhang. All rights reserved.",
         "href": "https://www.virs.xyz"
     }
 }
