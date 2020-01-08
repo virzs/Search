@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-07 18:13:25
+ * @Last Modified time: 2020-01-08 10:16:17
  */
 
 //配置变量
@@ -11,19 +11,20 @@ var jsonData = {}; //获取的json文件数据
 var searchEngine = null; //搜索框左侧选择搜索引擎数据
 var sideBarInfo = "";
 var sideBarHtml = "";
-var sideBarIconFlag = -1
+var sideBarIconFlag = -1 //侧边栏按钮标记
 
 //获取的DOM元素
 const engine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
 const searchInput = document.querySelector("#search"); //搜索输入框
 const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
 const sideBar = document.querySelector("#sideBar"); //侧边栏
-const sideBarIcon = document.querySelectorAll('.title-icon'); //侧边栏图标
+const sideBarTitle = document.querySelector("#sideBarTitle") //侧边栏图标区域
 const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
 const scrollContent = document.querySelector("#scrollContent"); //侧边栏滚动内容
-const jinrishiciSentence = document.querySelector("#jinrishiciSentence")
-const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor")
-const jinrishiciTitle = document.querySelector("#jinrishiciTitle")
+const jinrishiciSentence = document.querySelector("#jinrishiciSentence") //诗词内容
+const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor") //诗词作者
+const jinrishiciTitle = document.querySelector("#jinrishiciTitle") //诗词名
+const copyright = document.querySelector("#copyright") //版权说明
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -53,7 +54,7 @@ document.onkeydown = function (e) {
 //监听鼠标按下事件，实现点击空白处关闭侧边栏
 document.onmousedown = function (e) {
     let event = e || event;
-    if ((window.screen.width - e.screenX > 380 || (window.screen.width - e.screenX > 350 && e.screenY > 180)) && sideBar.className == "moveLeft") {
+    if ((window.screen.width - e.screenX > 390 || (window.screen.width - e.screenX > 340 && e.screenY > 180)) && sideBar.className == "moveLeft") {
         sideBar.className = "moveRight";
         sideBarIconFlag = -1;
     }
@@ -72,7 +73,12 @@ function goSearch() {
     window.location.href = searchHref + value; //拼接搜索链接
 }
 
-jsonData.website.forEach(item => {
+// 动态创建侧边栏图标
+for (let item in jsonData.sideBar.content) {
+    sideBarTitle.innerHTML += `<div class="title-icon"><i class="${jsonData.sideBar.content[item].icon}"></i></div>`
+}
+
+jsonData.sideBar.content.Website.content.forEach(item => {
     sideBarInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
     item.content.forEach(inner => {
         sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><span></i><a style="color:${inner.color};" href='${inner.href}' target="_blank">${inner.name}</a></span></div>`;
@@ -80,7 +86,10 @@ jsonData.website.forEach(item => {
     sideBarInfo = sideBarInfo + sideBarHtml;
     sideBarHtml = "";
 })
-sideBarIcon.forEach((item, index) => {
+
+copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
+
+Array.prototype.forEach.call(sideBarTitle.children, (item, index) => {
     item.onclick = () => {
         if (sideBarIconFlag == index) {
             sideBar.className = "moveRight";
