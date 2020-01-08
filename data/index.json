@@ -28,12 +28,12 @@
         "content": {
             "Gaming": {
                 "icon": "fa fa-star",
-                "color": "",
+                "color": "#FFB11B",
                 "content": []
             },
             "Website": {
                 "icon": "fa fa-bookmark",
-                "color": "",
+                "color": "#1B813E",
                 "content": [{
                     "name": "社交",
                     "value": "social",
@@ -269,7 +269,7 @@
             },
             "Setting": {
                 "icon": "fa fa-cog",
-                "color": "",
+                "color": "#43341B",
                 "content": [{
                     "name": "关于",
                     "value": "about",
@@ -279,6 +279,7 @@
                         "name": "作者",
                         "value": "author",
                         "href": "",
+                        "color": "#D0104C",
                         "icon": "fa fa-user-o",
                         "content": "VirZhang"
                     }, {
@@ -291,6 +292,7 @@
                             "value": "email",
                             "type": "innerlist",
                             "href": "",
+                            "color": "#0078D4",
                             "icon": "fa fa-envelope-o",
                             "content": "zcccxyss@outlook.com"
                         }, {
@@ -298,6 +300,7 @@
                             "value": "github",
                             "type": "innerlist",
                             "href": "https://github.com/virzs",
+                            "color": "#24292E",
                             "icon": "fa fa-github-alt",
                             "content": "https://github.com/virzs"
                         }]
@@ -311,6 +314,7 @@
                         "name": "今日诗词 API",
                         "value": "jinrishici",
                         "href": "https://www.jinrishici.com",
+                        "color": "#1aaf5d",
                         "icon": "",
                         "content": ""
                     }]
