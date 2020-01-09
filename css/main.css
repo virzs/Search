@@ -354,7 +354,9 @@ span {
 @keyframes load {
 
     0%,
+    20%,
     40%,
+    60%,
     100% {
         transform: scaleY(0.4)
     }
