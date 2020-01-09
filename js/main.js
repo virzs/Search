@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-09 15:21:32
+ * @Last Modified time: 2020-01-09 16:44:49
  */
 
 //配置变量
@@ -78,8 +78,26 @@ function goSearch() {
 }
 
 function changeSkin(skinName, href) {
-    linkTag.href = href
-    setStorage(skinName, href)
+    let num = 0
+    let speed = 60
+    loading.style.display = "block"
+    let timer = setInterval(function () {
+        num++;
+        loading.style.opacity = num / 20;
+        if (num >= 20) {
+            let timer2 = setInterval(function () {
+                num--;
+                loading.style.opacity = num / 20;
+                if (num <= 0) {
+                    clearInterval(timer2);
+                    loading.style.display = "none"
+                }
+            }, speed);
+            clearInterval(timer);
+            linkTag.href = href
+            setStorage(skinName, href)
+        }
+    }, speed);
 }
 
 function setStorage(skinName, href) {
@@ -92,24 +110,15 @@ function getStorage(key) {
 }
 
 
-function fadeToggle(elemt, speed) {
-    var speed = speed || 16.6; //默认速度为16.6ms
-    if (elemt.style.opacity == 0 && elemt.style.opacity != "") {
-        let num = 0; //累加器
-        let timer = setInterval(function () {
-            num++;
-            elemt.style.opacity = num / 20;
-            if (num >= 20) {
-                clearInterval(timer);
-                elemt.style.display = "none"
-            }
-        }, speed);
-    } else if (elemt.style.opacity == 1 || elemt.style.opacity == "") {
-        let num = 20; //累剪器
+function toggle(elemt, speed) {
+    speed = speed || 16.6; //默认速度为16.6ms
+    elemt.style.display = "block"
+    if (elemt.style.opacity == 1 || elemt.style.opacity != null) {
+        let num = 20;
         let timer = setInterval(function () {
             num--;
             elemt.style.opacity = num / 20;
-            if (num == 0) {
+            if (num <= 0) {
                 clearInterval(timer);
                 elemt.style.display = "none"
             }
@@ -123,7 +132,7 @@ if (skinHref && skinHref != null) {
 
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
-        fadeToggle(loading, 40);
+        toggle(loading, 40);
     }
 }
 
