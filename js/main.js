@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-08 16:23:07
+ * @Last Modified time: 2020-01-09 14:24:57
  */
 
 //配置变量
@@ -15,6 +15,7 @@ var sideBarHtml = "";
 var sideBarIconFlag = -1 //侧边栏按钮标记
 
 //获取的DOM元素
+const linkTag = document.querySelector('#skinTag')
 const engine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
 const searchInput = document.querySelector("#search"); //搜索输入框
 const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
@@ -26,6 +27,7 @@ const jinrishiciSentence = document.querySelector("#jinrishiciSentence") //诗�
 const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor") //诗词作者
 const jinrishiciTitle = document.querySelector("#jinrishiciTitle") //诗词名
 const copyright = document.querySelector("#copyright") //版权说明
+const skinHref = getStorage("skin");
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -74,6 +76,24 @@ function goSearch() {
     window.location.href = searchHref + value; //拼接搜索链接
 }
 
+function changeSkin(skinName, href) {
+    linkTag.href = href
+    setStorage(skinName, href)
+}
+
+function setStorage(skinName, href) {
+    window.localStorage.setItem(skinName, href);
+}
+
+function getStorage(key) {
+    let skinHref = window.localStorage.getItem(key);
+    return skinHref;
+}
+
+if (skinHref && skinHref != null) {
+    linkTag.href = skinHref
+}
+
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
     sideBarTitle.innerHTML += `<div class="title-icon" style="color:${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i></div>`
@@ -92,7 +112,11 @@ jsonData.sideBar.content.Setting.content.forEach(item => {
     settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
     item.content.forEach(inner => {
         if (typeof inner.content === "string" && inner.content !== "") {
-            sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
+            if (!inner.type) {
+                sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
+            } else if (inner.type == "skin") {
+                sideBarHtml += `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
+            }
         } else if (typeof inner.content !== "string") {
             // sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span></div>`;
             inner.content.forEach(inners => {
