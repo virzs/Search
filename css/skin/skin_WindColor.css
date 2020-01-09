@@ -1,0 +1,24 @@
+body {
+    background: #88C6E5;
+}
+
+#sideBarContent {
+    background: #A6D3E8;
+    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);
+}
+
+.capsule {
+    background: #FEF9EF;
+}
+
+.capsule:hover {
+    box-shadow: 1px 1px 5px 1px #FEF9EF;
+}
+
+.setlist {
+    background: #88C6E5;
+}
+
+.setlist:hover {
+    box-shadow: 1px 1px 5px 1px #FEF9EF;
+}
