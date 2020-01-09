@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-09 15:08:23
+ * @Last Modified time: 2020-01-09 15:17:59
  */
 
 //配置变量
@@ -93,8 +93,7 @@ function getStorage(key) {
 
 
 function fadeToggle(elemt, speed) {
-    console.log(elemt.style.opacity,speed)
-    var speed = speed || 16.6; //默认速度为16.6ms
+    var speed = speed || 0; //默认速度为16.6ms
     if (elemt.style.opacity == 0 && elemt.style.opacity != "") {
         let num = 0; //累加器
         let timer = setInterval(function () {
@@ -102,6 +101,7 @@ function fadeToggle(elemt, speed) {
             elemt.style.opacity = num / 20;
             if (num >= 20) {
                 clearInterval(timer);
+                elemt.style.display = "none"
             }
         }, speed);
     } else if (elemt.style.opacity == 1 || elemt.style.opacity == "") {
@@ -111,6 +111,7 @@ function fadeToggle(elemt, speed) {
             elemt.style.opacity = num / 20;
             if (num == 0) {
                 clearInterval(timer);
+                elemt.style.display = "none"
             }
         }, speed);
     }
@@ -122,7 +123,7 @@ if (skinHref && skinHref != null) {
 
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
-        fadeToggle(loading, 30);
+        fadeToggle(loading);
     }
 }
 
