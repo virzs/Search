@@ -15,7 +15,6 @@ html {
 
 body {
     overflow: hidden;
-    background: rgb(252, 252, 252);
 }
 
 a {
@@ -145,12 +144,7 @@ span {
 #sideBarContent {
     width: 340px;
     position: absolute;
-    background: rgb(105, 105, 105);
-    overflow-y: hidden;
-}
-
-#sideBarContent {
-    overflow: auto;
+    overflow-y: scroll;
 }
 
 /*滚动条宽高*/
@@ -161,41 +155,41 @@ span {
 
 /*正常情况下滑块的样式*/
 #sideBarContent::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba(255, 197, 73, .05);
 }
 
 /*鼠标悬浮在该类指向的控件上时滑块的样式*/
 #sideBarContent:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, .2);
-    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+    background-color: rgba(255, 197, 73, .6);
+    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
 }
 
 /*鼠标悬浮在滑块上时滑块的样式*/
 #sideBarContent::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, .4);
-    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+    background-color: rgba(255, 197, 73, .6);
+    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
 }
 
 /*正常时候的主干部分*/
 #sideBarContent::-webkit-scrollbar-track {
     /* border-radius: 10px; */
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-    background-color: #5f5f5f;
+    background-color: rgba(231, 231, 231, 1);
 }
 
 /*鼠标悬浮在滚动条上的主干部分*/
 #sideBarContent::-webkit-scrollbar-track:hover {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
-    background-color: rgba(0, 0, 0, .01);
+    background-color: rgba(231, 231, 231, .01);
 }
 
 #sideBarContent p {
     box-sizing: border-box;
     margin: 0 10px 5px;
     padding-bottom: 5px;
-    border-bottom: 2px solid #8f8f8f;
+    border-bottom: 2px solid #8F8F8F;
     font-size: 18px;
-    color: rgb(255, 250, 250);
+    color: #8F8F8F;
 }
 
 #scrollContent {
@@ -226,10 +220,8 @@ span {
     display: inline-block;
     width: 84px;
     height: 28px;
-    border: 3px solid rgb(255, 250, 250);
     border-radius: 15px;
     margin: 8px;
-    background: rgb(255, 250, 250);
     overflow: hidden;
     transition: 0.3s;
 }
@@ -239,10 +231,6 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.capsule:hover {
-    box-shadow: 1px 1px 5px 1px rgb(255, 250, 250);
 }
 
 .capsule a {
@@ -258,11 +246,7 @@ span {
     padding: 6px 10px;
     border-radius: 8px;
     font-size: 16px;
-    background: rgb(255, 250, 250);
     transition: 0.3s;
-}
-.setlist:hover {
-    box-shadow: 1px 1px 5px 1px rgb(255, 250, 250);
 }
 
 .innerlist {
