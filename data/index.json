@@ -302,6 +302,36 @@
                 "icon": "fa fa-cog",
                 "color": "#43341B",
                 "content": [{
+                    "name": "皮肤",
+                    "value": "skin",
+                    "href": "",
+                    "icon": "fa fa-smile-o",
+                    "content": [{
+                        "name": "办公室故事",
+                        "type": "skin",
+                        "value": "skin_OfficeStory",
+                        "href": "./css/skin/skin_OfficeStory.css",
+                        "color": "#303052",
+                        "icon": "",
+                        "content": "十分素雅的配色，带有一定的日式风格的颜色搭配，当然现在在很多地方都有使用，如商业场合，家庭家居，即使在网页设计中也屡见不鲜，同时也多见于男性服装的色彩搭配上。"
+                    }, {
+                        "name": "落日海滩",
+                        "type": "skin",
+                        "value": "skin_SunsetBeach",
+                        "href": "./css/skin/skin_SunsetBeach.css",
+                        "color": "#FFC549",
+                        "icon": "",
+                        "content": "在以灰色作为主色调的画面中加入高纯度的色彩，这种配色方法非常常见，也很容易搭配出出人意料的效果，这个的搭配方法可以使设计主题突出，并其他吸引观者的效果。"
+                    }, {
+                        "name": "皮肤3",
+                        "type": "skin",
+                        "value": "skin_3",
+                        "href": "",
+                        "color": "",
+                        "icon": "",
+                        "content": ""
+                    }]
+                }, {
                     "name": "关于",
                     "value": "about",
                     "href": "",
