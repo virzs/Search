@@ -304,14 +304,12 @@ span {
     top: 0;
     left: 0;
     z-index: 2000;
-    opacity: 1;
     background: #ffffff;
 }
 
 #loading .pic {
     width: 64px;
     height: 64px;
-    /* background: url(images/loading.gif); */
     position: absolute;
     top: 0;
     bottom: 0;
