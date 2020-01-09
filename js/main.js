@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-09 14:24:57
+ * @Last Modified time: 2020-01-09 15:08:23
  */
 
 //配置变量
@@ -27,6 +27,7 @@ const jinrishiciSentence = document.querySelector("#jinrishiciSentence") //诗�
 const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor") //诗词作者
 const jinrishiciTitle = document.querySelector("#jinrishiciTitle") //诗词名
 const copyright = document.querySelector("#copyright") //版权说明
+const loading = document.querySelector("#loading")
 const skinHref = getStorage("skin");
 
 // ajax同步获取json文件数据
@@ -90,8 +91,39 @@ function getStorage(key) {
     return skinHref;
 }
 
+
+function fadeToggle(elemt, speed) {
+    console.log(elemt.style.opacity,speed)
+    var speed = speed || 16.6; //默认速度为16.6ms
+    if (elemt.style.opacity == 0 && elemt.style.opacity != "") {
+        let num = 0; //累加器
+        let timer = setInterval(function () {
+            num++;
+            elemt.style.opacity = num / 20;
+            if (num >= 20) {
+                clearInterval(timer);
+            }
+        }, speed);
+    } else if (elemt.style.opacity == 1 || elemt.style.opacity == "") {
+        let num = 20; //累剪器
+        let timer = setInterval(function () {
+            num--;
+            elemt.style.opacity = num / 20;
+            if (num == 0) {
+                clearInterval(timer);
+            }
+        }, speed);
+    }
+}
+
 if (skinHref && skinHref != null) {
     linkTag.href = skinHref
+}
+
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        fadeToggle(loading, 30);
+    }
 }
 
 // 动态创建侧边栏图标
