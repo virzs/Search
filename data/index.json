@@ -405,7 +405,7 @@
                     "href": "",
                     "color": "#D0104C",
                     "icon": "fa fa-user-o",
-                    "show": true,
+                    "show": false,
                     "content": "VirZhang"
                 }, {
                     "name": "联系方式",
