@@ -2,16 +2,13 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-11 17:15:21
+ * @Last Modified time: 2020-01-11 17:19:47
  */
 
 //配置变量
 var url = "./data/index.json"; //json文件路径
 var jsonData = {}; //获取的json文件数据
 var searchEngine = ""; //搜索框左侧选择搜索引擎数据
-// var websiteInfo = "";
-// var settingInfo = "";
-// var sideBarHtml = "";
 var sideBarIconFlag = -1 //侧边栏按钮标记
 var searchFlag = true
 
