@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-11 17:19:47
+ * @Last Modified time: 2020-01-11 17:34:41
  */
 
 //配置变量
@@ -117,6 +117,7 @@ function goSearch() {
     window.location.href = searchHref + value; //拼接搜索链接
 }
 
+//切换配色
 function changeSkin(skinName, href) {
     let num = 0
     let speed = 60
