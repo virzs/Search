@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-11 10:13:46
+ * @Last Modified time: 2020-01-11 11:25:20
  */
 
 //配置变量
@@ -52,20 +52,25 @@ jsonData.engine.forEach(element => {
 });
 selectOption.innerHTML = searchEngine;
 
+//监听点击事件
+document.addEventListener("click", function (e) {
+    //判断选择引擎
+    if (e.target !== selectOption && !searchFlag) {
+        selectOption.style.display = "none";
+        searchFlag = !searchFlag
+    }
+    //判断侧边栏
+    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && e.target !== scrollContent && sideBarIconFlag !== -1) {
+        sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
+    }
+});
+
 //监听按下键盘事件，实现按下Enter跳转搜索
 document.onkeydown = function (e) {
     let event = e || event;
     if (event.keyCode == 13) {
         goSearch();
-    }
-}
-
-//监听鼠标按下事件，实现点击空白处关闭侧边栏
-document.onmousedown = function (e) {
-    let event = e || event;
-    if ((window.screen.width - e.screenX > 390 || (window.screen.width - e.screenX > 340 && e.screenY > 180)) && sideBar.className == "moveLeft") {
-        sideBar.className = "moveRight";
-        sideBarIconFlag = -1;
     }
 }
 
@@ -76,6 +81,17 @@ selectEngine.onclick = () => {
     } else {
         selectOption.style.display = "none"
         searchFlag = !searchFlag
+    }
+    stopPropagation()
+}
+
+//阻止事件冒泡
+function stopPropagation(e) {
+    var ev = e || window.event;
+    if (ev.stopPropagation) {
+        ev.stopPropagation();
+    } else if (window.event) {
+        window.event.cancelBubble = true; //兼容IE，根本用不到，本来就没打算兼容IE
     }
 }
 
@@ -216,6 +232,7 @@ if (jsonData.copyright.show) {
 
 Array.prototype.forEach.call(sideBarTitle.children, item => {
     item.onclick = () => {
+        stopPropagation()
         if (sideBarIconFlag == item.id) {
             sideBar.className = "moveRight";
             sideBarIconFlag = -1
@@ -245,7 +262,20 @@ jinrishici.load(function (result) {
     jinrishiciTitle.innerHTML = `《${result.data.origin.title}》`
 });
 
-// // 百度搜索参数测试
+//废弃代码
+
+
+//监听鼠标按下事件，实现点击空白处关闭侧边栏
+// document.onmousedown = function (e) {
+//     let event = e || event;
+//     if ((window.screen.width - e.screenX > 390 || (window.screen.width - e.screenX > 340 && e.screenY > 180)) && sideBar.className == "moveLeft") {
+//         sideBar.className = "moveRight";
+//         sideBarIconFlag = -1;
+//     }
+// }
+
+//备选项列表，仅支持百度代码
+// 百度搜索参数测试
 // searchInput.onkeyup = function () {
 //     var val = searchInput.value;
 //     var oScript = document.createElement("script"); //动态创建script标签
@@ -255,7 +285,7 @@ jinrishici.load(function (result) {
 //     document.body.removeChild(oScript); //删除script标签
 // }
 
-// //回调函数
+//回调函数
 // function callback(data) {
 //     var str = "";
 //     for (var i = 0; i < data.s.length; i++) {
