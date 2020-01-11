@@ -3,28 +3,28 @@
         "name": "谷歌",
         "value": "google",
         "href": "https://www.google.com/search?q=",
-        "icon": "https://images.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png",
+        "icon": "./img/engineLogo/google.png",
         "show": true,
         "select": ""
     }, {
         "name": "必应",
         "value": "bing",
         "href": "https://cn.bing.com/search?q=",
-        "icon": "https://cn.bing.com/sa/simg/bing_p_rr_teal_min.ico",
+        "icon": "./img/engineLogo/bing.ico",
         "show": true,
         "select": "selected"
     }, {
         "name": "百度",
         "value": "baidu",
         "href": "https://www.baidu.com/s?wd=",
-        "icon": "https://www.baidu.com/img/baidu_85beaf5496f291521eb75ba38eacbd87.svg",
+        "icon": "./img/engineLogo/baidu.svg",
         "show": true,
         "select": ""
     }, {
         "name": "搜狗",
         "value": "sougou",
         "href": "https://www.sogou.com/web?query=",
-        "icon": "https://www.sogou.com/images/logo/new/favicon.ico?v=4",
+        "icon": "./img/engineLogo/sougou.ico",
         "show": true,
         "select": ""
     }],
