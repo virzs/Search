@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-11 11:25:20
+ * @Last Modified time: 2020-01-11 14:03:06
  */
 
 //配置变量
@@ -185,7 +185,7 @@ jsonData.sideBar.content[1].content.forEach(item => {
         websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
         item.content.forEach(inner => {
             if (inner.show) {
-                sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><span><a style="color:${inner.color};" href='${inner.href}' target="_blank">${inner.name}</a></span></div>`;
+                sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><a style="color:${inner.color};" href='${inner.href}' target="_blank"><span>${inner.name}</span></a></div>`;
             }
         })
         websiteInfo = websiteInfo + sideBarHtml;
@@ -217,7 +217,7 @@ jsonData.sideBar.content[2].content.forEach(item => {
                         }
                     })
                 } else {
-                    sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><a href="${inner.href}" target="_blank">${inner.name}</a></div>`
+                    sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
                 }
             }
         })
