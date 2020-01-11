@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-11 10:01:09
+ * @Last Modified time: 2020-01-11 10:13:46
  */
 
 //配置变量
@@ -17,8 +17,8 @@ var searchFlag = true
 
 //获取的DOM元素
 const linkTag = document.querySelector('#skinTag')
-const engine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
-const option = document.querySelector("#selectOption"); //搜索引擎数据
+const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
+const selectOption = document.querySelector("#selectOption"); //搜索引擎数据
 const searchInput = document.querySelector("#search"); //搜索输入框
 const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
 const sideBar = document.querySelector("#sideBar"); //侧边栏
@@ -46,11 +46,11 @@ $.ajax({
 //拼接搜索栏左侧选择引擎
 jsonData.engine.forEach(element => {
     if (element.select == "selected") {
-        engine.innerHTML = `<img src='${element.icon}'  alt="${element.value}"><span>${element.name}</span>`
+        selectEngine.innerHTML = `<img src='${element.icon}'  alt="${element.value}"><span>${element.name}</span><i class="fa fa-sort"></i>`
     }
     searchEngine += `<li onclick="setEngine('${element.value}')"><img src='${element.icon}'><span>${element.name}</span></li>`;
 });
-option.innerHTML = searchEngine;
+selectOption.innerHTML = searchEngine;
 
 //监听按下键盘事件，实现按下Enter跳转搜索
 document.onkeydown = function (e) {
@@ -69,28 +69,27 @@ document.onmousedown = function (e) {
     }
 }
 
-engine.onclick = () => {
+selectEngine.onclick = () => {
     if (searchFlag) {
-        option.style.display = "block"
+        selectOption.style.display = "block"
         searchFlag = !searchFlag
     } else {
-        option.style.display = "none"
+        selectOption.style.display = "none"
         searchFlag = !searchFlag
     }
 }
 
 function setEngine(value) {
     let engineValue = jsonData.engine.find(item => item.value == value)
-    engine.innerHTML = `<img src='${engineValue.icon}'  alt="${engineValue.value}"><span>${engineValue.name}</span>`
-    option.style.display = "none"
+    selectEngine.innerHTML = `<img src='${engineValue.icon}'  alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`
+    selectOption.style.display = "none"
     searchFlag = !searchFlag
 }
 
 //搜索事件
 function goSearch() {
     let value = searchInput.value; //获取输入框的值
-    let engineValue = engine.childNodes[0].alt; //获取选择的搜索引擎
-    console.log(engineValue)
+    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
     let searchHref = ''; //定义搜索链接变量
     jsonData.engine.forEach((item) => {
         if (item.value == engineValue) {
