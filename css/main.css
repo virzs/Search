@@ -85,6 +85,10 @@ span {
     align-items: center;
 }
 
+.search-select span {
+    margin-right: 2px;
+}
+
 .search-select:hover {
     cursor: pointer;
 }
