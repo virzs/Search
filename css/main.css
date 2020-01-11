@@ -66,10 +66,8 @@ span {
     position: relative;
     max-width: 682px;
     width: 100%;
-    background: #fff;
     display: flex;
     border-radius: 8px;
-    border: 1px solid #dfe1e5;
     box-shadow: none;
     border-radius: 24px;
     z-index: 3;
@@ -104,7 +102,6 @@ span {
     left: 0;
     top: 45px;
     z-index: 600;
-    background: #ffffff;
     transition: 0.3s;
 }
 
@@ -119,7 +116,6 @@ span {
 
 .search-option li:hover {
     cursor: pointer;
-    background: #f1f1f1;
 }
 
 .search-option img,
