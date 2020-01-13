@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-11 17:34:41
+ * @Last Modified time: 2020-01-13 10:29:02
  */
 
 //配置变量
@@ -13,7 +13,8 @@ var sideBarIconFlag = -1 //侧边栏按钮标记
 var searchFlag = true
 
 //获取的DOM元素
-const linkTag = document.querySelector('#skinTag')
+const linkTag = document.querySelector("#skinTag");
+const uiTag = document.querySelector("#uiTag");
 const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
 const selectOption = document.querySelector("#selectOption"); //搜索引擎数据
 const searchInput = document.querySelector("#search"); //搜索输入框
@@ -28,6 +29,7 @@ const jinrishiciTitle = document.querySelector("#jinrishiciTitle") //诗词名
 const copyright = document.querySelector("#copyright") //版权说明
 const loading = document.querySelector("#loading")
 const skinHref = getStorage("skin");
+const uiHref = getStorage("uistyle");
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -119,6 +121,21 @@ function goSearch() {
 
 //切换配色
 function changeSkin(skinName, href) {
+    addStorage(skinName, href)
+}
+
+//切换ui风格
+function changeUI(uiName, href) {
+    addStorage(uiName, href)
+}
+
+//设置本地存储
+function setStorage(name, href) {
+    window.localStorage.setItem(name, href);
+}
+
+//执行本地存储前动画效果
+function addStorage(name, href) {
     let num = 0
     let speed = 60
     loading.style.display = "block"
@@ -136,18 +153,15 @@ function changeSkin(skinName, href) {
             }, speed);
             clearInterval(timer);
             linkTag.href = href
-            setStorage(skinName, href)
+            setStorage(name, href)
         }
     }, speed);
 }
 
-function setStorage(skinName, href) {
-    window.localStorage.setItem(skinName, href);
-}
-
+// 获取本地存储内容
 function getStorage(key) {
-    let skinHref = window.localStorage.getItem(key);
-    return skinHref;
+    let href = window.localStorage.getItem(key);
+    return href;
 }
 
 function toggle(elemt, speed) {
@@ -168,6 +182,9 @@ function toggle(elemt, speed) {
 
 if (skinHref && skinHref != null) {
     linkTag.href = skinHref
+}
+if (uiHref && uiHref != null) {
+    uiTag.href = uiHref
 }
 
 document.onreadystatechange = function () {
@@ -211,12 +228,18 @@ function createSetting() {
             item.content.forEach(inner => {
                 if (inner.show) {
                     if (typeof inner.content === "string" && inner.content !== "") {
+                        //content不为空且为字符串时
                         if (!inner.type) {
                             sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
-                        } else if (inner.type == "skin") {
+                        }
+                        if (inner.type == "skin") {
                             sideBarHtml += `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
                         }
+                        if (inner.type == "uistyle") {
+                            sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+                        }
                     } else if (typeof inner.content !== "string") {
+                        //content为数组对象时
                         // sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span></div>`;
                         inner.content.forEach(inners => {
                             if (inners.show) {
@@ -228,7 +251,12 @@ function createSetting() {
                             }
                         })
                     } else {
-                        sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
+                        //content为空时的内容
+                        if (inner.type == "uistyle") {
+                            sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+                        } else {
+                            sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
+                        }
                     }
                 }
             })
