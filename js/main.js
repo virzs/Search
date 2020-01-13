@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-13 10:29:02
+ * @Last Modified time: 2020-01-13 18:40:11
  */
 
 //配置变量
@@ -13,6 +13,7 @@ var sideBarIconFlag = -1 //侧边栏按钮标记
 var searchFlag = true
 
 //获取的DOM元素
+const body = document.querySelector("body");
 const linkTag = document.querySelector("#skinTag");
 const uiTag = document.querySelector("#uiTag");
 const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
@@ -30,6 +31,7 @@ const copyright = document.querySelector("#copyright") //版权说明
 const loading = document.querySelector("#loading")
 const skinHref = getStorage("skin");
 const uiHref = getStorage("uistyle");
+const bg = getStorage("bg");
 
 // ajax同步获取json文件数据
 $.ajax({
@@ -78,6 +80,7 @@ document.onkeydown = function (e) {
     }
 }
 
+//点击选择搜索引擎事件
 selectEngine.onclick = () => {
     if (searchFlag) {
         selectOption.style.display = "block"
@@ -87,6 +90,30 @@ selectEngine.onclick = () => {
         searchFlag = !searchFlag
     }
     stopPropagation()
+}
+
+//设置背景图片
+scrollContent.addEventListener("change", function (e) {
+    let setBackGround = document.querySelector("#setBackGround")
+    if (e.target == setBackGround) {
+        let file = setBackGround.files[0];
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
+            setStorageBefore("bg", data);
+            body.style.backgroundImage = `url('${data}')`;
+        };
+        // 以DataURL的形式读取文件:
+        reader.readAsDataURL(file);
+    }
+})
+
+function setdefault(type) {
+    if (type == "changebg") {
+        setStorageBefore();
+        window.localStorage.removeItem("bg");
+        body.style.removeProperty("background-image");
+    }
 }
 
 //阻止事件冒泡
@@ -99,6 +126,7 @@ function stopPropagation(e) {
     }
 }
 
+//渲染搜索引擎备选项
 function setEngine(value) {
     let engineValue = jsonData.engine.find(item => item.value == value)
     selectEngine.innerHTML = `<img src='${engineValue.icon}'  alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`
@@ -121,12 +149,14 @@ function goSearch() {
 
 //切换配色
 function changeSkin(skinName, href) {
-    addStorage(skinName, href)
+    setStorageBefore(skinName, href)
+    linkTag.href = href
 }
 
 //切换ui风格
 function changeUI(uiName, href) {
-    addStorage(uiName, href)
+    setStorageBefore(uiName, href)
+    uiTag.href = href
 }
 
 //设置本地存储
@@ -135,7 +165,7 @@ function setStorage(name, href) {
 }
 
 //执行本地存储前动画效果
-function addStorage(name, href) {
+function setStorageBefore(name, href) {
     let num = 0
     let speed = 60
     loading.style.display = "block"
@@ -152,8 +182,9 @@ function addStorage(name, href) {
                 }
             }, speed);
             clearInterval(timer);
-            linkTag.href = href
-            setStorage(name, href)
+            if (name && href) {
+                setStorage(name, href)
+            }
         }
     }, speed);
 }
@@ -164,6 +195,7 @@ function getStorage(key) {
     return href;
 }
 
+//加载动画
 function toggle(elemt, speed) {
     speed = speed || 16.6; //默认速度为16.6ms
     elemt.style.display = "block"
@@ -180,13 +212,17 @@ function toggle(elemt, speed) {
     }
 }
 
-if (skinHref && skinHref != null) {
-    linkTag.href = skinHref
+if (bg && bg !== null) {
+    body.style.backgroundImage = `url('${bg}')`;
 }
-if (uiHref && uiHref != null) {
-    uiTag.href = uiHref
+if (skinHref && skinHref !== null) {
+    linkTag.href = skinHref;
+}
+if (uiHref && uiHref !== null) {
+    uiTag.href = uiHref;
 }
 
+//加载动画
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
         toggle(loading, 40);
@@ -200,6 +236,7 @@ for (let item in jsonData.sideBar.content) {
     }
 }
 
+//创建书签数据
 function createWebsite() {
     let websiteInfo = "",
         sideBarHtml = "";
@@ -218,6 +255,7 @@ function createWebsite() {
     return websiteInfo;
 }
 
+//创建设置项数据
 function createSetting() {
     let settingInfo = "",
         sideBarHtml = "";
@@ -225,41 +263,47 @@ function createSetting() {
     jsonData.sideBar.content[2].content.forEach(item => {
         if (item.show) {
             settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
-            item.content.forEach(inner => {
-                if (inner.show) {
-                    if (typeof inner.content === "string" && inner.content !== "") {
-                        //content不为空且为字符串时
-                        if (!inner.type) {
-                            sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
-                        }
-                        if (inner.type == "skin") {
-                            sideBarHtml += `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
-                        }
-                        if (inner.type == "uistyle") {
-                            sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
-                        }
-                    } else if (typeof inner.content !== "string") {
-                        //content为数组对象时
-                        // sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span></div>`;
-                        inner.content.forEach(inners => {
-                            if (inners.show) {
-                                if (inners.value == "email") {
-                                    sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span></div>`;
-                                } else {
-                                    sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='${inners.href}' target="_blank">${inners.content}</a></span></div>`;
-                                }
+            if (item.content !== "" && typeof item.content !== "string") {
+                item.content.forEach(inner => {
+                    if (inner.show) {
+                        if (typeof inner.content === "string" && inner.content !== "") {
+                            //content不为空且为字符串时
+                            if (!inner.type) {
+                                sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
                             }
-                        })
-                    } else {
-                        //content为空时的内容
-                        if (inner.type == "uistyle") {
-                            sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+                            if (inner.type == "skin") {
+                                sideBarHtml += `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
+                            }
+                            if (inner.type == "uistyle") {
+                                sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+                            }
+                        } else if (typeof inner.content !== "string") {
+                            //content为数组对象时
+                            // sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span></div>`;
+                            inner.content.forEach(inners => {
+                                if (inners.show) {
+                                    if (inners.value == "email") {
+                                        sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span></div>`;
+                                    } else {
+                                        sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='${inners.href}' target="_blank">${inners.content}</a></span></div>`;
+                                    }
+                                }
+                            })
                         } else {
-                            sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
+                            //content为空时的内容
+                            if (inner.type == "changebg" && inner.value == "changebg") {
+                                sideBarHtml += `<div class="setlist" style="border:2px solid ${item.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`
+                            } else if (inner.type == "changebg" && inner.value == "setdefault") {
+                                sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+                            } else if (inner.type == "uistyle") {
+                                sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+                            } else {
+                                sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
             settingInfo = settingInfo + sideBarHtml;
             sideBarHtml = "";
         }
@@ -267,10 +311,12 @@ function createSetting() {
     return settingInfo;
 }
 
+//版权信息渲染
 if (jsonData.copyright.show) {
     copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
 }
 
+//渲染侧边栏数据
 Array.prototype.forEach.call(sideBarTitle.children, item => {
     item.onclick = () => {
         if (sideBarIconFlag == item.id) {
@@ -297,6 +343,7 @@ Array.prototype.forEach.call(sideBarTitle.children, item => {
     }
 })
 
+//诗词渲染
 jinrishici.load(function (result) {
     jinrishiciSentence.innerHTML = result.data.content
     jinrishiciAuthor.innerHTML = `― ${result.data.origin.author}`
