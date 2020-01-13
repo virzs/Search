@@ -67,9 +67,7 @@ span {
     max-width: 682px;
     width: 100%;
     display: flex;
-    border-radius: 8px;
-    box-shadow: none;
-    border-radius: 24px;
+    /* border-radius: 8px; */
     z-index: 3;
     height: 44px;
     margin: 0 auto;
@@ -276,7 +274,6 @@ span {
     display: inline-block;
     width: 84px;
     height: 28px;
-    border-radius: 15px;
     margin: 8px;
     overflow: hidden;
     transition: 0.3s;
@@ -300,7 +297,6 @@ span {
     box-sizing: border-box;
     margin: 10px 15px;
     padding: 6px 10px;
-    border-radius: 8px;
     font-size: 16px;
     transition: 0.3s;
 }
