@@ -3,7 +3,7 @@
         "name": "谷歌",
         "value": "google",
         "href": "https://www.google.com/search?q=",
-        "icon": "./img/engineLogo/google.png",
+        "icon": "./img/engineLogo/google.ico",
         "show": true,
         "select": ""
     }, {
@@ -392,6 +392,22 @@
                     "icon": "",
                     "show": true,
                     "content": "风是什么颜色？只有最无聊的人会去考虑这个问题，的确——我很无聊，但是这个色彩带给我们的感觉和微风拂面时候带来的感觉是相似的，同样清凉，舒适，如果你能享受这样简单的愉悦，就能体会这个色彩搭配带来的乐趣。"
+                }]
+            }, {
+                "name": "UI风格",
+                "value": "uistyle",
+                "href": "",
+                "icon": "",
+                "show": true,
+                "content": [{
+                    "name": "默认圆角",
+                    "type": "uistyle",
+                    "value": "uistyle_default",
+                    "href": "./css/uistyle/default.css",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": "1"
                 }]
             }, {
                 "name": "关于",
