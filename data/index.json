@@ -37,7 +37,7 @@
             "content": []
         }, {
             "name": "Website",
-            "icon": "fa fa-bookmark",
+            "icon": "fa fa-tags",
             "color": "#1B813E",
             "show": true,
             "content": [{
@@ -360,6 +360,32 @@
             "color": "#43341B",
             "show": true,
             "content": [{
+                "name": "背景",
+                "value": "changebg",
+                "href": "",
+                "color": "#cbcbcb",
+                "icon": "fa fa-photo",
+                "show": true,
+                "content": [{
+                    "name": "设置背景图片",
+                    "type": "changebg",
+                    "value": "changebg",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "恢复默认背景",
+                    "type": "changebg",
+                    "value": "setdefault",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
                 "name": "皮肤",
                 "value": "skin",
                 "href": "",
@@ -397,7 +423,7 @@
                 "name": "UI风格",
                 "value": "uistyle",
                 "href": "",
-                "icon": "",
+                "icon": "fa fa-snowflake-o",
                 "show": true,
                 "content": [{
                     "name": "默认圆角",
