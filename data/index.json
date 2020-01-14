@@ -426,10 +426,19 @@
                 "icon": "fa fa-snowflake-o",
                 "show": true,
                 "content": [{
-                    "name": "默认圆角",
+                    "name": "圆角",
                     "type": "uistyle",
                     "value": "uistyle_default",
                     "href": "./css/uistyle/default.css",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": "1"
+                },{
+                    "name": "方形",
+                    "type": "uistyle",
+                    "value": "uistyle_square",
+                    "href": "./css/uistyle/square.css",
                     "color": "",
                     "icon": "",
                     "show": true,
