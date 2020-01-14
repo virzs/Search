@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-14 13:43:11
+ * @Last Modified time: 2020-01-14 16:59:23
  */
 
 //配置变量
@@ -12,6 +12,7 @@ var searchEngine = ""; //搜索框左侧选择搜索引擎数据
 var sideBarIconFlag = -1 //侧边栏按钮标记
 var searchFlag = true
 var skin_Transparent = ""
+var commonData = []
 
 //获取的DOM元素
 const body = document.querySelector("body");
@@ -25,16 +26,23 @@ const sideBar = document.querySelector("#sideBar"); //侧边栏
 const sideBarTitle = document.querySelector("#sideBarTitle") //侧边栏图标区域
 const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
 const scrollContent = document.querySelector("#scrollContent"); //侧边栏滚动内容
-const jinrishiciSentence = document.querySelector("#jinrishiciSentence") //诗词内容
-const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor") //诗词作者
-const jinrishiciTitle = document.querySelector("#jinrishiciTitle") //诗词名
-const copyright = document.querySelector("#copyright") //版权说明
-const loading = document.querySelector("#loading")
+const commonUse = document.querySelector("#commonUse");
+const jinrishiciSentence = document.querySelector("#jinrishiciSentence"); //诗词内容
+const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor"); //诗词作者
+const jinrishiciTitle = document.querySelector("#jinrishiciTitle"); //诗词名
+const copyright = document.querySelector("#copyright"); //版权说明
+const loading = document.querySelector("#loading");
+
+//获取本地数据
 const skinHref = getStorage("skin");
 const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
+const commonUseData = getStorage("commonUseData");
 
-// ajax同步获取json文件数据
+
+/*
+    ajax同步获取json文件数据
+ */
 $.ajax({
     type: "get",
     url: url,
@@ -44,6 +52,25 @@ $.ajax({
         jsonData = response;
     }
 });
+
+
+/*
+    加载本地存储区域
+*/
+if (bg && bg !== null) {
+    body.style.backgroundImage = `url('${bg}')`;
+}
+if (skinHref && skinHref !== null) {
+    linkTag.href = skinHref;
+}
+if (uiHref && uiHref !== null) {
+    uiTag.href = uiHref;
+}
+if (commonUseData && commonUseData !== null) {
+    commonData = JSON.parse(commonUseData);
+    setCommomUse(commonData)
+}
+
 
 //拼接搜索栏左侧选择引擎
 jsonData.engine.forEach(element => {
@@ -110,11 +137,13 @@ scrollContent.addEventListener("change", function (e) {
     }
 })
 
+//恢复默认
 function setdefault(type) {
     if (type == "changebg") {
         setStorageBefore();
         window.localStorage.removeItem("bg");
         body.style.removeProperty("background-image");
+        changeSkin('skin', './css/skin/skin_SunsetBeach.css');
     }
 }
 
@@ -150,20 +179,20 @@ function goSearch() {
 }
 
 //切换配色
-function changeSkin(skinName, href) {
-    setStorageBefore(skinName, href)
-    linkTag.href = href
+function changeSkin(skinName, value) {
+    setStorageBefore(skinName, value)
+    linkTag.href = value
 }
 
 //切换ui风格
-function changeUI(uiName, href) {
-    setStorageBefore(uiName, href)
-    uiTag.href = href
+function changeUI(uiName, value) {
+    setStorageBefore(uiName, value)
+    uiTag.href = value
 }
 
 //设置本地存储
-function setStorage(name, href) {
-    window.localStorage.setItem(name, href);
+function setStorage(name, value) {
+    window.localStorage.setItem(name, value);
 }
 
 //执行本地存储前动画效果
@@ -193,8 +222,8 @@ function setStorageBefore(name, href) {
 
 // 获取本地存储内容
 function getStorage(key) {
-    let href = window.localStorage.getItem(key);
-    return href;
+    let value = window.localStorage.getItem(key);
+    return value;
 }
 
 //加载动画
@@ -214,14 +243,41 @@ function toggle(elemt, speed) {
     }
 }
 
-if (bg && bg !== null) {
-    body.style.backgroundImage = `url('${bg}')`;
+//添加常用书签
+function addCommonUse(name, href, color) {
+    let recent = commonData.find(item => item.name == name)
+    if (recent == undefined) {
+        commonData.push({
+            "name": name,
+            "href": href,
+            "color": color,
+            "count": 1
+        })
+    } else {
+        commonData.forEach(item => {
+            if (item.name == recent.name) {
+                item.count += 1
+            }
+        })
+    }
+    //根据打开次数排序
+    commonData.sort(function (obj1, obj2) {
+        let minCount = obj1["count"];
+        let maxCount = obj2["count"];
+        return maxCount - minCount;
+    })
+    setCommomUse(commonData)
+    setStorage("commonUseData", JSON.stringify(commonData))
 }
-if (skinHref && skinHref !== null) {
-    linkTag.href = skinHref;
-}
-if (uiHref && uiHref !== null) {
-    uiTag.href = uiHref;
+
+function setCommomUse(data) {
+    let commonHtml = ""
+    data.forEach((item, index) => {
+        if (index < 8) {
+            commonHtml += `<a href="${item.href}"> ${item.name} </a>`
+        }
+    })
+    commonUse.innerHTML = commonHtml
 }
 
 //加载动画
@@ -247,7 +303,7 @@ function createWebsite() {
             websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             item.content.forEach(inner => {
                 if (inner.show) {
-                    sideBarHtml += `<div class="capsule" style="border:2px solid ${inner.color};"><a style="color:${inner.color};" href='${inner.href}' target="_blank"><span>${inner.name}</span></a></div>`;
+                    sideBarHtml += `<div onclick="addCommonUse('${inner.name}','${inner.href}','${inner.color}')" class="capsule" style="border:2px solid ${inner.color};"><a style="color:${inner.color};" href='${inner.href}' target="_blank"><span>${inner.name}</span></a></div>`;
                 }
             })
             websiteInfo = websiteInfo + sideBarHtml;
@@ -269,7 +325,6 @@ function createSetting() {
                 item.content.forEach(inner => {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
-                            console.log(inner)
                             //content不为空且为字符串时
                             if (!inner.type) {
                                 sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
