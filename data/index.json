@@ -418,6 +418,15 @@
                     "icon": "",
                     "show": true,
                     "content": "风是什么颜色？只有最无聊的人会去考虑这个问题，的确——我很无聊，但是这个色彩带给我们的感觉和微风拂面时候带来的感觉是相似的，同样清凉，舒适，如果你能享受这样简单的愉悦，就能体会这个色彩搭配带来的乐趣。"
+                }, {
+                    "name": "透明风格",
+                    "type": "skin",
+                    "value": "skin_Transparent",
+                    "href": "./css/skin/skin_Transparent.css",
+                    "color": "",
+                    "icon": "",
+                    "show": false,
+                    "content": "透明风格配色，仅适用于添加背景图片时使用。"
                 }]
             }, {
                 "name": "UI风格",
@@ -434,7 +443,7 @@
                     "icon": "",
                     "show": true,
                     "content": "1"
-                },{
+                }, {
                     "name": "方形",
                     "type": "uistyle",
                     "value": "uistyle_square",
