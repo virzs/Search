@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-14 16:59:23
+ * @Last Modified time: 2020-01-14 17:56:47
  */
 
 //配置变量
@@ -274,7 +274,7 @@ function setCommomUse(data) {
     let commonHtml = ""
     data.forEach((item, index) => {
         if (index < 8) {
-            commonHtml += `<a href="${item.href}"> ${item.name} </a>`
+            commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
         }
     })
     commonUse.innerHTML = commonHtml
