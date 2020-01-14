@@ -14,3 +14,7 @@
 .search-option{
     border-radius: 4px;
 }
+
+#sideBarContent::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+}
