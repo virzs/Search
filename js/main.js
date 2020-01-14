@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-13 18:40:11
+ * @Last Modified time: 2020-01-14 13:43:11
  */
 
 //配置变量
@@ -11,6 +11,7 @@ var jsonData = {}; //获取的json文件数据
 var searchEngine = ""; //搜索框左侧选择搜索引擎数据
 var sideBarIconFlag = -1 //侧边栏按钮标记
 var searchFlag = true
+var skin_Transparent = ""
 
 //获取的DOM元素
 const body = document.querySelector("body");
@@ -101,6 +102,7 @@ scrollContent.addEventListener("change", function (e) {
         reader.onload = function (e) {
             let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
             setStorageBefore("bg", data);
+            changeSkin("skin", skin_Transparent)
             body.style.backgroundImage = `url('${data}')`;
         };
         // 以DataURL的形式读取文件:
@@ -267,11 +269,12 @@ function createSetting() {
                 item.content.forEach(inner => {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
+                            console.log(inner)
                             //content不为空且为字符串时
                             if (!inner.type) {
                                 sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
                             }
-                            if (inner.type == "skin") {
+                            if (inner.type == "skin" && inner.value !== "skin_Transparent") {
                                 sideBarHtml += `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
                             }
                             if (inner.type == "uistyle") {
@@ -300,6 +303,10 @@ function createSetting() {
                             } else {
                                 sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
                             }
+                        }
+                    } else {
+                        if (inner.type == "skin" && inner.value == "skin_Transparent") {
+                            skin_Transparent = inner.href
                         }
                     }
                 })
