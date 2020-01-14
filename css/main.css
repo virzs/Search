@@ -217,7 +217,7 @@ span {
 
 /*正常情况下滑块的样式*/
 #sideBarContent::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 197, 73, .05);
+    background-color: rgba(255, 197, 73, .6);
 }
 
 /*鼠标悬浮在该类指向的控件上时滑块的样式*/
@@ -236,7 +236,7 @@ span {
 #sideBarContent::-webkit-scrollbar-track {
     /* border-radius: 10px; */
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-    background-color: rgba(231, 231, 231, 1);
+    background-color: rgba(231, 231, 231, .01);
 }
 
 /*鼠标悬浮在滚动条上的主干部分*/
