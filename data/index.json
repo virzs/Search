@@ -376,7 +376,7 @@
                     "show": true,
                     "content": ""
                 }, {
-                    "name": "恢复默认背景",
+                    "name": "恢复默认",
                     "type": "changebg",
                     "value": "setdefault",
                     "href": "",
