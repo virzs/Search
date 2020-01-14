@@ -143,6 +143,7 @@ span {
 }
 
 .poetry {
+    margin: 10px 0;
     box-sizing: border-box;
     width: 40%;
     height: 48px;
@@ -276,6 +277,54 @@ span {
 
 .innerlist {
     margin-left: 30px;
+}
+
+#commonUse {
+    margin-top: 20px;
+    width: 400px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.commons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    margin: 10px 0;
+    font-size: small;
+}
+
+
+.commons a {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.commons div {
+    box-sizing: border-box;
+    width: 44px;
+    height: 44px;
+    background: #f3f3f3;
+    border-radius: 22px;
+    font-size: 18px;
+    font-weight: bolder;
+    line-height: 44px;
+    transition: 0.3s;
+}
+
+.commons div:hover {
+    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);
+}
+
+.commons p {
+    margin: 3px 0 0;
 }
 
 #copyright {
