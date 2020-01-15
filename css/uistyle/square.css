@@ -18,3 +18,7 @@
 #sideBarContent::-webkit-scrollbar-thumb {
     border-radius: 2px;
 }
+
+.commons div {
+    border-radius: 11px;
+}
