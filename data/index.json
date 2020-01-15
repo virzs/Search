@@ -392,7 +392,7 @@
                 "icon": "fa fa-smile-o",
                 "show": true,
                 "content": [{
-                    "name": "办公室故事",
+                    "name": "浅灰",
                     "type": "skin",
                     "value": "skin_OfficeStory",
                     "href": "./css/skin/skin_OfficeStory.css",
@@ -401,7 +401,7 @@
                     "show": true,
                     "content": "十分素雅的配色，带有一定的日式风格的颜色搭配，当然现在在很多地方都有使用，如商业场合，家庭家居，即使在网页设计中也屡见不鲜，同时也多见于男性服装的色彩搭配上。"
                 }, {
-                    "name": "落日海滩",
+                    "name": "简白",
                     "type": "skin",
                     "value": "skin_SunsetBeach",
                     "href": "./css/skin/skin_SunsetBeach.css",
@@ -410,7 +410,7 @@
                     "show": true,
                     "content": "在以灰色作为主色调的画面中加入高纯度的色彩，这种配色方法非常常见，也很容易搭配出出人意料的效果，这个的搭配方法可以使设计主题突出，并其他吸引观者的效果。"
                 }, {
-                    "name": "风的色彩",
+                    "name": "海蓝",
                     "type": "skin",
                     "value": "skin_WindColor",
                     "href": "./css/skin/skin_WindColor.css",
@@ -442,7 +442,7 @@
                     "color": "",
                     "icon": "",
                     "show": true,
-                    "content": "1"
+                    "content": ""
                 }, {
                     "name": "方形",
                     "type": "uistyle",
@@ -451,7 +451,33 @@
                     "color": "",
                     "icon": "",
                     "show": true,
-                    "content": "1"
+                    "content": ""
+                }]
+            }, {
+                "name": "常用网址",
+                "value": "commonUse",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-heart",
+                "show": true,
+                "content": [{
+                    "name": "开启",
+                    "value": true,
+                    "type": "changeCommonUse",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "关闭",
+                    "value": false,
+                    "type": "changeCommonUse",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
                 }]
             }, {
                 "name": "关于",
@@ -502,6 +528,7 @@
                 "content": [{
                     "name": "今日诗词 API",
                     "value": "jinrishici",
+                    "type": "thanks",
                     "href": "https://www.jinrishici.com",
                     "color": "#1aaf5d",
                     "icon": "",
