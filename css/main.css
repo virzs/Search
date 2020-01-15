@@ -318,10 +318,11 @@ span {
     font-size: 18px;
     font-weight: bolder;
     transition: 0.3s;
+    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .7);
 }
 
 .commons div:hover {
-    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);
+    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, 1);
 }
 
 .commons p {
