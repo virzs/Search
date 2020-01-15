@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-14 17:56:47
+ * @Last Modified time: 2020-01-15 14:27:34
  */
 
 //配置变量
@@ -38,6 +38,7 @@ const skinHref = getStorage("skin");
 const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
+const showCommonUse = getStorage("showCommonUse");
 
 
 /*
@@ -66,7 +67,7 @@ if (skinHref && skinHref !== null) {
 if (uiHref && uiHref !== null) {
     uiTag.href = uiHref;
 }
-if (commonUseData && commonUseData !== null) {
+if (commonUseData && commonUseData !== null && (showCommonUse == "true" || showCommonUse == "undefined")) {
     commonData = JSON.parse(commonUseData);
     setCommomUse(commonData)
 }
@@ -160,7 +161,7 @@ function stopPropagation(e) {
 //渲染搜索引擎备选项
 function setEngine(value) {
     let engineValue = jsonData.engine.find(item => item.value == value)
-    selectEngine.innerHTML = `<img src='${engineValue.icon}'  alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`
+    selectEngine.innerHTML = `<img src='${engineValue.icon}' alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`
     selectOption.style.display = "none"
     searchFlag = !searchFlag
 }
@@ -244,7 +245,7 @@ function toggle(elemt, speed) {
 }
 
 //添加常用书签
-function addCommonUse(name, href, color) {
+function addCommonUse(name, href, color, status) {
     let recent = commonData.find(item => item.name == name)
     if (recent == undefined) {
         commonData.push({
@@ -266,17 +267,24 @@ function addCommonUse(name, href, color) {
         let maxCount = obj2["count"];
         return maxCount - minCount;
     })
-    setCommomUse(commonData)
-    setStorage("commonUseData", JSON.stringify(commonData))
+    if (status) {
+        setCommomUse(commonData);
+    }
+    setStorage("commonUseData", JSON.stringify(commonData));
+    setStorage("showCommonUse", status)
 }
 
 function setCommomUse(data) {
     let commonHtml = ""
-    data.forEach((item, index) => {
-        if (index < 8) {
-            commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
-        }
-    })
+    if (showCommonUse == "true" || showCommonUse == "undefined") {
+        data.forEach((item, index) => {
+            if (index < 8) {
+                commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
+            }
+        })
+    } else {
+        commonHtml = ""
+    }
     commonUse.innerHTML = commonHtml
 }
 
@@ -313,6 +321,33 @@ function createWebsite() {
     return websiteInfo;
 }
 
+//判断渲染设置项
+function createHtml(inner) {
+    let sideBarHtml = "";
+    if (!inner.type) {
+        sideBarHtml = `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
+    }
+    if (inner.type == "skin" && inner.value !== "skin_Transparent") {
+        sideBarHtml = `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
+    }
+    if (inner.type == "uistyle") {
+        sideBarHtml = `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+    }
+    if (inner.type == "changebg" && inner.value == "changebg") {
+        sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`
+    }
+    if (inner.type == "changebg" && inner.value == "setdefault") {
+        sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+    }
+    if (inner.type == "changeCommonUse") {
+        sideBarHtml += `<div onclick="addCommonUse('','','',${inner.value})" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+    }
+    if (inner.type == "thanks") {
+        sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
+    }
+    return sideBarHtml
+}
+
 //创建设置项数据
 function createSetting() {
     let settingInfo = "",
@@ -326,18 +361,9 @@ function createSetting() {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
                             //content不为空且为字符串时
-                            if (!inner.type) {
-                                sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
-                            }
-                            if (inner.type == "skin" && inner.value !== "skin_Transparent") {
-                                sideBarHtml += `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
-                            }
-                            if (inner.type == "uistyle") {
-                                sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
-                            }
+                            sideBarHtml += createHtml(inner)
                         } else if (typeof inner.content !== "string") {
                             //content为数组对象时
-                            // sideBarHtml += `<div class="setlist"><span><i class="${inner.icon}"></i>  ${inner.name}：</span></div>`;
                             inner.content.forEach(inners => {
                                 if (inners.show) {
                                     if (inners.value == "email") {
@@ -349,15 +375,7 @@ function createSetting() {
                             })
                         } else {
                             //content为空时的内容
-                            if (inner.type == "changebg" && inner.value == "changebg") {
-                                sideBarHtml += `<div class="setlist" style="border:2px solid ${item.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`
-                            } else if (inner.type == "changebg" && inner.value == "setdefault") {
-                                sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
-                            } else if (inner.type == "uistyle") {
-                                sideBarHtml += `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
-                            } else {
-                                sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
-                            }
+                            sideBarHtml += createHtml(inner)
                         }
                     } else {
                         if (inner.type == "skin" && inner.value == "skin_Transparent") {
