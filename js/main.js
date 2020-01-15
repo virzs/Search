@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-15 14:27:34
+ * @Last Modified time: 2020-01-15 17:52:35
  */
 
 //配置变量
@@ -67,7 +67,7 @@ if (skinHref && skinHref !== null) {
 if (uiHref && uiHref !== null) {
     uiTag.href = uiHref;
 }
-if (commonUseData && commonUseData !== null && (showCommonUse == "true" || showCommonUse == "undefined")) {
+if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
     setCommomUse(commonData)
 }
@@ -247,14 +247,14 @@ function toggle(elemt, speed) {
 //添加常用书签
 function addCommonUse(name, href, color, status) {
     let recent = commonData.find(item => item.name == name)
-    if (recent == undefined) {
+    if (recent == undefined && typeof status !== 'boolean') {
         commonData.push({
             "name": name,
             "href": href,
             "color": color,
             "count": 1
         })
-    } else {
+    } else if (typeof status !== 'boolean') {
         commonData.forEach(item => {
             if (item.name == recent.name) {
                 item.count += 1
@@ -267,16 +267,16 @@ function addCommonUse(name, href, color, status) {
         let maxCount = obj2["count"];
         return maxCount - minCount;
     })
-    if (status) {
-        setCommomUse(commonData);
-    }
+    setCommomUse(commonData, status);
     setStorage("commonUseData", JSON.stringify(commonData));
-    setStorage("showCommonUse", status)
 }
 
-function setCommomUse(data) {
+function setCommomUse(data, status) {
     let commonHtml = ""
-    if (showCommonUse == "true" || showCommonUse == "undefined") {
+    if (status !== undefined) {
+        setStorage("showCommonUse", status)
+    }
+    if (getStorage("showCommonUse") == "true" || getStorage("showCommonUse") == undefined || status == true) {
         data.forEach((item, index) => {
             if (index < 8) {
                 commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
@@ -285,6 +285,7 @@ function setCommomUse(data) {
     } else {
         commonHtml = ""
     }
+    toggle(loading, 40);
     commonUse.innerHTML = commonHtml
 }
 
