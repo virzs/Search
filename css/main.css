@@ -309,13 +309,14 @@ span {
 
 .commons div {
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 44px;
     height: 44px;
     background: #f3f3f3;
-    border-radius: 22px;
     font-size: 18px;
     font-weight: bolder;
-    line-height: 44px;
     transition: 0.3s;
 }
 
