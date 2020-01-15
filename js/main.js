@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-15 17:52:35
+ * @Last Modified time: 2020-01-15 18:14:15
  */
 
 //配置变量
@@ -276,16 +276,19 @@ function setCommomUse(data, status) {
     if (status !== undefined) {
         setStorage("showCommonUse", status)
     }
+    data.forEach((item, index) => {
+        if (index < 8) {
+            commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
+        }
+    })
     if (getStorage("showCommonUse") == "true" || getStorage("showCommonUse") == undefined || status == true) {
-        data.forEach((item, index) => {
-            if (index < 8) {
-                commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
-            }
-        })
+        commonUse.style.display = "flex"
     } else {
-        commonHtml = ""
+        commonUse.style.display = "none"
     }
-    toggle(loading, 40);
+    if (status !== undefined) {
+        setStorageBefore();
+    }
     commonUse.innerHTML = commonHtml
 }
 
