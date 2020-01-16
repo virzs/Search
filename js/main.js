@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-15 18:14:15
+ * @Last Modified time: 2020-01-16 15:27:31
  */
 
 //配置变量
@@ -181,14 +181,18 @@ function goSearch() {
 
 //切换配色
 function changeSkin(skinName, value) {
-    setStorageBefore(skinName, value)
-    linkTag.href = value
+    let setHref = () => {
+        linkTag.href = value
+    }
+    setStorageBefore(setHref, skinName, value)
 }
 
 //切换ui风格
 function changeUI(uiName, value) {
-    setStorageBefore(uiName, value)
-    uiTag.href = value
+    let setHref = () => {
+        uiTag.href = value
+    }
+    setStorageBefore(setHref, uiName, value)
 }
 
 //设置本地存储
@@ -197,23 +201,28 @@ function setStorage(name, value) {
 }
 
 //执行本地存储前动画效果
-function setStorageBefore(name, href) {
+function setStorageBefore(set, name, href) {
     let num = 0
     let speed = 60
+
+    function opacity() {
+        loading.style.opacity = num / 20;
+    }
     loading.style.display = "block"
     let timer = setInterval(function () {
         num++;
-        loading.style.opacity = num / 20;
+        opacity();
         if (num >= 20) {
             let timer2 = setInterval(function () {
                 num--;
-                loading.style.opacity = num / 20;
+                opacity();
                 if (num <= 0) {
                     clearInterval(timer2);
                     loading.style.display = "none"
                 }
             }, speed);
             clearInterval(timer);
+            setTimeout(set, speed);
             if (name && href) {
                 setStorage(name, href)
             }
@@ -273,6 +282,7 @@ function addCommonUse(name, href, color, status) {
 
 function setCommomUse(data, status) {
     let commonHtml = ""
+    let display = ""
     if (status !== undefined) {
         setStorage("showCommonUse", status)
     }
@@ -282,12 +292,16 @@ function setCommomUse(data, status) {
         }
     })
     if (getStorage("showCommonUse") == "true" || getStorage("showCommonUse") == undefined || status == true) {
-        commonUse.style.display = "flex"
+        display = () => {
+            commonUse.style.display = "flex";
+        }
     } else {
-        commonUse.style.display = "none"
+        display = () => {
+            commonUse.style.display = "none";
+        }
     }
     if (status !== undefined) {
-        setStorageBefore();
+        setStorageBefore(display);
     }
     commonUse.innerHTML = commonHtml
 }
