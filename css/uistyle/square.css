@@ -22,3 +22,7 @@
 .commons div {
     border-radius: 11px;
 }
+
+#messageList li {
+    border-radius: 5px;
+}

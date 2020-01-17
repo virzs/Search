@@ -65,6 +65,12 @@ a:hover {
     box-shadow: 1px 1px 5px 1px #FFC549;
 }
 
+#messageList li {
+    background-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+}
+
 /*正常情况下滑块的样式*/
 #sideBarContent::-webkit-scrollbar-thumb {
     background-color: rgba(255, 197, 73, .6);

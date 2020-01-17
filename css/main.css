@@ -369,7 +369,6 @@ span {
     width: 330px;
     height: 80px;
     margin: 10px;
-    border-radius: 20px;
     padding: 10px;
     box-sizing: border-box;
     display: flex;
@@ -377,8 +376,6 @@ span {
     align-items: center;
     overflow: hidden;
     padding-right: 15px;
-    background-color: #fff;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     transition: 0.5s;
 }
 
@@ -431,52 +428,6 @@ span {
     color: red;
 }
 
-@keyframes moveLeft {
-    from {
-        right: -340px;
-    }
-
-    to {
-        right: 0;
-    }
-}
-
-@keyframes moveRight {
-    from {
-        right: 0;
-    }
-
-    to {
-        right: -340px;
-    }
-}
-
-@keyframes messageMoveLeft {
-    from {
-        right: -380px;
-    }
-
-    to {
-        right: 0;
-    }
-}
-
-@keyframes messageMoveRight {
-    from {
-        right: 0;
-    }
-
-    to {
-        right: -380px;
-    }
-}
-
-@media (max-width: 768px) {
-    .poetry {
-        width: 80%;
-    }
-}
-
 #loading {
     width: 100%;
     height: 100%;
@@ -527,6 +478,52 @@ span {
 
 #loading .pic i:nth-child(5) {
     animation-delay: 0.5s
+}
+
+@keyframes moveLeft {
+    from {
+        right: -340px;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes moveRight {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -340px;
+    }
+}
+
+@keyframes messageMoveLeft {
+    from {
+        right: -380px;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes messageMoveRight {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .poetry {
+        width: 80%;
+    }
 }
 
 @keyframes load {
