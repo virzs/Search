@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-16 15:27:31
+ * @Last Modified time: 2020-01-17 09:36:49
  */
 
 //配置变量
@@ -56,8 +56,8 @@ $.ajax({
 
 
 /*
-    加载本地存储区域
-*/
+    加载本地存储区域/自动加载区域
+ */
 if (bg && bg !== null) {
     body.style.backgroundImage = `url('${bg}')`;
 }
@@ -72,7 +72,6 @@ if (commonUseData && commonUseData !== null) {
     setCommomUse(commonData)
 }
 
-
 //拼接搜索栏左侧选择引擎
 jsonData.engine.forEach(element => {
     if (element.select == "selected") {
@@ -82,6 +81,67 @@ jsonData.engine.forEach(element => {
 });
 selectOption.innerHTML = searchEngine;
 
+// 动态创建侧边栏图标
+for (let item in jsonData.sideBar.content) {
+    if (jsonData.sideBar.content[item].show) {
+        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].name}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i></div>`
+    }
+}
+
+//诗词渲染
+jinrishici.load(function (result) {
+    jinrishiciSentence.innerHTML = result.data.content
+    jinrishiciAuthor.innerHTML = `― ${result.data.origin.author}`
+    jinrishiciTitle.innerHTML = `《${result.data.origin.title}》`
+});
+
+//版权信息渲染
+if (jsonData.copyright.show) {
+    copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
+}
+
+//渲染侧边栏数据
+Array.prototype.forEach.call(sideBarTitle.children, item => {
+    item.onclick = () => {
+        if (sideBarIconFlag == item.id) {
+            sideBar.className = "moveRight";
+            sideBarIconFlag = -1
+            return;
+        }
+        switch (item.id) {
+            case "Gaming":
+                scrollContent.innerHTML = "加班加点摸鱼中，敬请期待";
+                sideBarIconFlag = item.id;
+                break;
+            case "Website":
+                scrollContent.innerHTML = createWebsite();
+                sideBarIconFlag = item.id;
+                break;
+            case "Setting":
+                scrollContent.innerHTML = createSetting();
+                sideBarIconFlag = item.id;
+                break;
+        }
+        sideBar.className = "moveLeft";
+        stopPropagation()
+    }
+})
+
+//网页文档加载完毕调用动画
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        toggle(loading, 40);
+    }
+}
+
+/*
+    加载本地存储区域/自动加载区域结束
+ */
+
+
+/*
+    事件监听/事件委托相关
+ */
 //监听点击事件
 document.addEventListener("click", function (e) {
     //判断选择引擎
@@ -101,27 +161,7 @@ sideBarContent.addEventListener("click", (e) => {
     stopPropagation();
 });
 
-//监听按下键盘事件，实现按下Enter跳转搜索
-document.onkeydown = function (e) {
-    let event = e || event;
-    if (event.keyCode == 13) {
-        goSearch();
-    }
-}
-
-//点击选择搜索引擎事件
-selectEngine.onclick = () => {
-    if (searchFlag) {
-        selectOption.style.display = "block"
-        searchFlag = !searchFlag
-    } else {
-        selectOption.style.display = "none"
-        searchFlag = !searchFlag
-    }
-    stopPropagation()
-}
-
-//设置背景图片
+//监听文件上传change事件设置背景图片
 scrollContent.addEventListener("change", function (e) {
     let setBackGround = document.querySelector("#setBackGround")
     if (e.target == setBackGround) {
@@ -138,15 +178,50 @@ scrollContent.addEventListener("change", function (e) {
     }
 })
 
-//恢复默认
-function setdefault(type) {
-    if (type == "changebg") {
-        setStorageBefore();
-        window.localStorage.removeItem("bg");
-        body.style.removeProperty("background-image");
-        changeSkin('skin', './css/skin/skin_SunsetBeach.css');
+/*
+    事件监听/事件委托相关结束
+ */
+
+
+/*
+    键盘监听事件
+ */
+//监听按下键盘事件，实现按下Enter跳转搜索
+document.onkeydown = function (e) {
+    let event = e || event;
+    if (event.keyCode == 13) {
+        goSearch();
     }
 }
+
+/*
+    键盘监听事件结束
+ */
+
+
+/*
+    点击事件
+ */
+//点击选择搜索引擎事件
+selectEngine.onclick = () => {
+    if (searchFlag) {
+        selectOption.style.display = "block"
+        searchFlag = !searchFlag
+    } else {
+        selectOption.style.display = "none"
+        searchFlag = !searchFlag
+    }
+    stopPropagation()
+}
+
+/*
+    点击事件结束
+ */
+
+
+/*
+    业务逻辑函数
+ */
 
 //阻止事件冒泡
 function stopPropagation(e) {
@@ -155,6 +230,74 @@ function stopPropagation(e) {
         ev.stopPropagation();
     } else if (window.event) {
         window.event.cancelBubble = true; //兼容IE，根本用不到，本来就没打算兼容IE
+    }
+}
+
+// 获取本地存储内容
+function getStorage(key) {
+    let value = window.localStorage.getItem(key);
+    return value;
+}
+
+//加载动画
+function toggle(elemt, speed) {
+    speed = speed || 16.6; //默认速度为16.6ms
+    elemt.style.display = "block"
+    if (elemt.style.opacity == 1 || elemt.style.opacity != null) {
+        let num = 20;
+        let timer = setInterval(function () {
+            num--;
+            elemt.style.opacity = num / 20;
+            if (num <= 0) {
+                clearInterval(timer);
+                elemt.style.display = "none"
+            }
+        }, speed);
+    }
+}
+
+//设置本地存储
+function setStorage(name, value) {
+    window.localStorage.setItem(name, value);
+}
+
+//执行本地存储前动画效果
+function setStorageBefore(set, name, href) {
+    let num = 0
+    let speed = 60
+
+    function opacity() {
+        loading.style.opacity = num / 20;
+    }
+    loading.style.display = "block"
+    let timer = setInterval(function () {
+        num++;
+        opacity();
+        if (num >= 20) {
+            let timer2 = setInterval(function () {
+                num--;
+                opacity();
+                if (num <= 0) {
+                    clearInterval(timer2);
+                    loading.style.display = "none"
+                }
+            }, speed);
+            clearInterval(timer);
+            setTimeout(set, speed);
+            if (name && href) {
+                setStorage(name, href)
+            }
+        }
+    }, speed);
+}
+
+//恢复默认
+function setdefault(type) {
+    if (type == "changebg") {
+        setStorageBefore();
+        window.localStorage.removeItem("bg");
+        body.style.removeProperty("background-image");
+        changeSkin('skin', './css/skin/skin_SunsetBeach.css');
     }
 }
 
@@ -195,64 +338,6 @@ function changeUI(uiName, value) {
     setStorageBefore(setHref, uiName, value)
 }
 
-//设置本地存储
-function setStorage(name, value) {
-    window.localStorage.setItem(name, value);
-}
-
-//执行本地存储前动画效果
-function setStorageBefore(set, name, href) {
-    let num = 0
-    let speed = 60
-
-    function opacity() {
-        loading.style.opacity = num / 20;
-    }
-    loading.style.display = "block"
-    let timer = setInterval(function () {
-        num++;
-        opacity();
-        if (num >= 20) {
-            let timer2 = setInterval(function () {
-                num--;
-                opacity();
-                if (num <= 0) {
-                    clearInterval(timer2);
-                    loading.style.display = "none"
-                }
-            }, speed);
-            clearInterval(timer);
-            setTimeout(set, speed);
-            if (name && href) {
-                setStorage(name, href)
-            }
-        }
-    }, speed);
-}
-
-// 获取本地存储内容
-function getStorage(key) {
-    let value = window.localStorage.getItem(key);
-    return value;
-}
-
-//加载动画
-function toggle(elemt, speed) {
-    speed = speed || 16.6; //默认速度为16.6ms
-    elemt.style.display = "block"
-    if (elemt.style.opacity == 1 || elemt.style.opacity != null) {
-        let num = 20;
-        let timer = setInterval(function () {
-            num--;
-            elemt.style.opacity = num / 20;
-            if (num <= 0) {
-                clearInterval(timer);
-                elemt.style.display = "none"
-            }
-        }, speed);
-    }
-}
-
 //添加常用书签
 function addCommonUse(name, href, color, status) {
     let recent = commonData.find(item => item.name == name)
@@ -280,6 +365,7 @@ function addCommonUse(name, href, color, status) {
     setStorage("commonUseData", JSON.stringify(commonData));
 }
 
+//记录常用网址
 function setCommomUse(data, status) {
     let commonHtml = ""
     let display = ""
@@ -304,20 +390,6 @@ function setCommomUse(data, status) {
         setStorageBefore(display);
     }
     commonUse.innerHTML = commonHtml
-}
-
-//加载动画
-document.onreadystatechange = function () {
-    if (document.readyState == "complete") {
-        toggle(loading, 40);
-    }
-}
-
-// 动态创建侧边栏图标
-for (let item in jsonData.sideBar.content) {
-    if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].name}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i></div>`
-    }
 }
 
 //创建书签数据
@@ -409,44 +481,10 @@ function createSetting() {
     return settingInfo;
 }
 
-//版权信息渲染
-if (jsonData.copyright.show) {
-    copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
-}
+/*
+    业务逻辑函数结束
+ */
 
-//渲染侧边栏数据
-Array.prototype.forEach.call(sideBarTitle.children, item => {
-    item.onclick = () => {
-        if (sideBarIconFlag == item.id) {
-            sideBar.className = "moveRight";
-            sideBarIconFlag = -1
-            return;
-        }
-        switch (item.id) {
-            case "Gaming":
-                scrollContent.innerHTML = "加班加点摸鱼中，敬请期待";
-                sideBarIconFlag = item.id;
-                break;
-            case "Website":
-                scrollContent.innerHTML = createWebsite();
-                sideBarIconFlag = item.id;
-                break;
-            case "Setting":
-                scrollContent.innerHTML = createSetting();
-                sideBarIconFlag = item.id;
-                break;
-        }
-        sideBar.className = "moveLeft";
-        stopPropagation()
-    }
-})
-
-//诗词渲染
-jinrishici.load(function (result) {
-    jinrishiciSentence.innerHTML = result.data.content
-    jinrishiciAuthor.innerHTML = `― ${result.data.origin.author}`
-    jinrishiciTitle.innerHTML = `《${result.data.origin.title}》`
-});
 
 //废弃代码
 
