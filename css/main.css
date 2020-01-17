@@ -39,7 +39,7 @@ span {
 
 .search-logo {
     width: 100%;
-    margin-top: 150px;
+    margin-top: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -238,6 +238,14 @@ span {
     animation: moveRight 0.5s forwards;
 }
 
+.messageMoveLeft {
+    animation: messageMoveLeft 0.5s forwards;
+}
+
+.messageMoveRight {
+    animation: messageMoveRight 0.5s forwards;
+}
+
 .title-icon {
     margin: -5px 0;
     text-align: center;
@@ -281,18 +289,20 @@ span {
 
 #commonUse {
     margin-top: 20px;
-    width: 400px;
+    max-width: 320px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin: 0 30px;
 }
 
 .commons {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    max-width: 100px;
+    min-width: 80px;
     margin: 10px 0;
     font-size: small;
 }
@@ -345,6 +355,82 @@ span {
     transition: 0.5s;
 }
 
+#messageList {
+    position: fixed;
+    z-index: 2000;
+    top: 20px;
+    right: 20px;
+    transition: 0.5s;
+}
+
+#messageList li {
+    position: relative;
+    right: -380px;
+    width: 330px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    padding-right: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    transition: 0.5s;
+}
+
+#messageList div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 40px;
+}
+
+#messageList div:nth-child(2) {
+    width: 80%;
+    height: 80px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#messageList p {
+    margin: 0;
+}
+
+#messageList p:nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#messageList p:nth-child(2) {
+    font-size: 14px;
+}
+
+#messageList .close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 30px;
+}
+
+#messageList .success {
+    color: green;
+}
+
+#messageList .error {
+    color: red;
+}
+
 @keyframes moveLeft {
     from {
         right: -340px;
@@ -362,6 +448,26 @@ span {
 
     to {
         right: -340px;
+    }
+}
+
+@keyframes messageMoveLeft {
+    from {
+        right: -380px;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes messageMoveRight {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -380px;
     }
 }
 
