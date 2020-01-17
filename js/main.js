@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-17 09:36:49
+ * @Last Modified time: 2020-01-17 13:37:49
  */
 
 //配置变量
@@ -32,6 +32,7 @@ const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor"); //诗词�
 const jinrishiciTitle = document.querySelector("#jinrishiciTitle"); //诗词名
 const copyright = document.querySelector("#copyright"); //版权说明
 const loading = document.querySelector("#loading");
+const messageList = document.querySelector("#messageList")
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -176,6 +177,11 @@ scrollContent.addEventListener("change", function (e) {
         // 以DataURL的形式读取文件:
         reader.readAsDataURL(file);
     }
+})
+
+//阻止消息提示事件冒泡
+messageList.addEventListener("click", (e) => {
+    stopPropagation();
 })
 
 /*
@@ -324,22 +330,48 @@ function goSearch() {
 
 //切换配色
 function changeSkin(skinName, value) {
-    let setHref = () => {
-        linkTag.href = value
+    if (getStorage("skin") == value) {
+        openMessage({
+            title: "提示",
+            type: "error",
+            content: "请勿重复选择配色！！！"
+        });
+        return;
     }
-    setStorageBefore(setHref, skinName, value)
+    let setHref = () => {
+        linkTag.href = value;
+    }
+    setStorageBefore(setHref, skinName, value);
 }
 
 //切换ui风格
 function changeUI(uiName, value) {
-    let setHref = () => {
-        uiTag.href = value
+    if (getStorage("uistyle") == value) {
+        openMessage({
+            title: "提示",
+            type: "error",
+            content: "请勿重复选择UI风格！！！"
+        })
+        return;
     }
-    setStorageBefore(setHref, uiName, value)
+    let setHref = () => {
+        uiTag.href = value;
+    }
+    setStorageBefore(setHref, uiName, value);
 }
 
 //添加常用书签
 function addCommonUse(name, href, color, status) {
+    if (status.toString() == getStorage("showCommonUse")) {
+        let info = status ? "开启" : "关闭";
+        let type = status ? "success" : "error";
+        openMessage({
+            title: "提示",
+            type: type,
+            content: `请勿重复${info}！！！`
+        })
+        return;
+    }
     let recent = commonData.find(item => item.name == name)
     if (recent == undefined && typeof status !== 'boolean') {
         commonData.push({
@@ -351,7 +383,7 @@ function addCommonUse(name, href, color, status) {
     } else if (typeof status !== 'boolean') {
         commonData.forEach(item => {
             if (item.name == recent.name) {
-                item.count += 1
+                item.count += 1;
             }
         })
     }
@@ -367,14 +399,14 @@ function addCommonUse(name, href, color, status) {
 
 //记录常用网址
 function setCommomUse(data, status) {
-    let commonHtml = ""
-    let display = ""
+    let commonHtml = "";
+    let display = "";
     if (status !== undefined) {
-        setStorage("showCommonUse", status)
+        setStorage("showCommonUse", status);
     }
     data.forEach((item, index) => {
         if (index < 8) {
-            commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`
+            commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`;
         }
     })
     if (getStorage("showCommonUse") == "true" || getStorage("showCommonUse") == undefined || status == true) {
@@ -389,7 +421,7 @@ function setCommomUse(data, status) {
     if (status !== undefined) {
         setStorageBefore(display);
     }
-    commonUse.innerHTML = commonHtml
+    commonUse.innerHTML = commonHtml;
 }
 
 //创建书签数据
@@ -415,27 +447,27 @@ function createWebsite() {
 function createHtml(inner) {
     let sideBarHtml = "";
     if (!inner.type) {
-        sideBarHtml = `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`
+        sideBarHtml = `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`;
     }
     if (inner.type == "skin" && inner.value !== "skin_Transparent") {
         sideBarHtml = `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
     }
     if (inner.type == "uistyle") {
-        sideBarHtml = `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+        sideBarHtml = `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`
+        sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`;
     }
     if (inner.type == "changebg" && inner.value == "setdefault") {
-        sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+        sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "changeCommonUse") {
-        sideBarHtml += `<div onclick="addCommonUse('','','',${inner.value})" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`
+        sideBarHtml += `<div onclick="addCommonUse('','','',${inner.value})" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "thanks") {
-        sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`
+        sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`;
     }
-    return sideBarHtml
+    return sideBarHtml;
 }
 
 //创建设置项数据
@@ -451,7 +483,7 @@ function createSetting() {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
                             //content不为空且为字符串时
-                            sideBarHtml += createHtml(inner)
+                            sideBarHtml += createHtml(inner);
                         } else if (typeof inner.content !== "string") {
                             //content为数组对象时
                             inner.content.forEach(inners => {
@@ -465,11 +497,11 @@ function createSetting() {
                             })
                         } else {
                             //content为空时的内容
-                            sideBarHtml += createHtml(inner)
+                            sideBarHtml += createHtml(inner);
                         }
                     } else {
                         if (inner.type == "skin" && inner.value == "skin_Transparent") {
-                            skin_Transparent = inner.href
+                            skin_Transparent = inner.href;
                         }
                     }
                 })
@@ -479,6 +511,62 @@ function createSetting() {
         }
     })
     return settingInfo;
+}
+
+function openMessage(value) {
+    let iconType = ""
+    switch (value.type) {
+        case "success":
+            iconType = "fa-check"
+            break;
+        case "error":
+            iconType = "fa-close"
+        default:
+            break;
+    }
+    //动态添加多个消息需要单独创建
+    let li = document.createElement("li");
+    let icon = document.createElement("div");
+    let iconi = document.createElement("i");
+    let div = document.createElement("div");
+    let title = document.createElement("p");
+    let content = document.createElement("p");
+    let close = document.createElement("i");
+    li.setAttribute("class", "messageMoveLeft");
+    li.appendChild(icon);
+    icon.setAttribute("class", value.type);
+    icon.appendChild(iconi);
+    iconi.classList.add("fa", iconType);
+    li.appendChild(div);
+    div.appendChild(title);
+    title.innerHTML = value.title;
+    div.appendChild(content);
+    content.innerHTML = value.content;
+    li.appendChild(close);
+    close.classList.add("close", "fa", "fa-close");
+    close.addEventListener("click", () => {
+        closeMessage(li);
+    })
+    messageList.appendChild(li);
+    if (!value.timing || value.timing !== null) {
+        setTimeout(() => {
+            closeMessage(li)
+        }, 3000)
+    }
+    // messageList.innerHTML = `<li class="messageMoveLeft">${icon}<div><p>${value.title}</p><p>${value.content}</p></div><i onclick="closeMessage()" class="close fa fa-close"></i></li>`;
+}
+
+//弹窗关闭事件
+function closeMessage(elemt) {
+    elemt.className = "messageMoveRight";
+    if (!elemt) {
+        stopPropagation();
+    }
+    if (elemt.parentNode) {
+        setTimeout(() => {
+            elemt.parentNode.removeChild(elemt)
+        }, 500)
+    }
 }
 
 /*
