@@ -3,7 +3,7 @@
         "name": "谷歌",
         "value": "google",
         "href": "https://www.google.com/search?q=",
-        "sugurl":"http://suggestqueries.google.com/complete/search?client=youtube&q=#content#&jsonp=window.google.ac.h",
+        "sugurl": "http://suggestqueries.google.com/complete/search?client=youtube&q=#content#&jsonp=window.google.ac.h",
         "icon": "./img/engineLogo/google.ico",
         "show": true,
         "select": ""
@@ -11,7 +11,7 @@
         "name": "必应",
         "value": "bing",
         "href": "https://cn.bing.com/search?q=",
-        "sugurl":"http://api.bing.com/qsonhs.aspx?type=cb&q=#content#&cb=window.bing.sug",
+        "sugurl": "http://api.bing.com/qsonhs.aspx?type=cb&q=#content#&cb=window.bing.sug",
         "icon": "./img/engineLogo/bing.ico",
         "show": true,
         "select": "selected"
@@ -19,7 +19,7 @@
         "name": "百度",
         "value": "baidu",
         "href": "https://www.baidu.com/s?wd=",
-        "sugurl":"http://suggestion.baidu.com/su?wd=#content#&cb=window.baidu.sug",
+        "sugurl": "http://suggestion.baidu.com/su?wd=#content#&cb=window.baidu.sug",
         "icon": "./img/engineLogo/baidu.svg",
         "show": true,
         "select": ""
@@ -27,7 +27,7 @@
         "name": "搜狗",
         "value": "sougou",
         "href": "https://www.sogou.com/web?query=",
-        "sugurl":"",
+        "sugurl": "https://www.sogou.com/suggnew/ajajjson?type=web&key=#content#",
         "icon": "./img/engineLogo/sougou.ico",
         "show": true,
         "select": ""
