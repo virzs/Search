@@ -44,6 +44,15 @@ a:hover {
     background: #f1f1f1;
 }
 
+#searchList {
+    border: 1px solid #dfe1e5;
+    background: #fff;
+}
+
+#searchList li:hover {
+    background: #f1f1f1;
+}
+
 #sideBarContent {
     background: #E9E9E9;
     box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);

@@ -15,6 +15,14 @@
     border-radius: 4px;
 }
 
+#searchList {
+    border-radius: 8px;
+}
+
+#searchList li {
+    border-radius: 4px;
+}
+
 #sideBarContent::-webkit-scrollbar-thumb {
     border-radius: 2px;
 }
