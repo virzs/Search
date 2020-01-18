@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-18 15:26:26
+ * @Last Modified time: 2020-01-18 16:44:54
  */
 
 //配置变量
@@ -258,6 +258,7 @@ searchInput.onkeyup = () => {
     let script = document.createElement("script");
     script.src = sugurl;
     document.querySelector("head").appendChild(script);
+    document.querySelector("head").removeChild(script);
 }
 
 /*
