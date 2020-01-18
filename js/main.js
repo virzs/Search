@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-18 15:02:21
+ * @Last Modified time: 2020-01-18 15:26:26
  */
 
 //配置变量
@@ -222,7 +222,7 @@ document.onkeydown = function (e) {
     }
 }
 
-searchInput.onkeyup = function () {
+searchInput.onkeyup = () => {
     let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
     let engine = jsonData.engine.find(item => item.value == engineValue);
     let [href, sugurl] = [engine.href, engine.sugurl];
@@ -250,28 +250,14 @@ searchInput.onkeyup = function () {
             sugValue(href, json.s)
         }
     }
+    window.sogou = {
+        sug: function (json) {
+            sugValue(href, json[1])
+        }
+    }
     let script = document.createElement("script");
     script.src = sugurl;
     document.querySelector("head").appendChild(script);
-}
-
-function sugValue(href, value) {
-    let sugList = "";
-    if (value.length == 0) {
-        return;
-    }
-    value.forEach(item => {
-        if (typeof item == "string") {
-            sugList += `<li><a href="${href}${item}">${item}</a></li>`
-        }
-        if (typeof item == "object" && item.Txt !== undefined) {
-            sugList += `<li><a href="${href}${item.Txt}">${item.Txt}</a></li>`
-        } else {
-            sugList += `<li><a href="${href}${item[0]}">${item[0]}</a></li>`
-        }
-    })
-    searchList.innerHTML = sugList;
-    searchList.style.display = "block";
 }
 
 /*
@@ -649,6 +635,25 @@ function closeMessage(elemt) {
             elemt.parentNode.removeChild(elemt)
         }, 500)
     }
+}
+
+//备选项/智能提示函数
+function sugValue(href, value) {
+    let sugList = "";
+    if (value.length == 0) {
+        return;
+    }
+    value.forEach(item => {
+        if (typeof item == "string") {
+            sugList += `<li><a href="${href}${item}">${item}</a></li>`
+        } else if (typeof item == "object" && item.Txt !== undefined) {
+            sugList += `<li><a href="${href}${item.Txt}">${item.Txt}</a></li>`
+        } else {
+            sugList += `<li><a href="${href}${item[0]}">${item[0]}</a></li>`
+        }
+    })
+    searchList.innerHTML = sugList;
+    searchList.style.display = "block";
 }
 
 /*
