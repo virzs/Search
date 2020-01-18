@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-18 10:21:52
+ * @Last Modified time: 2020-01-18 15:02:21
  */
 
 //配置变量
@@ -173,7 +173,8 @@ scrollContent.addEventListener("change", function (e) {
             let func = () => {
                 body.style.backgroundImage = `url('${data}')`;
             }
-            let size = (file.size / (1024 * 1024)).toFixed(2) + "MB";
+            // 将文件大小转化成MB
+            let size = (file.size / (1024 * 1024)).toFixed(2);
             if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
                 openMessage({
                     title: "提示",
@@ -187,7 +188,7 @@ scrollContent.addEventListener("change", function (e) {
                 openMessage({
                     title: "提示",
                     type: "error",
-                    content: `当前文件大小为${size}，建议不超过3MB！`
+                    content: `当前文件大小为${size}MB，建议不超过3MB！`
                 })
                 setBackGround.value = "";
                 return;
@@ -219,6 +220,58 @@ document.onkeydown = function (e) {
     if (event.keyCode == 13) {
         goSearch();
     }
+}
+
+searchInput.onkeyup = function () {
+    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
+    let engine = jsonData.engine.find(item => item.value == engineValue);
+    let [href, sugurl] = [engine.href, engine.sugurl];
+    let value = searchInput.value; //获取输入框的值
+    if (value == "") {
+        searchList.innerHTML = "";
+        searchList.style.display = "none";
+        return;
+    }
+    sugurl = sugurl.replace("#content#", value);
+    window.google = {
+        ac: {
+            h: function (json) {
+                sugValue(href, json[1])
+            }
+        }
+    }
+    window.bing = {
+        sug: function (json) {
+            sugValue(href, json.AS.Results[0].Suggests);
+        }
+    }
+    window.baidu = {
+        sug: function (json) {
+            sugValue(href, json.s)
+        }
+    }
+    let script = document.createElement("script");
+    script.src = sugurl;
+    document.querySelector("head").appendChild(script);
+}
+
+function sugValue(href, value) {
+    let sugList = "";
+    if (value.length == 0) {
+        return;
+    }
+    value.forEach(item => {
+        if (typeof item == "string") {
+            sugList += `<li><a href="${href}${item}">${item}</a></li>`
+        }
+        if (typeof item == "object" && item.Txt !== undefined) {
+            sugList += `<li><a href="${href}${item.Txt}">${item.Txt}</a></li>`
+        } else {
+            sugList += `<li><a href="${href}${item[0]}">${item[0]}</a></li>`
+        }
+    })
+    searchList.innerHTML = sugList;
+    searchList.style.display = "block";
 }
 
 /*
@@ -327,11 +380,11 @@ function setdefault(type) {
             setStorage('skin', './css/skin/skin_SunsetBeach.css');
         }
         setStorageBefore(defaultSkin);
-    }else {
+    } else {
         openMessage({
-            title:"提示",
-            type:"error",
-            content:"当前已为默认！"
+            title: "提示",
+            type: "error",
+            content: "当前已为默认！"
         })
     }
 }
