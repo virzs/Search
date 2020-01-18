@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-18 09:33:57
+ * @Last Modified time: 2020-01-18 10:21:52
  */
 
 //配置变量
@@ -320,11 +320,19 @@ function setStorageBefore(set, name, href) {
 
 //恢复默认
 function setdefault(type) {
-    if (type == "changebg") {
-        setStorageBefore();
-        window.localStorage.removeItem("bg");
-        body.style.removeProperty("background-image");
-        changeSkin('skin', './css/skin/skin_SunsetBeach.css');
+    if (type == "changebg" && getStorage("skin") !== './css/skin/skin_SunsetBeach.css') {
+        let defaultSkin = () => {
+            window.localStorage.removeItem("bg");
+            body.style.removeProperty("background-image");
+            setStorage('skin', './css/skin/skin_SunsetBeach.css');
+        }
+        setStorageBefore(defaultSkin);
+    }else {
+        openMessage({
+            title:"提示",
+            type:"error",
+            content:"当前已为默认！"
+        })
     }
 }
 
