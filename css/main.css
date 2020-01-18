@@ -142,8 +142,6 @@ span {
     text-align: center;
     position: absolute;
     top: 50px;
-    border: 1px solid #dfe1e5;
-    background: #fff;
     max-width: 682px;
     max-height: 300px;
     overflow-y: auto;
@@ -154,16 +152,11 @@ span {
 #searchList li {
     margin: 5px;
     transition: 0.3s;
-    border-radius: 4px;
 }
 
 #searchList li a {
     display: block;
     width: 100%;
-}
-
-#searchList li:hover {
-    background: #f1f1f1;
 }
 
 .poetry {
