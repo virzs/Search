@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-17 13:37:49
+ * @Last Modified time: 2020-01-18 09:33:57
  */
 
 //配置变量
@@ -170,9 +170,30 @@ scrollContent.addEventListener("change", function (e) {
         let reader = new FileReader();
         reader.onload = function (e) {
             let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
-            setStorageBefore("bg", data);
+            let func = () => {
+                body.style.backgroundImage = `url('${data}')`;
+            }
+            let size = (file.size / (1024 * 1024)).toFixed(2) + "MB";
+            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `不是有效的图片文件!`
+                })
+                setBackGround.value = "";
+                return;
+            }
+            if (file.size > 3145728) {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `当前文件大小为${size}，建议不超过3MB！`
+                })
+                setBackGround.value = "";
+                return;
+            }
+            setStorageBefore(func, "bg", data);
             changeSkin("skin", skin_Transparent)
-            body.style.backgroundImage = `url('${data}')`;
         };
         // 以DataURL的形式读取文件:
         reader.readAsDataURL(file);
@@ -330,7 +351,7 @@ function goSearch() {
 
 //切换配色
 function changeSkin(skinName, value) {
-    if (getStorage("skin") == value) {
+    if (getStorage("skin") == value && value !== "./css/skin/skin_Transparent.css") {
         openMessage({
             title: "提示",
             type: "error",
