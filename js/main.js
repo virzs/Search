@@ -2,22 +2,25 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-18 16:44:54
+ * @Last Modified time: 2020-01-19 15:49:55
  */
 
 //配置变量
 var url = "./data/index.json"; //json文件路径
 var jsonData = {}; //获取的json文件数据
 var searchEngine = ""; //搜索框左侧选择搜索引擎数据
-var sideBarIconFlag = -1 //侧边栏按钮标记
-var searchFlag = true
-var skin_Transparent = ""
-var commonData = []
+var sideBarIconFlag = -1; //侧边栏按钮标记
+var searchFlag = true;
+var skin_Transparent = "";
+var commonData = [];
+var sugIndex = -1;
+var sugFlag = true;
 
 //获取的DOM元素
 const body = document.querySelector("body");
 const linkTag = document.querySelector("#skinTag");
 const uiTag = document.querySelector("#uiTag");
+const searchContent = document.querySelectorAll(".search-content")[0]
 const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
 const selectOption = document.querySelector("#selectOption"); //搜索引擎数据
 const searchInput = document.querySelector("#search"); //搜索输入框
@@ -150,6 +153,11 @@ document.addEventListener("click", function (e) {
         selectOption.style.display = "none";
         searchFlag = !searchFlag
     }
+
+    if (e.target !== searchList) {
+        searchList.style.display = "none"
+    }
+
     //判断侧边栏
     if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1) {
         sideBar.className = "moveRight";
@@ -222,43 +230,19 @@ document.onkeydown = function (e) {
     }
 }
 
+searchContent.onkeydown = function (e) {
+    let event = e || event;
+    // 箭头向上 38/箭头向下40
+    // if (event.keyCode == 229) {
+    //     sugFlag = false;
+    // }
+    if (searchList.children.length != 0 && (event.keyCode == 38 || event.keyCode == 40)) {
+        changeSug(event.keyCode)
+    }
+}
+
 searchInput.onkeyup = () => {
-    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
-    let engine = jsonData.engine.find(item => item.value == engineValue);
-    let [href, sugurl] = [engine.href, engine.sugurl];
-    let value = searchInput.value; //获取输入框的值
-    if (value == "") {
-        searchList.innerHTML = "";
-        searchList.style.display = "none";
-        return;
-    }
-    sugurl = sugurl.replace("#content#", value);
-    window.google = {
-        ac: {
-            h: function (json) {
-                sugValue(href, json[1])
-            }
-        }
-    }
-    window.bing = {
-        sug: function (json) {
-            sugValue(href, json.AS.Results[0].Suggests);
-        }
-    }
-    window.baidu = {
-        sug: function (json) {
-            sugValue(href, json.s)
-        }
-    }
-    window.sogou = {
-        sug: function (json) {
-            sugValue(href, json[1])
-        }
-    }
-    let script = document.createElement("script");
-    script.src = sugurl;
-    document.querySelector("head").appendChild(script);
-    document.querySelector("head").removeChild(script);
+    getSugValue(sugFlag);
 }
 
 /*
@@ -638,6 +622,54 @@ function closeMessage(elemt) {
     }
 }
 
+function getSugValue(Flag) {
+    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
+    let engine = jsonData.engine.find(item => item.value == engineValue);
+    let [href, sugurl] = [engine.href, engine.sugurl];
+    let value = searchInput.value; //获取输入框的值
+    if (!Flag) {
+        sugFlag = !sugFlag;
+        return;
+    }
+    if (value == "") {
+        searchList.innerHTML = "";
+        searchList.style.display = "none";
+        return;
+    }
+    sugurl = sugurl.replace("#content#", value);
+    window.google = {
+        ac: {
+            h: function (json) {
+                sugValue(href, json[1])
+            }
+        }
+    }
+    window.bing = {
+        sug: function (json) {
+            let sugList = ""
+            if (json.AS.Results !== undefined && json.AS.Results[0].Suggests !== undefined) {
+                sugList = json.AS.Results[0].Suggests
+            }
+            sugValue(href, sugList);
+        }
+    }
+    window.baidu = {
+        sug: function (json) {
+            sugValue(href, json.s)
+        }
+    }
+    window.sogou = {
+        sug: function (json) {
+            sugValue(href, json[1])
+        }
+    }
+    let script = document.createElement("script");
+    script.src = sugurl;
+    document.querySelector("head").appendChild(script);
+    document.querySelector("head").removeChild(script);
+    sugIndex = -1;
+}
+
 //备选项/智能提示函数
 function sugValue(href, value) {
     let sugList = "";
@@ -655,6 +687,31 @@ function sugValue(href, value) {
     })
     searchList.innerHTML = sugList;
     searchList.style.display = "block";
+}
+
+//选择备选搜索
+function changeSug(keyCode) {
+    sugFlag = false;
+    Array.prototype.forEach.call(searchList.children, (item, index) => {
+        searchList.children[index].className = "";
+    })
+    if (keyCode == 38 && sugIndex >= 0) {
+        sugIndex--;
+    }
+    if (keyCode == 40 && sugIndex <= searchList.children.length) {
+        sugIndex++;
+    }
+    if (sugIndex < 0) {
+        sugIndex = searchList.children.length - 1;
+    }
+    if (sugIndex >= searchList.children.length) {
+        sugIndex = 0;
+    }
+    if (sugIndex == -1) {
+        searchList.children[0].className = "selectSug";
+    }
+    searchList.children[sugIndex].className = "selectSug";
+    searchInput.value = searchList.children[sugIndex].children[0].text;
 }
 
 /*
