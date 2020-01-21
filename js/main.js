@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-19 15:49:55
+ * @Last Modified time: 2020-01-21 14:47:15
  */
 
 //配置变量
@@ -70,6 +70,10 @@ if (skinHref && skinHref !== null) {
 }
 if (uiHref && uiHref !== null) {
     uiTag.href = uiHref;
+}
+//默认设置开启显示常用网址功能
+if (showCommonUse == "undefined" || showCommonUse == undefined) {
+    setStorage("showCommonUse", true);
 }
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
@@ -415,9 +419,9 @@ function changeUI(uiName, value) {
 
 //添加常用书签
 function addCommonUse(name, href, color, status) {
-    if (status.toString() == getStorage("showCommonUse")) {
+    if (status !== undefined && status.toString() == getStorage("showCommonUse")) {
         let info = status ? "开启" : "关闭";
-        let type = status ? "success" : "error";
+        let type = "error";
         openMessage({
             title: "提示",
             type: type,
@@ -446,7 +450,9 @@ function addCommonUse(name, href, color, status) {
         let maxCount = obj2["count"];
         return maxCount - minCount;
     })
-    setCommomUse(commonData, status);
+    if (status !== undefined) {
+        setCommomUse(commonData, status);
+    }
     setStorage("commonUseData", JSON.stringify(commonData));
 }
 
@@ -454,6 +460,7 @@ function addCommonUse(name, href, color, status) {
 function setCommomUse(data, status) {
     let commonHtml = "";
     let display = "";
+    let isShow = (status == undefined) ? true : false;
     if (status !== undefined) {
         setStorage("showCommonUse", status);
     }
@@ -462,7 +469,7 @@ function setCommomUse(data, status) {
             commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`;
         }
     })
-    if (getStorage("showCommonUse") == "true" || getStorage("showCommonUse") == undefined || status == true) {
+    if (getStorage("showCommonUse") == "true" || status == true) {
         display = () => {
             commonUse.style.display = "flex";
         }
@@ -471,8 +478,10 @@ function setCommomUse(data, status) {
             commonUse.style.display = "none";
         }
     }
-    if (status !== undefined) {
+    if (!isShow) {
         setStorageBefore(display);
+    } else if (getStorage("showCommonUse") == "false" && isShow) {
+        commonUse.style.display = "none";
     }
     commonUse.innerHTML = commonHtml;
 }
