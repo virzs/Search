@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-28 11:04:01
+ * @Last Modified time: 2020-01-28 14:39:15
  */
 
 //配置变量
@@ -82,9 +82,9 @@ if (commonUseData && commonUseData !== null) {
     setCommomUse(commonData)
 }
 
-if (userDefaultCommonsStorageData == undefined || JSON.parse(userDefaultCommonsStorageData).length == 0) {
+if (showCommonUse == "custom" && (userDefaultCommonsStorageData == undefined || JSON.parse(userDefaultCommonsStorageData).length == 0)) {
     commonUse.innerHTML = addCommonsData();
-} else {
+} else if (showCommonUse == "custom") {
     userDefaultCommonsData = JSON.parse(userDefaultCommonsStorageData);
     commonsRender();
 }
@@ -430,7 +430,18 @@ function changeUI(uiName, value) {
 function addCommonUse(name, href, color, status) {
     console.log("xxxxxx", status)
     if (status !== undefined && status == getStorage("showCommonUse")) {
-        let info = status ? "开启" : "关闭";
+        let info = "";
+        switch (status) {
+            case "open":
+                info = "开启";
+                break;
+            case "close":
+                info = "关闭";
+                break;
+            case "custom":
+                info = "自定义";
+                break;
+        }
         let type = "error";
         openMessage({
             title: "提示",
@@ -479,18 +490,22 @@ function setCommomUse(data, status) {
             commonHtml += `<div class="commons"><a href="${item.href}" target="_blank" style="color:${item.color}"><div>${item.name.substr(0, 1)}</div><p>${item.name}</p></a></div>`;
         }
     })
-    if (getStorage("showCommonUse") == "true" || status == true) {
+    if (getStorage("showCommonUse") == "open" || status == "open") {
         display = () => {
             commonUse.style.display = "flex";
         }
-    } else {
+    } else if (getStorage("showCommonUse") == "close" || status == "close") {
         display = () => {
             commonUse.style.display = "none";
         }
+    } else {
+        let data = renderUserData();
+        commonUse.innerHTML = data + addCommonsData();
+        return;
     }
     if (!isShow) {
         setStorageBefore(display);
-    } else if (getStorage("showCommonUse") == "false" && isShow) {
+    } else if (getStorage("showCommonUse") == "close" && isShow) {
         commonUse.style.display = "none";
     }
     commonUse.innerHTML = commonHtml;
@@ -743,12 +758,18 @@ function openCommonsAdd() {
 }
 
 //开启设置网址弹窗
-function openCommonSetting(name) {
+function openCommonSetting() {
+    let num = 0;
     let thisCommon = window.event.target.parentNode.parentNode;
-    let pop = document.createElement("div");
-    pop.innerHTML = `<div onclick="commonsChange('${name}')"><i class="fa fa-edit"></i>重命名</div><div onclick="commonsDelete('${name}')"><i class="fa fa-trash-o"></i>删除</div>`;
-    pop.setAttribute("class", "commons-setting");
-    thisCommon.appendChild(pop);
+    let setting = thisCommon.querySelector(".commons-setting");
+    let timer = setInterval(() => {
+        num++;
+        if (num <= 20) {
+            setting.style.opacity = num / 20;
+        } else {
+            clearInterval(timer);
+        }
+    }, 20);
 }
 
 //提交网址
@@ -795,16 +816,21 @@ function commonsDelete(name) {
 function commonsRender(name, url) {
     let data = "";
     if (name !== undefined && url !== undefined) {
-        // data += renderData(name, url);
-        userDefaultCommonsData.forEach((item, index) => {
-            data += renderData(item.name, item.url);
-        })
+        data = renderUserData();
     } else {
-        userDefaultCommonsData.forEach((item, index) => {
-            data += renderData(item.name, item.url);
-        })
+        data = renderUserData();
     }
     commonUse.innerHTML = data + addCommonsData();
+}
+
+//依据数据源渲染
+function renderUserData() {
+    let data = "";
+    userDefaultCommonsData = JSON.parse(userDefaultCommonsStorageData);
+    userDefaultCommonsData.forEach((item, index) => {
+        data += renderData(item.name, item.url);
+    })
+    return data;
 }
 
 //添加网址模板
@@ -814,7 +840,7 @@ function addCommonsData() {
 }
 //自定义网址模板
 function renderData(name, url) {
-    return `<div class="commons"><div class="commons-content"><img src="chrome-search://ntpicon/?size=48@1.250000x&url=${url}"></img><a href="${url}">${name}</a></div><div class="commons-btn" onclick="openCommonSetting('${name}')"><i class="fa fa-ellipsis-h"></i></div></div>`
+    return `<div class="commons"><div class="commons-content"><img src="chrome-search://ntpicon/?size=48@1.250000x&url=${url}"></img><a href="${url}">${name}</a></div><div class="commons-btn" onclick="openCommonSetting('${name}')"><i class="fa fa-ellipsis-h"></i><div class="commons-setting"><div onclick="commonsChange('${name}')"><i class="fa fa-edit"></i>重命名</div><div onclick="commonsDelete('${name}')"><i class="fa fa-trash-o"></i>删除</div></div></div></div>`
 }
 /*
     业务逻辑函数结束
