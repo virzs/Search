@@ -147,43 +147,81 @@ span {
     overflow-y: auto;
     width: 100%;
     border-radius: 8px;
+    overflow: -moz-scrollbars-none;
+}
+
+#searchList::-webkit-scrollbar {
+    width: 0 !important
 }
 
 #searchList li {
+    margin: 5px;
     transition: 0.3s;
     position: relative;
-    line-height: 32px;
     height: 32px;
-    padding-left: 32px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
 }
 
-#searchList li:after{
+#searchList li::before {
     content: "";
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     width: 18px;
     height: 18px;
-    line-height: 18px;
-    text-align: center;
     color: #FFF;
     background: #999999;
-    text-align: center;
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 9px;
+    margin-right: 5px;
 }
 
-#searchList li:first-child:after {content: "1";background: #FD8C84;}
-#searchList li:nth-child(2):after {content: "2";background: #FFCC99;}
-#searchList li:nth-child(3):after {content: "3";background: #7FD75A;}
-#searchList li:nth-child(4):after {content: "4";background: #CCCCFF;}
-#searchList li:nth-child(5):after {content: "5";background: #60C4FD;}
-#searchList li:nth-child(6):after {content: "6";}
-#searchList li:nth-child(7):after {content: "7";}
-#searchList li:nth-child(8):after {content: "8";}
-#searchList li:nth-child(9):after {content: "9";}
-#searchList li:nth-child(10):after {content: "..";}
+#searchList li:first-child:before {
+    content: "1";
+    background: #FD8C84;
+}
+
+#searchList li:nth-child(2):before {
+    content: "2";
+    background: #FFCC99;
+}
+
+#searchList li:nth-child(3):before {
+    content: "3";
+    background: #7FD75A;
+}
+
+#searchList li:nth-child(4):before {
+    content: "4";
+    background: #CCCCFF;
+}
+
+#searchList li:nth-child(5):before {
+    content: "5";
+    background: #60C4FD;
+}
+
+#searchList li:nth-child(6):before {
+    content: "6";
+}
+
+#searchList li:nth-child(7):before {
+    content: "7";
+}
+
+#searchList li:nth-child(8):before {
+    content: "8";
+}
+
+#searchList li:nth-child(9):before {
+    content: "9";
+}
+
+#searchList li:nth-child(10):before {
+    content: "..";
+}
 
 #searchList li a {
     width: 100%;
