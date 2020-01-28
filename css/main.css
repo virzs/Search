@@ -139,24 +139,55 @@ span {
 #searchList {
     display: none;
     box-sizing: border-box;
-    text-align: center;
+    text-align: left;
     position: absolute;
     top: 50px;
     max-width: 682px;
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
     width: 100%;
     border-radius: 8px;
 }
 
 #searchList li {
-    margin: 5px;
     transition: 0.3s;
+    position: relative;
+    line-height: 32px;
+    height: 32px;
+    padding-left: 32px;
 }
 
+#searchList li:after{
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    color: #FFF;
+    background: #999999;
+    text-align: center;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-size: 14px;
+    border-radius: 9px;
+}
+
+#searchList li:first-child:after {content: "1";background: #FD8C84;}
+#searchList li:nth-child(2):after {content: "2";background: #FFCC99;}
+#searchList li:nth-child(3):after {content: "3";background: #7FD75A;}
+#searchList li:nth-child(4):after {content: "4";background: #CCCCFF;}
+#searchList li:nth-child(5):after {content: "5";background: #60C4FD;}
+#searchList li:nth-child(6):after {content: "6";}
+#searchList li:nth-child(7):after {content: "7";}
+#searchList li:nth-child(8):after {content: "8";}
+#searchList li:nth-child(9):after {content: "9";}
+#searchList li:nth-child(10):after {content: "..";}
+
 #searchList li a {
-    display: block;
     width: 100%;
+    font-size: 14px;
 }
 
 .poetry {
