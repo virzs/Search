@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-21 14:47:15
+ * @Last Modified time: 2020-01-28 11:04:01
  */
 
 //配置变量
@@ -10,13 +10,14 @@ var url = "./data/index.json"; //json文件路径
 var jsonData = {}; //获取的json文件数据
 var searchEngine = ""; //搜索框左侧选择搜索引擎数据
 var sideBarIconFlag = -1; //侧边栏按钮标记
-var searchFlag = true;
-var skin_Transparent = "";
-var commonData = [];
-var sugIndex = -1;
-var sugFlag = true;
+var searchFlag = true; //搜索引标记
+var skin_Transparent = ""; //透明皮肤数据
+var commonData = []; //常用网址数据
+var sugIndex = -1; //备选项下标
+var sugFlag = true; //备选项标记
+var userDefaultCommonsData = []; //用户自定义网址数据
 
-//获取的DOM元素
+//获取的DOM元素/全局静态DOM元素
 const body = document.querySelector("body");
 const linkTag = document.querySelector("#skinTag");
 const uiTag = document.querySelector("#uiTag");
@@ -43,6 +44,7 @@ const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
+const userDefaultCommonsStorageData = getStorage("userDefaultCommonsData")
 
 
 /*
@@ -73,11 +75,18 @@ if (uiHref && uiHref !== null) {
 }
 //默认设置开启显示常用网址功能
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
-    setStorage("showCommonUse", true);
+    setStorage("showCommonUse", "open");
 }
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
     setCommomUse(commonData)
+}
+
+if (userDefaultCommonsStorageData == undefined || JSON.parse(userDefaultCommonsStorageData).length == 0) {
+    commonUse.innerHTML = addCommonsData();
+} else {
+    userDefaultCommonsData = JSON.parse(userDefaultCommonsStorageData);
+    commonsRender();
 }
 
 //拼接搜索栏左侧选择引擎
@@ -419,7 +428,8 @@ function changeUI(uiName, value) {
 
 //添加常用书签
 function addCommonUse(name, href, color, status) {
-    if (status !== undefined && status.toString() == getStorage("showCommonUse")) {
+    console.log("xxxxxx", status)
+    if (status !== undefined && status == getStorage("showCommonUse")) {
         let info = status ? "开启" : "关闭";
         let type = "error";
         openMessage({
@@ -430,14 +440,14 @@ function addCommonUse(name, href, color, status) {
         return;
     }
     let recent = commonData.find(item => item.name == name)
-    if (recent == undefined && typeof status !== 'boolean') {
+    if (recent == undefined) {
         commonData.push({
             "name": name,
             "href": href,
             "color": color,
             "count": 1
         })
-    } else if (typeof status !== 'boolean') {
+    } else {
         commonData.forEach(item => {
             if (item.name == recent.name) {
                 item.count += 1;
@@ -524,7 +534,7 @@ function createHtml(inner) {
         sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "changeCommonUse") {
-        sideBarHtml += `<div onclick="addCommonUse('','','',${inner.value})" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
+        sideBarHtml += `<div onclick="addCommonUse('','','','${inner.value}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "thanks") {
         sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`;
@@ -723,6 +733,89 @@ function changeSug(keyCode) {
     searchInput.value = searchList.children[sugIndex].children[0].text;
 }
 
+//开启添加网址弹窗
+function openCommonsAdd() {
+    let commonsAdd = document.querySelectorAll(".commons");
+    let template = document.createElement("div");
+    template.innerHTML = `<div>添加常用网址</div><div><span>名称</span><input id="commonName" placeholder="请输入名称" /></div><div><span>URL</span><input id="commonUrl" placeholder="请输入URL" /></div><div><button onclick="commonsCancel()">取消</button><button onclick="commonsSubmit()">确定</button></div>`
+    template.setAttribute("class", "commons-add");
+    commonsAdd[commonsAdd.length - 1].appendChild(template);
+}
+
+//开启设置网址弹窗
+function openCommonSetting(name) {
+    let thisCommon = window.event.target.parentNode.parentNode;
+    let pop = document.createElement("div");
+    pop.innerHTML = `<div onclick="commonsChange('${name}')"><i class="fa fa-edit"></i>重命名</div><div onclick="commonsDelete('${name}')"><i class="fa fa-trash-o"></i>删除</div>`;
+    pop.setAttribute("class", "commons-setting");
+    thisCommon.appendChild(pop);
+}
+
+//提交网址
+function commonsSubmit() {
+    let commonName = document.querySelector("#commonName");
+    let commonUrl = document.querySelector("#commonUrl");
+    if (commonName.value == "" || commonUrl.value == "") {
+        openMessage({
+            title: "提示",
+            type: "error",
+            content: `名称或URL不能为空！！！`
+        })
+        return;
+    }
+    userDefaultCommonsData.push({
+        name: commonName.value,
+        url: commonUrl.value
+    });
+    setStorage("userDefaultCommonsData", JSON.stringify(userDefaultCommonsData));
+    commonsRender(commonName.value, commonUrl.value);
+}
+
+//取消添加网址弹窗
+function commonsCancel() {
+    let commonName = document.querySelector("#commonName");
+    let commonUrl = document.querySelector("#commonUrl");
+    commonName.value = "", commonUrl.value = "";
+}
+
+//修改网址
+function commonsChange(name) {
+    console.log("重命名", name);
+}
+
+//删除网址
+function commonsDelete(name) {
+    let deleteData = userDefaultCommonsData.findIndex(item => item.name == name);
+    userDefaultCommonsData.splice(deleteData, 1);
+    setStorage("userDefaultCommonsData", JSON.stringify(userDefaultCommonsData));
+    commonsRender();
+}
+
+//渲染自定义网址数据
+function commonsRender(name, url) {
+    let data = "";
+    if (name !== undefined && url !== undefined) {
+        // data += renderData(name, url);
+        userDefaultCommonsData.forEach((item, index) => {
+            data += renderData(item.name, item.url);
+        })
+    } else {
+        userDefaultCommonsData.forEach((item, index) => {
+            data += renderData(item.name, item.url);
+        })
+    }
+    commonUse.innerHTML = data + addCommonsData();
+}
+
+//添加网址模板
+function addCommonsData() {
+    return `<div class="commons"><div class="commons-addbtn" onclick="openCommonsAdd()"><i class="fa fa-plus"></i></div>
+</div>`
+}
+//自定义网址模板
+function renderData(name, url) {
+    return `<div class="commons"><div class="commons-content"><img src="chrome-search://ntpicon/?size=48@1.250000x&url=${url}"></img><a href="${url}">${name}</a></div><div class="commons-btn" onclick="openCommonSetting('${name}')"><i class="fa fa-ellipsis-h"></i></div></div>`
+}
 /*
     业务逻辑函数结束
  */
