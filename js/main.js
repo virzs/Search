@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-28 14:39:15
+ * @Last Modified time: 2020-01-28 15:29:54
  */
 
 //配置变量
@@ -499,16 +499,20 @@ function setCommomUse(data, status) {
             commonUse.style.display = "none";
         }
     } else {
-        let data = renderUserData();
-        commonUse.innerHTML = data + addCommonsData();
-        return;
+        display = () => {
+            commonUse.style.display = "flex";
+        }
     }
     if (!isShow) {
         setStorageBefore(display);
     } else if (getStorage("showCommonUse") == "close" && isShow) {
         commonUse.style.display = "none";
     }
-    commonUse.innerHTML = commonHtml;
+    if (getStorage("showCommonUse") == "custom") {
+        commonUse.innerHTML = renderUserData() + addCommonsData();
+    } else {
+        commonUse.innerHTML = commonHtml;
+    }
 }
 
 //创建书签数据

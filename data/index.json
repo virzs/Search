@@ -31,6 +31,14 @@
         "icon": "./img/engineLogo/sougou.ico",
         "show": true,
         "select": ""
+    }, {
+        "name": "Magi",
+        "value": "magi",
+        "href": "https://magi.com/search?q=",
+        "sugurl": "",
+        "icon": "",
+        "show": true,
+        "select": ""
     }],
     "sideBar": {
         "content": [{
@@ -482,7 +490,7 @@
                     "icon": "",
                     "show": true,
                     "content": ""
-                },{
+                }, {
                     "name": "自定义",
                     "value": "custom",
                     "type": "changeCommonUse",
