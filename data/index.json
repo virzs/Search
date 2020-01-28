@@ -466,7 +466,7 @@
                 "show": true,
                 "content": [{
                     "name": "开启",
-                    "value": true,
+                    "value": "open",
                     "type": "changeCommonUse",
                     "href": "",
                     "color": "",
@@ -475,7 +475,16 @@
                     "content": ""
                 }, {
                     "name": "关闭",
-                    "value": false,
+                    "value": "close",
+                    "type": "changeCommonUse",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                },{
+                    "name": "自定义",
+                    "value": "custom",
                     "type": "changeCommonUse",
                     "href": "",
                     "color": "",
