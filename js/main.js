@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-28 15:29:54
+ * @Last Modified time: 2020-01-29 10:06:50
  */
 
 //配置变量
@@ -428,7 +428,6 @@ function changeUI(uiName, value) {
 
 //添加常用书签
 function addCommonUse(name, href, color, status) {
-    console.log("xxxxxx", status)
     if (status !== undefined && status == getStorage("showCommonUse")) {
         let info = "";
         switch (status) {
@@ -451,14 +450,14 @@ function addCommonUse(name, href, color, status) {
         return;
     }
     let recent = commonData.find(item => item.name == name)
-    if (recent == undefined) {
+    if (recent == undefined && status == undefined) {
         commonData.push({
             "name": name,
             "href": href,
             "color": color,
             "count": 1
         })
-    } else {
+    } else if (status == undefined) {
         commonData.forEach(item => {
             if (item.name == recent.name) {
                 item.count += 1;
@@ -471,9 +470,7 @@ function addCommonUse(name, href, color, status) {
         let maxCount = obj2["count"];
         return maxCount - minCount;
     })
-    if (status !== undefined) {
-        setCommomUse(commonData, status);
-    }
+    setCommomUse(commonData, status);
     setStorage("commonUseData", JSON.stringify(commonData));
 }
 
@@ -481,7 +478,7 @@ function addCommonUse(name, href, color, status) {
 function setCommomUse(data, status) {
     let commonHtml = "";
     let display = "";
-    let isShow = (status == undefined) ? true : false;
+    let isShow = (status !== undefined) ? true : false;
     if (status !== undefined) {
         setStorage("showCommonUse", status);
     }
@@ -503,16 +500,16 @@ function setCommomUse(data, status) {
             commonUse.style.display = "flex";
         }
     }
-    if (!isShow) {
+    if (isShow) {
+        commonUse.style.display = "none";
         setStorageBefore(display);
-    } else if (getStorage("showCommonUse") == "close" && isShow) {
+    } else if (getStorage("showCommonUse") == "close" && !isShow) {
         commonUse.style.display = "none";
     }
     if (getStorage("showCommonUse") == "custom") {
-        commonUse.innerHTML = renderUserData() + addCommonsData();
-    } else {
-        commonUse.innerHTML = commonHtml;
+        commonHtml = renderUserData() + addCommonsData();
     }
+    commonUse.innerHTML = commonHtml;
 }
 
 //创建书签数据
@@ -788,6 +785,9 @@ function commonsSubmit() {
         })
         return;
     }
+    if (userDefaultCommonsData == null) {
+        userDefaultCommonsData = [];
+    }
     userDefaultCommonsData.push({
         name: commonName.value,
         url: commonUrl.value
@@ -830,10 +830,12 @@ function commonsRender(name, url) {
 //依据数据源渲染
 function renderUserData() {
     let data = "";
-    userDefaultCommonsData = JSON.parse(userDefaultCommonsStorageData);
-    userDefaultCommonsData.forEach((item, index) => {
-        data += renderData(item.name, item.url);
-    })
+    if (userDefaultCommonsData !== null) {
+        userDefaultCommonsData.forEach((item, index) => {
+            data += renderData(item.name, item.url);
+        })
+    }
+    console.log(data)
     return data;
 }
 
