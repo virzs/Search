@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-29 10:06:50
+ * @Last Modified time: 2020-01-29 10:08:58
  */
 
 //配置变量
@@ -835,7 +835,6 @@ function renderUserData() {
             data += renderData(item.name, item.url);
         })
     }
-    console.log(data)
     return data;
 }
 
