@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-29 10:08:58
+ * @Last Modified time: 2020-01-29 11:56:24
  */
 
 //配置变量
@@ -751,11 +751,12 @@ function changeSug(keyCode) {
 
 //开启添加网址弹窗
 function openCommonsAdd() {
-    let commonsAdd = document.querySelectorAll(".commons");
-    let template = document.createElement("div");
-    template.innerHTML = `<div>添加常用网址</div><div><span>名称</span><input id="commonName" placeholder="请输入名称" /></div><div><span>URL</span><input id="commonUrl" placeholder="请输入URL" /></div><div><button onclick="commonsCancel()">取消</button><button onclick="commonsSubmit()">确定</button></div>`
-    template.setAttribute("class", "commons-add");
-    commonsAdd[commonsAdd.length - 1].appendChild(template);
+    let thisCommon = window.event.target.parentNode.parentNode;
+    let addPop = thisCommon.querySelector(".commons-add");
+    if (addPop !== null) {
+        addPop.style.display = "block";
+        addPop.style.opacity = 1;
+    }
 }
 
 //开启设置网址弹窗
@@ -763,18 +764,16 @@ function openCommonSetting() {
     let num = 0;
     let thisCommon = window.event.target.parentNode.parentNode;
     let setting = thisCommon.querySelector(".commons-setting");
-    let timer = setInterval(() => {
-        num++;
-        if (num <= 20) {
-            setting.style.opacity = num / 20;
-        } else {
-            clearInterval(timer);
-        }
-    }, 20);
+    if (thisCommon !== null) {
+        setting.style.display = "block";
+        setting.style.opacity = 1;
+    }
 }
 
 //提交网址
 function commonsSubmit() {
+    stopPropagation();
+    let thisCommon = window.event.target.parentNode.parentNode;
     let commonName = document.querySelector("#commonName");
     let commonUrl = document.querySelector("#commonUrl");
     if (commonName.value == "" || commonUrl.value == "") {
@@ -794,13 +793,19 @@ function commonsSubmit() {
     });
     setStorage("userDefaultCommonsData", JSON.stringify(userDefaultCommonsData));
     commonsRender(commonName.value, commonUrl.value);
+    thisCommon.style.display = "none";
+    thisCommon.style.opacity = 0;
 }
 
 //取消添加网址弹窗
 function commonsCancel() {
+    stopPropagation();
+    let thisCommon = window.event.target.parentNode.parentNode;
     let commonName = document.querySelector("#commonName");
     let commonUrl = document.querySelector("#commonUrl");
     commonName.value = "", commonUrl.value = "";
+    thisCommon.style.display = "none";
+    thisCommon.style.opacity = 0;
 }
 
 //修改网址
@@ -840,7 +845,7 @@ function renderUserData() {
 
 //添加网址模板
 function addCommonsData() {
-    return `<div class="commons"><div class="commons-addbtn" onclick="openCommonsAdd()"><i class="fa fa-plus"></i></div>
+    return `<div class="commons"><div class="commons-addbtn" onclick="openCommonsAdd()"><i class="fa fa-plus"></i><div class="commons-add"><div>添加常用网址</div><div><span>名称</span><input id="commonName" placeholder="请输入名称" /></div><div><span>URL</span><input id="commonUrl" placeholder="请输入URL" /></div><div><button onclick="commonsCancel()">取消</button><button onclick="commonsSubmit()">确定</button></div></div></div>
 </div>`
 }
 //自定义网址模板
