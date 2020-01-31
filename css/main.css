@@ -411,6 +411,7 @@ span {
     width: 24px;
     height: 24px;
     margin-top: 8px;
+    border-radius: 4px;
 }
 
 .commons-content a {
@@ -430,6 +431,15 @@ span {
     color: #2B2B2B;
 }
 
+.commons-content a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 .commons-btn {
     display: flex;
     align-items: center;
@@ -443,12 +453,16 @@ span {
     padding: 0;
     transition: all 0.2s ease-in-out;
     z-index: 2;
-    opacity: 1;
+    opacity: 0;
     cursor: pointer;
     right: 4px;
     border: 2px solid transparent;
     border-radius: 2px;
     fill: #2B2B2B;
+}
+
+.commons-btn:hover {
+    opacity: 1;
 }
 
 .commons-addbtn {
@@ -483,7 +497,6 @@ span {
     text-align: left;
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .commons-add span {
@@ -506,6 +519,7 @@ span {
     border: 0;
     border-radius: 3px;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+    transition: 0.3s;
 }
 
 .commons-add button:nth-child(1) {
@@ -522,6 +536,18 @@ span {
 
 .commons-add button:nth-child(2):hover {
     background: rgb(79, 190, 255);
+}
+
+.commons .close-commons-add {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    transition: 0.3s;
+}
+
+.commons .close-commons-add:hover {
+    color: #8F8F8F;
 }
 
 .commons a {
