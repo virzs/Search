@@ -490,15 +490,6 @@
                     "icon": "",
                     "show": true,
                     "content": ""
-                }, {
-                    "name": "自定义",
-                    "value": "custom",
-                    "type": "changeCommonUse",
-                    "href": "",
-                    "color": "",
-                    "icon": "",
-                    "show": true,
-                    "content": ""
                 }]
             }, {
                 "name": "关于",
