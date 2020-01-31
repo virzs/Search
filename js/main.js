@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-31 11:06:19
+ * @Last Modified time: 2020-01-31 11:33:37
  */
 
 //配置变量
@@ -15,7 +15,6 @@ var skin_Transparent = ""; //透明皮肤数据
 var commonData = []; //常用网址数据
 var sugIndex = -1; //备选项下标
 var sugFlag = true; //备选项标记
-var userDefaultCommonsData = []; //用户自定义网址数据
 var userDefaultCommonsAddPop = "";
 
 //获取的DOM元素/全局静态DOM元素
@@ -45,7 +44,6 @@ const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
-const userDefaultCommonsStorageData = getStorage("userDefaultCommonsData")
 
 
 /*
@@ -81,15 +79,6 @@ if (showCommonUse == "undefined" || showCommonUse == undefined) {
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
     setCommomUse(commonData)
-}
-
-if (userDefaultCommonsStorageData !== undefined || userDefaultCommonsStorageData !== null) {
-    userDefaultCommonsData = JSON.parse(userDefaultCommonsStorageData);
-}
-if (showCommonUse == "custom" && (userDefaultCommonsStorageData == undefined || JSON.parse(userDefaultCommonsStorageData).length == 0)) {
-    commonUse.innerHTML = addCommonsData();
-} else if (showCommonUse == "custom") {
-    commonsRender();
 }
 
 //拼接搜索栏左侧选择引擎
@@ -440,7 +429,12 @@ function changeUI(uiName, value) {
 
 //添加常用书签
 function addCommonUse(name, href, color, status, defined) {
-    let data = {};
+    let data = {
+        "name": name,
+        "href": href,
+        "color": color,
+        "count": 1,
+    };
     if (status !== undefined && status == getStorage("showCommonUse")) {
         let info = "";
         switch (status) {
@@ -463,24 +457,14 @@ function addCommonUse(name, href, color, status, defined) {
         return;
     }
     if (defined) {
-        data = {
-            "name": name,
-            "href": href,
-            "color": color,
-            "count": 100000,
-        }
+        data.count = 100000;
     } else {
-        data = {
-            "name": name,
-            "href": href,
-            "color": color,
-            "count": 1,
-        }
+        data.count = 1;
     }
     let recent = commonData.find(item => item.name == name)
     if (recent == undefined && status == undefined) {
         commonData.push(data)
-    } else if (status == undefined) {
+    } else if (status == undefined && recent.count < 100000) {
         commonData.forEach(item => {
             if (item.name == recent.name) {
                 item.count += 1;
@@ -508,7 +492,7 @@ function setCommomUse(data, status) {
     data.forEach((item, index) => {
         if (index < 7) {
             // commonHtml += `<div class="commons"><div class="commons-content"><div>${item.name.substr(0, 1)}</div><a href="${item.href}" target="_blank" style="color:${item.color}">${item.name}</a></div></div>`;
-            commonHtml += renderData(item.name, item.href);
+            commonHtml += renderData(item.name, item.href, item.color);
         }
     })
     if (getStorage("showCommonUse") == "open" || status == "open") {
@@ -830,10 +814,11 @@ function commonsChange(name) {
 
 //删除网址
 function commonsDelete(name) {
-    let deleteData = userDefaultCommonsData.findIndex(item => item.name == name);
-    userDefaultCommonsData.splice(deleteData, 1);
-    setStorage("userDefaultCommonsData", JSON.stringify(userDefaultCommonsData));
-    commonsRender();
+    let data = JSON.parse(getStorage("commonUseData"));
+    let deleteData = data.findIndex(item => item.name == name);
+    data.splice(deleteData, 1);
+    setStorage("commonUseData", JSON.stringify(data));
+    setCommomUse(JSON.parse(getStorage("commonUseData")));
 }
 
 //添加网址模板
@@ -842,8 +827,8 @@ function addCommonsData() {
 </div>`
 }
 //自定义网址模板
-function renderData(name, url) {
-    return `<div class="commons"><div class="commons-content"><img src="https://favicon.link/${url}"></img><a href="${url}" target="_blank">${name}</a></div><div class="commons-btn" onclick="openCommonSetting('${name}')"><i class="fa fa-ellipsis-h"></i><div class="commons-setting"><div onclick="commonsChange('${name}')"><i class="fa fa-edit"></i>重命名</div><div onclick="commonsDelete('${name}')"><i class="fa fa-trash-o"></i>删除</div></div></div></div>`
+function renderData(name, url, color) {
+    return `<div class="commons"><div class="commons-content"><img src="https://favicon.link/${url}"></img><a style="color:${color};" href="${url}" target="_blank">${name}</a></div><div class="commons-btn" onclick="openCommonSetting('${name}')"><i class="fa fa-ellipsis-h"></i><div class="commons-setting"><div onclick="commonsChange('${name}')"><i class="fa fa-edit"></i>重命名</div><div onclick="commonsDelete('${name}')"><i class="fa fa-trash-o"></i>删除</div></div></div></div>`
 }
 /*
     业务逻辑函数结束
