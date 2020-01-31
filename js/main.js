@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-31 11:33:37
+ * @Last Modified time: 2020-01-31 11:57:07
  */
 
 //配置变量
@@ -15,7 +15,6 @@ var skin_Transparent = ""; //透明皮肤数据
 var commonData = []; //常用网址数据
 var sugIndex = -1; //备选项下标
 var sugFlag = true; //备选项标记
-var userDefaultCommonsAddPop = "";
 
 //获取的DOM元素/全局静态DOM元素
 const body = document.querySelector("body");
@@ -800,11 +799,12 @@ function commonsSubmit() {
 
 //取消添加网址弹窗
 function commonsCancel() {
+    let thisCommon = window.event.target.parentNode.parentNode;
     let commonName = document.querySelector("#commonName");
     let commonUrl = document.querySelector("#commonUrl");
     commonName.value = "", commonUrl.value = "";
-    userDefaultCommonsAddPop.style.display = "none";
-    userDefaultCommonsAddPop.style.opacity = 0;
+    thisCommon.style.display = "none";
+    thisCommon.style.opacity = 0;
 }
 
 //修改网址
