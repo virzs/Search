@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-31 11:57:07
+ * @Last Modified time: 2020-01-31 19:13:32
  */
 
 //配置变量
@@ -443,9 +443,6 @@ function addCommonUse(name, href, color, status, defined) {
             case "close":
                 info = "关闭";
                 break;
-            case "custom":
-                info = "自定义";
-                break;
         }
         let type = "error";
         openMessage({
@@ -460,9 +457,9 @@ function addCommonUse(name, href, color, status, defined) {
     } else {
         data.count = 1;
     }
-    let recent = commonData.find(item => item.name == name)
+    let recent = commonData.find(item => item.name == name);
     if (recent == undefined && status == undefined) {
-        commonData.push(data)
+        commonData.push(data);
     } else if (status == undefined && recent.count < 100000) {
         commonData.forEach(item => {
             if (item.name == recent.name) {
@@ -490,7 +487,6 @@ function setCommomUse(data, status) {
     }
     data.forEach((item, index) => {
         if (index < 7) {
-            // commonHtml += `<div class="commons"><div class="commons-content"><div>${item.name.substr(0, 1)}</div><a href="${item.href}" target="_blank" style="color:${item.color}">${item.name}</a></div></div>`;
             commonHtml += renderData(item.name, item.href, item.color);
         }
     })
@@ -502,13 +498,8 @@ function setCommomUse(data, status) {
         display = () => {
             commonUse.style.display = "none";
         }
-    } else {
-        display = () => {
-            commonUse.style.display = "flex";
-        }
     }
     if (isShow) {
-        commonUse.style.display = "none";
         setStorageBefore(display);
     } else if (getStorage("showCommonUse") == "close" && !isShow) {
         commonUse.style.display = "none";
