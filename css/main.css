@@ -141,6 +141,7 @@ span {
     box-sizing: border-box;
     text-align: left;
     position: absolute;
+    z-index: 1000;
     top: 50px;
     max-width: 682px;
     max-height: 350px;
@@ -229,7 +230,7 @@ span {
 }
 
 .poetry {
-    margin: 10px 0;
+    margin: 30px 0;
     box-sizing: border-box;
     width: 40%;
     height: 48px;
@@ -411,6 +412,7 @@ span {
     width: 24px;
     height: 24px;
     margin-top: 8px;
+    border-radius: 4px;
 }
 
 .commons-content a {
@@ -430,6 +432,15 @@ span {
     color: #2B2B2B;
 }
 
+.commons-content a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 .commons-btn {
     display: flex;
     align-items: center;
@@ -443,12 +454,16 @@ span {
     padding: 0;
     transition: all 0.2s ease-in-out;
     z-index: 2;
-    opacity: 1;
+    opacity: 0;
     cursor: pointer;
     right: 4px;
     border: 2px solid transparent;
     border-radius: 2px;
     fill: #2B2B2B;
+}
+
+.commons-btn:hover {
+    opacity: 1;
 }
 
 .commons-addbtn {
@@ -461,13 +476,17 @@ span {
 }
 
 .commons-add {
+    display: none;
+    opacity: 0;
     position: absolute;
     top: 0;
+    left: 0;
     background: #fff;
     padding: 2px 10px;
     width: 200px;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
     border-radius: 5px !important;
+    text-align: right;
 }
 
 .commons-add div {
@@ -476,19 +495,66 @@ span {
 }
 
 .commons-add div:nth-child(1) {
+    text-align: left;
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 10px;
+}
+
+.commons-add div:nth-child(2),
+.commons-add div:nth-child(3) {
+    display: flex;
+    justify-content: space-around;
 }
 
 .commons-add span {
+    text-align: left;
     display: inline-block;
     width: 25%;
 }
 
 .commons-add input {
+    text-align: left;
     display: inline-block;
     width: 75%;
+}
+
+.commons-add button {
+    box-sizing: border-box;
+    width: 40px;
+    height: 20px;
+    margin: 2px;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+    transition: 0.3s;
+}
+
+.commons-add button:nth-child(1) {
+    background: #f8f9fa;
+}
+
+.commons-add button:nth-child(2) {
+    background: #60C4FD;
+}
+
+.commons-add button:nth-child(1):hover {
+    background: #f6faff;
+}
+
+.commons-add button:nth-child(2):hover {
+    background: rgb(79, 190, 255);
+}
+
+.commons .close-commons-add {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    transition: 0.3s;
+}
+
+.commons .close-commons-add:hover {
+    color: #8F8F8F;
 }
 
 .commons a {
@@ -501,6 +567,7 @@ span {
 }
 
 .commons-setting {
+    display: none;
     opacity: 0;
     position: absolute;
     padding: 2px 10px;
@@ -523,6 +590,76 @@ span {
     width: 16px;
     height: 16px;
     margin-right: 10px;
+}
+
+.commons-change {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 30px;
+    left: 90px;
+    background: #fff;
+    padding: 2px 10px;
+    width: 200px;
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+    border-radius: 5px !important;
+    text-align: right;
+    z-index: 500;
+}
+
+.commons-change div {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.commons-change div:nth-child(1) {
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.commons-change div:nth-child(2) {
+    display: flex;
+    justify-content: space-around;
+}
+
+.commons-change span {
+    text-align: left;
+    display: inline-block;
+    width: 25%;
+}
+
+.commons-change input {
+    text-align: left;
+    display: inline-block;
+    width: 75%;
+}
+
+.commons-change button {
+    box-sizing: border-box;
+    width: 40px;
+    height: 20px;
+    margin: 2px;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+    transition: 0.3s;
+}
+
+.commons-change button:nth-child(1) {
+    background: #f8f9fa;
+}
+
+.commons-change button:nth-child(2) {
+    background: #60C4FD;
+}
+
+.commons-change button:nth-child(1):hover {
+    background: #f6faff;
+}
+
+.commons-change button:nth-child(2):hover {
+    background: rgb(79, 190, 255);
 }
 
 #copyright {
