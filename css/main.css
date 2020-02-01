@@ -62,7 +62,7 @@ span {
 
 .search-group {
     position: relative;
-    max-width: 682px;
+    max-width: 760px;
     width: 100%;
     display: flex;
     z-index: 30;
@@ -143,7 +143,7 @@ span {
     position: absolute;
     z-index: 1000;
     top: 50px;
-    max-width: 682px;
+    max-width: 760px;
     max-height: 350px;
     overflow-y: auto;
     width: 100%;
@@ -384,7 +384,7 @@ span {
 }
 
 .commons {
-    margin: 0 5px;
+    margin: 5px;
     position: relative;
     width: 120px;
     height: 90px;
@@ -861,5 +861,17 @@ span {
 
     20% {
         transform: scaleY(1)
+    }
+}
+
+@media (max-width:768px) {
+    #commonUse {
+        margin: 0;
+    }
+
+    .commons {
+        width: 108px;
+        height: 90px;
+        margin: 3px;
     }
 }
