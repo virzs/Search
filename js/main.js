@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-01-31 19:13:32
+ * @Last Modified time: 2020-02-01 12:26:31
  */
 
 //配置变量
@@ -35,7 +35,7 @@ const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor"); //诗词�
 const jinrishiciTitle = document.querySelector("#jinrishiciTitle"); //诗词名
 const copyright = document.querySelector("#copyright"); //版权说明
 const loading = document.querySelector("#loading");
-const messageList = document.querySelector("#messageList")
+const messageList = document.querySelector("#messageList");
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -166,11 +166,6 @@ document.addEventListener("click", function (e) {
     if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1) {
         sideBar.className = "moveRight";
         sideBarIconFlag = -1;
-    }
-
-    if (e.target !== userDefaultCommonsAddPop && userDefaultCommonsAddPop !== "" && e.target !== userDefaultCommonsAddPop.parentNode) {
-        userDefaultCommonsAddPop.style.display = "none";
-        userDefaultCommonsAddPop.style.opacity = 0;
     }
 });
 
@@ -769,9 +764,9 @@ function openCommonSetting() {
 //提交网址
 function commonsSubmit() {
     stopPropagation();
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let commonName = document.querySelector("#commonName");
-    let commonUrl = document.querySelector("#commonUrl");
+    let thisCommon = document.querySelector(".commons-add");
+    let commonName = thisCommon.querySelector(".commonName");
+    let commonUrl = thisCommon.querySelector(".commonUrl");
     if (commonName.value == "" || commonUrl.value == "") {
         openMessage({
             title: "提示",
@@ -790,17 +785,52 @@ function commonsSubmit() {
 
 //取消添加网址弹窗
 function commonsCancel() {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let commonName = document.querySelector("#commonName");
-    let commonUrl = document.querySelector("#commonUrl");
+    let thisCommon = document.querySelector(".commons-add");
+    let commonName = thisCommon.querySelector(".commonName");
+    let commonUrl = thisCommon.querySelector(".commonUrl");
     commonName.value = "", commonUrl.value = "";
     thisCommon.style.display = "none";
     thisCommon.style.opacity = 0;
 }
 
 //修改网址
-function commonsChange(name) {
-    console.log("重命名", name);
+function openCommonsChange() {
+    let thisCommon = window.event.target.parentNode.parentNode;
+    let thisSetting = thisCommon.querySelector(".commons-setting");
+    let thisChange = thisCommon.querySelector(".commons-change");
+    thisSetting.style.display = "none";
+    thisSetting.style.opacity = 0;
+    thisChange.style.display = "block";
+    thisChange.style.opacity = 1;
+}
+
+function commonsChangeCancel() {
+    let thisChange = document.querySelector(".commons-change");
+    let commonName = thisChange.querySelector(".commonName");
+    commonName.value = "";
+    thisChange.style.display = "none";
+    thisChange.style.opacity = 0;
+}
+
+function commonsChangeSubmit(name) {
+    let thisCommon = window.event.target.parentNode.parentNode;
+    let commonName = thisCommon.querySelector(".commonName");
+    let changeData = commonData.find(item => item.name == name);
+    changeData.name = commonName.value;
+    commonData.forEach(item => {
+        if (item.href == changeData.href) {
+            item = changeData;
+            item.count = 100000;
+            return;
+        }
+    })
+    commonData.sort(function (obj1, obj2) {
+        let minCount = obj1["count"];
+        let maxCount = obj2["count"];
+        return maxCount - minCount;
+    })
+    setStorage("commonUseData", JSON.stringify(commonData));
+    setCommomUse(JSON.parse(getStorage("commonUseData")));
 }
 
 //删除网址
@@ -814,12 +844,67 @@ function commonsDelete(name) {
 
 //添加网址模板
 function addCommonsData() {
-    return `<div class="commons"><div class="commons-addbtn" onclick="openCommonsAdd()"><i class="fa fa-plus"></i><div class="commons-add"><div>添加常用网址<div class="close-commons-add" onclick="commonsCancel()"><i class="fa fa-close"></i></div></div><div><span>名称</span><input id="commonName" placeholder="请输入名称" /></div><div><span>URL</span><input id="commonUrl" placeholder="请输入URL" /></div><div><button onclick="commonsCancel()">取消</button><button onclick="commonsSubmit()">确定</button></div></div></div>
-</div>`
+    return `
+    <div class="commons">
+        <div class="commons-addbtn" onclick="openCommonsAdd()">
+            <i class="fa fa-plus"></i>
+        </div>
+        <div class="commons-add">
+            <div>添加常用网址
+                <div class="close-commons-add" onclick="commonsCancel()">
+                    <i class="fa fa-close"></i>
+                </div>
+            </div>
+            <div>
+                <span>名称</span>
+                <input class="commonName" placeholder="请输入名称" />
+            </div>
+            <div>
+                <span>URL</span>
+                <input class="commonUrl" placeholder="请输入URL" />
+            </div>
+            <div>
+                <button onclick="commonsCancel()">取消</button>
+                <button onclick="commonsSubmit()">确定</button>
+            </div>
+        </div>
+    </div>`
 }
 //自定义网址模板
 function renderData(name, url, color) {
-    return `<div class="commons"><div class="commons-content"><img src="https://favicon.link/${url}"></img><a style="color:${color};" href="${url}" target="_blank">${name}</a></div><div class="commons-btn" onclick="openCommonSetting('${name}')"><i class="fa fa-ellipsis-h"></i><div class="commons-setting"><div onclick="commonsChange('${name}')"><i class="fa fa-edit"></i>重命名</div><div onclick="commonsDelete('${name}')"><i class="fa fa-trash-o"></i>删除</div></div></div></div>`
+    return `
+    <div class="commons">
+        <div class="commons-content">
+            <img src="https://favicon.link/${url}"></img>
+            <a style="color:${color};" href="${url}" target="_blank">${name}</a>
+        </div>
+        <div class="commons-btn" onclick="openCommonSetting('${name}')">
+            <i class="fa fa-ellipsis-h"></i>
+        </div>
+        <div class="commons-setting">
+            <div onclick="openCommonsChange()">
+                <i class="fa fa-edit"></i>重命名
+            </div>
+            <div onclick="commonsDelete('${name}')">
+                <i class="fa fa-trash-o"></i>删除
+            </div>
+        </div>
+        <div class="commons-change">
+            <div>修改常用网址
+                <div class="close-commons-add" onclick="commonsChangeCancel()">
+                    <i class="fa fa-close"></i>
+                </div>
+            </div>
+            <div>
+                <span>名称</span>
+                <input class="commonName" placeholder="请输入名称" />
+            </div>
+            <div>
+                <button onclick="commonsChangeCancel()">取消</button>
+                <button onclick="commonsChangeSubmit('${name}')">确定</button>
+            </div>
+        </div>
+    </div>`
 }
 /*
     业务逻辑函数结束
