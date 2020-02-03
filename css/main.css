@@ -65,7 +65,7 @@ span {
     max-width: 760px;
     width: 100%;
     display: flex;
-    z-index: 30;
+    z-index: 300;
     height: 44px;
     margin: 0 auto;
     font-size: small;
@@ -141,7 +141,7 @@ span {
     box-sizing: border-box;
     text-align: left;
     position: absolute;
-    z-index: 1000;
+    z-index: 100;
     top: 50px;
     max-width: 760px;
     max-height: 350px;
