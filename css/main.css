@@ -69,6 +69,11 @@ span {
     height: 44px;
     margin: 0 auto;
     font-size: small;
+    transition: 0.3s;
+}
+
+.search-group:hover {
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
 
 .search-select {
