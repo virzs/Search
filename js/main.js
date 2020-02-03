@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-01 12:26:31
+ * @Last Modified time: 2020-02-03 13:15:35
  */
 
 //配置变量
@@ -688,6 +688,11 @@ function getSugValue(Flag) {
             sugValue(href, json[1])
         }
     }
+    window.so = {
+        sug: function (json) {
+            sugValue(href, json.result)
+        }
+    }
     let script = document.createElement("script");
     script.src = sugurl;
     document.querySelector("head").appendChild(script);
@@ -706,6 +711,8 @@ function sugValue(href, value) {
             sugList += `<li><a href="${href}${item}">${item}</a></li>`
         } else if (typeof item == "object" && item.Txt !== undefined) {
             sugList += `<li><a href="${href}${item.Txt}">${item.Txt}</a></li>`
+        } else if (typeof item == "object" && item.word !== undefined) {
+            sugList += `<li><a href="${href}${item.word}">${item.word}</a></li>`
         } else {
             sugList += `<li><a href="${href}${item[0]}">${item[0]}</a></li>`
         }

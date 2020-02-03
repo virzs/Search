@@ -32,10 +32,18 @@
         "show": true,
         "select": ""
     }, {
+        "name": "好搜",
+        "value": "好搜",
+        "href": "https://www.so.com/s?ie=utf-8&fr=hao_360so&src=home_hao_360so&q=",
+        "sugurl": "https://sug.so.360.cn/suggest?encodein=utf-8&encodeout=utf-8&format=json&word=#content#&callback=window.so.sug",
+        "icon": "./img/engineLogo/so360.ico",
+        "show": true,
+        "select": ""
+    }, {
         "name": "Magi",
         "value": "magi",
         "href": "https://magi.com/search?q=",
-        "sugurl": "",
+        "sugurl": "https://magi.com/suggest?size=8&q=#content#",
         "icon": "./img/engineLogo/magi.png",
         "show": true,
         "select": ""
