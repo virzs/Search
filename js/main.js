@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-04 11:25:13
+ * @Last Modified time: 2020-02-04 11:26:31
  */
 
 //配置变量
@@ -77,6 +77,7 @@ if (showCommonUse == "undefined" || showCommonUse == undefined) {
 }
 if (commonUseData == undefined) {
     setStorage("commonUseData", "[]");
+    setCommomUse(commonData);
 }
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
