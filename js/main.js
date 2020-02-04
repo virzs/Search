@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-03 13:15:35
+ * @Last Modified time: 2020-02-04 11:25:13
  */
 
 //配置变量
@@ -75,9 +75,12 @@ if (uiHref && uiHref !== null) {
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
     setStorage("showCommonUse", "open");
 }
+if (commonUseData == undefined) {
+    setStorage("commonUseData", "[]");
+}
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
-    setCommomUse(commonData)
+    setCommomUse(commonData);
 }
 
 //拼接搜索栏左侧选择引擎
@@ -155,11 +158,15 @@ document.addEventListener("click", function (e) {
     //判断选择引擎
     if (e.target !== selectOption && !searchFlag) {
         selectOption.style.display = "none";
-        searchFlag = !searchFlag
+        searchFlag = !searchFlag;
+    }
+
+    if (e.target == document.querySelector("#search")) {
+        getSugValue(sugFlag);
     }
 
     if (e.target !== searchList) {
-        searchList.style.display = "none"
+        searchList.style.display = "none";
     }
 
     //判断侧边栏
@@ -240,10 +247,6 @@ document.onkeydown = function (e) {
 
 searchContent.onkeydown = function (e) {
     let event = e || event;
-    // 箭头向上 38/箭头向下40
-    // if (event.keyCode == 229) {
-    //     sugFlag = false;
-    // }
     if (searchList.children.length != 0 && (event.keyCode == 38 || event.keyCode == 40)) {
         changeSug(event.keyCode)
     }
@@ -480,11 +483,13 @@ function setCommomUse(data, status) {
     if (status !== undefined) {
         setStorage("showCommonUse", status);
     }
-    data.forEach((item, index) => {
-        if (index < 7) {
-            commonHtml += renderData(item.name, item.href, item.color);
-        }
-    })
+    if (data !== null) {
+        data.forEach((item, index) => {
+            if (index < 7) {
+                commonHtml += renderData(item.name, item.href, item.color);
+            }
+        })
+    }
     if (getStorage("showCommonUse") == "open" || status == "open") {
         display = () => {
             commonUse.style.display = "flex";
@@ -591,6 +596,7 @@ function createSetting() {
     return settingInfo;
 }
 
+//弹窗开启事件
 function openMessage(value) {
     let iconType = ""
     switch (value.type) {
@@ -662,6 +668,7 @@ function getSugValue(Flag) {
         return;
     }
     sugurl = sugurl.replace("#content#", value);
+    //谷歌回调函数
     window.google = {
         ac: {
             h: function (json) {
@@ -669,6 +676,7 @@ function getSugValue(Flag) {
             }
         }
     }
+    //必应回调函数
     window.bing = {
         sug: function (json) {
             let sugList = ""
@@ -678,19 +686,34 @@ function getSugValue(Flag) {
             sugValue(href, sugList);
         }
     }
+    //百度回调函数
     window.baidu = {
         sug: function (json) {
             sugValue(href, json.s)
         }
     }
+    //搜狗回调函数
     window.sogou = {
         sug: function (json) {
             sugValue(href, json[1])
         }
     }
+    //360好搜回调函数
     window.so = {
         sug: function (json) {
             sugValue(href, json.result)
+        }
+    }
+    //magi回调函数 / 不可用
+    window.magi = {
+        sug: function (json) {
+            console.log(json)
+        }
+    }
+    //夸克回调函数
+    window.quark = {
+        sug: function (json) {
+            sugValue(href, json.data.value)
         }
     }
     let script = document.createElement("script");
