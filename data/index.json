@@ -43,8 +43,16 @@
         "name": "Magi",
         "value": "magi",
         "href": "https://magi.com/search?q=",
-        "sugurl": "https://magi.com/suggest?size=8&q=#content#",
+        "sugurl": "https://magi.com/suggest?size=8&q=#content#&callback=window.magi.sug",
         "icon": "./img/engineLogo/magi.png",
+        "show": true,
+        "select": ""
+    }, {
+        "name": "夸克",
+        "value": "quark",
+        "href": "https://quark.sm.cn/s?q=",
+        "sugurl": "https://quark.sm.cn/api/quark_sug?q=#content#&callback=window.quark.sug",
+        "icon": "./img/engineLogo/quark.ico",
         "show": true,
         "select": ""
     }],
