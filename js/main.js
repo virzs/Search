@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-04 11:26:31
+ * @Last Modified time: 2020-02-05 21:42:11
  */
 
 //配置变量
@@ -64,6 +64,9 @@ $.ajax({
  */
 if (bg && bg !== null) {
     body.style.backgroundImage = `url('${bg}')`;
+}
+if (bg == "setBingImage") {
+    setBingImage(true);
 }
 if (skinHref && skinHref !== null) {
     linkTag.href = skinHref;
@@ -214,7 +217,7 @@ scrollContent.addEventListener("change", function (e) {
                 return;
             }
             setStorageBefore(func, "bg", data);
-            changeSkin("skin", skin_Transparent)
+            changeSkin("skin", skin_Transparent);
         };
         // 以DataURL的形式读取文件:
         reader.readAsDataURL(file);
@@ -326,8 +329,8 @@ function setStorage(name, value) {
 
 //执行本地存储前动画效果
 function setStorageBefore(set, name, href) {
-    let num = 0
-    let speed = 60
+    let num = 0;
+    let speed = 60;
 
     function opacity() {
         loading.style.opacity = num / 20;
@@ -342,13 +345,13 @@ function setStorageBefore(set, name, href) {
                 opacity();
                 if (num <= 0) {
                     clearInterval(timer2);
-                    loading.style.display = "none"
+                    loading.style.display = "none";
                 }
             }, speed);
             clearInterval(timer);
             setTimeout(set, speed);
             if (name && href) {
-                setStorage(name, href)
+                setStorage(name, href);
             }
         }
     }, speed);
@@ -370,6 +373,36 @@ function setdefault(type) {
             content: "当前已为默认！"
         })
     }
+}
+
+//设置必应壁纸为背景
+function setBingImage(status) {
+    if (getStorage("bg") == "setBingImage" && !status) {
+        openMessage({
+            title: "提示",
+            type: "error",
+            content: "请勿重复选择！！！"
+        })
+    }
+    let bingApi = "https://bing.ioliu.cn/v1/?d=0&w=1920&h=1080&callback=bing.bg";
+    bing = {
+        bg: function (data) {
+            let func = () => {
+                body.style.backgroundImage = `url('${data.data.url}')`;
+            }
+            if (status) {
+                body.style.backgroundImage = `url('${data.data.url}')`;
+            } else {
+                setStorageBefore(func);
+                changeSkin("skin", skin_Transparent);
+            }
+        }
+    }
+    let script = document.createElement("script");
+    script.src = bingApi;
+    document.querySelector("head").appendChild(script);
+    document.querySelector("head").removeChild(script);
+    setStorage("bg", "setBingImage");
 }
 
 //渲染搜索引擎备选项
@@ -545,6 +578,9 @@ function createHtml(inner) {
     if (inner.type == "changebg" && inner.value == "setdefault") {
         sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
+    if (inner.type == "changebg" && inner.value == "setBingImage") {
+        sideBarHtml += `<div onclick="setBingImage()" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
+    }
     if (inner.type == "changeCommonUse") {
         sideBarHtml += `<div onclick="addCommonUse('','','','${inner.value}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
@@ -654,6 +690,7 @@ function closeMessage(elemt) {
     }
 }
 
+//获取智能提示数据
 function getSugValue(Flag) {
     let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
     let engine = jsonData.engine.find(item => item.value == engineValue);
@@ -835,6 +872,7 @@ function openCommonsChange() {
     thisChange.style.opacity = 1;
 }
 
+//关闭修改弹窗
 function commonsChangeCancel() {
     let thisChange = document.querySelector(".commons-change");
     let commonName = thisChange.querySelector(".commonName");
@@ -843,6 +881,7 @@ function commonsChangeCancel() {
     thisChange.style.opacity = 0;
 }
 
+//提交修改
 function commonsChangeSubmit(name) {
     let thisCommon = window.event.target.parentNode.parentNode;
     let commonName = thisCommon.querySelector(".commonName");
@@ -901,6 +940,7 @@ function addCommonsData() {
         </div>
     </div>`
 }
+
 //自定义网址模板
 function renderData(name, url, color) {
     return `
