@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-05 21:42:11
+ * @Last Modified time: 2020-02-05 21:44:25
  */
 
 //配置变量
@@ -579,7 +579,7 @@ function createHtml(inner) {
         sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "changebg" && inner.value == "setBingImage") {
-        sideBarHtml += `<div onclick="setBingImage()" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
+        sideBarHtml += `<div onclick="setBingImage(false)" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
     }
     if (inner.type == "changeCommonUse") {
         sideBarHtml += `<div onclick="addCommonUse('','','','${inner.value}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
