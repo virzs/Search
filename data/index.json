@@ -404,6 +404,15 @@
                     "show": true,
                     "content": ""
                 }, {
+                    "name": "必应壁纸",
+                    "type": "changebg",
+                    "value": "setBingImage",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
                     "name": "恢复默认",
                     "type": "changebg",
                     "value": "setdefault",
