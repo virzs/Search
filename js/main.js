@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-05 21:44:25
+ * @Last Modified time: 2020-02-06 17:13:43
  */
 
 //配置变量
@@ -16,27 +16,6 @@ var commonData = []; //常用网址数据
 var sugIndex = -1; //备选项下标
 var sugFlag = true; //备选项标记
 
-//获取的DOM元素/全局静态DOM元素
-const body = document.querySelector("body");
-const linkTag = document.querySelector("#skinTag");
-const uiTag = document.querySelector("#uiTag");
-const searchContent = document.querySelectorAll(".search-content")[0]
-const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
-const selectOption = document.querySelector("#selectOption"); //搜索引擎数据
-const searchInput = document.querySelector("#search"); //搜索输入框
-const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
-const sideBar = document.querySelector("#sideBar"); //侧边栏
-const sideBarTitle = document.querySelector("#sideBarTitle") //侧边栏图标区域
-const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
-const scrollContent = document.querySelector("#scrollContent"); //侧边栏滚动内容
-const commonUse = document.querySelector("#commonUse");
-const jinrishiciSentence = document.querySelector("#jinrishiciSentence"); //诗词内容
-const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor"); //诗词作者
-const jinrishiciTitle = document.querySelector("#jinrishiciTitle"); //诗词名
-const copyright = document.querySelector("#copyright"); //版权说明
-const loading = document.querySelector("#loading");
-const messageList = document.querySelector("#messageList");
-
 //获取本地数据
 const skinHref = getStorage("skin");
 const uiHref = getStorage("uistyle");
@@ -44,6 +23,27 @@ const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
 
+import {
+    body,
+    linkTag,
+    uiTag,
+    searchContent,
+    selectEngine,
+    selectOption,
+    searchInput,
+    searchList,
+    sideBar,
+    sideBarTitle,
+    sideBarContent,
+    scrollContent,
+    commonUse,
+    jinrishiciSentence,
+    jinrishiciAuthor,
+    jinrishiciTitle,
+    copyright,
+    loading,
+    messageList
+} from "./module/all.constant.mjs";
 
 /*
     ajax同步获取json文件数据
