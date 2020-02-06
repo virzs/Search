@@ -95,23 +95,25 @@ span {
     display: none;
     box-sizing: border-box;
     flex: none;
-    width: 70px;
-    margin: 0;
+    width: 100%;
+    margin: 5px 0 0;
     overflow: hidden;
     position: absolute;
     left: 0;
     top: 45px;
     z-index: 600;
     transition: 0.3s;
+    padding: 5px;
 }
 
 .search-option li {
     box-sizing: border-box;
-    padding: 2px 0;
-    display: flex;
+    padding: 3px 8px;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     transition: 0.3s;
+    border-radius: 5px;
 }
 
 .search-option li:hover {
@@ -123,6 +125,7 @@ span {
     margin-right: 4px;
     width: 16px;
     height: 16px;
+    border-radius: 50%;
 }
 
 .search-input,
