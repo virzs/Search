@@ -499,7 +499,7 @@
                 "show": true,
                 "content": [{
                     "name": "开启",
-                    "value": "open",
+                    "value": "website_open",
                     "type": "changeCommonUse",
                     "href": "",
                     "color": "",
@@ -508,7 +508,7 @@
                     "content": ""
                 }, {
                     "name": "关闭",
-                    "value": "close",
+                    "value": "website_close",
                     "type": "changeCommonUse",
                     "href": "",
                     "color": "",
