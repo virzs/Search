@@ -1,0 +1,29 @@
+import {
+    selectEngine,
+    searchInput
+} from "./dom.constant.mjs";
+import {
+    jsonData
+} from "./all.data.mjs";
+//搜索事件
+function goSearch() {
+    let value = searchInput.value; //获取输入框的值
+    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
+    let searchHref = ''; //定义搜索链接变量
+    jsonData.engine.forEach((item) => {
+        if (item.value == engineValue) {
+            searchHref = item.href;
+        }
+    })
+    window.location.href = searchHref + value; //拼接搜索链接
+}
+
+//渲染搜索引擎备选项
+function setEngine(engineValue) {
+    selectEngine.innerHTML = `<img src='${engineValue.icon}' alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`;
+    selectOption.style.display = "none";
+}
+export {
+    goSearch,
+    setEngine
+}
