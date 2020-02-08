@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-08 18:21:47
+ * @Last Modified time: 2020-02-08 18:25:01
  */
 
 //配置变量
@@ -48,7 +48,7 @@ import {
     copyright,
     loading,
     messageList
-} from "./module/all.constant.mjs";
+} from "./module/dom.constant.mjs";
 
 import {
     toggle,
