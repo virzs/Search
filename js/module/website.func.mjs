@@ -143,29 +143,6 @@ function renderData(name, url, color) {
         <div class="commons-btn" onclick="openCommonSetting('${name}')">
             <i class="fa fa-ellipsis-h"></i>
         </div>
-        <div class="commons-setting">
-            <div onclick="openCommonsChange()">
-                <i class="fa fa-edit"></i>重命名
-            </div>
-            <div onclick="commonsDelete('${name}')">
-                <i class="fa fa-trash-o"></i>删除
-            </div>
-        </div>
-        <div class="commons-change">
-            <div>修改常用网址
-                <div class="close-commons-add" onclick="commonsChangeCancel()">
-                    <i class="fa fa-close"></i>
-                </div>
-            </div>
-            <div>
-                <span>名称</span>
-                <input class="commonName" placeholder="请输入名称" />
-            </div>
-            <div>
-                <button onclick="commonsChangeCancel()">取消</button>
-                <button onclick="commonsChangeSubmit('${name}')">确定</button>
-            </div>
-        </div>
     </div>`
 }
 
@@ -175,25 +152,6 @@ function addCommonsData() {
     <div class="commons">
         <div class="commons-addbtn" onclick="openCommonsAdd()">
             <i class="fa fa-plus"></i>
-        </div>
-        <div class="commons-add">
-            <div>添加常用网址
-                <div class="close-commons-add" onclick="commonsCancel()">
-                    <i class="fa fa-close"></i>
-                </div>
-            </div>
-            <div>
-                <span>名称</span>
-                <input class="commonName" placeholder="请输入名称" />
-            </div>
-            <div>
-                <span>URL</span>
-                <input class="commonUrl" placeholder="请输入URL" />
-            </div>
-            <div>
-                <button onclick="commonsCancel()">取消</button>
-                <button onclick="commonsSubmit()">确定</button>
-            </div>
         </div>
     </div>`
 }
