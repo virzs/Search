@@ -526,11 +526,27 @@ span {
     opacity: 1;
 }
 
+.commons-btn::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
 .commons-addbtn {
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.commons-addbtn::after {
+    content: "";
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
 }
@@ -562,7 +578,7 @@ span {
 
 #messageList {
     position: fixed;
-    z-index: 2000;
+    z-index: 2001;
     top: 20px;
     right: 20px;
     transition: 0.5s;
@@ -631,6 +647,56 @@ span {
 
 #messageList .error {
     color: red;
+}
+
+#dialogWrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.34);
+    transition: 0.3s;
+}
+
+#dialog {
+    width: 30%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background: #fff;
+}
+
+#dialog>.dialog-header {
+    box-sizing: border-box;
+    padding: 20px 20px 10px;
+    text-align: left;
+}
+
+#dialog>.dialog-body {
+    box-sizing: border-box;
+    padding: 30px 20px;
+}
+
+#dialog .content-label {
+    display: inline-flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+    margin-right: 12px;
+    font-size: 14px;
+    color: #606266;
+}
+
+#dialog>.dialog-footer {
+    box-sizing: border-box;
+    padding: 10px 20px 20px;
+    text-align: right;
 }
 
 #loading {
