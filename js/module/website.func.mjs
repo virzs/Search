@@ -43,6 +43,7 @@ function commonWebsite(json) {
     let name = "",
         href = "",
         color = "";
+    let flag = true;
     if (json.thisWebsite !== undefined) {
         name = json.thisWebsite.name;
         href = json.thisWebsite.href;
@@ -50,7 +51,9 @@ function commonWebsite(json) {
     }
     let commonData = json.commonData,
         status = json.status,
-        defined = json.defined;
+        add = json.add,
+        change = json.change,
+        del = json.del;
     let data = {
         "name": name,
         "href": href,
@@ -75,20 +78,37 @@ function commonWebsite(json) {
         })
         return;
     }
-    if (defined) {
+    if (add) {
         data.count = 100000;
     } else {
         data.count = 1;
     }
-    let recent = commonData.find(item => item.name == name);
-    if (recent == undefined && status == undefined) {
-        commonData.push(data);
-    } else if (status == undefined && recent.count < 100000) {
+    if (change) {
+        href = href.substring(0, href.length - 1);
         commonData.forEach(item => {
-            if (item.name == recent.name) {
-                item.count += 1;
+            if (item.href == href) {
+                item.name = name;
+                item.count = 100000;
             }
         })
+        flag = false;
+    } else if (del) {
+        href = href.substring(0, href.length - 1);
+        let delData = commonData.findIndex(item => item.href == href);
+        commonData.splice(delData, 1);
+        flag = false;
+    }
+    if (flag) {
+        let recent = commonData.find(item => item.name == name);
+        if (recent == undefined && status == undefined) {
+            commonData.push(data);
+        } else if (status == undefined && recent.count < 100000) {
+            commonData.forEach(item => {
+                if (item.name == recent.name) {
+                    item.count += 1;
+                }
+            })
+        }
     }
     //根据打开次数排序
     commonData.sort(function (obj1, obj2) {
@@ -140,7 +160,7 @@ function renderData(name, url, color) {
             <img src="https://favicon.link/${url}"></img>
             <a style="color:${color};" href="${url}" target="_blank">${name}</a>
         </div>
-        <div class="commons-btn" onclick="openCommonSetting('${name}')">
+        <div class="commons-btn">
             <i class="fa fa-ellipsis-h"></i>
         </div>
     </div>`
@@ -150,7 +170,7 @@ function renderData(name, url, color) {
 function addCommonsData() {
     return `
     <div class="commons">
-        <div class="commons-addbtn" onclick="openCommonsAdd()">
+        <div class="commons-addbtn">
             <i class="fa fa-plus"></i>
         </div>
     </div>`
