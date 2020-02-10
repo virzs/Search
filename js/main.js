@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-08 18:25:01
+ * @Last Modified time: 2020-02-10 21:16:17
  */
 
 //配置变量
@@ -10,6 +10,7 @@ var searchEngine = ""; //搜索框左侧选择搜索引擎数据
 var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
+var changeWebsiteUrl = "";
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -107,6 +108,11 @@ import {
 import {
     changeUI
 } from "./module/ui.func.mjs";
+
+import {
+    openDialog,
+    closeDialog
+} from "./module/dialog.func.mjs";
 /*
     导入模块结束
  */
@@ -118,12 +124,15 @@ import {
 if (bg && bg !== null) {
     body.style.backgroundImage = `url('${bg}')`;
 }
+
 if (bg == "setBingImage") {
     setBingImage(true);
 }
+
 if (skinHref && skinHref !== null) {
     linkTag.href = skinHref;
 }
+
 if (uiHref && uiHref !== null) {
     uiTag.href = uiHref;
 }
@@ -131,10 +140,12 @@ if (uiHref && uiHref !== null) {
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
     setStorage("showCommonUse", "website_open");
 }
+
 if (commonUseData == undefined) {
     setStorage("commonUseData", "[]");
     setCommomUse(commonData);
 }
+
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
     setCommomUse(commonData);
@@ -231,6 +242,56 @@ document.addEventListener("click", function (e) {
         sideBar.className = "moveRight";
         sideBarIconFlag = -1;
     }
+    if (e.target.id == "submitDialog") {
+        let name = document.querySelector("#nameDialog").children[1].value;
+        let url = document.querySelector("#urlDialog").children[1].value;
+        if (name == "" || url == "") {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `名称或URL不能为空！！！`
+            })
+            return;
+        }
+        if (url.indexOf("https://") == -1 || url.indexOf("http://") == -1) {
+            url = `https://${url}`;
+        }
+        commonWebsite({
+            thisWebsite: {
+                name: name,
+                href: url,
+                color: "#000"
+            },
+            commonData: commonData,
+            add: true
+        })
+        closeDialog();
+    }
+    if (e.target.id == "cancelDialog") {
+        closeDialog();
+    }
+    if (e.target.id == "changeDialog") {
+        let name = document.querySelector("#nameDialog").children[1].value;
+        commonWebsite({
+            thisWebsite: {
+                name: name,
+                href: changeWebsiteUrl
+            },
+            commonData: commonData,
+            change: true
+        })
+        closeDialog();
+    }
+    if (e.target.id == "deleteDialog") {
+        commonWebsite({
+            thisWebsite: {
+                href: changeWebsiteUrl
+            },
+            commonData: commonData,
+            del: true
+        })
+        closeDialog();
+    }
 });
 
 //监听搜索按钮
@@ -254,6 +315,7 @@ sideBarContent.addEventListener("click", (e) => {
     for (let item of jsonData.sideBar.content[1].content) {
         thisWebsite = item.content.find(inner => inner.icon == e.target.id);
         if (thisWebsite !== undefined) {
+            thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
                 commonData: commonData
@@ -297,7 +359,51 @@ messageList.addEventListener("click", (e) => {
 })
 
 commonUse.addEventListener("click", (e) => {
-    stopPropagation();
+    if (e.target.className == "commons-addbtn") {
+        openDialog({
+            title: "添加常用网址",
+            content: [{
+                name: "名称",
+                value: "name",
+                type: "input",
+                defaultValue: ""
+            }, {
+                name: "URl",
+                value: "url",
+                type: "input",
+                defaultValue: ""
+            }],
+            button: [{
+                name: "确定",
+                value: "submit"
+            }, {
+                name: "取消",
+                value: "cancel"
+            }]
+        })
+    }
+    if (e.target.className == "commons-btn") {
+        changeWebsiteUrl = e.target.parentNode.querySelector("a").href
+        openDialog({
+            title: "修改常用网址",
+            content: [{
+                name: "名称",
+                value: "name",
+                type: "input",
+                defaultValue: e.target.parentNode.querySelector("a").innerHTML
+            }],
+            button: [{
+                name: "修改",
+                value: "change"
+            }, {
+                name: "删除",
+                value: "delete"
+            }, {
+                name: "取消",
+                value: "cancel"
+            }]
+        })
+    }
 })
 
 /*
@@ -355,120 +461,6 @@ selectEngine.onclick = () => {
 /*
     业务逻辑函数
  */
-
-//开启添加网址弹窗
-function openCommonsAdd() {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let addPop = thisCommon.querySelector(".commons-add");
-    if (addPop !== null) {
-        addPop.style.display = "block";
-        addPop.style.opacity = 1;
-    }
-    userDefaultCommonsAddPop = addPop;
-}
-
-//开启设置网址弹窗
-function openCommonSetting() {
-    let num = 0;
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let setting = thisCommon.querySelector(".commons-setting");
-    if (thisCommon !== null) {
-        setting.style.display = "block";
-        setting.style.opacity = 1;
-    }
-}
-
-//提交网址
-function commonsSubmit() {
-    stopPropagation();
-    let thisCommon = document.querySelector(".commons-add");
-    let commonName = thisCommon.querySelector(".commonName");
-    let commonUrl = thisCommon.querySelector(".commonUrl");
-    if (commonName.value == "" || commonUrl.value == "") {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: `名称或URL不能为空！！！`
-        })
-        return;
-    }
-    if (commonUrl.value.indexOf("https://") == -1 || commonUrl.value.indexOf("http://") == -1) {
-        commonUrl.value = `https://${commonUrl.value}`;
-    }
-    commonWebsite({
-        thisWebsite: {
-            name: commonName.value,
-            href: commonUrl.value
-        },
-        commonData: commonData,
-        status: undefined,
-        defined: true
-    });
-    // commonWebsite(commonName.value, commonUrl.value, null, undefined, true);
-    thisCommon.style.display = "none";
-    thisCommon.style.opacity = 0;
-}
-
-//取消添加网址弹窗
-function commonsCancel() {
-    let thisCommon = document.querySelector(".commons-add");
-    let commonName = thisCommon.querySelector(".commonName");
-    let commonUrl = thisCommon.querySelector(".commonUrl");
-    commonName.value = "", commonUrl.value = "";
-    thisCommon.style.display = "none";
-    thisCommon.style.opacity = 0;
-}
-
-//修改网址
-function openCommonsChange() {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let thisSetting = thisCommon.querySelector(".commons-setting");
-    let thisChange = thisCommon.querySelector(".commons-change");
-    thisSetting.style.display = "none";
-    thisSetting.style.opacity = 0;
-    thisChange.style.display = "block";
-    thisChange.style.opacity = 1;
-}
-
-//关闭修改弹窗
-function commonsChangeCancel() {
-    let thisChange = document.querySelector(".commons-change");
-    let commonName = thisChange.querySelector(".commonName");
-    commonName.value = "";
-    thisChange.style.display = "none";
-    thisChange.style.opacity = 0;
-}
-
-//提交修改
-function commonsChangeSubmit(name) {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let commonName = thisCommon.querySelector(".commonName");
-    let changeData = commonData.find(item => item.name == name);
-    changeData.name = commonName.value;
-    commonData.forEach(item => {
-        if (item.href == changeData.href) {
-            item = changeData;
-            item.count = 100000;
-            return;
-        }
-    })
-    commonData.sort(function (obj1, obj2) {
-        let minCount = obj1["count"];
-        let maxCount = obj2["count"];
-        return maxCount - minCount;
-    })
-    setStorage("commonUseData", JSON.stringify(commonData));
-    setCommomUse(JSON.parse(getStorage("commonUseData")));
-}
-
-//删除网址
-function commonsDelete(name) {
-    let data = JSON.parse(getStorage("commonUseData"));
-    let deleteData = data.findIndex(item => item.name == name);
-    data.splice(deleteData, 1);
-    setStorage("commonUseData", JSON.stringify(data));
-    setCommomUse(JSON.parse(getStorage("commonUseData")));
-}
 
 /*
     业务逻辑函数结束
