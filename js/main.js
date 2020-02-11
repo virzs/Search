@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-10 21:16:17
+ * @Last Modified time: 2020-02-11 15:56:56
  */
 
 //配置变量
@@ -11,6 +11,7 @@ var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
+var dialogFlag = true;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -292,8 +293,10 @@ document.addEventListener("click", function (e) {
         })
         closeDialog();
     }
+    if (e.target.id == "dialogWrapper") {
+        closeDialog();
+    }
 });
-
 //监听搜索按钮
 searchContent.querySelector("#searchBtn").addEventListener("click", () => {
     goSearch();
