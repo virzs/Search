@@ -1,9 +1,14 @@
 import {
+    body
+} from "./dom.constant.mjs";
+
+import {
     openMessage
 } from "./message.func.mjs";
 
 import {
-    getStorage
+    getStorage,
+    removeStorage
 } from './storage.func.mjs';
 
 import {
@@ -26,6 +31,10 @@ function changeSkin(skinName, value) {
     }
     let setHref = () => {
         linkTag.href = value;
+        if (value !== "./css/skin/skin_Transparent.css") {
+            removeStorage("bg");
+            body.removeAttribute("style");
+        }
     }
     setStorageBefore(setHref, skinName, value);
 }
