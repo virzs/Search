@@ -29,15 +29,18 @@ function setBingImage(status) {
             type: "error",
             content: "请勿重复选择！！！"
         })
+        return;
     }
     let bingApi = "https://bing.ioliu.cn/v1/?d=0&w=1920&h=1080&callback=window.bing.bg";
     window.bing = {
         bg: function (data) {
             let func = () => {
                 body.style.backgroundImage = `url('${data.data.url}')`;
+                WoolGlass(data.data.url);
             }
             if (status) {
                 body.style.backgroundImage = `url('${data.data.url}')`;
+                WoolGlass(data.data.url);
             } else {
                 setStorageBefore(func);
                 changeSkin("skin", skin_Transparent);
@@ -102,6 +105,24 @@ function setdefault(type) {
             content: "当前已为默认！"
         })
     }
+}
+
+function WoolGlass(url) {
+    let style = document.createElement("style");
+    style.innerHTML = `
+        .search-group::after,
+        .search-option::after,
+        #sideBarContent::after,
+        .commons::after,
+        #searchList::after,
+        #dialog::after,
+        #messageList li::after {
+            background: url(${url});
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-attachment: fixed;
+    }`;
+    document.querySelector("head").appendChild(style);
 }
 export {
     setBingImage,
