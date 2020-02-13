@@ -35,22 +35,39 @@ a:hover {
     border: 1px solid #dfe1e5;
 }
 
+.search-group::after,
+.search-option::after,
+#sideBarContent::after,
+.commons::after,
+#searchList::after,
+#dialog::after,
+#messageList li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    filter: blur(4px);
+    margin: -30px;
+}
+
 .search-option {
     background: transparent;
     border: 1px solid #dfe1e5;
 }
 
 .search-option li:hover {
-    background: transparent;
+    background: rgba(0, 0, 0, .1);
 }
 
 #searchList {
     border: 1px solid #dfe1e5;
-    background: #fff;
 }
 
 #searchList li:hover {
-    background: #f1f1f1;
+    background: rgba(0, 0, 0, .1);
 }
 
 .selectSug {
@@ -59,7 +76,7 @@ a:hover {
 
 #sideBarContent {
     background: transparent;
-    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);
+    /* box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9); */
 }
 
 .capsule {

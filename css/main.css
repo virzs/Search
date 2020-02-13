@@ -61,6 +61,7 @@ span {
 }
 
 .search-group {
+    overflow: hidden;
     position: relative;
     max-width: 760px;
     width: 100%;
@@ -77,6 +78,8 @@ span {
 }
 
 .search-select {
+    z-index: 1;
+    position: relative;
     width: 70px;
     display: flex;
     justify-content: center;
@@ -92,6 +95,9 @@ span {
 }
 
 .search-option {
+    font-size: small;
+    overflow: hidden;
+    max-width: 760px;
     display: none;
     box-sizing: border-box;
     flex: none;
@@ -99,7 +105,6 @@ span {
     margin: 5px 0 0;
     overflow: hidden;
     position: absolute;
-    left: 0;
     top: 45px;
     z-index: 600;
     transition: 0.3s;
@@ -149,6 +154,8 @@ span {
 
 .search-input,
 .search-btn {
+    z-index: 1;
+    position: relative;
     border: none;
     background: transparent;
     outline: transparent !important;
@@ -322,6 +329,7 @@ span {
     width: 340px;
     position: absolute;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 /*滚动条宽高*/
@@ -340,6 +348,7 @@ span {
 }
 
 #scrollContent {
+    overflow: hidden;
     box-sizing: border-box;
     padding: 10px;
 }
@@ -444,13 +453,13 @@ span {
 }
 
 .commons {
+    overflow: hidden;
     margin: 5px;
     position: relative;
     width: 120px;
     height: 90px;
     transition: all 0.2s ease-in-out;
     border-radius: 4px;
-    background: #FFFFFF;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
 
@@ -585,6 +594,7 @@ span {
 }
 
 #messageList li {
+    overflow: hidden;
     position: relative;
     right: -380px;
     width: 330px;
@@ -664,10 +674,11 @@ span {
 }
 
 #dialog {
+    position: relative;
+    overflow: hidden;
     width: 30%;
     box-sizing: border-box;
     border-radius: 3px;
-    background: #fff;
 }
 
 #dialog>.dialog-header {
