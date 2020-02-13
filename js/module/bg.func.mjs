@@ -61,6 +61,7 @@ function setCustomizeImage(setBackGround) {
         let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
         let func = () => {
             body.style.backgroundImage = `url('${data}')`;
+            WoolGlass(data);
         }
         // 将文件大小转化成MB
         let size = (file.size / (1024 * 1024)).toFixed(2);
@@ -109,6 +110,7 @@ function setdefault(type) {
 
 function WoolGlass(url) {
     let style = document.createElement("style");
+    style.setAttribute("id", "WoolGlass");
     style.innerHTML = `
         .search-group::after,
         .search-option::after,
@@ -121,7 +123,7 @@ function WoolGlass(url) {
             background-repeat: no-repeat;
             background-size: auto;
             background-attachment: fixed;
-    }`;
+        }`;
     document.querySelector("head").appendChild(style);
 }
 export {
