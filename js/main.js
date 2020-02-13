@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-13 11:58:06
+ * @Last Modified time: 2020-02-13 19:12:40
  */
 
 //配置变量
@@ -122,8 +122,9 @@ import {
 /*
     加载本地存储区域/自动加载区域
  */
-if (bg && bg !== null) {
-    body.style.backgroundImage = `url('${bg}')`;
+if (bg && bg !== null && bg !== "setBingImage") {
+    body.style.background = `url('${bg}') no-repeat`;
+    body.style.backgroundSize = "cover";
 }
 
 if (bg == "setBingImage") {
