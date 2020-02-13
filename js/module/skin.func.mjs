@@ -33,7 +33,7 @@ function changeSkin(skinName, value) {
         linkTag.href = value;
         if (value !== "./css/skin/skin_Transparent.css") {
             removeStorage("bg");
-            body.removeAttribute("style");
+            body.style.removeProperty("background-image");
         }
     }
     setStorageBefore(setHref, skinName, value);
