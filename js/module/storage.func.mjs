@@ -9,7 +9,13 @@ function getStorage(key) {
     return value;
 }
 
+function removeStorage(key) {
+    let value = window.localStorage.removeItem(key);
+    return value
+}
+
 export {
     setStorage,
-    getStorage
+    getStorage,
+    removeStorage
 }
