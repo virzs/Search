@@ -36,11 +36,13 @@ function setBingImage(status) {
     window.bing = {
         bg: function (data) {
             let func = () => {
-                body.style.backgroundImage = `url('${data.data.url}')`;
+                body.style.background = `url('${data.data.url}') no-repeat`;
+                body.style.backgroundSize = "cover";
                 WoolGlass(data.data.url);
             }
             if (status) {
-                body.style.backgroundImage = `url('${data.data.url}')`;
+                body.style.background = `url('${data.data.url}') no-repeat`;
+                body.style.backgroundSize = "cover";
                 WoolGlass(data.data.url);
             } else {
                 setStorageBefore(func);
@@ -61,7 +63,8 @@ function setCustomizeImage(setBackGround) {
     reader.onload = function (e) {
         let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
         let func = () => {
-            body.style.backgroundImage = `url('${data}')`;
+            body.style.background = `url('${data}') no-repeat`;
+            body.style.backgroundSize = "cover";
             WoolGlass(data);
         }
         // 将文件大小转化成MB
@@ -116,14 +119,14 @@ function WoolGlass(url) {
     style.innerHTML = `
         .search-group::after,
         .search-option::after,
-        #sideBarContent::after,
+        #sideBar::after,
         .commons::after,
         #searchList::after,
         #dialog::after,
         #messageList li::after {
             background: url(${url});
             background-repeat: no-repeat;
-            background-size: auto;
+            background-size: cover;
             background-attachment: fixed;
         }`;
     document.querySelector("head").appendChild(style);

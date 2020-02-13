@@ -32,12 +32,11 @@ a:hover {
 
 .search-group {
     background: transparent;
-    border: 1px solid #dfe1e5;
 }
 
 .search-group::after,
 .search-option::after,
-#sideBarContent::after,
+#sideBar::after,
 .commons::after,
 #searchList::after,
 #dialog::after,
@@ -49,13 +48,12 @@ a:hover {
     left: 0;
     right: 0;
     z-index: -1;
-    filter: blur(2px);
+    filter: blur(10px);
     margin: -30px;
 }
 
 .search-option {
     background: transparent;
-    border: 1px solid #dfe1e5;
 }
 
 .search-option li:hover {
