@@ -1,10 +1,11 @@
 import {
-    body
+    body,linkTag
 } from "./dom.constant.mjs";
 
 import {
     setStorage,
-    getStorage
+    getStorage,
+    removeStorage
 } from './storage.func.mjs';
 
 import {
@@ -94,7 +95,8 @@ function setCustomizeImage(setBackGround) {
 function setdefault(type) {
     if (type == "changebg" && getStorage("skin") !== './css/skin/skin_SunsetBeach.css') {
         let defaultSkin = () => {
-            window.localStorage.removeItem("bg");
+            linkTag.href = './css/skin/skin_SunsetBeach.css';
+            removeStorage("bg");
             body.style.removeProperty("background-image");
             setStorage('skin', './css/skin/skin_SunsetBeach.css');
         }
