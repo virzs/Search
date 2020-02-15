@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-13 19:12:40
+ * @Last Modified time: 2020-02-15 12:46:10
  */
 
 //配置变量
@@ -39,6 +39,7 @@ import {
     selectOption,
     searchInput,
     searchList,
+    sideBarButton,
     sideBar,
     sideBarTitle,
     sideBarContent,
@@ -99,10 +100,6 @@ import {
 } from "./module/bg.func.mjs";
 
 import {
-    createSetting
-} from "./module/setting.func.mjs";
-
-import {
     changeSkin
 } from "./module/skin.func.mjs";
 
@@ -114,6 +111,10 @@ import {
     openDialog,
     closeDialog
 } from "./module/dialog.func.mjs";
+
+import {
+    renderSideBarContent
+} from "./module/sideBar.func.mjs"
 /*
     导入模块结束
  */
@@ -165,7 +166,7 @@ selectOption.innerHTML = `<p>请选择搜索引擎：</p><ul>${searchEngine}</ul
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
     if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].name}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i></div>`
+        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color}"><i class="${jsonData.sideBar.content[item].icon}"></i><span>${jsonData.sideBar.content[item].name}</spa></div>`
     }
 }
 
@@ -179,40 +180,6 @@ jinrishici.load(function (result) {
 //版权信息渲染
 if (jsonData.copyright.show) {
     copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
-}
-
-//渲染侧边栏数据
-Array.prototype.forEach.call(sideBarTitle.children, item => {
-    item.onclick = () => {
-        if (sideBarIconFlag == item.id) {
-            sideBar.className = "moveRight";
-            sideBarIconFlag = -1
-            return;
-        }
-        switch (item.id) {
-            case "Gaming":
-                scrollContent.innerHTML = "加班加点摸鱼中，敬请期待";
-                sideBarIconFlag = item.id;
-                break;
-            case "Website":
-                scrollContent.innerHTML = createWebsite();
-                sideBarIconFlag = item.id;
-                break;
-            case "Setting":
-                scrollContent.innerHTML = createSetting();
-                sideBarIconFlag = item.id;
-                break;
-        }
-        sideBar.className = "moveLeft";
-        stopPropagation()
-    }
-})
-
-//网页文档加载完毕调用动画
-document.onreadystatechange = function () {
-    if (document.readyState == "complete") {
-        toggle(loading, 40);
-    }
 }
 
 /*
@@ -242,6 +209,7 @@ document.addEventListener("click", function (e) {
     //判断侧边栏
     if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1) {
         sideBar.className = "moveRight";
+        sideBarButton.className = "sideBarButtonMoveRight";
         sideBarIconFlag = -1;
     }
     if (e.target.id == "submitDialog") {
@@ -311,6 +279,31 @@ selectOption.addEventListener("click", (e) => {
         searchFlag = !searchFlag;
     }
 })
+
+sideBarButton.addEventListener("click", () => {
+    if (sideBarIconFlag == -1) {
+        sideBarButton.className = "sideBarButtonMoveLeft";
+        sideBar.className = "moveLeft";
+        sideBarIconFlag = "Website";
+        renderSideBarContent("Website");
+    } else {
+        sideBarButton.className = "sideBarButtonMoveRight";
+        sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
+    }
+})
+
+sideBarTitle.addEventListener("click", (e) => {
+    renderSideBarContent(e.target.id);
+    sideBarIconFlag = e.target.id;
+})
+
+//网页文档加载完毕调用动画
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        toggle(loading, 40);
+    }
+}
 
 //解决点击元素内部隐藏的问题
 sideBarContent.addEventListener("click", (e) => {
