@@ -1,12 +1,12 @@
 import {
     jsonData
-} from "./all.data.mjs";
+} from "./all.data.js";
 
 import {
     selectEngine,
     searchInput,
     searchList
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 var sugIndex = -1; //备选项下标
 var sugFlag = true; //备选项标记

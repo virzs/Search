@@ -1,10 +1,10 @@
 import {
     selectEngine,
     searchInput
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 import {
     jsonData
-} from "./all.data.mjs";
+} from "./all.data.js";
 //搜索事件
 function goSearch() {
     let value = searchInput.value; //获取输入框的值

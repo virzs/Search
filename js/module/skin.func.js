@@ -1,23 +1,23 @@
 import {
     body
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 import {
     openMessage
-} from "./message.func.mjs";
+} from "./message.func.js";
 
 import {
     getStorage,
     removeStorage
-} from './storage.func.mjs';
+} from './storage.func.js';
 
 import {
     setStorageBefore
-} from './animation.func.mjs';
+} from './animation.func.js';
 
 import {
     linkTag
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 //切换配色
 function changeSkin(skinName, value) {

@@ -1,6 +1,6 @@
 import {
     jsonData
-} from "./all.data.mjs";
+} from "./all.data.js";
 
 var skin_Transparent = ""; //透明皮肤数据
 

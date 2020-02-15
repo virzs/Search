@@ -1,10 +1,10 @@
 import {
     loading
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 import {
     setStorage
-} from "./storage.func.mjs";
+} from "./storage.func.js";
 
 //加载动画
 function toggle(elemt, speed) {

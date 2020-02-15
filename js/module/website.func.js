@@ -1,23 +1,23 @@
 import {
     jsonData
-} from "./all.data.mjs";
+} from "./all.data.js";
 
 import {
     commonUse
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 import {
     setStorage,
     getStorage
-} from './storage.func.mjs';
+} from './storage.func.js';
 
 import {
     openMessage
-} from "./message.func.mjs";
+} from "./message.func.js";
 
 import {
     setStorageBefore
-} from "./animation.func.mjs";
+} from "./animation.func.js";
 
 //创建书签数据
 function createWebsite() {

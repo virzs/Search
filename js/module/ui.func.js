@@ -1,14 +1,14 @@
 import {
     openMessage
-} from "./message.func.mjs";
+} from "./message.func.js";
 
 import {
     setStorageBefore
-} from './animation.func.mjs';
+} from './animation.func.js';
 
 import {
     getStorage
-} from './storage.func.mjs';
+} from './storage.func.js';
 
 //切换ui风格
 function changeUI(uiName, value) {

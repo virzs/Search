@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-15 13:30:22
+ * @Last Modified time: 2020-02-15 15:57:07
  */
 
 //配置变量
@@ -27,7 +27,7 @@ const showCommonUse = getStorage("showCommonUse");
 //所有数据
 import {
     jsonData
-} from "./module/all.data.mjs";
+} from "./module/all.data.js";
 
 //DOM元素
 import {
@@ -51,70 +51,68 @@ import {
     copyright,
     loading,
     messageList
-} from "./module/dom.constant.mjs";
+} from "./module/dom.constant.js";
 
 import {
-    toggle,
-    setStorageBefore
-} from './module/animation.func.mjs';
+    toggle
+} from './module/animation.func.js';
 
 //搜索相关函数
 import {
     goSearch,
     setEngine
-} from "./module/search.func.mjs";
+} from "./module/search.func.js";
 
 //搜索智能提示函数
 import {
     getSugValue,
     changeSug
-} from "./module/sug.func.mjs";
+} from "./module/sug.func.js";
 
 //本地存储相关函数
 import {
     setStorage,
     getStorage
-} from './module/storage.func.mjs';
+} from './module/storage.func.js';
 
 //消息提示函数
 import {
     openMessage
-} from "./module/message.func.mjs";
+} from "./module/message.func.js";
 
 //阻止事件冒泡函数
 import {
     stopPropagation,
     findSettingInfo
-} from "./module/global.func.mjs";
+} from "./module/global.func.js";
 
 import {
-    createWebsite,
     commonWebsite,
     setCommomUse
-} from "./module/website.func.mjs";
+} from "./module/website.func.js";
 
 import {
     setBingImage,
     setCustomizeImage,
     setdefault
-} from "./module/bg.func.mjs";
+} from "./module/bg.func.js";
 
 import {
     changeSkin
-} from "./module/skin.func.mjs";
+} from "./module/skin.func.js";
 
 import {
     changeUI
-} from "./module/ui.func.mjs";
+} from "./module/ui.func.js";
 
 import {
     openDialog,
     closeDialog
-} from "./module/dialog.func.mjs";
+} from "./module/dialog.func.js";
 
 import {
     renderSideBarContent
-} from "./module/sideBar.func.mjs"
+} from "./module/sideBar.func.js"
 /*
     导入模块结束
  */

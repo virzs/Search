@@ -1,24 +1,24 @@
 import {
     body,linkTag
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 import {
     setStorage,
     getStorage,
     removeStorage
-} from './storage.func.mjs';
+} from './storage.func.js';
 
 import {
     setStorageBefore
-} from "./animation.func.mjs";
+} from "./animation.func.js";
 
 import {
     changeSkin
-} from "./skin.func.mjs";
+} from "./skin.func.js";
 
 import {
     openMessage
-} from "./message.func.mjs";
+} from "./message.func.js";
 
 var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
 

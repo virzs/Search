@@ -1,6 +1,6 @@
 import {
     jsonData
-} from "./all.data.mjs";
+} from "./all.data.js";
 
 //阻止事件冒泡
 function stopPropagation(e) {

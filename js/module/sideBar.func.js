@@ -1,19 +1,19 @@
 import {
     stopPropagation
-} from "./global.func.mjs";
+} from "./global.func.js";
 
 import {
     scrollContent,
     sideBar
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 import {
     createWebsite
-} from "./website.func.mjs";
+} from "./website.func.js";
 
 import {
     createSetting
-} from "./setting.func.mjs";
+} from "./setting.func.js";
 
 function renderSideBarContent(id) {
     switch (id) {

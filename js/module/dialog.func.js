@@ -1,6 +1,6 @@
 import {
     body
-} from "./dom.constant.mjs";
+} from "./dom.constant.js";
 
 function openDialog(data) {
     let [title, content, btns] = ["", "", "", ""];
