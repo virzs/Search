@@ -64,7 +64,8 @@
             "show": false,
             "content": []
         }, {
-            "name": "Website",
+            "name": "书签",
+            "value": "Website",
             "icon": "fa fa-tags",
             "color": "#1B813E",
             "show": true,
@@ -383,7 +384,8 @@
                 }]
             }]
         }, {
-            "name": "Setting",
+            "name": "设置",
+            "value": "Setting",
             "icon": "fa fa-cog",
             "color": "#43341B",
             "show": true,
