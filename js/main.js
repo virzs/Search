@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-15 13:20:36
+ * @Last Modified time: 2020-02-15 13:30:22
  */
 
 //配置变量
@@ -281,12 +281,15 @@ selectOption.addEventListener("click", (e) => {
 })
 
 sideBarButton.addEventListener("click", () => {
-    let icon = sideBarTitle.querySelector(".title-icon");
+    let icon = sideBarTitle.querySelectorAll(".title-icon");
+    Array.prototype.forEach.call(icon, item => {
+        item.style.background = "";
+    })
     if (sideBarIconFlag == -1) {
         sideBarButton.className = "sideBarButtonMoveLeft";
         sideBar.className = "moveLeft";
         sideBar.style.background = sideBar.style.color;
-        icon.style.background = icon.style.color;
+        icon[0].style.background = icon[0].style.color;
         sideBarIconFlag = "Website";
         renderSideBarContent("Website");
     } else {
@@ -297,13 +300,20 @@ sideBarButton.addEventListener("click", () => {
 })
 
 sideBarTitle.addEventListener("click", (e) => {
+    stopPropagation();
     let icon = sideBarTitle.querySelectorAll(".title-icon");
-    Array.prototype.forEach.call(icon, item => {
-        item.style.background = "";
-    })
-    e.target.style.background = e.target.style.color;
-    renderSideBarContent(e.target.id);
-    sideBarIconFlag = e.target.id;
+    if (e.target.className == "title-icon") {
+        Array.prototype.forEach.call(icon, item => {
+            item.style.background = "";
+        })
+        e.target.style.background = e.target.style.color;
+        renderSideBarContent(e.target.id);
+        sideBarIconFlag = e.target.id;
+    } else {
+        sideBarButton.className = "sideBarButtonMoveRight";
+        sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
+    }
 })
 
 //网页文档加载完毕调用动画
