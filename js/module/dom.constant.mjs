@@ -7,6 +7,7 @@ const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧�
 const selectOption = document.querySelector("#selectOption"); //搜索引擎数据
 const searchInput = document.querySelector("#search"); //搜索输入框
 const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
+const sideBarButton = document.querySelector("#sideBarButton");
 const sideBar = document.querySelector("#sideBar"); //侧边栏
 const sideBarTitle = document.querySelector("#sideBarTitle") //侧边栏图标区域
 const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
@@ -28,6 +29,7 @@ export {
     selectOption,
     searchInput,
     searchList,
+    sideBarButton,
     sideBar,
     sideBarTitle,
     sideBarContent,
