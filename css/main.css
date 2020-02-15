@@ -304,13 +304,30 @@ span {
 
 #sideBar {
     position: absolute;
-    width: 380px;
-    right: -340px;
+    width: 370px;
+    right: -370px;
     top: 0;
     bottom: 0;
     font-size: 28px;
     z-index: 1000;
     overflow: hidden;
+}
+
+#sideBarButton {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 25px;
+    top: 25px;
+    font-size: 32px;
+    background: #606266;
+}
+
+#sideBarButton:hover {
+    cursor: pointer;
 }
 
 #sideBarTitle,
@@ -321,9 +338,8 @@ span {
 }
 
 #sideBarTitle {
-    width: 40px;
+    width: 30px;
     box-sizing: border-box;
-    padding-top: 5px;
 }
 
 #sideBarContent {
@@ -362,6 +378,14 @@ span {
     animation: moveRight 0.5s forwards;
 }
 
+.sideBarButtonMoveLeft {
+    animation: sideBarButtonMoveLeft 0.5s forwards;
+}
+
+.sideBarButtonMoveRight {
+    animation: sideBarButtonMoveRight 0.5s forwards;
+}
+
 .messageMoveLeft {
     animation: messageMoveLeft 0.5s forwards;
 }
@@ -371,9 +395,38 @@ span {
 }
 
 .title-icon {
-    margin: -5px 0;
+    width: 30px;
     text-align: center;
     cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 22px;
+    box-sizing: border-box;
+    padding: 3px 0;
+}
+
+.title-icon i {
+    display: block;
+    width: 25px;
+    height: 25px;
+}
+
+.title-icon span {
+    display: block;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.title-icon::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .capsule {
@@ -765,7 +818,7 @@ span {
 
 @keyframes moveLeft {
     from {
-        right: -340px;
+        right: -370px;
     }
 
     to {
@@ -779,7 +832,27 @@ span {
     }
 
     to {
-        right: -340px;
+        right: -370px;
+    }
+}
+
+@keyframes sideBarButtonMoveLeft {
+    from {
+        right: 25px;
+    }
+
+    to {
+        right: 380px;
+    }
+}
+
+@keyframes sideBarButtonMoveRight {
+    from {
+        right: 380px;
+    }
+
+    to {
+        right: 25px;
     }
 }
 
