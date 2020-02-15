@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-15 12:46:10
+ * @Last Modified time: 2020-02-15 13:20:36
  */
 
 //配置变量
@@ -166,7 +166,7 @@ selectOption.innerHTML = `<p>请选择搜索引擎：</p><ul>${searchEngine}</ul
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
     if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color}"><i class="${jsonData.sideBar.content[item].icon}"></i><span>${jsonData.sideBar.content[item].name}</spa></div>`
+        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i><span>${jsonData.sideBar.content[item].name}</spa></div>`
     }
 }
 
@@ -281,9 +281,12 @@ selectOption.addEventListener("click", (e) => {
 })
 
 sideBarButton.addEventListener("click", () => {
+    let icon = sideBarTitle.querySelector(".title-icon");
     if (sideBarIconFlag == -1) {
         sideBarButton.className = "sideBarButtonMoveLeft";
         sideBar.className = "moveLeft";
+        sideBar.style.background = sideBar.style.color;
+        icon.style.background = icon.style.color;
         sideBarIconFlag = "Website";
         renderSideBarContent("Website");
     } else {
@@ -294,6 +297,11 @@ sideBarButton.addEventListener("click", () => {
 })
 
 sideBarTitle.addEventListener("click", (e) => {
+    let icon = sideBarTitle.querySelectorAll(".title-icon");
+    Array.prototype.forEach.call(icon, item => {
+        item.style.background = "";
+    })
+    e.target.style.background = e.target.style.color;
     renderSideBarContent(e.target.id);
     sideBarIconFlag = e.target.id;
 })
