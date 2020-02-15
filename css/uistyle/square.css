@@ -23,6 +23,11 @@
     border-radius: 4px;
 }
 
+.title-icon {
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
 #searchList {
     border-radius: 8px;
 }
