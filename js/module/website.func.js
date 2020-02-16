@@ -19,6 +19,10 @@ import {
     setStorageBefore
 } from "./animation.func.js";
 
+import {
+    getRandomColor
+} from "./global.func.js";
+
 //创建书签数据
 function createWebsite() {
     let websiteInfo = "",
@@ -40,7 +44,6 @@ function createWebsite() {
 
 //添加常用书签
 function commonWebsite(json) {
-    console.log(json)
     let id = "",
         name = "",
         url = "",
@@ -152,6 +155,22 @@ function setCommomUse(data, status) {
         commonUse.style.display = "none";
     }
     commonUse.innerHTML = commonHtml + addCommonsData();
+    iconLoadError();
+}
+
+function iconLoadError() {
+    Array.prototype.forEach.call(commonUse.children, item => {
+        if (item.children[0].className == "commons-content") {
+            item.children[0].children[0].onerror = () => {
+                let textIcon = document.createElement("div");
+                textIcon.setAttribute("class", "text-icon");
+                textIcon.style.backgroundColor = getRandomColor();
+                let imageIcon = item.children[0].children[0];
+                textIcon.innerHTML = item.children[0].children[1].text.substr(0, 1);
+                item.children[0].replaceChild(textIcon, imageIcon);
+            }
+        }
+    })
 }
 
 //自定义网址模板
