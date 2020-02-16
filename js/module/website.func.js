@@ -28,7 +28,7 @@ function createWebsite() {
             websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             item.content.forEach(inner => {
                 if (inner.show) {
-                    sideBarHtml += `<a id='${inner.icon}' href='${inner.href}' target="_blank" class="capsule" style="border:2px solid ${inner.color};"><div style="color:${inner.color};"><span>${inner.name}</span></div></a>`;
+                    sideBarHtml += `<a id='${inner.icon}' href='${inner.url}' target="_blank" class="capsule" style="border:2px solid ${inner.color};"><div style="color:${inner.color};"><span>${inner.name}</span></div></a>`;
                 }
             })
             websiteInfo = websiteInfo + sideBarHtml;
@@ -40,13 +40,16 @@ function createWebsite() {
 
 //添加常用书签
 function commonWebsite(json) {
-    let name = "",
-        href = "",
+    console.log(json)
+    let id = "",
+        name = "",
+        url = "",
         color = "";
     let flag = true;
     if (json.thisWebsite !== undefined) {
+        id = json.thisWebsite.id;
         name = json.thisWebsite.name;
-        href = json.thisWebsite.href;
+        url = json.thisWebsite.url;
         color = json.thisWebsite.color;
     }
     let commonData = json.commonData,
@@ -56,9 +59,10 @@ function commonWebsite(json) {
         del = json.del;
     let data = {
         "name": name,
-        "href": href,
+        "url": url,
         "color": color,
         "count": 1,
+        "id": Math.random().toString(36).substr(-8)
     };
     if (status !== undefined && status == getStorage("showCommonUse")) {
         let info = "";
@@ -84,17 +88,15 @@ function commonWebsite(json) {
         data.count = 1;
     }
     if (change) {
-        href = href.substring(0, href.length - 1);
         commonData.forEach(item => {
-            if (item.href == href) {
+            if (item.id == id) {
                 item.name = name;
                 item.count = 100000;
             }
         })
         flag = false;
     } else if (del) {
-        href = href.substring(0, href.length - 1);
-        let delData = commonData.findIndex(item => item.href == href);
+        let delData = commonData.findIndex(item => item.id == id);
         commonData.splice(delData, 1);
         flag = false;
     }
@@ -131,7 +133,7 @@ function setCommomUse(data, status) {
     if (data !== null) {
         data.forEach((item, index) => {
             if (index < 7) {
-                commonHtml += renderData(item.name, item.href, item.color);
+                commonHtml += renderData(item.id, item.name, item.url, item.color);
             }
         })
     }
@@ -153,12 +155,12 @@ function setCommomUse(data, status) {
 }
 
 //自定义网址模板
-function renderData(name, url, color) {
+function renderData(id, name, url, color) {
     return `
     <div class="commons">
         <div class="commons-content">
             <img src="https://favicon.link/${url}"></img>
-            <a style="color:${color};" href="${url}" target="_blank">${name}</a>
+            <a id="${id}" style="color:${color};" href="${url}" target="_blank">${name}</a>
         </div>
         <div class="commons-btn">
             <i class="fa fa-ellipsis-h"></i>
