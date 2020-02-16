@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-16 17:39:27
+ * @Last Modified time: 2020-02-16 19:51:36
  */
 
 //配置变量
@@ -209,6 +209,13 @@ document.addEventListener("click", function (e) {
         sideBarButton.className = "sideBarButtonMoveRight";
         sideBarIconFlag = -1;
     }
+
+    //监听模态框关闭图标
+    if (e.target.id == "closeDialog") {
+        closeDialog();
+    }
+
+    //模态框提交
     if (e.target.id == "submitDialog") {
         let name = document.querySelector("#nameDialog").children[1].value;
         let url = document.querySelector("#urlDialog").children[1].value;
@@ -234,9 +241,13 @@ document.addEventListener("click", function (e) {
         })
         closeDialog();
     }
+
+    //模态框取消
     if (e.target.id == "cancelDialog") {
         closeDialog();
     }
+
+    //模态框修改
     if (e.target.id == "changeDialog") {
         let id = document.querySelector("#dialog").className;
         let name = document.querySelector("#nameDialog").children[1].value;
@@ -250,6 +261,8 @@ document.addEventListener("click", function (e) {
         })
         closeDialog();
     }
+
+    //模态框删除
     if (e.target.id == "deleteDialog") {
         let id = document.querySelector("#dialog").className;
         commonWebsite({
@@ -261,6 +274,8 @@ document.addEventListener("click", function (e) {
         })
         closeDialog();
     }
+
+    //模态框点击背景隐藏
     if (e.target.id == "dialogWrapper") {
         closeDialog();
     }
