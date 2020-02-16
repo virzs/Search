@@ -538,6 +538,18 @@ span {
     border-radius: 4px;
 }
 
+.commons-content .text-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    margin-top: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
 .commons-content a {
     font-size: 12px;
     line-height: 16px;
