@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-16 11:10:24
+ * @Last Modified time: 2020-02-16 11:14:31
  */
 
 //配置变量
@@ -82,8 +82,7 @@ import {
 //阻止事件冒泡函数
 import {
     stopPropagation,
-    findSettingInfo,
-    iconError
+    findSettingInfo
 } from "./module/global.func.js";
 
 import {
