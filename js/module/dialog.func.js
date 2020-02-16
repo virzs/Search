@@ -21,7 +21,7 @@ function openDialog(data) {
     })
     let dialog = `
         <div id="dialog" class="${data.id}">
-            <div class="dialog-header">${title}</div>
+            <div class="dialog-header">${title}<span id="closeDialog"><i class="fa fa-close"></i></span></div>
             <div class="dialog-body">${content}</div>
             <div class="dialog-footer">${btns}</div>
         </div>`;
