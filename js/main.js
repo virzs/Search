@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-15 15:57:07
+ * @Last Modified time: 2020-02-16 11:10:24
  */
 
 //配置变量
@@ -11,7 +11,6 @@ var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
-var dialogFlag = true;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -83,7 +82,8 @@ import {
 //阻止事件冒泡函数
 import {
     stopPropagation,
-    findSettingInfo
+    findSettingInfo,
+    iconError
 } from "./module/global.func.js";
 
 import {
@@ -227,7 +227,7 @@ document.addEventListener("click", function (e) {
         commonWebsite({
             thisWebsite: {
                 name: name,
-                href: url,
+                url: url,
                 color: "#000"
             },
             commonData: commonData,
@@ -239,11 +239,12 @@ document.addEventListener("click", function (e) {
         closeDialog();
     }
     if (e.target.id == "changeDialog") {
+        let id = document.querySelector("#dialog").className;
         let name = document.querySelector("#nameDialog").children[1].value;
         commonWebsite({
             thisWebsite: {
-                name: name,
-                href: changeWebsiteUrl
+                id: id,
+                name: name
             },
             commonData: commonData,
             change: true
@@ -251,9 +252,10 @@ document.addEventListener("click", function (e) {
         closeDialog();
     }
     if (e.target.id == "deleteDialog") {
+        let id = document.querySelector("#dialog").className;
         commonWebsite({
             thisWebsite: {
-                href: changeWebsiteUrl
+                id: id
             },
             commonData: commonData,
             del: true
@@ -264,6 +266,7 @@ document.addEventListener("click", function (e) {
         closeDialog();
     }
 });
+
 //监听搜索按钮
 searchContent.querySelector("#searchBtn").addEventListener("click", () => {
     goSearch();
@@ -396,14 +399,15 @@ commonUse.addEventListener("click", (e) => {
         })
     }
     if (e.target.className == "commons-btn") {
-        changeWebsiteUrl = e.target.parentNode.querySelector("a").href
+        changeWebsiteUrl = e.target.parentNode.querySelector("a")
         openDialog({
+            id: changeWebsiteUrl.id,
             title: "修改常用网址",
             content: [{
                 name: "名称",
                 value: "name",
                 type: "input",
-                defaultValue: e.target.parentNode.querySelector("a").innerHTML
+                defaultValue: changeWebsiteUrl.innerHTML
             }],
             button: [{
                 name: "修改",
