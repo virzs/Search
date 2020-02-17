@@ -30,8 +30,18 @@ function findSettingInfo(value) {
 function getRandomColor() {
     return '#' + Math.random().toString(16).slice(2, 8)
 }
+
+//删除标签函数，参数需要删除的标签名
+function removeElement(element) {
+    let ele = document.querySelector(element);
+    if (ele !== null) {
+        ele.parentNode.removeChild(ele);
+    }
+}
+
 export {
     stopPropagation,
     findSettingInfo,
-    getRandomColor
+    getRandomColor,
+    removeElement
 }
