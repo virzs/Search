@@ -19,6 +19,10 @@ import {
     linkTag
 } from "./dom.constant.js";
 
+import {
+    removeElement
+} from "./global.func.js";
+
 //切换配色
 function changeSkin(skinName, value) {
     if (getStorage("skin") == value && value !== "./css/skin/skin_Transparent.css") {
@@ -33,7 +37,8 @@ function changeSkin(skinName, value) {
         linkTag.href = value;
         if (value !== "./css/skin/skin_Transparent.css") {
             removeStorage("bg");
-            body.style.removeProperty("background-image");
+            removeElement("#globalImage");
+            removeElement("#WoolGlass");
         }
     }
     setStorageBefore(setHref, skinName, value);
