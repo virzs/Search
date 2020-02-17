@@ -1,5 +1,6 @@
 import {
-    body,linkTag
+    body,
+    linkTag
 } from "./dom.constant.js";
 
 import {
@@ -20,6 +21,10 @@ import {
     openMessage
 } from "./message.func.js";
 
+import {
+    removeElement
+} from "./global.func.js";
+
 var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
 
 //设置必应壁纸为背景
@@ -36,13 +41,11 @@ function setBingImage(status) {
     window.bing = {
         bg: function (data) {
             let func = () => {
-                body.style.background = `url('${data.data.url}') no-repeat`;
-                body.style.backgroundSize = "cover";
+                globalImage(data.data.url);
                 WoolGlass(data.data.url);
             }
             if (status) {
-                body.style.background = `url('${data.data.url}') no-repeat`;
-                body.style.backgroundSize = "cover";
+                globalImage(data.data.url);
                 WoolGlass(data.data.url);
             } else {
                 setStorageBefore(func);
@@ -63,8 +66,7 @@ function setCustomizeImage(setBackGround) {
     reader.onload = function (e) {
         let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
         let func = () => {
-            body.style.background = `url('${data}') no-repeat`;
-            body.style.backgroundSize = "cover";
+            globalImage(data);
             WoolGlass(data);
         }
         // 将文件大小转化成MB
@@ -100,7 +102,8 @@ function setdefault(type) {
         let defaultSkin = () => {
             linkTag.href = './css/skin/skin_SunsetBeach.css';
             removeStorage("bg");
-            body.style.removeProperty("background-image");
+            removeElement("#globalImage");
+            removeElement("#WoolGlass");
             setStorage('skin', './css/skin/skin_SunsetBeach.css');
         }
         setStorageBefore(defaultSkin);
@@ -113,12 +116,24 @@ function setdefault(type) {
     }
 }
 
+function globalImage(url) {
+    let style = document.createElement("style");
+    style.setAttribute("id", "globalImage");
+    style.innerHTML = `
+        body {
+            background:url('${url}') no-repeat;
+            background-size: cover;
+        }`;
+    document.querySelector("head").appendChild(style);
+}
+
 function WoolGlass(url) {
     let style = document.createElement("style");
     style.setAttribute("id", "WoolGlass");
     style.innerHTML = `
         .search-group::after,
         .search-option::after,
+        #sideBarButton::after,
         #sideBar::after,
         .commons::after,
         #searchList::after,
@@ -134,5 +149,6 @@ function WoolGlass(url) {
 export {
     setBingImage,
     setCustomizeImage,
-    setdefault
+    setdefault,
+    globalImage
 }
