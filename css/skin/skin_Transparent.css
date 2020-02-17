@@ -10,10 +10,6 @@ a:hover {
     color: black;
 }
 
-.poetry-content {
-    color: #333;
-}
-
 .title-icon {
     color: #8f8f8f;
 }
@@ -30,12 +26,16 @@ a:hover {
     color: #5f5f5f;
 }
 
-.search-group {
+.search-group,
+.search-btn,
+.search-option {
     background: transparent;
+    color: #dfe1e5;
 }
 
 .search-group::after,
 .search-option::after,
+#sideBarButton::after,
 #sideBar::after,
 .commons::after,
 #searchList::after,
@@ -72,9 +72,17 @@ a:hover {
     background: #f1f1f1;
 }
 
+#sideBarButton {
+    color: #dfe1e5;
+}
+
 #sideBarContent {
     background: transparent;
     /* box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9); */
+}
+
+.poetry {
+    color: #dfe1e5;
 }
 
 .capsule {
