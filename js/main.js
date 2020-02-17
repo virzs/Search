@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-16 19:51:36
+ * @Last Modified time: 2020-02-17 14:27:36
  */
 
 //配置变量
@@ -93,7 +93,8 @@ import {
 import {
     setBingImage,
     setCustomizeImage,
-    setdefault
+    setdefault,
+    globalImage
 } from "./module/bg.func.js";
 
 import {
@@ -121,8 +122,7 @@ import {
     加载本地存储区域/自动加载区域
  */
 if (bg && bg !== null && bg !== "setBingImage") {
-    body.style.background = `url('${bg}') no-repeat`;
-    body.style.backgroundSize = "cover";
+    globalImage(bg);
 }
 
 if (bg == "setBingImage") {
@@ -207,6 +207,7 @@ document.addEventListener("click", function (e) {
     if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1) {
         sideBar.className = "moveRight";
         sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
         sideBarIconFlag = -1;
     }
 
@@ -303,6 +304,7 @@ sideBarButton.addEventListener("click", () => {
     })
     if (sideBarIconFlag == -1) {
         sideBarButton.className = "sideBarButtonMoveLeft";
+        sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
         sideBar.className = "moveLeft";
         icon[0].style.background = icon[0].style.borderColor;
         icon[0].style.color = "#fff";
@@ -310,6 +312,7 @@ sideBarButton.addEventListener("click", () => {
         renderSideBarContent("Website");
     } else {
         sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
         sideBar.className = "moveRight";
         sideBarIconFlag = -1;
     }
@@ -329,6 +332,7 @@ sideBarTitle.addEventListener("click", (e) => {
         sideBarIconFlag = e.target.id;
     } else {
         sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
         sideBar.className = "moveRight";
         sideBarIconFlag = -1;
     }
@@ -416,7 +420,7 @@ commonUse.addEventListener("click", (e) => {
         })
     }
     if (e.target.className == "commons-btn") {
-        changeWebsiteUrl = e.target.parentNode.querySelector("a")
+        changeWebsiteUrl = e.target.parentNode.querySelector("a");
         openDialog({
             id: changeWebsiteUrl.id,
             title: "修改常用网址",
