@@ -320,10 +320,12 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    right: 25px;
-    top: 25px;
+    right: 10px;
+    top: 10px;
     font-size: 32px;
-    background: #606266;
+    transform: scale(0.8);
+    overflow: hidden;
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
 
 #sideBarButton:hover {
@@ -920,21 +922,25 @@ span {
 
 @keyframes sideBarButtonMoveLeft {
     from {
-        right: 25px;
+        right: 10px;
+        border-radius: 5px;
     }
 
     to {
         right: 380px;
+        border-radius: 25px;
     }
 }
 
 @keyframes sideBarButtonMoveRight {
     from {
         right: 380px;
+        border-radius: 25px;
     }
 
     to {
-        right: 25px;
+        right: 10px;
+        border-radius: 5px;
     }
 }
 
