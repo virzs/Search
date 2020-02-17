@@ -120,7 +120,7 @@ function globalImage(url) {
     let style = document.createElement("style");
     style.setAttribute("id", "globalImage");
     style.innerHTML = `
-        body {
+        #body {
             background:url('${url}') no-repeat;
             background-size: cover;
         }`;
@@ -139,6 +139,15 @@ function WoolGlass(url) {
         #searchList::after,
         #dialog::after,
         #messageList li::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            filter: blur(10px);
+            margin: -30px;
             background: url(${url});
             background-repeat: no-repeat;
             background-size: cover;

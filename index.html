@@ -25,50 +25,53 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="search-logo">
-            <img src="./img/logo/defaultLogo.png" alt="" />
-        </div>
-        <div class="search-content">
-            <div class="search-group">
-                <div class="search-select" id="selectEngine"></div>
-                <input id="search" type="search" autocomplete="off" class="search-input" name="" placeholder="请输入搜索的内容">
-                <button id="searchBtn" type="button" class="search-btn">
-                    <i class="fa fa-search"></i> 搜索&nbsp;
-                </button>
+    <div id="body">
+        <div class="container">
+            <div class="search-logo">
+                <img src="./img/logo/defaultLogo.png" alt="" />
             </div>
-            <div class="search-option" id="selectOption"></div>
-            <ul id="searchList"></ul>
-        </div>
-        <div class="poetry">
-            <div class="poetry-content">
-                <span id="jinrishiciSentence">正在加载诗词....</span>
+            <div class="search-content">
+                <div class="search-group">
+                    <div class="search-select" id="selectEngine"></div>
+                    <input id="search" type="search" autocomplete="off" class="search-input" name=""
+                        placeholder="请输入搜索的内容">
+                    <button id="searchBtn" type="button" class="search-btn">
+                        <i class="fa fa-search"></i> 搜索&nbsp;
+                    </button>
+                </div>
+                <div class="search-option" id="selectOption"></div>
+                <ul id="searchList"></ul>
             </div>
-            <div class="poetry-info">
-                <span id="jinrishiciAuthor"></span>
-                <span id="jinrishiciTitle"></span>
+            <div class="poetry">
+                <div class="poetry-content">
+                    <span id="jinrishiciSentence">正在加载诗词....</span>
+                </div>
+                <div class="poetry-info">
+                    <span id="jinrishiciAuthor"></span>
+                    <span id="jinrishiciTitle"></span>
+                </div>
+            </div>
+            <div id="commonUse"></div>
+            <div id="copyright"></div>
+        </div>
+        <div id="sideBarButton"><i class="fa fa-bars"></i></div>
+        <div id="sideBar">
+            <div id="sideBarTitle"></div>
+            <div id="sideBarContent">
+                <div id="scrollContent"></div>
             </div>
         </div>
-        <div id="commonUse"></div>
-        <div id="copyright"></div>
-    </div>
-    <div id="sideBarButton"><i class="fa fa-bars"></i></div>
-    <div id="sideBar">
-        <div id="sideBarTitle"></div>
-        <div id="sideBarContent">
-            <div id="scrollContent"></div>
+        <div id="loading">
+            <div class="pic">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
         </div>
+        <ul id="messageList"></ul>
     </div>
-    <div id="loading">
-        <div class="pic">
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-        </div>
-    </div>
-    <ul id="messageList"></ul>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>

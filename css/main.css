@@ -29,6 +29,11 @@ span {
     display: inline-block;
 }
 
+#body {
+    width: 100%;
+    height: 100%;
+}
+
 .container {
     height: 100%;
     display: flex;
@@ -512,6 +517,7 @@ span {
     overflow: hidden;
     margin: 5px;
     position: relative;
+    z-index: 1;
     width: 120px;
     height: 90px;
     transition: all 0.2s ease-in-out;
