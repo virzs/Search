@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-17 14:27:36
+ * @Last Modified time: 2020-02-18 15:40:27
  */
 
 //配置变量
@@ -94,7 +94,8 @@ import {
     setBingImage,
     setCustomizeImage,
     setdefault,
-    globalImage
+    globalImage,
+    WoolGlass
 } from "./module/bg.func.js";
 
 import {
@@ -123,6 +124,7 @@ import {
  */
 if (bg && bg !== null && bg !== "setBingImage") {
     globalImage(bg);
+    WoolGlass(bg);
 }
 
 if (bg == "setBingImage") {

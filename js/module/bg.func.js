@@ -159,5 +159,6 @@ export {
     setBingImage,
     setCustomizeImage,
     setdefault,
-    globalImage
+    globalImage,
+    WoolGlass
 }
