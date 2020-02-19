@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-19 14:28:16
+ * @Last Modified time: 2020-02-19 15:09:47
  */
 
 //配置变量
@@ -513,7 +513,9 @@ window.onerror = function (message, source, lineno, colno, error) {
         title: "抱歉，出现错误！！",
         content: `
             <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
-            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>`,
+            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
+            <br/>
+            <code>${navigator.userAgent}</code>`,
         button: [{
             name: "取消",
             value: "cancel"
