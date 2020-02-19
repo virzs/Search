@@ -175,7 +175,7 @@ function iconLoadError() {
             item.children[0].children[0].onerror = () => {
                 let textIcon = document.createElement("div");
                 textIcon.setAttribute("class", "text-icon");
-                textIcon.style.backgroundColor = getRandomColor();
+                textIcon.style.backgroundColor = item.children[0].children[1].style.color;
                 let imageIcon = item.children[0].children[0];
                 textIcon.innerHTML = item.children[0].children[1].text.substr(0, 1);
                 item.children[0].replaceChild(textIcon, imageIcon);
