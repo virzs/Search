@@ -1,5 +1,4 @@
 import {
-    body,
     linkTag
 } from "./dom.constant.js";
 
