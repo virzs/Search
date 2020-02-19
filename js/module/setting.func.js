@@ -14,22 +14,19 @@ function createHtml(inner) {
         sideBarHtml = `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
     }
     if (inner.type == "uistyle") {
-        sideBarHtml = `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml += `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`;
+        sideBarHtml = `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`;
     }
-    if (inner.type == "changebg" && inner.value == "setdefault") {
-        sideBarHtml += `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
-    }
-    if (inner.type == "changebg" && inner.value == "setBingImage") {
-        sideBarHtml += `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
+    if (inner.type == "changebg" && inner.value !== "changebg") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "changeCommonUse") {
-        sideBarHtml += `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "thanks") {
-        sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`;
+        sideBarHtml = `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`;
     }
     return sideBarHtml;
 }
@@ -75,6 +72,10 @@ function createSetting() {
         }
     })
     return settingInfo;
+}
+
+function renderSetting(id, color, name) {
+    return `<div id="${id}" class="setlist" style="border:2px solid ${color};">${name}</div>`;
 }
 
 export {
