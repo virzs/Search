@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-19 15:09:47
+ * @Last Modified time: 2020-02-19 16:41:30
  */
 
 //配置变量
@@ -82,7 +82,8 @@ import {
 //阻止事件冒泡函数
 import {
     stopPropagation,
-    findSettingInfo
+    findSettingInfo,
+    getRandomColor
 } from "./module/global.func.js";
 
 import {
@@ -181,6 +182,12 @@ if (jsonData.copyright.show) {
     copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
 }
 
+//网页文档加载完毕调用动画
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        toggle(loading, 40);
+    }
+}
 /*
     加载本地存储区域/自动加载区域结束
  */
@@ -230,15 +237,14 @@ document.addEventListener("click", function (e) {
             })
             return;
         }
-        if (url.toLowerCase().indexOf("https://") == -1 || url.toLowerCase().indexOf("http://") == -1) {
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
             url = `https://${url}`;
-            console.log(url)
         }
         commonWebsite({
             thisWebsite: {
                 name: name,
                 url: url,
-                color: "#000"
+                color: getRandomColor()
             },
             commonData: commonData,
             add: true
@@ -284,6 +290,18 @@ document.addEventListener("click", function (e) {
         closeDialog();
     }
 });
+
+//点击选择搜索引擎事件
+selectEngine.addEventListener("click", () => {
+    if (searchFlag) {
+        selectOption.style.display = "block";
+        searchFlag = !searchFlag;
+    } else {
+        selectOption.style.display = "none";
+        searchFlag = !searchFlag;
+    }
+    stopPropagation();
+})
 
 //监听搜索按钮
 searchContent.querySelector("#searchBtn").addEventListener("click", () => {
@@ -340,13 +358,6 @@ sideBarTitle.addEventListener("click", (e) => {
         sideBarIconFlag = -1;
     }
 })
-
-//网页文档加载完毕调用动画
-document.onreadystatechange = function () {
-    if (document.readyState == "complete") {
-        toggle(loading, 40);
-    }
-}
 
 //解决点击元素内部隐藏的问题
 sideBarContent.addEventListener("click", (e) => {
@@ -480,26 +491,6 @@ searchInput.onkeyup = () => {
 
 
 /*
-    点击事件
- */
-//点击选择搜索引擎事件
-selectEngine.onclick = () => {
-    if (searchFlag) {
-        selectOption.style.display = "block";
-        searchFlag = !searchFlag;
-    } else {
-        selectOption.style.display = "none";
-        searchFlag = !searchFlag;
-    }ss
-    stopPropagation();
-}
-
-/*
-    点击事件结束
- */
-
-
-/*
     错误监听开始
  */
 window.onerror = function (message, source, lineno, colno, error) {
@@ -507,7 +498,8 @@ window.onerror = function (message, source, lineno, colno, error) {
     发生错误的脚本URL（字符串）：source
     发生错误的行号（数字）：lineno
     发生错误的列号（数字）：colno
-    Error对象（对象）：error */
+    Error对象（对象）：error
+    https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
     openDialog({
         html: true,
         title: "抱歉，出现错误！！",
