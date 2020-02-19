@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-19 16:41:30
+ * @Last Modified time: 2020-02-19 18:15:37
  */
 
 //配置变量
@@ -237,7 +237,7 @@ document.addEventListener("click", function (e) {
             })
             return;
         }
-        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+        if (url.toLowerCase().indexOf('https://') != -1 && url.toLowerCase().indexOf('http://') != -1) {
             url = `https://${url}`;
         }
         commonWebsite({
@@ -469,7 +469,7 @@ commonUse.addEventListener("click", (e) => {
 //监听按下键盘事件，实现按下Enter跳转搜索
 document.onkeydown = function (e) {
     let event = e || event;
-    if (event.keyCode == 13) {
+    if (event.keyCode == 13 && searchInput.value !== "") {
         goSearch();
     }
 }
