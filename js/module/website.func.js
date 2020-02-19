@@ -19,15 +19,12 @@ import {
     setStorageBefore
 } from "./animation.func.js";
 
-import {
-    getRandomColor
-} from "./global.func.js";
-
 //创建书签数据
 function createWebsite() {
     let websiteInfo = "",
         sideBarHtml = "";
-    jsonData.sideBar.content[1].content.forEach(item => {
+    let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
+    websiteData.forEach(item => {
         if (item.show) {
             websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             item.content.forEach(inner => {
