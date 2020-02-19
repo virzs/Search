@@ -823,6 +823,10 @@ span {
     border: 1px solid #c2c4ca;
 }
 
+#dialog p {
+    margin: 0;
+}
+
 #dialog>.dialog-footer {
     box-sizing: border-box;
     padding: 10px 20px 20px;
