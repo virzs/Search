@@ -127,11 +127,13 @@ function commonWebsite(json) {
     })
     setCommomUse(commonData, status);
     setStorage("commonUseData", JSON.stringify(commonData));
-    openMessage({
-        title: "提示",
-        type: "success",
-        content: `${operate}成功！`
-    })
+    if (status == undefined) {
+        openMessage({
+            title: "提示",
+            type: "success",
+            content: `${operate}成功！`
+        })
+    }
 }
 
 //记录常用网址
