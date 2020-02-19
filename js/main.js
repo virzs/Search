@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-18 15:40:27
+ * @Last Modified time: 2020-02-19 14:28:16
  */
 
 //配置变量
@@ -230,8 +230,9 @@ document.addEventListener("click", function (e) {
             })
             return;
         }
-        if (url.indexOf("https://") == -1 || url.indexOf("http://") == -1) {
+        if (url.toLowerCase().indexOf("https://") == -1 || url.toLowerCase().indexOf("http://") == -1) {
             url = `https://${url}`;
+            console.log(url)
         }
         commonWebsite({
             thisWebsite: {
@@ -489,7 +490,7 @@ selectEngine.onclick = () => {
     } else {
         selectOption.style.display = "none";
         searchFlag = !searchFlag;
-    }
+    }ss
     stopPropagation();
 }
 
@@ -499,9 +500,27 @@ selectEngine.onclick = () => {
 
 
 /*
-    业务逻辑函数
+    错误监听开始
  */
-
+window.onerror = function (message, source, lineno, colno, error) {
+    /* 错误信息（字符串）：message
+    发生错误的脚本URL（字符串）：source
+    发生错误的行号（数字）：lineno
+    发生错误的列号（数字）：colno
+    Error对象（对象）：error */
+    openDialog({
+        html: true,
+        title: "抱歉，出现错误！！",
+        content: `
+            <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
+            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>`,
+        button: [{
+            name: "取消",
+            value: "cancel"
+        }]
+    })
+    return true;
+}
 /*
-    业务逻辑函数结束
+    错误监听结束
  */
