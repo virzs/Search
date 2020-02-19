@@ -67,6 +67,7 @@ function commonWebsite(json) {
         "count": 1,
         "id": Math.random().toString(36).substr(-8)
     };
+    let operate = "";
     if (status !== undefined && status == getStorage("showCommonUse")) {
         let info = "";
         switch (status) {
@@ -87,6 +88,7 @@ function commonWebsite(json) {
     }
     if (add) {
         data.count = 100000;
+        operate = "添加";
     } else {
         data.count = 1;
     }
@@ -98,10 +100,12 @@ function commonWebsite(json) {
             }
         })
         flag = false;
+        operate = "修改";
     } else if (del) {
         let delData = commonData.findIndex(item => item.id == id);
         commonData.splice(delData, 1);
         flag = false;
+        operate = "删除";
     }
     if (flag) {
         let recent = commonData.find(item => item.name == name);
@@ -123,6 +127,11 @@ function commonWebsite(json) {
     })
     setCommomUse(commonData, status);
     setStorage("commonUseData", JSON.stringify(commonData));
+    openMessage({
+        title: "提示",
+        type: "success",
+        content: `${operate}成功！`
+    })
 }
 
 //记录常用网址
