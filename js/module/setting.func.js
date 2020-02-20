@@ -35,8 +35,8 @@ function createHtml(inner) {
 function createSetting() {
     let settingInfo = "",
         sideBarHtml = "";
-    //令人窒息的代码，等回头再做优化，先实现功能
-    jsonData.sideBar.content[2].content.forEach(item => {
+    let settingData = jsonData.sideBar.content.find(item => item.value == "Setting").content;
+    settingData.forEach(item => {
         if (item.show) {
             settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             if (item.content !== "" && typeof item.content !== "string") {
