@@ -24,6 +24,16 @@ function createWebsite() {
     let websiteInfo = "",
         sideBarHtml = "";
     let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
+    let customizeData = [];
+    if (getStorage("sideBarWebsiteData") == undefined) {
+        websiteData.forEach(item => {
+            customizeData.push({
+                value: item.value,
+                content: []
+            })
+        })
+        setStorage("sideBarWebsiteData", JSON.stringify(customizeData));
+    }
     websiteData.forEach(item => {
         if (item.show) {
             websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
@@ -32,6 +42,14 @@ function createWebsite() {
                     sideBarHtml += `<a id='${inner.icon}' href='${inner.url}' target="_blank" class="capsule" style="border:2px solid ${inner.color};"><div style="color:${inner.color};"><span>${inner.name}</span></div></a>`;
                 }
             })
+            JSON.parse(getStorage("sideBarWebsiteData")).forEach(other => {
+                if (other.value == item.value) {
+                    other.content.forEach(user => {
+                        sideBarHtml += `<a id='${user.icon}' href='${user.url}' target="_blank" class="capsule" style="border:2px solid ${user.color};"><div style="color:${user.color};"><span>${user.name}</span></div></a>`;
+                    })
+                }
+            })
+            sideBarHtml += `<a id='${item.value}AddCapsule' class="capsule" style="border:2px solid ${item.color};"><div style="color:${item.color};"><span><i class="fa fa-plus"></i>&nbsp;添加</span></div></a>`;
             websiteInfo = websiteInfo + sideBarHtml;
             sideBarHtml = "";
         }

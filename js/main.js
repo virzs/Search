@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-19 18:15:37
+ * @Last Modified time: 2020-02-20 15:49:29
  */
 
 //配置变量
@@ -86,11 +86,14 @@ import {
     getRandomColor
 } from "./module/global.func.js";
 
+//网址相关函数
 import {
     commonWebsite,
-    setCommomUse
+    setCommomUse,
+    createWebsite
 } from "./module/website.func.js";
 
+//背景相关函数
 import {
     setBingImage,
     setCustomizeImage,
@@ -99,19 +102,23 @@ import {
     WoolGlass
 } from "./module/bg.func.js";
 
+//皮肤相关函数
 import {
     changeSkin
 } from "./module/skin.func.js";
 
+//UI相关函数
 import {
     changeUI
 } from "./module/ui.func.js";
 
+//模态框相关函数
 import {
     openDialog,
     closeDialog
 } from "./module/dialog.func.js";
 
+//侧边栏渲染函数
 import {
     renderSideBarContent
 } from "./module/sideBar.func.js"
@@ -213,7 +220,7 @@ document.addEventListener("click", function (e) {
     }
 
     //判断侧边栏
-    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1) {
+    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1 && document.querySelector("#dialog") == null) {
         sideBar.className = "moveRight";
         sideBarButton.className = "sideBarButtonMoveRight";
         sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
@@ -283,6 +290,46 @@ document.addEventListener("click", function (e) {
             del: true
         })
         closeDialog();
+    }
+
+    //侧边栏保存自定义网址
+    if (e.target.id == "saveDialog") {
+        let classify = document.querySelector("#dialog").className;
+        let name = document.querySelector("#nameDialog").children[1].value;
+        let url = document.querySelector("#urlDialog").children[1].value;
+        let websiteData = JSON.parse(getStorage("sideBarWebsiteData"));
+        let thisClassify = websiteData.find(item => {
+            if (classify.indexOf(item.value) !== -1) {
+                return item;
+            }
+        });
+        let thisWebsite = thisClassify.content.find(item => item.name == name);
+        if (thisWebsite == undefined) {
+            thisClassify.content.push({
+                name: name,
+                url: url,
+                color: getRandomColor()
+            })
+            websiteData.forEach(item => {
+                if (item.value == thisClassify.value) {
+                    item = thisClassify;
+                }
+            })
+            setStorage("sideBarWebsiteData", JSON.stringify(websiteData));
+            closeDialog();
+            openMessage({
+                title: "提示",
+                type: "success",
+                content: `添加成功！！！`
+            })
+            scrollContent.innerHTML = createWebsite();
+        } else {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `请勿添加重复内容！！！`
+            })
+        }
     }
 
     //模态框点击背景隐藏
@@ -363,7 +410,8 @@ sideBarTitle.addEventListener("click", (e) => {
 sideBarContent.addEventListener("click", (e) => {
     stopPropagation();
     let thisWebsite = {};
-    for (let item of jsonData.sideBar.content[1].content) {
+    let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
+    for (let item of websiteData) {
         thisWebsite = item.content.find(inner => inner.icon == e.target.id);
         if (thisWebsite !== undefined) {
             thisWebsite.count = 1;
@@ -392,6 +440,30 @@ sideBarContent.addEventListener("click", (e) => {
                 commonData: commonData,
                 status: e.target.id
             });
+            break;
+        case (e.target.id.indexOf("AddCapsule") !== -1):
+            openDialog({
+                id: e.target.id,
+                title: "添加自定义网址",
+                content: [{
+                    name: "名称",
+                    value: "name",
+                    type: "input",
+                    defaultValue: ""
+                }, {
+                    name: "URL",
+                    value: "url",
+                    type: "input",
+                    defaultValue: ""
+                }],
+                button: [{
+                    name: "保存",
+                    value: "save"
+                }, {
+                    name: "取消",
+                    value: "cancel"
+                }]
+            })
             break;
     }
 });
