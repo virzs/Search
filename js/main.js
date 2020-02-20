@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-20 15:49:29
+ * @Last Modified time: 2020-02-20 21:50:47
  */
 
 //配置变量
@@ -244,9 +244,10 @@ document.addEventListener("click", function (e) {
             })
             return;
         }
-        if (url.toLowerCase().indexOf('https://') != -1 && url.toLowerCase().indexOf('http://') != -1) {
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
             url = `https://${url}`;
         }
+        console.log(url)
         commonWebsite({
             thisWebsite: {
                 name: name,
