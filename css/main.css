@@ -448,6 +448,10 @@ span {
     position: relative;
 }
 
+.capsule:hover {
+    cursor: pointer;
+}
+
 .capsule::after {
     content: "";
     position: absolute;
