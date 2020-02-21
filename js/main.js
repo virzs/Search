@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-21 12:06:50
+ * @Last Modified time: 2020-02-21 12:22:54
  */
 
 //配置变量
@@ -437,7 +437,6 @@ sideBarContent.addEventListener("click", (e) => {
         thisWebsite = item.content.find(inner => inner.name == e.target.id);
         if (thisWebsite !== undefined && thisWebsite !== {}) {
             thisWebsite.count = 1;
-            console.log(thisWebsite)
             commonWebsite({
                 thisWebsite: thisWebsite,
                 commonData: commonData
