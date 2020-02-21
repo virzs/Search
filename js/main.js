@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-20 21:50:47
+ * @Last Modified time: 2020-02-21 12:06:50
  */
 
 //配置变量
@@ -247,7 +247,6 @@ document.addEventListener("click", function (e) {
         if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
             url = `https://${url}`;
         }
-        console.log(url)
         commonWebsite({
             thisWebsite: {
                 name: name,
@@ -298,6 +297,17 @@ document.addEventListener("click", function (e) {
         let classify = document.querySelector("#dialog").className;
         let name = document.querySelector("#nameDialog").children[1].value;
         let url = document.querySelector("#urlDialog").children[1].value;
+        if (name == "" || url == "") {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `名称或URL不能为空！！！`
+            })
+            return;
+        }
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+            url = `https://${url}`;
+        }
         let websiteData = JSON.parse(getStorage("sideBarWebsiteData"));
         let thisClassify = websiteData.find(item => {
             if (classify.indexOf(item.value) !== -1) {
@@ -413,9 +423,21 @@ sideBarContent.addEventListener("click", (e) => {
     let thisWebsite = {};
     let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
     for (let item of websiteData) {
-        thisWebsite = item.content.find(inner => inner.icon == e.target.id);
+        thisWebsite = item.content.find(inner => inner.name == e.target.id);
         if (thisWebsite !== undefined) {
             thisWebsite.count = 1;
+            commonWebsite({
+                thisWebsite: thisWebsite,
+                commonData: commonData
+            });
+            return;
+        }
+    }
+    for (let item of JSON.parse(getStorage("sideBarWebsiteData"))) {
+        thisWebsite = item.content.find(inner => inner.name == e.target.id);
+        if (thisWebsite !== undefined && thisWebsite !== {}) {
+            thisWebsite.count = 1;
+            console.log(thisWebsite)
             commonWebsite({
                 thisWebsite: thisWebsite,
                 commonData: commonData
