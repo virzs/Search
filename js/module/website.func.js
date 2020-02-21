@@ -142,7 +142,7 @@ function commonWebsite(json) {
     })
     setCommomUse(commonData, status);
     setStorage("commonUseData", JSON.stringify(commonData));
-    if (status == undefined) {
+    if (status == undefined && (add !== undefined || change !== undefined || del !== undefined)) {
         openMessage({
             title: "提示",
             type: "success",
