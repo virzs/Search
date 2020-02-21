@@ -39,13 +39,13 @@ function createWebsite() {
             websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             item.content.forEach(inner => {
                 if (inner.show) {
-                    sideBarHtml += `<a id='${inner.icon}' href='${inner.url}' target="_blank" class="capsule" style="border:2px solid ${inner.color};"><div style="color:${inner.color};"><span>${inner.name}</span></div></a>`;
+                    sideBarHtml += `<a id='${inner.name}' href='${inner.url}' target="_blank" class="capsule" style="border:2px solid ${inner.color};"><div style="color:${inner.color};"><span>${inner.name}</span></div></a>`;
                 }
             })
-            JSON.parse(getStorage("sideBarWebsiteData")).forEach(other => {
-                if (other.value == item.value) {
-                    other.content.forEach(user => {
-                        sideBarHtml += `<a id='${user.icon}' href='${user.url}' target="_blank" class="capsule" style="border:2px solid ${user.color};"><div style="color:${user.color};"><span>${user.name}</span></div></a>`;
+            JSON.parse(getStorage("sideBarWebsiteData")).forEach(outer => {
+                if (outer.value == item.value) {
+                    outer.content.forEach(insite => {
+                        sideBarHtml += `<a id='${insite.name}' href='${insite.url}' target="_blank" class="capsule" style="border:2px solid ${insite.color};"><div style="color:${insite.color};"><span>${insite.name}</span></div></a>`;
                     })
                 }
             })
