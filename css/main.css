@@ -440,10 +440,9 @@ span {
 
 .capsule {
     display: inline-block;
-    width: 84px;
+    width: 82px;
     height: 28px;
     margin: 8px;
-    overflow: hidden;
     transition: 0.3s;
     position: relative;
 }
