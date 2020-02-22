@@ -12,9 +12,11 @@ function stopPropagation(e) {
     }
 }
 
+//寻找选中设置项href值函数
 function findSettingInfo(value) {
     let href = "";
-    for (let item of jsonData.sideBar.content[2].content) {
+    let settingData = jsonData.sideBar.content.find(item => item.value == "Setting").content;
+    for (let item of settingData) {
         if (item.content !== "" && typeof item.content !== "string") {
             for (let inner of item.content) {
                 if (inner.value == value) {
@@ -27,6 +29,7 @@ function findSettingInfo(value) {
     return href;
 }
 
+//返回随机颜色函数
 function getRandomColor() {
     return '#' + Math.random().toString(16).slice(2, 8)
 }

@@ -9,6 +9,7 @@ function getStorage(key) {
     return value;
 }
 
+//删除本地存储函数
 function removeStorage(key) {
     let value = window.localStorage.removeItem(key);
     return value

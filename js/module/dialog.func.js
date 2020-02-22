@@ -2,6 +2,7 @@ import {
     body
 } from "./dom.constant.js";
 
+//开启模态框函数
 function openDialog(data) {
     let [title, content, btns] = ["", "", "", ""];
     if (data == undefined || data.title == undefined) {
@@ -35,6 +36,7 @@ function openDialog(data) {
     body.appendChild(dialogWrapper);
 }
 
+//关闭模态框函数
 function closeDialog() {
     let dialog = document.querySelector("#dialogWrapper");
     dialog.remove();

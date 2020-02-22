@@ -15,6 +15,7 @@ import {
     createSetting
 } from "./setting.func.js";
 
+//依据选中id渲染侧边栏内容函数
 function renderSideBarContent(id) {
     switch (id) {
         case "Gaming":

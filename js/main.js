@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-21 12:22:54
+ * @Last Modified time: 2020-02-22 12:04:27
  */
 
 //配置变量
@@ -30,7 +30,6 @@ import {
 
 //DOM元素
 import {
-    body,
     linkTag,
     uiTag,
     searchContent,
@@ -375,6 +374,7 @@ selectOption.addEventListener("click", (e) => {
     }
 })
 
+// 监听侧边栏开启，关闭按钮
 sideBarButton.addEventListener("click", () => {
     let icon = sideBarTitle.querySelectorAll(".title-icon");
     Array.prototype.forEach.call(icon, item => {
@@ -397,6 +397,7 @@ sideBarButton.addEventListener("click", () => {
     }
 })
 
+// 监听侧边栏选项卡
 sideBarTitle.addEventListener("click", (e) => {
     stopPropagation();
     let icon = sideBarTitle.querySelectorAll(".title-icon");
@@ -417,9 +418,10 @@ sideBarTitle.addEventListener("click", (e) => {
     }
 })
 
-//解决点击元素内部隐藏的问题
+// 监听侧边栏内操作
 sideBarContent.addEventListener("click", (e) => {
     stopPropagation();
+    // 自动记录常用网址
     let thisWebsite = {};
     let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
     for (let item of websiteData) {
@@ -444,25 +446,32 @@ sideBarContent.addEventListener("click", (e) => {
             return;
         }
     }
+    // 监听设置操作
     switch (true) {
+        // 选择必应壁纸
         case e.target.id == "setBingImage":
             setBingImage(false);
             break;
+            // 恢复默认壁纸
         case e.target.id == "setdefault":
             setdefault("changebg");
             break;
+            // 选择配色
         case (e.target.id.indexOf("skin") !== -1):
             changeSkin("skin", findSettingInfo(e.target.id));
             break;
+            // 选择UI
         case (e.target.id.indexOf("uistyle") !== -1):
             changeUI("uistyle", findSettingInfo(e.target.id));
             break;
+            // 开启关闭常用网址功能
         case (e.target.id.indexOf("website") !== -1):
             commonWebsite({
                 commonData: commonData,
                 status: e.target.id
             });
             break;
+            // 添加网址
         case (e.target.id.indexOf("AddCapsule") !== -1):
             openDialog({
                 id: e.target.id,
@@ -490,7 +499,7 @@ sideBarContent.addEventListener("click", (e) => {
     }
 });
 
-//监听文件上传change事件设置背景图片
+// 监听文件上传change事件设置背景图片
 scrollContent.addEventListener("change", function (e) {
     let setBackGround = document.querySelector("#setBackGround");
     if (e.target == setBackGround) {
@@ -498,12 +507,14 @@ scrollContent.addEventListener("change", function (e) {
     }
 })
 
-//阻止消息提示事件冒泡
+// 阻止消息提示事件冒泡
 messageList.addEventListener("click", (e) => {
     stopPropagation();
 })
 
+// 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
+    // 添加网址
     if (e.target.className == "commons-addbtn") {
         openDialog({
             title: "添加常用网址",
@@ -527,6 +538,7 @@ commonUse.addEventListener("click", (e) => {
             }]
         })
     }
+    // 编辑网址
     if (e.target.className == "commons-btn") {
         changeWebsiteUrl = e.target.parentNode.querySelector("a");
         openDialog({
@@ -568,6 +580,7 @@ document.onkeydown = function (e) {
     }
 }
 
+//监听箭头上下，选择提示函数
 searchContent.onkeydown = function (e) {
     let event = e || event;
     if (searchList.children.length != 0 && (event.keyCode == 38 || event.keyCode == 40)) {
@@ -575,6 +588,7 @@ searchContent.onkeydown = function (e) {
     }
 }
 
+//监听搜索框输入函数，获取提示信息
 searchInput.onkeyup = () => {
     getSugValue();
 }

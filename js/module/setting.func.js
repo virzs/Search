@@ -74,6 +74,7 @@ function createSetting() {
     return settingInfo;
 }
 
+//可复用渲染项函数
 function renderSetting(id, color, name) {
     return `<div id="${id}" class="setlist" style="border:2px solid ${color};">${name}</div>`;
 }

@@ -184,6 +184,7 @@ function setCommomUse(data, status) {
     iconLoadError();
 }
 
+//图标加载失败替换文字函数
 function iconLoadError() {
     Array.prototype.forEach.call(commonUse.children, item => {
         if (item.children[0].className == "commons-content") {
