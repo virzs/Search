@@ -18,61 +18,65 @@
     <link rel="stylesheet" href="./css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/main.css">
     <link id="skinTag" rel="stylesheet" href="./css/skin/skin_SunsetBeach.css">
-    <link id="uiTag" rel="stylesheet" href="./css//uistyle/default.css">
+    <link id="uiTag" rel="stylesheet" href="./css/uistyle/default.css">
     <script>
         /*@cc_on window.location.href="http://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); @*/
     </script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="search-logo">
-            <img src="./img/logo/defaultLogo.png" alt="" />
-        </div>
-        <div class="search-content">
-            <div class="search-group">
-                <div class="search-select" id="selectEngine"></div>
-                <ul class="search-option" id="selectOption"></ul>
-                <input id="search" type="text" class="search-input" name="" placeholder="请输入搜索的内容">
-                <button type="button" onclick="goSearch()" class="search-btn">
-                    <i class="fa fa-search"></i> 搜索&nbsp;
-                </button>
+    <div id="body">
+        <div class="container">
+            <div class="search-logo">
+                <img src="./img/logo/defaultLogo.png" alt="" />
             </div>
-            <ul id="searchList"></ul>
-        </div>
-        <div class="poetry">
-            <div class="poetry-content">
-                <span id="jinrishiciSentence">正在加载诗词....</span>
+            <div class="search-content">
+                <div class="search-group">
+                    <div class="search-select" id="selectEngine"></div>
+                    <input id="search" type="search" autocomplete="off" class="search-input" name=""
+                        placeholder="请输入搜索的内容">
+                    <button id="searchBtn" type="button" class="search-btn">
+                        <i class="fa fa-search"></i> 搜索&nbsp;
+                    </button>
+                </div>
+                <div class="search-option" id="selectOption"></div>
+                <ul id="searchList"></ul>
             </div>
-            <div class="poetry-info">
-                <span id="jinrishiciAuthor"></span>
-                <span id="jinrishiciTitle"></span>
+            <div class="poetry">
+                <div class="poetry-content">
+                    <span id="jinrishiciSentence">正在加载诗词....</span>
+                </div>
+                <div class="poetry-info">
+                    <span id="jinrishiciAuthor"></span>
+                    <span id="jinrishiciTitle"></span>
+                </div>
+            </div>
+            <div id="commonUse"></div>
+            <div id="copyright"></div>
+        </div>
+        <div id="sideBarButton"><i class="fa fa-bars"></i></div>
+        <div id="sideBar">
+            <div id="sideBarTitle"></div>
+            <div id="sideBarContent">
+                <div id="scrollContent"></div>
             </div>
         </div>
-        <div id="commonUse"></div>
-        <div id="copyright"></div>
-    </div>
-    <div id="sideBar">
-        <div id="sideBarTitle"></div>
-        <div id="sideBarContent">
-            <div id="scrollContent"></div>
+        <div id="loading">
+            <div class="pic">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
         </div>
+        <ul id="messageList"></ul>
     </div>
-    <div id="loading">
-        <div class="pic">
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-        </div>
-    </div>
-    <ul id="messageList"></ul>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-    <script src="./js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>

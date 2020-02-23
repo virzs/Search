@@ -3,6 +3,10 @@
     box-shadow: none;
 }
 
+.search-group::before {
+    border-radius: 24px;
+}
+
 .capsule {
     border-radius: 15px;
 }
@@ -13,6 +17,15 @@
 
 .search-option {
     border-radius: 12px;
+}
+
+.search-option::after {
+    border-radius: 12px;
+}
+
+.title-icon {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 #searchList {

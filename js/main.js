@@ -2,40 +2,15 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-06 17:51:49
+ * @Last Modified time: 2020-02-22 21:14:02
  */
 
 //配置变量
-var url = "./data/index.json"; //json文件路径
-var jsonData = {}; //获取的json文件数据
 var searchEngine = ""; //搜索框左侧选择搜索引擎数据
-var sideBarIconFlag = -1; //侧边栏按钮标记
 var searchFlag = true; //搜索引标记
-var skin_Transparent = ""; //透明皮肤数据
+var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
-var sugIndex = -1; //备选项下标
-var sugFlag = true; //备选项标记
-
-//获取的DOM元素/全局静态DOM元素
-const body = document.querySelector("body");
-const linkTag = document.querySelector("#skinTag");
-const uiTag = document.querySelector("#uiTag");
-const searchContent = document.querySelectorAll(".search-content")[0]
-const selectEngine = document.querySelector("#selectEngine"); //搜索框左侧选择引擎标签
-const selectOption = document.querySelector("#selectOption"); //搜索引擎数据
-const searchInput = document.querySelector("#search"); //搜索输入框
-const searchList = document.querySelector("#searchList"); //搜索时显示的相关信息列表
-const sideBar = document.querySelector("#sideBar"); //侧边栏
-const sideBarTitle = document.querySelector("#sideBarTitle") //侧边栏图标区域
-const sideBarContent = document.querySelector("#sideBarContent"); //侧边栏内容
-const scrollContent = document.querySelector("#scrollContent"); //侧边栏滚动内容
-const commonUse = document.querySelector("#commonUse");
-const jinrishiciSentence = document.querySelector("#jinrishiciSentence"); //诗词内容
-const jinrishiciAuthor = document.querySelector("#jinrishiciAuthor"); //诗词作者
-const jinrishiciTitle = document.querySelector("#jinrishiciTitle"); //诗词名
-const copyright = document.querySelector("#copyright"); //版权说明
-const loading = document.querySelector("#loading");
-const messageList = document.querySelector("#messageList");
+var changeWebsiteUrl = "";
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -45,42 +20,141 @@ const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
 
 /*
-    ajax同步获取json文件数据
+    导入模块
  */
-$.ajax({
-    type: "get",
-    url: url,
-    dataType: "json",
-    async: false,
-    success: function (response) {
-        jsonData = response;
-    }
-});
+
+//所有数据
+import {
+    jsonData
+} from "./module/all.data.js";
+
+//DOM元素
+import {
+    linkTag,
+    uiTag,
+    searchContent,
+    selectEngine,
+    selectOption,
+    searchInput,
+    searchList,
+    sideBarButton,
+    sideBar,
+    sideBarTitle,
+    sideBarContent,
+    scrollContent,
+    commonUse,
+    jinrishiciSentence,
+    jinrishiciAuthor,
+    jinrishiciTitle,
+    copyright,
+    loading,
+    messageList
+} from "./module/dom.constant.js";
+
+import {
+    toggle
+} from './module/animation.func.js';
+
+//搜索相关函数
+import {
+    goSearch,
+    setEngine
+} from "./module/search.func.js";
+
+//搜索智能提示函数
+import {
+    getSugValue,
+    changeSug
+} from "./module/sug.func.js";
+
+//本地存储相关函数
+import {
+    setStorage,
+    getStorage
+} from './module/storage.func.js';
+
+//消息提示函数
+import {
+    openMessage
+} from "./module/message.func.js";
+
+//阻止事件冒泡函数
+import {
+    stopPropagation,
+    findSettingInfo,
+    getRandomColor
+} from "./module/global.func.js";
+
+//网址相关函数
+import {
+    commonWebsite,
+    setCommomUse,
+    createWebsite
+} from "./module/website.func.js";
+
+//背景相关函数
+import {
+    setBingImage,
+    setCustomizeImage,
+    setdefault,
+    globalImage,
+    WoolGlass
+} from "./module/bg.func.js";
+
+//皮肤相关函数
+import {
+    changeSkin
+} from "./module/skin.func.js";
+
+//UI相关函数
+import {
+    changeUI
+} from "./module/ui.func.js";
+
+//模态框相关函数
+import {
+    openDialog,
+    closeDialog
+} from "./module/dialog.func.js";
+
+//侧边栏渲染函数
+import {
+    renderSideBarContent
+} from "./module/sideBar.func.js"
+/*
+    导入模块结束
+ */
 
 
 /*
     加载本地存储区域/自动加载区域
  */
-if (bg && bg !== null) {
-    body.style.backgroundImage = `url('${bg}')`;
+if (bg && bg !== null && bg !== "setBingImage") {
+    globalImage(bg);
+    WoolGlass(bg);
 }
+
 if (bg == "setBingImage") {
     setBingImage(true);
 }
+
 if (skinHref && skinHref !== null) {
     linkTag.href = skinHref;
 }
+
 if (uiHref && uiHref !== null) {
     uiTag.href = uiHref;
 }
 //默认设置开启显示常用网址功能
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
-    setStorage("showCommonUse", "open");
+    setStorage("showCommonUse", "website_open");
 }
+
 if (commonUseData == undefined) {
     setStorage("commonUseData", "[]");
     setCommomUse(commonData);
 }
+
 if (commonUseData && commonUseData !== null) {
     commonData = JSON.parse(commonUseData);
     setCommomUse(commonData);
@@ -91,14 +165,14 @@ jsonData.engine.forEach(element => {
     if (element.select == "selected") {
         selectEngine.innerHTML = `<img src='${element.icon}'  alt="${element.value}"><span>${element.name}</span><i class="fa fa-sort"></i>`
     }
-    searchEngine += `<li onclick="setEngine('${element.value}')"><img src='${element.icon}'><span>${element.name}</span></li>`;
+    searchEngine += `<li id="${element.value}"><img src='${element.icon}'><span>${element.name}</span></li>`;
 });
-selectOption.innerHTML = searchEngine;
+selectOption.innerHTML = `<p>请选择搜索引擎：</p><ul>${searchEngine}</ul>`;
 
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
     if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].name}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i></div>`
+        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i><span>${jsonData.sideBar.content[item].name}</spa></div>`
     }
 }
 
@@ -114,40 +188,12 @@ if (jsonData.copyright.show) {
     copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
 }
 
-//渲染侧边栏数据
-Array.prototype.forEach.call(sideBarTitle.children, item => {
-    item.onclick = () => {
-        if (sideBarIconFlag == item.id) {
-            sideBar.className = "moveRight";
-            sideBarIconFlag = -1
-            return;
-        }
-        switch (item.id) {
-            case "Gaming":
-                scrollContent.innerHTML = "加班加点摸鱼中，敬请期待";
-                sideBarIconFlag = item.id;
-                break;
-            case "Website":
-                scrollContent.innerHTML = createWebsite();
-                sideBarIconFlag = item.id;
-                break;
-            case "Setting":
-                scrollContent.innerHTML = createSetting();
-                sideBarIconFlag = item.id;
-                break;
-        }
-        sideBar.className = "moveLeft";
-        stopPropagation()
-    }
-})
-
 //网页文档加载完毕调用动画
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
         toggle(loading, 40);
     }
 }
-
 /*
     加载本地存储区域/自动加载区域结束
  */
@@ -165,7 +211,7 @@ document.addEventListener("click", function (e) {
     }
 
     if (e.target == document.querySelector("#search")) {
-        getSugValue(sugFlag);
+        getSugValue();
     }
 
     if (e.target !== searchList) {
@@ -173,63 +219,349 @@ document.addEventListener("click", function (e) {
     }
 
     //判断侧边栏
-    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1) {
+    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1 && document.querySelector("#dialog") == null) {
         sideBar.className = "moveRight";
+        sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
         sideBarIconFlag = -1;
+    }
+
+    //监听模态框关闭图标
+    if (e.target.id == "closeDialog") {
+        closeDialog();
+    }
+
+    //模态框提交
+    if (e.target.id == "submitDialog") {
+        let name = document.querySelector("#nameDialog").children[1].value;
+        let url = document.querySelector("#urlDialog").children[1].value;
+        if (name == "" || url == "") {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `名称或URL不能为空！！！`
+            })
+            return;
+        }
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+            url = `https://${url}`;
+        }
+        commonWebsite({
+            thisWebsite: {
+                name: name,
+                url: url,
+                color: getRandomColor()
+            },
+            commonData: commonData,
+            add: true
+        })
+        closeDialog();
+    }
+
+    //模态框取消
+    if (e.target.id == "cancelDialog") {
+        closeDialog();
+    }
+
+    //模态框修改
+    if (e.target.id == "changeDialog") {
+        let id = document.querySelector("#dialog").className;
+        let name = document.querySelector("#nameDialog").children[1].value;
+        commonWebsite({
+            thisWebsite: {
+                id: id,
+                name: name
+            },
+            commonData: commonData,
+            change: true
+        })
+        closeDialog();
+    }
+
+    //模态框删除
+    if (e.target.id == "deleteDialog") {
+        let id = document.querySelector("#dialog").className;
+        commonWebsite({
+            thisWebsite: {
+                id: id
+            },
+            commonData: commonData,
+            del: true
+        })
+        closeDialog();
+    }
+
+    //侧边栏保存自定义网址
+    if (e.target.id == "saveDialog") {
+        let classify = document.querySelector("#dialog").className;
+        let name = document.querySelector("#nameDialog").children[1].value;
+        let url = document.querySelector("#urlDialog").children[1].value;
+        if (name == "" || url == "") {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `名称或URL不能为空！！！`
+            })
+            return;
+        }
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+            url = `https://${url}`;
+        }
+        let websiteData = JSON.parse(getStorage("sideBarWebsiteData"));
+        let thisClassify = websiteData.find(item => {
+            if (classify.indexOf(item.value) !== -1) {
+                return item;
+            }
+        });
+        let thisWebsite = thisClassify.content.find(item => item.name == name);
+        if (thisWebsite == undefined) {
+            thisClassify.content.push({
+                name: name,
+                url: url,
+                color: getRandomColor()
+            })
+            websiteData.forEach(item => {
+                if (item.value == thisClassify.value) {
+                    item = thisClassify;
+                }
+            })
+            setStorage("sideBarWebsiteData", JSON.stringify(websiteData));
+            closeDialog();
+            openMessage({
+                title: "提示",
+                type: "success",
+                content: `添加成功！！！`
+            })
+            scrollContent.innerHTML = createWebsite();
+        } else {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `请勿添加重复内容！！！`
+            })
+        }
+    }
+
+    //模态框点击背景隐藏
+    if (e.target.id == "dialogWrapper") {
+        closeDialog();
     }
 });
 
-//解决点击元素内部隐藏的问题
-sideBarContent.addEventListener("click", (e) => {
+//点击选择搜索引擎事件
+selectEngine.addEventListener("click", () => {
+    if (searchFlag) {
+        selectOption.style.display = "block";
+        searchFlag = !searchFlag;
+    } else {
+        selectOption.style.display = "none";
+        searchFlag = !searchFlag;
+    }
     stopPropagation();
-});
+})
 
-//监听文件上传change事件设置背景图片
-scrollContent.addEventListener("change", function (e) {
-    let setBackGround = document.querySelector("#setBackGround")
-    if (e.target == setBackGround) {
-        let file = setBackGround.files[0];
-        let reader = new FileReader();
-        reader.onload = function (e) {
-            let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
-            let func = () => {
-                body.style.backgroundImage = `url('${data}')`;
-            }
-            // 将文件大小转化成MB
-            let size = (file.size / (1024 * 1024)).toFixed(2);
-            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-                openMessage({
-                    title: "提示",
-                    type: "error",
-                    content: `不是有效的图片文件!`
-                })
-                setBackGround.value = "";
-                return;
-            }
-            if (file.size > 3145728) {
-                openMessage({
-                    title: "提示",
-                    type: "error",
-                    content: `当前文件大小为${size}MB，建议不超过3MB！`
-                })
-                setBackGround.value = "";
-                return;
-            }
-            setStorageBefore(func, "bg", data);
-            changeSkin("skin", skin_Transparent);
-        };
-        // 以DataURL的形式读取文件:
-        reader.readAsDataURL(file);
+//监听搜索按钮
+searchContent.querySelector("#searchBtn").addEventListener("click", () => {
+    goSearch();
+})
+
+//监听选择引擎
+selectOption.addEventListener("click", (e) => {
+    let thisEngine = jsonData.engine.find(item => item.value == e.target.id);
+    if (thisEngine !== undefined) {
+        setEngine(thisEngine);
+        searchFlag = !searchFlag;
     }
 })
 
-//阻止消息提示事件冒泡
+// 监听侧边栏开启，关闭按钮
+sideBarButton.addEventListener("click", () => {
+    let icon = sideBarTitle.querySelectorAll(".title-icon");
+    Array.prototype.forEach.call(icon, item => {
+        item.style.background = "";
+        item.style.color = item.style.borderColor;
+    })
+    if (sideBarIconFlag == -1) {
+        sideBarButton.className = "sideBarButtonMoveLeft";
+        sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
+        sideBar.className = "moveLeft";
+        icon[0].style.background = icon[0].style.borderColor;
+        icon[0].style.color = "#fff";
+        sideBarIconFlag = "Website";
+        renderSideBarContent("Website");
+    } else {
+        sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
+        sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
+    }
+})
+
+// 监听侧边栏选项卡
+sideBarTitle.addEventListener("click", (e) => {
+    stopPropagation();
+    let icon = sideBarTitle.querySelectorAll(".title-icon");
+    if (e.target.className == "title-icon") {
+        Array.prototype.forEach.call(icon, item => {
+            item.style.background = "";
+            item.style.color = item.style.borderColor;
+        })
+        e.target.style.background = e.target.style.borderColor;
+        e.target.style.color = "#fff";
+        renderSideBarContent(e.target.id);
+        sideBarIconFlag = e.target.id;
+    } else {
+        sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
+        sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
+    }
+})
+
+// 监听侧边栏内操作
+sideBarContent.addEventListener("click", (e) => {
+    stopPropagation();
+    // 自动记录常用网址
+    let thisWebsite = {};
+    let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
+    for (let item of websiteData) {
+        thisWebsite = item.content.find(inner => inner.name == e.target.id);
+        if (thisWebsite !== undefined) {
+            thisWebsite.count = 1;
+            commonWebsite({
+                thisWebsite: thisWebsite,
+                commonData: commonData
+            });
+            return;
+        }
+    }
+    for (let item of JSON.parse(getStorage("sideBarWebsiteData"))) {
+        thisWebsite = item.content.find(inner => inner.name == e.target.id);
+        if (thisWebsite !== undefined && thisWebsite !== {}) {
+            thisWebsite.count = 1;
+            commonWebsite({
+                thisWebsite: thisWebsite,
+                commonData: commonData
+            });
+            return;
+        }
+    }
+    // 监听设置操作
+    switch (true) {
+        // 选择必应壁纸
+        case e.target.id == "setBingImage":
+            setBingImage(false);
+            break;
+            // 恢复默认壁纸
+        case e.target.id == "setdefault":
+            setdefault("changebg");
+            break;
+            // 选择配色
+        case (e.target.id.indexOf("skin") !== -1):
+            changeSkin("skin", findSettingInfo(e.target.id));
+            break;
+            // 选择UI
+        case (e.target.id.indexOf("uistyle") !== -1):
+            changeUI("uistyle", findSettingInfo(e.target.id));
+            break;
+            // 开启关闭常用网址功能
+        case (e.target.id.indexOf("website") !== -1):
+            commonWebsite({
+                commonData: commonData,
+                status: e.target.id
+            });
+            break;
+            // 添加网址
+        case (e.target.id.indexOf("AddCapsule") !== -1):
+            openDialog({
+                id: e.target.id,
+                title: "添加自定义网址",
+                content: [{
+                    name: "名称",
+                    value: "name",
+                    type: "input",
+                    defaultValue: ""
+                }, {
+                    name: "URL",
+                    value: "url",
+                    type: "input",
+                    defaultValue: ""
+                }],
+                button: [{
+                    name: "保存",
+                    value: "save"
+                }, {
+                    name: "取消",
+                    value: "cancel"
+                }]
+            })
+            break;
+    }
+});
+
+// 监听文件上传change事件设置背景图片
+scrollContent.addEventListener("change", function (e) {
+    let setBackGround = document.querySelector("#setBackGround");
+    if (e.target == setBackGround) {
+        setCustomizeImage(setBackGround);
+    }
+})
+
+// 阻止消息提示事件冒泡
 messageList.addEventListener("click", (e) => {
     stopPropagation();
 })
 
+// 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
-    stopPropagation();
+    // 添加网址
+    if (e.target.className == "commons-addbtn") {
+        openDialog({
+            title: "添加常用网址",
+            content: [{
+                name: "名称",
+                value: "name",
+                type: "input",
+                defaultValue: ""
+            }, {
+                name: "URl",
+                value: "url",
+                type: "input",
+                defaultValue: ""
+            }],
+            button: [{
+                name: "确定",
+                value: "submit"
+            }, {
+                name: "取消",
+                value: "cancel"
+            }]
+        })
+    }
+    // 编辑网址
+    if (e.target.className == "commons-btn") {
+        changeWebsiteUrl = e.target.parentNode.querySelector("a");
+        openDialog({
+            id: changeWebsiteUrl.id,
+            title: "修改常用网址",
+            content: [{
+                name: "名称",
+                value: "name",
+                type: "input",
+                defaultValue: changeWebsiteUrl.innerHTML
+            }],
+            button: [{
+                name: "修改",
+                value: "change"
+            }, {
+                name: "删除",
+                value: "delete"
+            }, {
+                name: "取消",
+                value: "cancel"
+            }]
+        })
+    }
 })
 
 /*
@@ -243,11 +575,12 @@ commonUse.addEventListener("click", (e) => {
 //监听按下键盘事件，实现按下Enter跳转搜索
 document.onkeydown = function (e) {
     let event = e || event;
-    if (event.keyCode == 13) {
+    if (event.keyCode == 13 && searchInput.value !== "") {
         goSearch();
     }
 }
 
+//监听箭头上下，选择提示函数
 searchContent.onkeydown = function (e) {
     let event = e || event;
     if (searchList.children.length != 0 && (event.keyCode == 38 || event.keyCode == 40)) {
@@ -255,8 +588,9 @@ searchContent.onkeydown = function (e) {
     }
 }
 
+//监听搜索框输入函数，获取提示信息
 searchInput.onkeyup = () => {
-    getSugValue(sugFlag);
+    getSugValue();
 }
 
 /*
@@ -265,751 +599,30 @@ searchInput.onkeyup = () => {
 
 
 /*
-    点击事件
+    错误监听开始
  */
-//点击选择搜索引擎事件
-selectEngine.onclick = () => {
-    if (searchFlag) {
-        selectOption.style.display = "block"
-        searchFlag = !searchFlag
-    } else {
-        selectOption.style.display = "none"
-        searchFlag = !searchFlag
-    }
-    stopPropagation()
-}
-
-/*
-    点击事件结束
- */
-
-
-/*
-    业务逻辑函数
- */
-
-//阻止事件冒泡
-function stopPropagation(e) {
-    var ev = e || window.event;
-    if (ev.stopPropagation) {
-        ev.stopPropagation();
-    } else if (window.event) {
-        window.event.cancelBubble = true; //兼容IE，根本用不到，本来就没打算兼容IE
-    }
-}
-
-// 获取本地存储内容
-function getStorage(key) {
-    let value = window.localStorage.getItem(key);
-    return value;
-}
-
-//加载动画
-function toggle(elemt, speed) {
-    speed = speed || 16.6; //默认速度为16.6ms
-    elemt.style.display = "block"
-    if (elemt.style.opacity == 1 || elemt.style.opacity != null) {
-        let num = 20;
-        let timer = setInterval(function () {
-            num--;
-            elemt.style.opacity = num / 20;
-            if (num <= 0) {
-                clearInterval(timer);
-                elemt.style.display = "none"
-            }
-        }, speed);
-    }
-}
-
-//设置本地存储
-function setStorage(name, value) {
-    window.localStorage.setItem(name, value);
-}
-
-//执行本地存储前动画效果
-function setStorageBefore(set, name, href) {
-    let num = 0;
-    let speed = 60;
-
-    function opacity() {
-        loading.style.opacity = num / 20;
-    }
-    loading.style.display = "block"
-    let timer = setInterval(function () {
-        num++;
-        opacity();
-        if (num >= 20) {
-            let timer2 = setInterval(function () {
-                num--;
-                opacity();
-                if (num <= 0) {
-                    clearInterval(timer2);
-                    loading.style.display = "none";
-                }
-            }, speed);
-            clearInterval(timer);
-            setTimeout(set, speed);
-            if (name && href) {
-                setStorage(name, href);
-            }
-        }
-    }, speed);
-}
-
-//恢复默认
-function setdefault(type) {
-    if (type == "changebg" && getStorage("skin") !== './css/skin/skin_SunsetBeach.css') {
-        let defaultSkin = () => {
-            window.localStorage.removeItem("bg");
-            body.style.removeProperty("background-image");
-            setStorage('skin', './css/skin/skin_SunsetBeach.css');
-        }
-        setStorageBefore(defaultSkin);
-    } else {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "当前已为默认！"
-        })
-    }
-}
-
-//设置必应壁纸为背景
-function setBingImage(status) {
-    if (getStorage("bg") == "setBingImage" && !status) {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "请勿重复选择！！！"
-        })
-    }
-    let bingApi = "https://bing.ioliu.cn/v1/?d=0&w=1920&h=1080&callback=bing.bg";
-    bing = {
-        bg: function (data) {
-            let func = () => {
-                body.style.backgroundImage = `url('${data.data.url}')`;
-            }
-            if (status) {
-                body.style.backgroundImage = `url('${data.data.url}')`;
-            } else {
-                setStorageBefore(func);
-                changeSkin("skin", skin_Transparent);
-            }
-        }
-    }
-    let script = document.createElement("script");
-    script.src = bingApi;
-    document.querySelector("head").appendChild(script);
-    document.querySelector("head").removeChild(script);
-    setStorage("bg", "setBingImage");
-}
-
-//渲染搜索引擎备选项
-function setEngine(value) {
-    let engineValue = jsonData.engine.find(item => item.value == value)
-    selectEngine.innerHTML = `<img src='${engineValue.icon}' alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`
-    selectOption.style.display = "none"
-    searchFlag = !searchFlag
-}
-
-//搜索事件
-function goSearch() {
-    let value = searchInput.value; //获取输入框的值
-    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
-    let searchHref = ''; //定义搜索链接变量
-    jsonData.engine.forEach((item) => {
-        if (item.value == engineValue) {
-            searchHref = item.href;
-        }
+window.onerror = function (message, source, lineno, colno, error) {
+    /* 错误信息（字符串）：message
+    发生错误的脚本URL（字符串）：source
+    发生错误的行号（数字）：lineno
+    发生错误的列号（数字）：colno
+    Error对象（对象）：error
+    https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
+    openDialog({
+        html: true,
+        title: "抱歉，出现错误！！",
+        content: `
+            <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
+            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
+            <br/>
+            <code>${navigator.userAgent}</code>`,
+        button: [{
+            name: "取消",
+            value: "cancel"
+        }]
     })
-    window.location.href = searchHref + value; //拼接搜索链接
-}
-
-//切换配色
-function changeSkin(skinName, value) {
-    if (getStorage("skin") == value && value !== "./css/skin/skin_Transparent.css") {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "请勿重复选择配色！！！"
-        });
-        return;
-    }
-    let setHref = () => {
-        linkTag.href = value;
-    }
-    setStorageBefore(setHref, skinName, value);
-}
-
-//切换ui风格
-function changeUI(uiName, value) {
-    if (getStorage("uistyle") == value) {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "请勿重复选择UI风格！！！"
-        })
-        return;
-    }
-    let setHref = () => {
-        uiTag.href = value;
-    }
-    setStorageBefore(setHref, uiName, value);
-}
-
-//添加常用书签
-function addCommonUse(name, href, color, status, defined) {
-    let data = {
-        "name": name,
-        "href": href,
-        "color": color,
-        "count": 1,
-    };
-    if (status !== undefined && status == getStorage("showCommonUse")) {
-        let info = "";
-        switch (status) {
-            case "open":
-                info = "开启";
-                break;
-            case "close":
-                info = "关闭";
-                break;
-        }
-        let type = "error";
-        openMessage({
-            title: "提示",
-            type: type,
-            content: `请勿重复${info}！！！`
-        })
-        return;
-    }
-    if (defined) {
-        data.count = 100000;
-    } else {
-        data.count = 1;
-    }
-    let recent = commonData.find(item => item.name == name);
-    if (recent == undefined && status == undefined) {
-        commonData.push(data);
-    } else if (status == undefined && recent.count < 100000) {
-        commonData.forEach(item => {
-            if (item.name == recent.name) {
-                item.count += 1;
-            }
-        })
-    }
-    //根据打开次数排序
-    commonData.sort(function (obj1, obj2) {
-        let minCount = obj1["count"];
-        let maxCount = obj2["count"];
-        return maxCount - minCount;
-    })
-    setCommomUse(commonData, status);
-    setStorage("commonUseData", JSON.stringify(commonData));
-}
-
-//记录常用网址
-function setCommomUse(data, status) {
-    let commonHtml = "";
-    let display = "";
-    let isShow = (status !== undefined) ? true : false;
-    if (status !== undefined) {
-        setStorage("showCommonUse", status);
-    }
-    if (data !== null) {
-        data.forEach((item, index) => {
-            if (index < 7) {
-                commonHtml += renderData(item.name, item.href, item.color);
-            }
-        })
-    }
-    if (getStorage("showCommonUse") == "open" || status == "open") {
-        display = () => {
-            commonUse.style.display = "flex";
-        }
-    } else if (getStorage("showCommonUse") == "close" || status == "close") {
-        display = () => {
-            commonUse.style.display = "none";
-        }
-    }
-    if (isShow) {
-        setStorageBefore(display);
-    } else if (getStorage("showCommonUse") == "close" && !isShow) {
-        commonUse.style.display = "none";
-    }
-    commonUse.innerHTML = commonHtml + addCommonsData();
-}
-
-//创建书签数据
-function createWebsite() {
-    let websiteInfo = "",
-        sideBarHtml = "";
-    jsonData.sideBar.content[1].content.forEach(item => {
-        if (item.show) {
-            websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
-            item.content.forEach(inner => {
-                if (inner.show) {
-                    sideBarHtml += `<div onclick="addCommonUse('${inner.name}','${inner.href}','${inner.color}')" class="capsule" style="border:2px solid ${inner.color};"><a style="color:${inner.color};" href='${inner.href}' target="_blank"><span>${inner.name}</span></a></div>`;
-                }
-            })
-            websiteInfo = websiteInfo + sideBarHtml;
-            sideBarHtml = "";
-        }
-    })
-    return websiteInfo;
-}
-
-//判断渲染设置项
-function createHtml(inner) {
-    let sideBarHtml = "";
-    if (!inner.type) {
-        sideBarHtml = `<div class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`;
-    }
-    if (inner.type == "skin" && inner.value !== "skin_Transparent") {
-        sideBarHtml = `<div onclick="changeSkin('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
-    }
-    if (inner.type == "uistyle") {
-        sideBarHtml = `<div onclick="changeUI('${inner.type}','${inner.href}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
-    }
-    if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml += `<div class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`;
-    }
-    if (inner.type == "changebg" && inner.value == "setdefault") {
-        sideBarHtml += `<div onclick="setdefault('${inner.type}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
-    }
-    if (inner.type == "changebg" && inner.value == "setBingImage") {
-        sideBarHtml += `<div onclick="setBingImage(false)" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
-    }
-    if (inner.type == "changeCommonUse") {
-        sideBarHtml += `<div onclick="addCommonUse('','','','${inner.value}')" class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>`;
-    }
-    if (inner.type == "thanks") {
-        sideBarHtml += `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`;
-    }
-    return sideBarHtml;
-}
-
-//创建设置项数据
-function createSetting() {
-    let settingInfo = "",
-        sideBarHtml = "";
-    //令人窒息的代码，等回头再做优化，先实现功能
-    jsonData.sideBar.content[2].content.forEach(item => {
-        if (item.show) {
-            settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
-            if (item.content !== "" && typeof item.content !== "string") {
-                item.content.forEach(inner => {
-                    if (inner.show) {
-                        if (typeof inner.content === "string" && inner.content !== "") {
-                            //content不为空且为字符串时
-                            sideBarHtml += createHtml(inner);
-                        } else if (typeof inner.content !== "string") {
-                            //content为数组对象时
-                            inner.content.forEach(inners => {
-                                if (inners.show) {
-                                    if (inners.value == "email") {
-                                        sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span></div>`;
-                                    } else {
-                                        sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='${inners.href}' target="_blank">${inners.content}</a></span></div>`;
-                                    }
-                                }
-                            })
-                        } else {
-                            //content为空时的内容
-                            sideBarHtml += createHtml(inner);
-                        }
-                    } else {
-                        if (inner.type == "skin" && inner.value == "skin_Transparent") {
-                            skin_Transparent = inner.href;
-                        }
-                    }
-                })
-            }
-            settingInfo = settingInfo + sideBarHtml;
-            sideBarHtml = "";
-        }
-    })
-    return settingInfo;
-}
-
-//弹窗开启事件
-function openMessage(value) {
-    let iconType = ""
-    switch (value.type) {
-        case "success":
-            iconType = "fa-check"
-            break;
-        case "error":
-            iconType = "fa-close"
-        default:
-            break;
-    }
-    //动态添加多个消息需要单独创建
-    let li = document.createElement("li");
-    let icon = document.createElement("div");
-    let iconi = document.createElement("i");
-    let div = document.createElement("div");
-    let title = document.createElement("p");
-    let content = document.createElement("p");
-    let close = document.createElement("i");
-    li.setAttribute("class", "messageMoveLeft");
-    li.appendChild(icon);
-    icon.setAttribute("class", value.type);
-    icon.appendChild(iconi);
-    iconi.classList.add("fa", iconType);
-    li.appendChild(div);
-    div.appendChild(title);
-    title.innerHTML = value.title;
-    div.appendChild(content);
-    content.innerHTML = value.content;
-    li.appendChild(close);
-    close.classList.add("close", "fa", "fa-close");
-    close.addEventListener("click", () => {
-        closeMessage(li);
-    })
-    messageList.appendChild(li);
-    if (!value.timing || value.timing !== null) {
-        setTimeout(() => {
-            closeMessage(li)
-        }, 3000)
-    }
-    // messageList.innerHTML = `<li class="messageMoveLeft">${icon}<div><p>${value.title}</p><p>${value.content}</p></div><i onclick="closeMessage()" class="close fa fa-close"></i></li>`;
-}
-
-//弹窗关闭事件
-function closeMessage(elemt) {
-    elemt.className = "messageMoveRight";
-    if (!elemt) {
-        stopPropagation();
-    }
-    if (elemt.parentNode) {
-        setTimeout(() => {
-            elemt.parentNode.removeChild(elemt)
-        }, 500)
-    }
-}
-
-//获取智能提示数据
-function getSugValue(Flag) {
-    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
-    let engine = jsonData.engine.find(item => item.value == engineValue);
-    let [href, sugurl] = [engine.href, engine.sugurl];
-    let value = searchInput.value; //获取输入框的值
-    if (!Flag) {
-        sugFlag = !sugFlag;
-        return;
-    }
-    if (value == "") {
-        searchList.innerHTML = "";
-        searchList.style.display = "none";
-        return;
-    }
-    sugurl = sugurl.replace("#content#", value);
-    //谷歌回调函数
-    window.google = {
-        ac: {
-            h: function (json) {
-                sugValue(href, json[1])
-            }
-        }
-    }
-    //必应回调函数
-    window.bing = {
-        sug: function (json) {
-            let sugList = ""
-            if (json.AS.Results !== undefined && json.AS.Results[0].Suggests !== undefined) {
-                sugList = json.AS.Results[0].Suggests
-            }
-            sugValue(href, sugList);
-        }
-    }
-    //百度回调函数
-    window.baidu = {
-        sug: function (json) {
-            sugValue(href, json.s)
-        }
-    }
-    //搜狗回调函数
-    window.sogou = {
-        sug: function (json) {
-            sugValue(href, json[1])
-        }
-    }
-    //360好搜回调函数
-    window.so = {
-        sug: function (json) {
-            sugValue(href, json.result)
-        }
-    }
-    //magi回调函数 / 不可用
-    window.magi = {
-        sug: function (json) {
-            console.log(json)
-        }
-    }
-    //夸克回调函数
-    window.quark = {
-        sug: function (json) {
-            sugValue(href, json.data.value)
-        }
-    }
-    let script = document.createElement("script");
-    script.src = sugurl;
-    document.querySelector("head").appendChild(script);
-    document.querySelector("head").removeChild(script);
-    sugIndex = -1;
-}
-
-//备选项/智能提示函数
-function sugValue(href, value) {
-    let sugList = "";
-    if (value.length == 0) {
-        return;
-    }
-    value.forEach(item => {
-        if (typeof item == "string") {
-            sugList += `<li><a href="${href}${item}">${item}</a></li>`
-        } else if (typeof item == "object" && item.Txt !== undefined) {
-            sugList += `<li><a href="${href}${item.Txt}">${item.Txt}</a></li>`
-        } else if (typeof item == "object" && item.word !== undefined) {
-            sugList += `<li><a href="${href}${item.word}">${item.word}</a></li>`
-        } else {
-            sugList += `<li><a href="${href}${item[0]}">${item[0]}</a></li>`
-        }
-    })
-    searchList.innerHTML = sugList;
-    searchList.style.display = "block";
-}
-
-//选择备选搜索
-function changeSug(keyCode) {
-    sugFlag = false;
-    Array.prototype.forEach.call(searchList.children, (item, index) => {
-        searchList.children[index].className = "";
-    })
-    if (keyCode == 38 && sugIndex >= 0) {
-        sugIndex--;
-    }
-    if (keyCode == 40 && sugIndex <= searchList.children.length) {
-        sugIndex++;
-    }
-    if (sugIndex < 0) {
-        sugIndex = searchList.children.length - 1;
-    }
-    if (sugIndex >= searchList.children.length) {
-        sugIndex = 0;
-    }
-    if (sugIndex == -1) {
-        searchList.children[0].className = "selectSug";
-    }
-    searchList.children[sugIndex].className = "selectSug";
-    searchInput.value = searchList.children[sugIndex].children[0].text;
-}
-
-//开启添加网址弹窗
-function openCommonsAdd() {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let addPop = thisCommon.querySelector(".commons-add");
-    if (addPop !== null) {
-        addPop.style.display = "block";
-        addPop.style.opacity = 1;
-    }
-    userDefaultCommonsAddPop = addPop;
-}
-
-//开启设置网址弹窗
-function openCommonSetting() {
-    let num = 0;
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let setting = thisCommon.querySelector(".commons-setting");
-    if (thisCommon !== null) {
-        setting.style.display = "block";
-        setting.style.opacity = 1;
-    }
-}
-
-//提交网址
-function commonsSubmit() {
-    stopPropagation();
-    let thisCommon = document.querySelector(".commons-add");
-    let commonName = thisCommon.querySelector(".commonName");
-    let commonUrl = thisCommon.querySelector(".commonUrl");
-    if (commonName.value == "" || commonUrl.value == "") {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: `名称或URL不能为空！！！`
-        })
-        return;
-    }
-    if (commonUrl.value.indexOf("https://") == -1 || commonUrl.value.indexOf("http://") == -1) {
-        commonUrl.value = `https://${commonUrl.value}`;
-    }
-    addCommonUse(commonName.value, commonUrl.value, null, undefined, true);
-    thisCommon.style.display = "none";
-    thisCommon.style.opacity = 0;
-}
-
-//取消添加网址弹窗
-function commonsCancel() {
-    let thisCommon = document.querySelector(".commons-add");
-    let commonName = thisCommon.querySelector(".commonName");
-    let commonUrl = thisCommon.querySelector(".commonUrl");
-    commonName.value = "", commonUrl.value = "";
-    thisCommon.style.display = "none";
-    thisCommon.style.opacity = 0;
-}
-
-//修改网址
-function openCommonsChange() {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let thisSetting = thisCommon.querySelector(".commons-setting");
-    let thisChange = thisCommon.querySelector(".commons-change");
-    thisSetting.style.display = "none";
-    thisSetting.style.opacity = 0;
-    thisChange.style.display = "block";
-    thisChange.style.opacity = 1;
-}
-
-//关闭修改弹窗
-function commonsChangeCancel() {
-    let thisChange = document.querySelector(".commons-change");
-    let commonName = thisChange.querySelector(".commonName");
-    commonName.value = "";
-    thisChange.style.display = "none";
-    thisChange.style.opacity = 0;
-}
-
-//提交修改
-function commonsChangeSubmit(name) {
-    let thisCommon = window.event.target.parentNode.parentNode;
-    let commonName = thisCommon.querySelector(".commonName");
-    let changeData = commonData.find(item => item.name == name);
-    changeData.name = commonName.value;
-    commonData.forEach(item => {
-        if (item.href == changeData.href) {
-            item = changeData;
-            item.count = 100000;
-            return;
-        }
-    })
-    commonData.sort(function (obj1, obj2) {
-        let minCount = obj1["count"];
-        let maxCount = obj2["count"];
-        return maxCount - minCount;
-    })
-    setStorage("commonUseData", JSON.stringify(commonData));
-    setCommomUse(JSON.parse(getStorage("commonUseData")));
-}
-
-//删除网址
-function commonsDelete(name) {
-    let data = JSON.parse(getStorage("commonUseData"));
-    let deleteData = data.findIndex(item => item.name == name);
-    data.splice(deleteData, 1);
-    setStorage("commonUseData", JSON.stringify(data));
-    setCommomUse(JSON.parse(getStorage("commonUseData")));
-}
-
-//添加网址模板
-function addCommonsData() {
-    return `
-    <div class="commons">
-        <div class="commons-addbtn" onclick="openCommonsAdd()">
-            <i class="fa fa-plus"></i>
-        </div>
-        <div class="commons-add">
-            <div>添加常用网址
-                <div class="close-commons-add" onclick="commonsCancel()">
-                    <i class="fa fa-close"></i>
-                </div>
-            </div>
-            <div>
-                <span>名称</span>
-                <input class="commonName" placeholder="请输入名称" />
-            </div>
-            <div>
-                <span>URL</span>
-                <input class="commonUrl" placeholder="请输入URL" />
-            </div>
-            <div>
-                <button onclick="commonsCancel()">取消</button>
-                <button onclick="commonsSubmit()">确定</button>
-            </div>
-        </div>
-    </div>`
-}
-
-//自定义网址模板
-function renderData(name, url, color) {
-    return `
-    <div class="commons">
-        <div class="commons-content">
-            <img src="https://favicon.link/${url}"></img>
-            <a style="color:${color};" href="${url}" target="_blank">${name}</a>
-        </div>
-        <div class="commons-btn" onclick="openCommonSetting('${name}')">
-            <i class="fa fa-ellipsis-h"></i>
-        </div>
-        <div class="commons-setting">
-            <div onclick="openCommonsChange()">
-                <i class="fa fa-edit"></i>重命名
-            </div>
-            <div onclick="commonsDelete('${name}')">
-                <i class="fa fa-trash-o"></i>删除
-            </div>
-        </div>
-        <div class="commons-change">
-            <div>修改常用网址
-                <div class="close-commons-add" onclick="commonsChangeCancel()">
-                    <i class="fa fa-close"></i>
-                </div>
-            </div>
-            <div>
-                <span>名称</span>
-                <input class="commonName" placeholder="请输入名称" />
-            </div>
-            <div>
-                <button onclick="commonsChangeCancel()">取消</button>
-                <button onclick="commonsChangeSubmit('${name}')">确定</button>
-            </div>
-        </div>
-    </div>`
+    return true;
 }
 /*
-    业务逻辑函数结束
+    错误监听结束
  */
-
-
-//废弃代码
-
-
-//监听鼠标按下事件，实现点击空白处关闭侧边栏
-// document.onmousedown = function (e) {
-//     let event = e || event;
-//     if ((window.screen.width - e.screenX > 390 || (window.screen.width - e.screenX > 340 && e.screenY > 180)) && sideBar.className == "moveLeft") {
-//         sideBar.className = "moveRight";
-//         sideBarIconFlag = -1;
-//     }
-// }
-
-//备选项列表，仅支持百度代码
-// 百度搜索参数测试
-// searchInput.onkeyup = function () {
-//     var val = searchInput.value;
-//     var oScript = document.createElement("script"); //动态创建script标签
-//     oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=callback`;
-//     //添加链接及回调函数
-//     document.body.appendChild(oScript); //添加script标签
-//     document.body.removeChild(oScript); //删除script标签
-// }
-
-//回调函数
-// function callback(data) {
-//     var str = "";
-//     for (var i = 0; i < data.s.length; i++) {
-//         str += `<li><a href=\"https://www.baidu.com/s?wd=${data.s[i]}\">${data.s[i]}</a></li>`;
-//     }
-//     searchList.innerHTML = str;
-//     searchList.style.display = "block";
-// }

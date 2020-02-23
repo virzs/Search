@@ -10,10 +10,6 @@ a:hover {
     color: black;
 }
 
-.poetry-content {
-    color: #333;
-}
-
 .title-icon {
     color: #8f8f8f;
 }
@@ -30,36 +26,48 @@ a:hover {
     color: #5f5f5f;
 }
 
-.search-group {
+.search-group,
+.search-btn,
+.search-option {
     background: transparent;
-    border: 1px solid #dfe1e5;
+    color: #dfe1e5;
 }
 
 .search-option {
     background: transparent;
-    border: 1px solid #dfe1e5;
 }
 
 .search-option li:hover {
+    background: rgba(0, 0, 0, .1);
+}
+
+.commons {
     background: transparent;
 }
 
 #searchList {
     border: 1px solid #dfe1e5;
-    background: #fff;
 }
 
 #searchList li:hover {
-    background: #f1f1f1;
+    background: rgba(0, 0, 0, .1);
 }
 
 .selectSug {
     background: #f1f1f1;
 }
 
+#sideBarButton {
+    color: #dfe1e5;
+}
+
 #sideBarContent {
     background: transparent;
-    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);
+    /* box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9); */
+}
+
+.poetry {
+    color: #dfe1e5;
 }
 
 .capsule {

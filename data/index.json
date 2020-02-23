@@ -64,7 +64,8 @@
             "show": false,
             "content": []
         }, {
-            "name": "Website",
+            "name": "书签",
+            "value": "Website",
             "icon": "fa fa-tags",
             "color": "#1B813E",
             "show": true,
@@ -76,25 +77,25 @@
                 "show": true,
                 "content": [{
                     "name": "新浪微博",
-                    "href": "https://www.weibo.com",
+                    "url": "https://www.weibo.com/",
                     "icon": "weibo",
                     "color": "#ff8140",
                     "show": true
                 }, {
                     "name": "百度贴吧",
-                    "href": "https://tieba.baidu.com",
+                    "url": "https://tieba.baidu.com/",
                     "icon": "tieba",
                     "color": "#3385ff",
                     "show": true
                 }, {
                     "name": "简书",
-                    "href": "https://www.jianshu.com",
+                    "url": "https://www.jianshu.com/",
                     "icon": "jianshu",
                     "color": "#ea6f5a",
                     "show": true
                 }, {
                     "name": "知乎",
-                    "href": "https://www.zhihu.com",
+                    "url": "https://www.zhihu.com/",
                     "icon": "zhihu",
                     "color": "#0084ff",
                     "show": true
@@ -107,31 +108,31 @@
                 "show": true,
                 "content": [{
                     "name": "淘宝",
-                    "href": "https://www.taobao.com",
+                    "url": "https://www.taobao.com/",
                     "icon": "taobao",
                     "color": "#ff9000",
                     "show": true
                 }, {
                     "name": "京东",
-                    "href": "https://www.jd.com",
+                    "url": "https://www.jd.com/",
                     "icon": "jd",
                     "color": "#e1251b",
                     "show": true
                 }, {
                     "name": "天猫",
-                    "href": "https://www.tmall.com",
+                    "url": "https://www.tmall.com/",
                     "icon": "tmall",
                     "color": "#FF0036",
                     "show": true
                 }, {
                     "name": "小米有品",
-                    "href": "https://www.xiaomiyoupin.com",
+                    "url": "https://www.xiaomiyoupin.com/",
                     "icon": "youpin",
                     "color": "#845f3f",
                     "show": true
                 }, {
                     "name": "网易严选",
-                    "href": "http://you.163.com",
+                    "url": "http://you.163.com/",
                     "icon": "you163",
                     "color": "#CC9756",
                     "show": true
@@ -144,37 +145,37 @@
                 "show": true,
                 "content": [{
                     "name": "腾讯新闻",
-                    "href": "https://news.qq.com",
+                    "url": "https://news.qq.com/",
                     "icon": "newsqq",
                     "color": "#5184eb",
                     "show": true
                 }, {
                     "name": "网易新闻",
-                    "href": "https://news.163.com",
+                    "url": "https://news.163.com/",
                     "icon": "news163",
                     "color": "#f34540",
                     "show": true
                 }, {
                     "name": "央视新闻",
-                    "href": "http://news.cctv.com",
+                    "url": "http://news.cctv.com/",
                     "icon": "newscctv",
                     "color": "#1B7AB5",
                     "show": true
                 }, {
                     "name": "今日头条",
-                    "href": "https://www.toutiao.com",
+                    "url": "https://www.toutiao.com/",
                     "icon": "toutiao",
                     "color": "#ed4040",
                     "show": true
                 }, {
                     "name": "IT之家",
-                    "href": "https://www.ithome.com",
+                    "url": "https://www.ithome.com/",
                     "icon": "ithome",
                     "color": "#d22222",
                     "show": true
                 }, {
                     "name": "中关村在线",
-                    "href": "http://www.zol.com.cn",
+                    "url": "http://www.zol.com.cn/",
                     "icon": "zol",
                     "color": "#3686f1",
                     "show": true
@@ -187,37 +188,37 @@
                 "show": true,
                 "content": [{
                     "name": "腾讯视频",
-                    "href": "https://v.qq.com",
+                    "url": "https://v.qq.com/",
                     "icon": "vqq",
                     "color": "#ff5c38",
                     "show": true
                 }, {
                     "name": "优酷",
-                    "href": "https://www.youku.com",
+                    "url": "https://www.youku.com/",
                     "icon": "youku",
                     "color": "#24a5ff",
                     "show": true
                 }, {
                     "name": "爱奇艺",
-                    "href": "https://www.iqiyi.com",
+                    "url": "https://www.iqiyi.com/",
                     "icon": "iqiyi",
                     "color": "#00be06",
                     "show": true
                 }, {
                     "name": "哔哩哔哩",
-                    "href": "https://www.bilibili.com",
+                    "url": "https://www.bilibili.com/",
                     "icon": "bilibili",
                     "color": "#fb7299",
                     "show": true
                 }, {
                     "name": "ACFUN",
-                    "href": "https://www.acfun.cn",
+                    "url": "https://www.acfun.cn/",
                     "icon": "acfun",
                     "color": "#fd4c5d",
                     "show": true
                 }, {
                     "name": "Youtube",
-                    "href": "https://www.youtube.com",
+                    "url": "https://www.youtube.com/",
                     "icon": "youtube",
                     "color": "#FF0000",
                     "show": true
@@ -230,31 +231,31 @@
                 "show": true,
                 "content": [{
                     "name": "QQ音乐",
-                    "href": "https://y.qq.com",
+                    "url": "https://y.qq.com/",
                     "icon": "yqq",
                     "color": "#31c27c",
                     "show": true
                 }, {
                     "name": "网易云音乐",
-                    "href": "https://music.163.com",
+                    "url": "https://music.163.com/",
                     "icon": "music163",
                     "color": "#C20C0C",
                     "show": true
                 }, {
                     "name": "酷狗音乐",
-                    "href": "http://www.kugou.com",
+                    "url": "http://www.kugou.com/",
                     "icon": "kugou",
                     "color": "#0c8ed9",
                     "show": true
                 }, {
                     "name": "虾米音乐",
-                    "href": "https://www.xiami.com",
+                    "url": "https://www.xiami.com/",
                     "icon": "xiami",
                     "color": "#ff410f",
                     "show": true
                 }, {
                     "name": "酷我音乐",
-                    "href": "http://www.kuwo.cn",
+                    "url": "http://www.kuwo.cn/",
                     "icon": "kuwo",
                     "color": "#ffe443",
                     "show": true
@@ -267,25 +268,25 @@
                 "show": true,
                 "content": [{
                     "name": "QQ邮箱",
-                    "href": "https://mail.qq.com",
+                    "url": "https://mail.qq.com/",
                     "icon": "mailqq",
                     "color": "#c1d9f3",
                     "show": true
                 }, {
                     "name": "网易邮箱",
-                    "href": "https://mail.163.com",
+                    "url": "https://mail.163.com/",
                     "icon": "mail163",
                     "color": "#CE0326",
                     "show": true
                 }, {
                     "name": "Outlook",
-                    "href": "https://outlook.live.com",
+                    "url": "https://outlook.live.com/",
                     "icon": "outlook",
                     "color": "#0078D4",
                     "show": true
                 }, {
                     "name": "Gmail",
-                    "href": "https://mail.google.com",
+                    "url": "https://mail.google.com/",
                     "icon": "gmail",
                     "color": "#C03A2C",
                     "show": true
@@ -298,92 +299,93 @@
                 "show": true,
                 "content": [{
                     "name": "GitHub",
-                    "href": "https://github.com",
+                    "url": "https://github.com/",
                     "icon": "github",
                     "color": "#24292E",
                     "show": true
                 }, {
                     "name": "GitLab",
-                    "href": "https://about.gitlab.com",
+                    "url": "https://about.gitlab.com/",
                     "icon": "gitlab",
                     "color": "#FA7035",
                     "show": true
                 }, {
                     "name": "Gitee",
-                    "href": "https://gitee.com",
+                    "url": "https://gitee.com/",
                     "icon": "gitee",
                     "color": "#C71D23",
                     "show": true
                 }, {
                     "name": "CodePen",
-                    "href": "https://codepen.io",
+                    "url": "https://codepen.io/",
                     "icon": "codepen",
                     "color": "#2FB45A",
                     "show": true
                 }, {
                     "name": "Node.JS",
-                    "href": "https://nodejs.org/",
+                    "url": "https://nodejs.org/",
                     "icon": "nodejs",
                     "color": "#9A744E",
                     "show": true
                 }, {
                     "name": "NPM",
-                    "href": "https://www.npmjs.com",
+                    "url": "https://www.npmjs.com/",
                     "icon": "npm",
                     "color": "#C12127",
                     "show": true
                 }, {
                     "name": "Vue.JS",
-                    "href": "https://cn.vuejs.org",
+                    "url": "https://cn.vuejs.org/",
                     "icon": "vuejs",
                     "color": "#41B883",
                     "show": true
                 }, {
                     "name": "React",
-                    "href": "https://react.docschina.org",
+                    "url": "https://react.docschina.org/",
                     "icon": "react",
                     "color": "#61DAFB",
                     "show": true
                 }, {
                     "name": "Angular.JS",
-                    "href": "https://www.angularjs.net.cn",
+                    "url": "https://www.angularjs.net.cn/",
                     "icon": "angularjs",
                     "color": "#DD1B16",
                     "show": true
                 }, {
                     "name": "Sass",
-                    "href": "https://www.sass.hk",
+                    "url": "https://www.sass.hk/",
                     "icon": "sass",
                     "color": "#CC6699",
                     "show": true
                 }, {
                     "name": "W3School",
-                    "href": "https://www.w3school.com.cn",
+                    "url": "https://www.w3school.com.cn/",
                     "icon": "w3school",
                     "color": "#C34244",
                     "show": true
                 }, {
                     "name": "MDN Web",
-                    "href": "https://developer.mozilla.org",
+                    "url": "https://developer.mozilla.org/",
                     "icon": "mdnweb",
                     "color": "#83D0F2",
                     "show": true
                 }, {
                     "name": "微信开放平台",
-                    "href": "https://mp.weixin.qq.com",
+                    "url": "https://mp.weixin.qq.com/",
                     "icon": "mpweixin",
                     "color": "#83DB40",
                     "show": true
                 }, {
                     "name": "阿里云",
-                    "href": "https://www.aliyun.com",
+                    "url": "https://www.aliyun.com/",
                     "icon": "aliyun",
                     "color": "#FF6A00",
                     "show": true
                 }]
             }]
         }, {
-            "name": "Setting",
+            "name": "设置",
+            "value": "Setting",
             "icon": "fa fa-cog",
             "color": "#43341B",
             "show": true,
@@ -499,7 +501,7 @@
                 "show": true,
                 "content": [{
                     "name": "开启",
-                    "value": "open",
+                    "value": "website_open",
                     "type": "changeCommonUse",
                     "href": "",
                     "color": "",
@@ -508,7 +510,7 @@
                     "content": ""
                 }, {
                     "name": "关闭",
-                    "value": "close",
+                    "value": "website_close",
                     "type": "changeCommonUse",
                     "href": "",
                     "color": "",
