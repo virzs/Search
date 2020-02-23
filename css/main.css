@@ -755,9 +755,10 @@ span {
 #dialog {
     position: relative;
     overflow: hidden;
-    width: 30%;
+    min-width: 400px;
     box-sizing: border-box;
     border-radius: 3px;
+    margin: 10px;
 }
 
 #dialog>.dialog-header {

@@ -20,9 +20,9 @@ https://search.virs.xyz
 
 ### 近期计划：
 
-1. 模块化js文件
+1. 针对不同分辨率/浏览器优化
 
-### 版本控制：
+### 版本：
 
 - master：主分支/后续仅同步稳定版本代码
 
@@ -30,14 +30,9 @@ https://search.virs.xyz
 
 - dev：开发分支
 
-  当前版本：1.0.0
+  当前版本：1.0.x（针对浏览器优化）
 
-**Tips：**
-
-- 功能性 > 外观/样式 > 兼容性
-- 第一步仅保证Chrome浏览器下的体验
-
-### 预计添加的功能：
+### 功能：
 
 1. 多引擎搜索（默认必应）
 
@@ -59,21 +54,9 @@ https://search.virs.xyz
 
    - ......
 
-6. 小游戏
-
-   - 别踩白块❎
-   - 贪吃蛇❎
-   - 打砖块❎
-   - 迷宫❎
-   - 像素鸟❎
-   - 2048❎
-   - ......
-
 7. 随机名言✅
 
 8. 启动动画✅，细节动画❎
-
-9. 更流畅的设计❎
 
 10. 响应式布局❎
 
@@ -83,54 +66,6 @@ https://search.virs.xyz
 
 13. 多彩样式✅
 
-14. 应用中心
-    常用应用添加至侧边栏❎
-    快速添加至侧边栏❎
-    自定义添加至侧边栏❎
-
-###  数据格式：
-
-1. #### 搜索引擎相关数据：
-
-   ┌engine（搜索引擎数据）
-
-   ├─name（搜索引擎名称）
-
-   ├─value（搜索引擎值，默认为英文名称）
-
-   ├─href（搜索引擎链接）
-
-   ├─icon（搜索引擎图标）
-
-   └─select（选中状态，默认选中必应搜索）
-
-2. #### 收藏网址相关数据：
-
-   ┌website（收藏网址数据）
-
-   ├─name（网址分类标题）
-
-   ├─value（分类英文名）
-
-   ├─icon（分类标题图标）
-
-   ├─color（分类标题颜色）
-
-   └─content（网址分类内容）
-
-   ​	├─name（网站名称）
-   
-   ​	├─href（网站链接）
-   
-   ​	├─icon（网站图标）
-   
-   ​	└─color（网站字体颜色）
-
-### 命名规则：
-
-1. 功能名 + 具体名
-2. id一般为驼峰命名
-3. class一般为中间加 “ - ” 命名
 
 ### 后续计划：
 
@@ -138,9 +73,114 @@ https://search.virs.xyz
 3. 使用nodejs部署服务器（有生之年系列）
 4. 账号登陆同步书签设置及其他信息功能（有生之年系列）
 
-### 配色方案：
+### 模块说明：
 
-啥配色都能让我配丑系列
+方便二次开发，尽量保持与代码内容同步
+
+**all.data.js**
+
+| 模块     | 说明                     | 参数 |
+| -------- | ------------------------ | ---- |
+| jsonData | 获取index.json中所有数据 | 无   |
+
+**animation.func.js**
+
+| 模块             | 说明     | 参数                                                         |
+| ---------------- | -------- | ------------------------------------------------------------ |
+| toggle           | 淡出动画 | elemt：DOM元素<br />speed：速度                              |
+| setStorageBefore | 加载动画 | set：匿名函数<br />name：本地存储名<br />href：链接/本地存储内容 |
+
+**bg.func.js**
+
+| 模块              | 说明                   | 参数                           |
+| ----------------- | ---------------------- | ------------------------------ |
+| setBingImage      | 设置必应壁纸作为背景   | status：状态                   |
+| setCustomizeImage | 设置自定义图片作为背景 | setBackGround：上传图片DOM元素 |
+| setdefault        | 恢复默认壁纸           | type：状态                     |
+| globalImage       | 设置背景               | url：图片链接                  |
+| WoolGlass         | 设置毛玻璃效果         | url：图片链接                  |
+
+**dialog.func.js**
+
+| 模块        | 说明       | 参数                                                         |
+| ----------- | ---------- | ------------------------------------------------------------ |
+| openDialog  | 开启模态框 | data.id：模态框className<br />data.html：是否显示自定义html内容<br />data.title：模态框标题<br />data.content：模态框内容数组<br />        name：label名<br />         value：label名<br />        type：格式（input：输入框、text：文本）<br />        defaultValue：默认值<br />data.button：模态框按钮<br />        name：按钮名<br />        value：按钮id |
+| closeDialog | 关闭模态框 | 无                                                           |
+
+**global.func.js**
+
+| 模块            | 说明                 | 参数            |
+| --------------- | -------------------- | --------------- |
+| stopPropagation | 阻止事件冒泡         | 无              |
+| findSettingInfo | 查找选中设置项对应值 | value：选中项   |
+| getRandomColor  | 返回随机颜色值       | 无              |
+| removeElement   | 删除元素             | element：元素名 |
+
+**message.func.js**
+
+| 模块         | 说明         | 参数                                                         |
+| ------------ | ------------ | ------------------------------------------------------------ |
+| openMessage  | 开启消息提示 | value.title：提示标题<br />value.type：提示类型（success/error）<br />value.content：提示内容 |
+| closeMessage | 关闭消息提示 | elemt：弹窗元素                                              |
+
+**search.func.js**
+
+| 模块      | 说明             | 参数                      |
+| --------- | ---------------- | ------------------------- |
+| goSearch  | 跳转搜索         | 无                        |
+| setEngine | 渲染搜索引擎选择 | engineValue：搜索引擎数据 |
+
+**setting.func.js**
+
+| 模块          | 说明       | 参数 |
+| ------------- | ---------- | ---- |
+| createSetting | 创建设置项 | 无   |
+
+**sideBar.func.js**
+
+| 模块                 | 说明                 | 参数       |
+| -------------------- | -------------------- | ---------- |
+| renderSideBarContent | 根据id渲染侧边栏内容 | id：选项id |
+
+**skin.func.js**
+
+| 模块       | 说明     | 参数                                      |
+| ---------- | -------- | ----------------------------------------- |
+| changeSkin | 更改配色 | skinName：配色名<br />value：配色文件路径 |
+
+**storage.func.js**
+
+| 模块          | 说明             | 参数                                    |
+| ------------- | ---------------- | --------------------------------------- |
+| setStorage    | 设置本地存储     | name：本地存储名<br />value：本地存储值 |
+| getStorage    | 获取本地存储内容 | key：本地存储名                         |
+| removeStorage | 删除本地存储     | key：本地存储名                         |
+
+**sug.func.js**
+
+| 模块        | 说明           | 参数                                      |
+| ----------- | -------------- | ----------------------------------------- |
+| getSugValue | 获取备选项内容 | 无                                        |
+| sugValue    | 备选项内容     | href：搜索引擎链接<br />value：备选项数组 |
+| changeSug   | 按键选择备选项 | keyCode：按键值                           |
+
+**ui.func.js**
+
+| 模块     | 说明       | 参数                                |
+| -------- | ---------- | ----------------------------------- |
+| changeUI | 更改UI风格 | uiName：ui名<br />value：ui文件路径 |
+
+**website.func.js**
+
+| 模块          | 说明             | 参数                                                         |
+| ------------- | ---------------- | ------------------------------------------------------------ |
+| createWebsite | 创建侧边栏内网址 | 无                                                           |
+| commonWebsite | 记录常用网址     | json.thisWebsite.id：指定网址id<br />json.thisWebsite.name：指定网站名<br />json.thisWebsite.url：指定网址链接<br />json.thisWebsite.color：指定网址颜色<br />json.commonData：数据源<br />json.status：状态<br />json.add：添加网址<br />json.change：修改网址<br />json.del：删除网址 |
+| setCommonUse  | 渲染常用网址     | data：数据源<br />status：状态                               |
+
+
+
+### 配色方案：
 
 - **落日海滩**
   在以灰色作为主色调的画面中加入高纯度的色彩，这种配色方法非常常见，也很容易搭配出出人意料的效果，这个的搭配方法可以使设计主题突出，并其他吸引观者的效果。
