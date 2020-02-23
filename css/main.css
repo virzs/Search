@@ -758,6 +758,7 @@ span {
     min-width: 400px;
     box-sizing: border-box;
     border-radius: 3px;
+    margin: 10px;
 }
 
 #dialog>.dialog-header {
