@@ -85,18 +85,18 @@ function getSugValue() {
 //备选项/智能提示函数
 function sugValue(href, value) {
     let sugList = "";
-    if (value.length == 0) {
+    if (value == undefined || value.length == 0) {
         return;
     }
     value.forEach(item => {
         if (typeof item == "string") {
-            sugList += `<li><a href="${href}${item}">${item}</a></li>`
+            sugList += renderSug(href, item);
         } else if (typeof item == "object" && item.Txt !== undefined) {
-            sugList += `<li><a href="${href}${item.Txt}">${item.Txt}</a></li>`
+            sugList += renderSug(href, item.Txt);
         } else if (typeof item == "object" && item.word !== undefined) {
-            sugList += `<li><a href="${href}${item.word}">${item.word}</a></li>`
+            sugList += renderSug(href, item.word);
         } else {
-            sugList += `<li><a href="${href}${item[0]}">${item[0]}</a></li>`
+            sugList += renderSug(href, item[0]);
         }
     })
     searchList.innerHTML = sugList;
@@ -126,6 +126,10 @@ function changeSug(keyCode) {
     }
     searchList.children[sugIndex].className = "selectSug";
     searchInput.value = searchList.children[sugIndex].children[0].text;
+}
+
+function renderSug(url, content) {
+    return `<li><a href="${url}${content}">${content}</a></li>`
 }
 export {
     getSugValue,
