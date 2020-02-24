@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-23 11:42:19
+ * @Last Modified time: 2020-02-24 17:41:02
  */
 
 //配置变量
@@ -185,7 +185,12 @@ jinrishici.load(function (result) {
 
 //版权信息渲染
 if (jsonData.copyright.show) {
-    copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${jsonData.copyright.content}</a>`
+    let copyrightContent = jsonData.copyright.content;
+    let nowDdate = new Date();
+    copyrightContent = copyrightContent.replace("#before#", "2018");
+    copyrightContent = copyrightContent.replace("#after#", nowDdate.getFullYear());
+    copyrightContent = copyrightContent.replace("#author#", "Vir");
+    copyright.innerHTML = `<a class="copyright" href="${jsonData.copyright.href}">${copyrightContent}</a>`
 }
 
 //网页文档加载完毕调用动画
