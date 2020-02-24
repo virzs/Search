@@ -57,31 +57,12 @@ function createSetting() {
     settingData.forEach(item => {
         if (item.show) {
             settingInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
-            if (item.content !== "" && typeof item.content !== "string") {
+            if (item.content !== "" && typeof item.content !== "string" && item.value !== "about") {
                 item.content.forEach(inner => {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
                             //content不为空且为字符串时
                             sideBarHtml += createHtml(inner);
-                        } else if (typeof inner.content !== "string") {
-                            //content为数组对象时
-                            inner.content.forEach(inners => {
-                                if (inners.show) {
-                                    if (inners.value == "email") {
-                                        sideBarHtml += `
-                                            <div class="setlist" style="border:2px solid ${inners.color};">
-                                                <span><i class="${inners.icon}"></i>  ${inners.name}：</span>
-                                                <span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span>
-                                            </div>`;
-                                    } else {
-                                        sideBarHtml += `
-                                            <div class="setlist" style="border:2px solid ${inners.color};">
-                                                <span><i class="${inners.icon}"></i>  ${inners.name}：</span>
-                                                <span><a href='${inners.href}' target="_blank">${inners.content}</a></span>
-                                            </div>`;
-                                    }
-                                }
-                            })
                         } else {
                             //content为空时的内容
                             sideBarHtml += createHtml(inner);
@@ -92,6 +73,8 @@ function createSetting() {
                         }
                     }
                 })
+            } else if (item.value == "about") {
+                sideBarHtml += renderAbout(item);
             }
             settingInfo = settingInfo + sideBarHtml;
             sideBarHtml = "";
@@ -108,6 +91,31 @@ function renderSetting(id, color, name) {
                 <span>${name}</span>
             </div>
         </div>`;
+}
+
+function renderAbout(data) {
+    let sideBarHtml = "";
+    data.content.forEach(item => {
+        if (item.show) {
+            if (typeof item.content == "string") {
+                sideBarHtml += `
+                    <div class="aboutInfo">
+                        <span><i class="${item.icon}"></i>  ${item.name}：</span>
+                        <span><a href='${item.href}' target="_blank">${item.content}</a></span>
+                    </div>`;
+            } else {
+                item.content.forEach(inner => {
+                    sideBarHtml += `
+                        <div class="aboutInfo">
+                            <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
+                            <span><a href='${inner.href}' target="_blank">${inner.content}</a></span>
+                        </div>`;
+                })
+            }
+
+        }
+    })
+    return `<div class="aboutContent" style="border:2px solid ${data.color};">${sideBarHtml}</div>`;
 }
 
 export {

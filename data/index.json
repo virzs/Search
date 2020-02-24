@@ -523,14 +523,23 @@
                 "value": "about",
                 "href": "",
                 "icon": "fa fa-question-circle-o",
+                "color": "#0078D4",
                 "show": true,
                 "content": [{
+                    "name": "简介",
+                    "value": "introduction",
+                    "href": "",
+                    "color": "#0078D4",
+                    "icon": "fa fa-pencil-square-o",
+                    "show": true,
+                    "content": "一个简洁的新标签页"
+                }, {
                     "name": "作者",
                     "value": "author",
                     "href": "",
                     "color": "#D0104C",
                     "icon": "fa fa-user-o",
-                    "show": false,
+                    "show": true,
                     "content": "VirZhang"
                 }, {
                     "name": "联系方式",

@@ -481,7 +481,8 @@ span {
     cursor: pointer;
 }
 
-.setlist {
+.setlist,
+.aboutContent {
     box-sizing: border-box;
     margin: 10px 15px;
     padding: 6px 10px;
@@ -510,6 +511,10 @@ span {
 
 .setlist input:hover {
     cursor: pointer;
+}
+
+.aboutInfo span {
+    display: block;
 }
 
 .innerlist {
