@@ -8,16 +8,31 @@ var skin_Transparent = ""; //透明皮肤数据
 function createHtml(inner) {
     let sideBarHtml = "";
     if (!inner.type) {
-        sideBarHtml = `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}：</span><span>${inner.content}</span></div>`;
+        sideBarHtml = `
+            <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">
+                <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
+                <span>${inner.content}</span>
+            </div>`;
     }
     if (inner.type == "skin" && inner.value !== "skin_Transparent") {
-        sideBarHtml = `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};"><span><i class="${inner.icon}"></i>  ${inner.name}</span></div>`;
+        sideBarHtml = `
+            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
+                <div>
+                    <span><i class="${inner.icon}"></i>  ${inner.name}</span>
+                </div>
+            </div>`;
     }
     if (inner.type == "uistyle") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml = `<div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};"><a href="javascript:;" class="changebg">更换背景<input id="setBackGround" type="file"></a></div>`;
+        sideBarHtml = `
+            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
+                <div style="color:${inner.color}">
+                    <span>更换背景</span>
+                    <a href="javascript:;" class="changebg"><input id="setBackGround" type="file"></a>
+                </div>
+            </div>`;
     }
     if (inner.type == "changebg" && inner.value !== "changebg") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
@@ -26,7 +41,10 @@ function createHtml(inner) {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "thanks") {
-        sideBarHtml = `<a href="${inner.href}" target="_blank"><div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div></a>`;
+        sideBarHtml = `
+            <a href="${inner.href}" target="_blank">
+                <div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>
+            </a>`;
     }
     return sideBarHtml;
 }
@@ -50,9 +68,17 @@ function createSetting() {
                             inner.content.forEach(inners => {
                                 if (inners.show) {
                                     if (inners.value == "email") {
-                                        sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span></div>`;
+                                        sideBarHtml += `
+                                            <div class="setlist" style="border:2px solid ${inners.color};">
+                                                <span><i class="${inners.icon}"></i>  ${inners.name}：</span>
+                                                <span><a href='mailto:${inners.content}' target="_blank">${inners.content}</a></span>
+                                            </div>`;
                                     } else {
-                                        sideBarHtml += `<div class="setlist" style="border:2px solid ${inners.color};"><span><i class="${inners.icon}"></i>  ${inners.name}：</span><span><a href='${inners.href}' target="_blank">${inners.content}</a></span></div>`;
+                                        sideBarHtml += `
+                                            <div class="setlist" style="border:2px solid ${inners.color};">
+                                                <span><i class="${inners.icon}"></i>  ${inners.name}：</span>
+                                                <span><a href='${inners.href}' target="_blank">${inners.content}</a></span>
+                                            </div>`;
                                     }
                                 }
                             })
@@ -76,7 +102,12 @@ function createSetting() {
 
 //可复用渲染项函数
 function renderSetting(id, color, name) {
-    return `<div id="${id}" class="setlist" style="border:2px solid ${color};">${name}</div>`;
+    return `
+        <div id="${id}" class="capsule" style="border:2px solid ${color};">
+            <div style="color:${color};">
+                <span>${name}</span>
+            </div>
+        </div>`;
 }
 
 export {
