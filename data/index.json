@@ -99,6 +99,18 @@
                     "icon": "zhihu",
                     "color": "#0084ff",
                     "show": true
+                }, {
+                    "name": "Facebook",
+                    "url": "https://www.facebook.com/",
+                    "icon": "facebook",
+                    "color": "#4267b2",
+                    "show": true
+                }, {
+                    "name": "Twitter",
+                    "url": "https://twitter.com/",
+                    "icon": "twitter",
+                    "color": "rgb(29, 161, 242)",
+                    "show": true
                 }]
             }, {
                 "name": "购物",
@@ -136,6 +148,18 @@
                     "icon": "you163",
                     "color": "#CC9756",
                     "show": true
+                }, {
+                    "name": "网易考拉",
+                    "url": "https://www.kaola.com/",
+                    "icon": "kaola",
+                    "color": "#ff2337",
+                    "show": true
+                }, {
+                    "name": "亚马逊",
+                    "url": "https://www.amazon.cn/",
+                    "icon": "amazon",
+                    "color": "#E67A00",
+                    "show": true
                 }]
             }, {
                 "name": "新闻",
@@ -160,6 +184,30 @@
                     "url": "http://news.cctv.com/",
                     "icon": "newscctv",
                     "color": "#1B7AB5",
+                    "show": true
+                }, {
+                    "name": "观察者网",
+                    "url": "https://www.guancha.cn/",
+                    "icon": "guancha",
+                    "color": "#9d1518",
+                    "show": true
+                }, {
+                    "name": "新华网",
+                    "url": "http://www.xinhuanet.com/",
+                    "icon": "xinhuanet",
+                    "color": "#1d71b7",
+                    "show": true
+                }, {
+                    "name": "环球网",
+                    "url": "https://3w.huanqiu.com/",
+                    "icon": "huanqiu",
+                    "color": "#d63636",
+                    "show": true
+                }, {
+                    "name": "中国日报",
+                    "url": "http://www.chinadaily.com.cn/",
+                    "icon": "chinadaily",
+                    "color": "#014073",
                     "show": true
                 }, {
                     "name": "今日头条",
@@ -203,6 +251,12 @@
                     "url": "https://www.iqiyi.com/",
                     "icon": "iqiyi",
                     "color": "#00be06",
+                    "show": true
+                }, {
+                    "name": "芒果TV",
+                    "url": "https://www.mgtv.com/",
+                    "icon": "mgtv",
+                    "color": "#ff6f00",
                     "show": true
                 }, {
                     "name": "哔哩哔哩",
@@ -523,15 +577,24 @@
                 "value": "about",
                 "href": "",
                 "icon": "fa fa-question-circle-o",
+                "color": "#0078D4",
                 "show": true,
                 "content": [{
+                    "name": "简介",
+                    "value": "introduction",
+                    "href": "",
+                    "color": "#0078D4",
+                    "icon": "fa fa-pencil-square-o",
+                    "show": true,
+                    "content": "一个简洁的新标签页"
+                }, {
                     "name": "作者",
                     "value": "author",
                     "href": "",
                     "color": "#D0104C",
                     "icon": "fa fa-user-o",
-                    "show": false,
-                    "content": "VirZhang"
+                    "show": true,
+                    "content": "Vir"
                 }, {
                     "name": "联系方式",
                     "value": "contact",
@@ -580,6 +643,6 @@
     "copyright": {
         "href": "https://www.virs.xyz",
         "show": true,
-        "content": "©2018-2020 by VirZhang. All rights reserved."
+        "content": "©#before#-#after# by #author#. All rights reserved."
     }
 }
