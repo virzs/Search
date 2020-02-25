@@ -184,10 +184,11 @@ span {
     top: 50px;
     max-width: 760px;
     max-height: 350px;
+    overflow: -moz-scrollbars-none;
+    overflow: hidden;
     overflow-y: auto;
     width: 100%;
     border-radius: 8px;
-    overflow: -moz-scrollbars-none;
 }
 
 #searchList::-webkit-scrollbar {
@@ -517,8 +518,8 @@ span {
     display: block;
 }
 
-.aboutInfo span:nth-child(2){
-    text-indent:20px;
+.aboutInfo span:nth-child(2) {
+    text-indent: 20px;
 }
 
 .innerlist {
