@@ -463,7 +463,7 @@
                     "name": "必应壁纸",
                     "type": "changebg",
                     "value": "setBingImage",
-                    "href": "",
+                    "href": "https://bing.ioliu.cn/v1/?d=0&w=1920&h=1080&callback=window.bing.bg",
                     "color": "",
                     "icon": "",
                     "show": true,
