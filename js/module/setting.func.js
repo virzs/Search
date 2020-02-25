@@ -9,14 +9,14 @@ function createHtml(inner) {
     let sideBarHtml = "";
     if (!inner.type) {
         sideBarHtml = `
-            <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">
+            <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};color:${inner.color};">
                 <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
                 <span>${inner.content}</span>
             </div>`;
     }
     if (inner.type == "skin" && inner.value !== "skin_Transparent") {
         sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
+            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};color:${inner.color};">
                 <div>
                     <span><i class="${inner.icon}"></i>  ${inner.name}</span>
                 </div>
