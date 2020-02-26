@@ -483,7 +483,7 @@ span {
 }
 
 .setlist,
-.aboutContent {
+.about-content {
     box-sizing: border-box;
     margin: 10px 15px;
     padding: 6px 10px;
@@ -514,11 +514,11 @@ span {
     cursor: pointer;
 }
 
-.aboutInfo span {
+.about-info span {
     display: block;
 }
 
-.aboutInfo span:nth-child(2) {
+.about-info span:nth-child(2) {
     text-indent: 20px;
 }
 

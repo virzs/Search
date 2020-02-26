@@ -47,3 +47,7 @@
 #messageList li {
     border-radius: 15px;
 }
+
+.about-content {
+    border-radius: 8px;
+}
