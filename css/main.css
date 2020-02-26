@@ -418,6 +418,7 @@ span {
     font-size: 22px;
     box-sizing: border-box;
     padding: 3px 0;
+    border-bottom-left-radius: 8px;
 }
 
 .title-icon i {
@@ -704,6 +705,7 @@ span {
     overflow: hidden;
     padding-right: 15px;
     transition: 0.5s;
+    border-radius: 10px;
 }
 
 #messageList div:nth-child(1) {
