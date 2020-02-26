@@ -20,7 +20,9 @@ function goSearch() {
 
 //渲染搜索引擎备选项
 function setEngine(engineValue) {
-    selectEngine.innerHTML = `<img src='${engineValue.icon}' alt="${engineValue.value}"><span>${engineValue.name}</span><i class="fa fa-sort"></i>`;
+    selectEngine.innerHTML = `
+        <img src='${engineValue.icon}' alt="${engineValue.value}">
+        <span>${engineValue.name}</span><i class="fa fa-sort"></i>`;
     selectOption.style.display = "none";
 }
 export {
