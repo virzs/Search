@@ -1,19 +1,20 @@
 body {
-  color: #eee;
+  color: #FF5A09;
 }
 
 body,
+.capsule,
+.setlist,
+.about-content,
 #messageList li {
-  background-color: #7C7C7E;
+  background-color: #6E6E6E;
 }
 
-.commons,
-.capsule,
 #searchList,
 #dialog,
-.setlist,
+#sideBarButton,
 #sideBarContent {
-  background-color: #303052;
+  background-color: #393939;
 }
 
 a,
@@ -21,32 +22,33 @@ a,
 #sideBarButton,
 .poetry,
 #messageList li {
-  color: #eee;
+  color: #FF5A09;
 }
 
+.commons,
 .search-group,
 .search-btn,
 .search-option {
-  background-color: #303052;
-  color: #eee;
+  background-color: #7E7E7E;
+  color: #FF5A09;
 }
 
 a:hover,
 #copyright a:hover {
-  color: #5f5f5f;
+  color: #FF9900;
 }
 
 .search-option li:hover,
 #searchList li:hover,
 .selectSug {
-  background-color: #5f5f5f;
+  background-color: #FF9900;
 }
 
 .capsule:hover,
 .setlist:hover {
-  box-shadow: 1px 1px 5px 1px #FFC549;
+  box-shadow: 1px 1px 5px 1px #F3843E;
 }
 
 #messageList li {
-  box-shadow: 0 2px 12px 0 #FFC549;
+  box-shadow: 0 2px 12px 0 #F3843E;
 }
