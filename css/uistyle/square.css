@@ -1,49 +1,26 @@
-.search-group {
-    border-radius: 8px;
-    box-shadow: none;
-}
-
-.search-group::after {
-    border-radius: 8px;
+.search-group,
+.search-group::before {
+  border-radius: 8px;
 }
 
 .capsule {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
-.setlist {
-    border-radius: 3px;
+.setlist,
+.about-content {
+  border-radius: 3px;
 }
 
-.search-option {
-    border-radius: 4px;
-}
-
+.search-option,
 .search-option::after {
-    border-radius: 4px;
-}
-
-.title-icon {
-    border-bottom-left-radius: 6px;
-    border-top-left-radius: 6px;
+  border-radius: 4px;
 }
 
 #searchList {
-    border-radius: 8px;
+  border-radius: 4.8px;
 }
 
 #searchList li {
-    border-radius: 4px;
-}
-
-#sideBarContent::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-}
-
-.commons div {
-    border-radius: 11px;
-}
-
-#messageList li {
-    border-radius: 5px;
+  border-radius: 4px;
 }

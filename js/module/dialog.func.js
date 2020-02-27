@@ -13,16 +13,27 @@ function openDialog(data) {
     if (!data.html) {
         data.content.forEach(item => {
             if (item.type == "input") {
-                content += `<div id="${item.value}Dialog"><span class="content-label">${item.name}：</span><input placeholder="请输入${item.name}" value="${item.defaultValue}" /></div>`;
+                content += `
+                    <div id="${item.value}Dialog">
+                        <span class="content-label">${item.name}：</span>
+                        <input placeholder="请输入${item.name}" value="${item.defaultValue}" />
+                    </div>`;
             } else if (item.type == "text") {
-                content += `<div><span class="content-label">${item.name}：</span><p>${item.value}</p></div>`;
+                content += `
+                    <div>
+                        <span class="content-label">${item.name}：</span>
+                        <p>${item.value}</p>
+                    </div>`;
             }
         })
     } else {
         content = data.content;
     }
     data.button.forEach(item => {
-        btns += `<span><button id="${item.value}Dialog">${item.name}</button></span>`
+        btns += `
+            <span>
+                <button id="${item.value}Dialog">${item.name}</button>
+            </span>`
     })
     let dialog = `
         <div id="dialog" class="${data.id}">

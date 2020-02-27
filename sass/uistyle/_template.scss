@@ -1,0 +1,29 @@
+@mixin uiStyle {
+
+    .search-group,
+    .search-group::before {
+        border-radius: $searchGroupRadius;
+    }
+
+    .capsule {
+        border-radius: $capsuleRadius;
+    }
+
+    .setlist,
+    .about-content {
+        border-radius: $setlistRadius;
+    }
+
+    .search-option,
+    .search-option::after {
+        border-radius: $searchOptionRadius;
+    }
+
+    #searchList {
+        border-radius: $searchGroupRadius*0.6;
+    }
+
+    #searchList li {
+        border-radius: $searchGroupRadius*0.5;
+    }
+}

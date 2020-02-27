@@ -9,14 +9,14 @@ function createHtml(inner) {
     let sideBarHtml = "";
     if (!inner.type) {
         sideBarHtml = `
-            <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};">
+            <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};color:${inner.color};">
                 <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
                 <span>${inner.content}</span>
             </div>`;
     }
     if (inner.type == "skin" && inner.value !== "skin_Transparent") {
         sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
+            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};color:${inner.color};">
                 <div>
                     <span><i class="${inner.icon}"></i>  ${inner.name}</span>
                 </div>
@@ -99,14 +99,14 @@ function renderAbout(data) {
         if (item.show) {
             if (typeof item.content == "string") {
                 sideBarHtml += `
-                    <div class="aboutInfo">
+                    <div class="about-info">
                         <span><i class="${item.icon}"></i>  ${item.name}：</span>
                         <span><a href='${item.href}' target="_blank">${item.content}</a></span>
                     </div>`;
             } else {
                 item.content.forEach(inner => {
                     sideBarHtml += `
-                        <div class="aboutInfo">
+                        <div class="about-info">
                             <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
                             <span><a href='${inner.href}' target="_blank">${inner.content}</a></span>
                         </div>`;
@@ -115,7 +115,7 @@ function renderAbout(data) {
 
         }
     })
-    return `<div class="aboutContent" style="border:2px solid ${data.color};">${sideBarHtml}</div>`;
+    return `<div class="about-content" style="border:2px solid ${data.color};">${sideBarHtml}</div>`;
 }
 
 export {

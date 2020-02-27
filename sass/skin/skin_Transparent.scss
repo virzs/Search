@@ -1,0 +1,8 @@
+$mainColor:transparent;
+$secondaryColor:transparent;
+$groupColor:transparent;
+$textColor:#DDD4BC;
+$hoverColor:#707070;
+$shadowColor:#FFC549;
+@import "./_template.scss";
+@include skin;

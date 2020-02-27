@@ -1,122 +1,54 @@
 body {
-    background: #88C6E5;
+  color: #77BA9B;
 }
 
-a {
-    color: black;
+body,
+.capsule,
+.setlist,
+.about-content,
+#messageList li {
+  background-color: #3B5998;
 }
 
-a:hover {
-    color: black;
-}
-
-.poetry-content {
-    color: #333;
-}
-
-.title-icon {
-    color: #8f8f8f;
-}
-
-.title-icon:hover {
-    color: #5f5f5f;
-}
-
-#copyright a {
-    color: #999;
-}
-
-#copyright a:hover {
-    color: #5f5f5f;
-}
-
-.search-group {
-    background: #fff;
-    border: 1px solid #dfe1e5;
-}
-
-.search-option {
-    background: #ffffff;
-    border: 1px solid #dfe1e5;
-}
-
-.search-option li:hover {
-    background: #f1f1f1;
-}
-
-#searchList {
-    border: 1px solid #dfe1e5;
-    background: #fff;
-}
-
-#searchList li:hover {
-    background: #f1f1f1;
-}
-
-.selectSug {
-    background: #f1f1f1;
-}
-
+#searchList,
+#dialog,
+#sideBarButton,
 #sideBarContent {
-    background: #A6D3E8;
-    box-shadow: inset 1px 1px 0 rgba(231, 231, 231, .9);
+  background-color: #293E6A;
 }
 
-.capsule {
-    background: #FEF9EF;
+a,
+.title-icon,
+#sideBarButton,
+.poetry,
+#messageList li {
+  color: #77BA9B;
 }
 
-.capsule:hover {
-    box-shadow: 1px 1px 5px 1px #FEF9EF;
+.commons,
+.search-group,
+.search-btn,
+.search-option {
+  background-color: #293E6A;
+  color: #77BA9B;
 }
 
-.setlist {
-    background: #88C6E5;
+a:hover,
+#copyright a:hover {
+  color: #B6A754;
 }
 
+.search-option li:hover,
+#searchList li:hover,
+.selectSug {
+  background-color: #B6A754;
+}
+
+.capsule:hover,
 .setlist:hover {
-    box-shadow: 1px 1px 5px 1px #FEF9EF;
-}
-
-.commons {
-    background: #FFFFFF;
-}
-
-#dialog {
-    background: #fff;
+  box-shadow: 1px 1px 5px 1px #3B5998;
 }
 
 #messageList li {
-    background-color: #fff;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
-}
-
-/*正常情况下滑块的样式*/
-#sideBarContent::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 197, 73, .6);
-}
-
-/*鼠标悬浮在该类指向的控件上时滑块的样式*/
-#sideBarContent:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 197, 73, .6);
-    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
-}
-
-/*鼠标悬浮在滑块上时滑块的样式*/
-#sideBarContent::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 197, 73, .6);
-    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
-}
-
-/*正常时候的主干部分/滑轨部分*/
-#sideBarContent::-webkit-scrollbar-track {
-    /* border-radius: 10px; */
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
-    background-color: rgba(231, 231, 231, .01);
-}
-
-/*鼠标悬浮在滚动条上的主干部分/滑轨部分*/
-#sideBarContent::-webkit-scrollbar-track:hover {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
-    background-color: rgba(231, 231, 231, .01);
+  box-shadow: 0 2px 12px 0 #3B5998;
 }

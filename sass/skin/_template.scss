@@ -1,0 +1,56 @@
+@mixin skin {
+    body {
+        color: $textColor;
+    }
+
+    body,
+    .capsule,
+    .setlist,
+    .about-content,
+    #messageList li {
+        background-color: $mainColor;
+    }
+
+    #searchList,
+    #dialog,
+    #sideBarButton,
+    #sideBarContent {
+        background-color: $secondaryColor;
+    }
+
+    a,
+    .title-icon,
+    #sideBarButton,
+    .poetry,
+    #messageList li {
+        color: $textColor;
+    }
+
+    .commons,
+    .search-group,
+    .search-btn,
+    .search-option {
+        background-color: $groupColor;
+        color: $textColor;
+    }
+
+    a:hover,
+    #copyright a:hover {
+        color: $hoverColor;
+    }
+
+    .search-option li:hover,
+    #searchList li:hover,
+    .selectSug {
+        background-color: $hoverColor;
+    }
+
+    .capsule:hover,
+    .setlist:hover {
+        box-shadow: 1px 1px 5px 1px $shadowColor;
+    }
+
+    #messageList li {
+        box-shadow: 0 2px 12px 0 $shadowColor;
+    }
+}
