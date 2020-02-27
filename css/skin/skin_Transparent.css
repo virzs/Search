@@ -1,17 +1,18 @@
 body {
-  color: #eee;
+  color: #DDD4BC;
 }
 
 body,
+.capsule,
+.setlist,
+.about-content,
 #messageList li {
   background-color: transparent;
 }
 
-.commons,
-.capsule,
 #searchList,
 #dialog,
-.setlist,
+#sideBarButton,
 #sideBarContent {
   background-color: transparent;
 }
@@ -21,25 +22,26 @@ a,
 #sideBarButton,
 .poetry,
 #messageList li {
-  color: #eee;
+  color: #DDD4BC;
 }
 
+.commons,
 .search-group,
 .search-btn,
 .search-option {
   background-color: transparent;
-  color: #eee;
+  color: #DDD4BC;
 }
 
 a:hover,
 #copyright a:hover {
-  color: #5f5f5f;
+  color: #707070;
 }
 
 .search-option li:hover,
 #searchList li:hover,
 .selectSug {
-  background-color: #5f5f5f;
+  background-color: #707070;
 }
 
 .capsule:hover,
