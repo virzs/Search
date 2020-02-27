@@ -1,72 +1,47 @@
 body {
-    background: transparent;
-    color: #999;
+  color: #eee;
 }
 
-a {
-    color: #999;
+body,
+.commons,
+#sideBarContent,
+.capsule,
+.setlist,
+#messageList li {
+  background-color: transparent;
 }
 
-a:hover {
-    color: black;
-}
-
-#copyright a:hover {
-    color: #5f5f5f;
+a,
+.title-icon,
+#sideBarButton,
+.poetry,
+#messageList li {
+  color: #eee;
 }
 
 .search-group,
 .search-btn,
 .search-option {
-    background: transparent;
+  background-color: transparent;
+  color: #eee;
 }
 
-.search-option li:hover {
-    background: rgba(0, 0, 0, .1);
+a:hover,
+#copyright a:hover {
+  color: #5f5f5f;
 }
 
-.commons {
-    background: transparent;
-}
-
-#searchList li:hover {
-    background: rgba(0, 0, 0, .1);
-}
-
+.search-option li:hover,
+#searchList li:hover,
 .selectSug {
-    background: #f1f1f1;
+  background-color: #5f5f5f;
 }
 
-#sideBarButton {
-    color: #dfe1e5;
-}
-
-#sideBarContent {
-    background: transparent;
-}
-
-.poetry {
-    color: #dfe1e5;
-}
-
-.capsule {
-    background: transparent;
-}
-
-.capsule:hover {
-    box-shadow: 1px 1px 5px 1px #FFC549;
-}
-
-.setlist {
-    background: transparent;
-}
-
+.capsule:hover,
 .setlist:hover {
-    box-shadow: 1px 1px 5px 1px #FFC549;
+  box-shadow: 1px 1px 5px 1px #FFC549;
 }
 
 #messageList li {
-    background-color: transparent;
-    color: #fff;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 12px 0 #FFC549;
 }
