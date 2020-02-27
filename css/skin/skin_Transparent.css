@@ -3,11 +3,16 @@ body {
 }
 
 body,
-.commons,
-#sideBarContent,
-.capsule,
-.setlist,
 #messageList li {
+  background-color: transparent;
+}
+
+.commons,
+.capsule,
+#searchList,
+#dialog,
+.setlist,
+#sideBarContent {
   background-color: transparent;
 }
 

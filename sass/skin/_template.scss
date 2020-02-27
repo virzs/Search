@@ -4,12 +4,17 @@
     }
 
     body,
-    .commons,
-    #sideBarContent,
-    .capsule,
-    .setlist,
     #messageList li {
-        background-color: $backgroundColor;
+        background-color: $mainColor;
+    }
+
+    .commons,
+    .capsule,
+    #searchList,
+    #dialog,
+    .setlist,
+    #sideBarContent{
+        background-color: $secondaryColor;
     }
 
     a,
@@ -23,7 +28,7 @@
     .search-group,
     .search-btn,
     .search-option {
-        background-color: $backgroundColor;
+        background-color: $secondaryColor;
         color: $textColor;
     }
 

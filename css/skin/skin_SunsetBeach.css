@@ -3,12 +3,17 @@ body {
 }
 
 body,
-.commons,
-#sideBarContent,
-.capsule,
-.setlist,
 #messageList li {
-  background-color: #FFFFFF;
+  background-color: #E7E7E7;
+}
+
+.commons,
+.capsule,
+#searchList,
+#dialog,
+.setlist,
+#sideBarContent {
+  background-color: #FEF9EF;
 }
 
 a,
@@ -22,7 +27,7 @@ a,
 .search-group,
 .search-btn,
 .search-option {
-  background-color: #FFFFFF;
+  background-color: #FEF9EF;
   color: #333;
 }
 
