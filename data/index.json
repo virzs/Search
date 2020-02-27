@@ -582,7 +582,7 @@
                 "content": [{
                     "name": "简介",
                     "value": "introduction",
-                    "href": "",
+                    "href": "https://github.com/virzs/Search",
                     "color": "#0078D4",
                     "icon": "fa fa-pencil-square-o",
                     "show": true,
@@ -590,7 +590,7 @@
                 }, {
                     "name": "作者",
                     "value": "author",
-                    "href": "",
+                    "href": "https://github.com/virzs",
                     "color": "#D0104C",
                     "icon": "fa fa-user-o",
                     "show": true,
