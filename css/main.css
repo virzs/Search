@@ -920,6 +920,40 @@ span {
     border: 1px solid #c2c4ca;
 }
 
+.show-data {
+    text-align: center;
+    height: 300px;
+    overflow: auto;
+    font-size: 14px;
+    color: #212529;
+    width: 500px;
+}
+
+.show-data-table {
+    width: 100%;
+    position: relative;
+}
+
+.show-data-table .no-data {
+    height: 240px;
+    font-size: 14px;
+}
+
+.show-data-table thead,
+.show-data-table tbody {
+    width: 100%;
+}
+
+.show-data-table th {
+    font-weight: bold;
+}
+
+.show-data-table th,
+.show-data-table td {
+    padding: .5em;
+    border-top: 1px solid #dee2e6;
+}
+
 #loading {
     width: 100%;
     height: 100%;

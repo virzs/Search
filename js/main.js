@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-24 17:41:02
+ * @Last Modified time: 2020-02-28 17:35:00
  */
 
 //配置变量
@@ -496,6 +496,98 @@ sideBarContent.addEventListener("click", (e) => {
                     name: "保存",
                     value: "save"
                 }, {
+                    name: "取消",
+                    value: "cancel"
+                }]
+            })
+            break;
+        case e.target.id == "commonUseData":
+            let cData = JSON.parse(getStorage("commonUseData"));
+            let cinHtml = "";
+            cData.forEach((item, index) => {
+                cinHtml += `
+                    <tr>
+                        <td>${index+1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.url}</td>
+                        <td>${item.color}</td>
+                        <td>${item.count}次</td>
+                    </tr>`;
+            })
+            if(cinHtml==""){
+                cinHtml = `
+                    <tr class="no-data">
+                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
+                    </tr>`
+            }
+            openDialog({
+                html: true,
+                id: e.target.id,
+                title: "常用网址数据",
+                content: `
+                    <div class="show-data">
+                        <table class="show-data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>URL</th>
+                                    <th>颜色</th>
+                                    <th>使用次数</th>
+                                </tr>
+                            </thead>
+                            <tbody>${cinHtml}</tbody>
+                        </table>
+                    </div>`,
+                button: [{
+                    name: "取消",
+                    value: "cancel"
+                }]
+            })
+            break;
+        case e.target.id == "sidebarData":
+            let sData = JSON.parse(getStorage("sideBarWebsiteData"));
+            let sinHtml = "";
+            sData.forEach(item => {
+                if (item.content.length < 1) {
+                    item.content.forEach((inner, index) => {
+                        sinHtml += `
+                            <tr>
+                                <td>${index+1}</td>
+                                <td>${inner.name}</td>
+                                <td>${inner.url}</td>
+                                <td>${inner.color}</td>
+                                <td>${item.name}</td>
+                            </tr>`;
+                    })
+                }
+            })
+            if(sinHtml==""){
+                sinHtml = `
+                    <tr class="no-data">
+                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
+                    </tr>`
+            }
+            openDialog({
+                html: true,
+                id: e.target.id,
+                title: "侧边栏数据",
+                content: `
+                    <div class="show-data">
+                        <table class="show-data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>URL</th>
+                                    <th>颜色</th>
+                                    <th>类别</th>
+                                </tr>
+                            </thead>
+                            <tbody>${sinHtml}</tbody>
+                        </table>
+                    </div>`,
+                button: [{
                     name: "取消",
                     value: "cancel"
                 }]

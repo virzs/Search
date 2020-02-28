@@ -28,6 +28,7 @@ function createWebsite() {
     if (getStorage("sideBarWebsiteData") == undefined) {
         websiteData.forEach(item => {
             customizeData.push({
+                name: item.name,
                 value: item.value,
                 content: []
             })

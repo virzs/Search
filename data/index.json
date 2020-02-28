@@ -572,6 +572,32 @@
                     "show": true,
                     "content": ""
                 }]
+            },{
+                "name": "数据管理",
+                "value": "dataManagement",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-hdd-o",
+                "show": true,
+                "content": [{
+                    "name": "常用网址数据",
+                    "value": "commonUseData",
+                    "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "侧边栏数据",
+                    "value": "sidebarData",
+                    "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
             }, {
                 "name": "关于",
                 "value": "about",

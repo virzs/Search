@@ -40,6 +40,9 @@ function createHtml(inner) {
     if (inner.type == "changeCommonUse") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
+    if (inner.type == "dataManagement") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
     if (inner.type == "thanks") {
         sideBarHtml = `
             <a href="${inner.href}" target="_blank">
