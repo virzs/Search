@@ -13,7 +13,7 @@ var sugFlag = true; //备选项标记
 
 //获取智能提示数据
 function getSugValue() {
-    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
+    let engineValue = selectEngine.children[0].alt; //获取选择的搜索引擎
     let engine = jsonData.engine.find(item => item.value == engineValue);
     let [href, sugurl] = [engine.href, engine.sugurl];
     let value = searchInput.value; //获取输入框的值
