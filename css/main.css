@@ -479,11 +479,16 @@ span {
     right: 0;
 }
 
+.capsule-content {
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+}
+
 .capsule {
     display: inline-block;
     width: 82px;
     height: 28px;
-    margin: 8px;
+    margin: 8px auto;
     transition: 0.3s;
     position: relative;
 }

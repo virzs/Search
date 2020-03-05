@@ -66,7 +66,10 @@ function createWebsite() {
                         <span><i class="fa fa-plus"></i>&nbsp;添加</span>
                     </div>
                 </a>`;
-            websiteInfo = websiteInfo + sideBarHtml;
+            websiteInfo = websiteInfo + `
+                <div class="capsule-content">
+                    ${sideBarHtml}
+                </div>`;
             sideBarHtml = "";
         }
     })
