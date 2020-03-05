@@ -485,7 +485,6 @@ span {
 }
 
 .capsule {
-    display: inline-block;
     width: 82px;
     height: 28px;
     margin: 8px auto;
@@ -570,20 +569,19 @@ span {
 }
 
 #commonUse {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    margin: 0 auto;
     margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0 30px;
 }
 
 .commons {
+    box-sizing: border-box;
     overflow: hidden;
     margin: 5px;
     position: relative;
     z-index: 1;
-    width: 120px;
     height: 90px;
     transition: all 0.2s ease-in-out;
     border-radius: 4px;
@@ -1092,14 +1090,23 @@ span {
     }
 }
 
-@media (max-width:768px) {
+/* 媒体查询代码，针对小屏设备删减功能 */
+@media (max-width:1000px) {
     #commonUse {
-        margin: 0;
+        grid-template-columns: repeat(4, 25%);
     }
 
     .commons {
-        width: 108px;
         height: 90px;
-        margin: 3px;
+        margin: 5px;
+    }
+}
+
+@media (max-width:375px) {
+
+    #commonUse,
+    #sideBarButton,
+    #sideBar {
+        display: none;
     }
 }
