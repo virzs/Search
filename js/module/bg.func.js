@@ -51,7 +51,6 @@ function setBingImage(status) {
         w = 1920;
         h = 1200;
     }
-    console.log(w, h)
     let bingApiData = apiData.find(item => item.apiName == "bingImage");
     let bingApi = `${bingApiData.url}?d=0&w=${w}&h=${h}&callback=${bingApiData.callback}`;
     window.bing = {
