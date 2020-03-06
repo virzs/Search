@@ -79,7 +79,19 @@ function createSetting() {
             } else if (item.value == "about") {
                 sideBarHtml += renderAbout(item);
             }
-            settingInfo = settingInfo + sideBarHtml;
+            if (item.value == "about") {
+                settingInfo = settingInfo + `
+                <div class="about-box">
+                    ${sideBarHtml}
+                </div>`;
+            } else {
+                settingInfo = settingInfo + `
+                <div class="capsule-content">
+                    ${sideBarHtml}
+                </div>`;
+
+            }
+
             sideBarHtml = "";
         }
     })
