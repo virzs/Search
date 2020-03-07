@@ -572,7 +572,7 @@
                     "show": true,
                     "content": ""
                 }]
-            },{
+            }, {
                 "name": "数据管理",
                 "value": "dataManagement",
                 "href": "",
@@ -673,6 +673,32 @@
                     "content": ""
                 }]
             }]
+        }, {
+            "name": "高级设置",
+            "value": "advancedSettings",
+            "icon": "fa fa-cog",
+            "color": "#43341B",
+            "show": false,
+            "content": [{
+                "name": "调整UI圆角",
+                "value": "changeRadios",
+                "type": "slider",
+                "href": "",
+                "color": "#006d21",
+                "icon": "",
+                "show": true,
+                "content": ""
+            },{
+                "name": "调整页面配色",
+                "value": "changeColors",
+                "type": "colorSelector",
+                "href": "",
+                "color": "#006d21",
+                "icon": "",
+                "show": true,
+                "content": ""
+            }]
+
         }]
     },
     "copyright": {
