@@ -682,7 +682,7 @@
             "content": [{
                 "name": "调整UI圆角",
                 "value": "changeRadios",
-                "type": "slider",
+                "type": "range",
                 "href": "",
                 "color": "#006d21",
                 "icon": "",
@@ -695,7 +695,7 @@
                 "href": "",
                 "color": "#006d21",
                 "icon": "",
-                "show": true,
+                "show": false,
                 "content": ""
             }]
 

@@ -1,8 +1,8 @@
 /*
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
- * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-28 21:13:30
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2020-03-08 18:27:02
  */
 
 //配置变量
@@ -18,6 +18,7 @@ const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
+const customFilletValue = getStorage("customFilletValue");
 
 /*
     导入模块
@@ -108,7 +109,8 @@ import {
 
 //UI相关函数
 import {
-    changeUI
+    changeUI,
+    customFillet
 } from "./module/ui.func.js";
 
 //模态框相关函数
@@ -120,7 +122,11 @@ import {
 //侧边栏渲染函数
 import {
     renderSideBarContent
-} from "./module/sideBar.func.js"
+} from "./module/sideBar.func.js";
+
+import {
+    createAdvancedSettings
+} from "./module/setting.func.js";
 /*
     导入模块结束
  */
@@ -142,8 +148,11 @@ if (skinHref && skinHref !== null) {
     linkTag.href = skinHref;
 }
 
-if (uiHref && uiHref !== null) {
+if (uiHref && uiHref !== null && customFilletValue == null) {
     uiTag.href = uiHref;
+}
+if (customFilletValue !== null) {
+    customFillet(customFilletValue)
 }
 //默认设置开启显示常用网址功能
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
@@ -514,7 +523,7 @@ sideBarContent.addEventListener("click", (e) => {
                         <td>${item.count}次</td>
                     </tr>`;
             })
-            if(cinHtml==""){
+            if (cinHtml == "") {
                 cinHtml = `
                     <tr class="no-data">
                         <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
@@ -562,7 +571,7 @@ sideBarContent.addEventListener("click", (e) => {
                     })
                 }
             })
-            if(sinHtml==""){
+            if (sinHtml == "") {
                 sinHtml = `
                     <tr class="no-data">
                         <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
@@ -593,6 +602,9 @@ sideBarContent.addEventListener("click", (e) => {
                 }]
             })
             break;
+        case e.target.id == "advancedSettings":
+            createAdvancedSettings();
+            break;
     }
 });
 
@@ -601,6 +613,9 @@ scrollContent.addEventListener("change", function (e) {
     let setBackGround = document.querySelector("#setBackGround");
     if (e.target == setBackGround) {
         setCustomizeImage(setBackGround);
+    }
+    if (e.target.parentNode.className == "advanced-settings-input") {
+        customFillet(e.target.value);
     }
 })
 
