@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-13 20:49:52
+ * @Last Modified time: 2020-03-13 21:05:24
  */
 
 //配置变量
@@ -11,6 +11,7 @@ var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
+var advancedSettingsFlag = true;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -83,7 +84,8 @@ import {
 import {
     stopPropagation,
     findSettingInfo,
-    getRandomColor
+    getRandomColor,
+    removeElement
 } from "./module/global.func.js";
 
 //网址相关函数
@@ -603,7 +605,13 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
         case e.target.id == "advancedSettings":
-            createAdvancedSettings();
+            if (advancedSettingsFlag == true) {
+                createAdvancedSettings();
+                advancedSettingsFlag = !advancedSettingsFlag;
+            } else {
+                removeElement(".advanced-settings-content");
+                advancedSettingsFlag = !advancedSettingsFlag;
+            }
             break;
     }
 });
