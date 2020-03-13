@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-13 21:05:24
+ * @Last Modified time: 2020-03-13 21:08:56
  */
 
 //配置变量
@@ -604,6 +604,7 @@ sideBarContent.addEventListener("click", (e) => {
                 }]
             })
             break;
+            // 高级设置显示隐藏
         case e.target.id == "advancedSettings":
             if (advancedSettingsFlag == true) {
                 createAdvancedSettings();
