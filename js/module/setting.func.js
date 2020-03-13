@@ -155,7 +155,14 @@ function renderAbout(data) {
 
         }
     })
-    return `<div class="about-content" style="border:2px solid ${data.color};">${sideBarHtml}</div>`;
+    return `
+        <div class="about-content" style="border:2px solid ${data.color};">
+            ${sideBarHtml}
+            <div class="about-info">
+                <span><i class="fa fa-window-maximize"></i>  浏览器信息：</span>
+                <span>${navigator.userAgent}</span>
+            </div>
+        </div>`;
 }
 
 export {
