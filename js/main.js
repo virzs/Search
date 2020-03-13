@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-08 18:27:02
+ * @Last Modified time: 2020-03-13 20:49:52
  */
 
 //配置变量
@@ -558,7 +558,7 @@ sideBarContent.addEventListener("click", (e) => {
             let sData = JSON.parse(getStorage("sideBarWebsiteData"));
             let sinHtml = "";
             sData.forEach(item => {
-                if (item.content.length < 1) {
+                if (item.content.length > 0) {
                     item.content.forEach((inner, index) => {
                         sinHtml += `
                             <tr>
