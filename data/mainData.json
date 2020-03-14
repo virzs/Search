@@ -436,6 +436,49 @@
                     "color": "#FF6A00",
                     "show": true
                 }]
+            }, {
+                "name": "工具",
+                "value": "tool",
+                "icon": "fa fa-wrench",
+                "color": "",
+                "show": true,
+                "content": [{
+                    "name": "VS Code",
+                    "url": "https://code.visualstudio.com/",
+                    "icon": "vscode",
+                    "color": "#0066B8",
+                    "show": true
+                }, {
+                    "name": "Jetbrains",
+                    "url": "https://www.jetbrains.com/",
+                    "icon": "jetbrains",
+                    "color": "#27282c",
+                    "show": true
+                }, {
+                    "name": "HbuilderX",
+                    "url": "https://www.dcloud.io/hbuilderx.html",
+                    "icon": "hbuilderx",
+                    "color": "#5ab46a",
+                    "show": true
+                }, {
+                    "name": "Typora",
+                    "url": "https://typora.io/",
+                    "icon": "typora",
+                    "color": "#999999",
+                    "show": true
+                }, {
+                    "name": "uTool",
+                    "url": "https://u.tools/",
+                    "icon": "utool",
+                    "color": "#525f7f",
+                    "show": true
+                }, {
+                    "name": "Drawboard",
+                    "url": "https://www.drawboard.com/",
+                    "icon": "drawboard",
+                    "color": "#608B8B",
+                    "show": true
+                }]
             }]
         }, {
             "name": "设置",
@@ -688,7 +731,7 @@
                 "icon": "",
                 "show": true,
                 "content": ""
-            },{
+            }, {
                 "name": "调整页面配色",
                 "value": "changeColors",
                 "type": "colorSelector",
