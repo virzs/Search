@@ -49,9 +49,26 @@ span {
 .search-logo {
     width: 100%;
     margin-top: 130px;
+    margin-bottom: 40px;
+    height: 140px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.text-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    width: 40%;
+    height: 80%;
+    color: #ffffff;
+    background: hsl(0, 50%, 45%);
+    text-shadow: 1px 1px black, 2px 2px black,
+        3px 3px black, 4px 4px black,
+        5px 5px black, 6px 6px black,
+        7px 7px black, 8px 8px black;
 }
 
 .search-logo img {
