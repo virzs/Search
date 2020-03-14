@@ -1,8 +1,8 @@
 /*
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
- * @Last Modified by: VirZhang
- * @Last Modified time: 2020-02-24 17:41:02
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2020-03-14 14:51:18
  */
 
 //配置变量
@@ -11,6 +11,7 @@ var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
+var advancedSettingsFlag = true;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -18,6 +19,7 @@ const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
+const customFilletValue = getStorage("customFilletValue");
 
 /*
     导入模块
@@ -70,7 +72,8 @@ import {
 //本地存储相关函数
 import {
     setStorage,
-    getStorage
+    getStorage,
+    removeStorage
 } from './module/storage.func.js';
 
 //消息提示函数
@@ -82,7 +85,8 @@ import {
 import {
     stopPropagation,
     findSettingInfo,
-    getRandomColor
+    getRandomColor,
+    removeElement
 } from "./module/global.func.js";
 
 //网址相关函数
@@ -108,7 +112,8 @@ import {
 
 //UI相关函数
 import {
-    changeUI
+    changeUI,
+    customFillet
 } from "./module/ui.func.js";
 
 //模态框相关函数
@@ -120,7 +125,11 @@ import {
 //侧边栏渲染函数
 import {
     renderSideBarContent
-} from "./module/sideBar.func.js"
+} from "./module/sideBar.func.js";
+
+import {
+    createAdvancedSettings
+} from "./module/setting.func.js";
 /*
     导入模块结束
  */
@@ -142,8 +151,11 @@ if (skinHref && skinHref !== null) {
     linkTag.href = skinHref;
 }
 
-if (uiHref && uiHref !== null) {
+if (uiHref && uiHref !== null && customFilletValue == null) {
     uiTag.href = uiHref;
+}
+if (customFilletValue !== null) {
+    customFillet(customFilletValue)
 }
 //默认设置开启显示常用网址功能
 if (showCommonUse == "undefined" || showCommonUse == undefined) {
@@ -468,6 +480,7 @@ sideBarContent.addEventListener("click", (e) => {
             // 选择UI
         case (e.target.id.indexOf("uistyle") !== -1):
             changeUI("uistyle", findSettingInfo(e.target.id));
+            removeStorage("customFilletValue");
             break;
             // 开启关闭常用网址功能
         case (e.target.id.indexOf("website") !== -1):
@@ -501,6 +514,108 @@ sideBarContent.addEventListener("click", (e) => {
                 }]
             })
             break;
+        case e.target.id == "commonUseData":
+            let cData = JSON.parse(getStorage("commonUseData"));
+            let cinHtml = "";
+            cData.forEach((item, index) => {
+                cinHtml += `
+                    <tr>
+                        <td>${index+1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.url}</td>
+                        <td>${item.color}</td>
+                        <td>${item.count}次</td>
+                    </tr>`;
+            })
+            if (cinHtml == "") {
+                cinHtml = `
+                    <tr class="no-data">
+                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
+                    </tr>`
+            }
+            openDialog({
+                html: true,
+                id: e.target.id,
+                title: "常用网址数据",
+                content: `
+                    <div class="show-data">
+                        <table class="show-data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>URL</th>
+                                    <th>颜色</th>
+                                    <th>使用次数</th>
+                                </tr>
+                            </thead>
+                            <tbody>${cinHtml}</tbody>
+                        </table>
+                    </div>`,
+                button: [{
+                    name: "取消",
+                    value: "cancel"
+                }]
+            })
+            break;
+        case e.target.id == "sidebarData":
+            let sData = JSON.parse(getStorage("sideBarWebsiteData"));
+            let sinHtml = "";
+            sData.forEach(item => {
+                if (item.content.length > 0) {
+                    item.content.forEach((inner, index) => {
+                        sinHtml += `
+                            <tr>
+                                <td>${index+1}</td>
+                                <td>${inner.name}</td>
+                                <td>${inner.url}</td>
+                                <td>${inner.color}</td>
+                                <td>${item.name}</td>
+                            </tr>`;
+                    })
+                }
+            })
+            if (sinHtml == "") {
+                sinHtml = `
+                    <tr class="no-data">
+                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
+                    </tr>`
+            }
+            openDialog({
+                html: true,
+                id: e.target.id,
+                title: "侧边栏数据",
+                content: `
+                    <div class="show-data">
+                        <table class="show-data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>URL</th>
+                                    <th>颜色</th>
+                                    <th>类别</th>
+                                </tr>
+                            </thead>
+                            <tbody>${sinHtml}</tbody>
+                        </table>
+                    </div>`,
+                button: [{
+                    name: "取消",
+                    value: "cancel"
+                }]
+            })
+            break;
+            // 高级设置显示隐藏
+        case e.target.id == "advancedSettings":
+            if (advancedSettingsFlag == true) {
+                createAdvancedSettings();
+                advancedSettingsFlag = !advancedSettingsFlag;
+            } else {
+                removeElement(".advanced-settings-content");
+                advancedSettingsFlag = !advancedSettingsFlag;
+            }
+            break;
     }
 });
 
@@ -509,6 +624,10 @@ scrollContent.addEventListener("change", function (e) {
     let setBackGround = document.querySelector("#setBackGround");
     if (e.target == setBackGround) {
         setCustomizeImage(setBackGround);
+    }
+    if (e.target.parentNode.className == "advanced-settings-input") {
+        customFillet(e.target.value);
+        setStorage("uistyle", "null");
     }
 })
 

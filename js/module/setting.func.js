@@ -2,10 +2,14 @@ import {
     jsonData
 } from "./all.data.js";
 
+import {
+    scrollContent
+} from "./dom.constant.js";
+
 var skin_Transparent = ""; //透明皮肤数据
 
 //判断渲染设置项
-function createHtml(inner) {
+function settingCapsule(inner) {
     let sideBarHtml = "";
     if (!inner.type) {
         sideBarHtml = `
@@ -40,6 +44,9 @@ function createHtml(inner) {
     if (inner.type == "changeCommonUse") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
+    if (inner.type == "dataManagement") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
     if (inner.type == "thanks") {
         sideBarHtml = `
             <a href="${inner.href}" target="_blank">
@@ -62,10 +69,10 @@ function createSetting() {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
                             //content不为空且为字符串时
-                            sideBarHtml += createHtml(inner);
+                            sideBarHtml += settingCapsule(inner);
                         } else {
                             //content为空时的内容
-                            sideBarHtml += createHtml(inner);
+                            sideBarHtml += settingCapsule(inner);
                         }
                     } else {
                         if (inner.type == "skin" && inner.value == "skin_Transparent") {
@@ -76,11 +83,44 @@ function createSetting() {
             } else if (item.value == "about") {
                 sideBarHtml += renderAbout(item);
             }
-            settingInfo = settingInfo + sideBarHtml;
+            if (item.value == "about") {
+                settingInfo = settingInfo + `
+                <div class="about-box">
+                    ${sideBarHtml}
+                </div>`;
+            } else {
+                settingInfo = settingInfo + `
+                <div class="capsule-content">
+                    ${sideBarHtml}
+                </div>`;
+            }
             sideBarHtml = "";
         }
     })
+    settingInfo += `
+        <div id="advancedSettings">
+            <span>高级设置&nbsp;</span>
+            <i class="fa fa-sort"></i>
+        </div>`;
     return settingInfo;
+}
+
+function createAdvancedSettings() {
+    let advancedSettingsData = jsonData.sideBar.content.find(item => item.value == "advancedSettings");
+    let content = document.createElement("div");
+    content.setAttribute("class", "advanced-settings-content");
+    let data = "";
+    advancedSettingsData.content.forEach(item => {
+        if (item.show) {
+            data += `
+            <p>${item.name}</p>
+            <div class="advanced-settings-input">
+                <input type="range" min="0" max="25">
+            </div>`;
+        }
+    })
+    content.innerHTML = data;
+    scrollContent.appendChild(content);
 }
 
 //可复用渲染项函数
@@ -115,9 +155,17 @@ function renderAbout(data) {
 
         }
     })
-    return `<div class="about-content" style="border:2px solid ${data.color};">${sideBarHtml}</div>`;
+    return `
+        <div class="about-content" style="border:2px solid ${data.color};">
+            ${sideBarHtml}
+            <div class="about-info">
+                <span><i class="fa fa-window-maximize"></i>  浏览器信息：</span>
+                <span>${navigator.userAgent}</span>
+            </div>
+        </div>`;
 }
 
 export {
-    createSetting
+    createSetting,
+    createAdvancedSettings
 }

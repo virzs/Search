@@ -463,7 +463,7 @@
                     "name": "必应壁纸",
                     "type": "changebg",
                     "value": "setBingImage",
-                    "href": "https://bing.ioliu.cn/v1/?d=0&w=1920&h=1080&callback=window.bing.bg",
+                    "href": "",
                     "color": "",
                     "icon": "",
                     "show": true,
@@ -573,6 +573,32 @@
                     "content": ""
                 }]
             }, {
+                "name": "数据管理",
+                "value": "dataManagement",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-hdd-o",
+                "show": true,
+                "content": [{
+                    "name": "常用网址数据",
+                    "value": "commonUseData",
+                    "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "侧边栏数据",
+                    "value": "sidebarData",
+                    "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
                 "name": "关于",
                 "value": "about",
                 "href": "",
@@ -647,6 +673,32 @@
                     "content": ""
                 }]
             }]
+        }, {
+            "name": "高级设置",
+            "value": "advancedSettings",
+            "icon": "fa fa-cog",
+            "color": "#43341B",
+            "show": false,
+            "content": [{
+                "name": "调整UI圆角",
+                "value": "changeRadios",
+                "type": "range",
+                "href": "",
+                "color": "#006d21",
+                "icon": "",
+                "show": true,
+                "content": ""
+            },{
+                "name": "调整页面配色",
+                "value": "changeColors",
+                "type": "colorSelector",
+                "href": "",
+                "color": "#006d21",
+                "icon": "",
+                "show": false,
+                "content": ""
+            }]
+
         }]
     },
     "copyright": {

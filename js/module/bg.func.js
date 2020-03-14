@@ -24,6 +24,9 @@ import {
     removeElement
 } from "./global.func.js";
 
+import {
+    apiData
+} from "./all.data.js";
 var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
 
 //设置必应壁纸为背景
@@ -36,7 +39,20 @@ function setBingImage(status) {
         })
         return;
     }
-    let bingApi = "https://bing.ioliu.cn/v1/?d=0&w=1920&h=1080&callback=window.bing.bg";
+    let [clientWidth, clientHeight] = [document.body.clientWidth, document.body.clientHeight];
+    let [w, h] = ["", ""];
+    if (clientWidth > clientHeight) {
+        w = 1920;
+        h = 1080;
+    } else if (clientWidth < clientHeight) {
+        w = 768;
+        h = 1280;
+    } else {
+        w = 1920;
+        h = 1200;
+    }
+    let bingApiData = apiData.find(item => item.apiName == "bingImage");
+    let bingApi = `${bingApiData.url}?d=0&w=${w}&h=${h}&callback=${bingApiData.callback}`;
     window.bing = {
         bg: function (data) {
             let func = () => {

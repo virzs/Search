@@ -368,6 +368,40 @@ span {
     overflow-x: hidden;
 }
 
+/* 高级设置样式 */
+#advancedSettings {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+#advancedSettings:hover {
+    cursor: pointer;
+}
+
+#advancedSettings::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100px;
+}
+
+.advanced-settings-content {
+    width: 100%;
+}
+
+.advanced-settings-content .advanced-settings-input {
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.advanced-settings-input input {
+    width: 100%;
+}
+
 /*滚动条宽高*/
 #sideBarContent::-webkit-scrollbar {
     width: 8px;
@@ -479,11 +513,15 @@ span {
     right: 0;
 }
 
+.capsule-content {
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+}
+
 .capsule {
-    display: inline-block;
     width: 82px;
     height: 28px;
-    margin: 8px;
+    margin: 8px auto;
     transition: 0.3s;
     position: relative;
 }
@@ -530,6 +568,11 @@ span {
     position: relative;
 }
 
+.setlist {
+    padding: 3px 5px;
+    font-size: 14px;
+}
+
 .setlist:hover {
     cursor: pointer;
 }
@@ -565,20 +608,19 @@ span {
 }
 
 #commonUse {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    margin: 0 auto;
     margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0 30px;
 }
 
 .commons {
+    box-sizing: border-box;
     overflow: hidden;
     margin: 5px;
     position: relative;
     z-index: 1;
-    width: 120px;
     height: 90px;
     transition: all 0.2s ease-in-out;
     border-radius: 4px;
@@ -920,6 +962,40 @@ span {
     border: 1px solid #c2c4ca;
 }
 
+.show-data {
+    text-align: center;
+    height: 300px;
+    overflow: auto;
+    font-size: 14px;
+    color: #212529;
+    width: 500px;
+}
+
+.show-data-table {
+    width: 100%;
+    position: relative;
+}
+
+.show-data-table .no-data {
+    height: 240px;
+    font-size: 14px;
+}
+
+.show-data-table thead,
+.show-data-table tbody {
+    width: 100%;
+}
+
+.show-data-table th {
+    font-weight: bold;
+}
+
+.show-data-table th,
+.show-data-table td {
+    padding: .5em;
+    border-top: 1px solid #dee2e6;
+}
+
 #loading {
     width: 100%;
     height: 100%;
@@ -1053,14 +1129,23 @@ span {
     }
 }
 
-@media (max-width:768px) {
+/* 媒体查询代码，针对小屏设备删减功能 */
+@media (max-width:1000px) {
     #commonUse {
-        margin: 0;
+        grid-template-columns: repeat(4, 25%);
     }
 
     .commons {
-        width: 108px;
         height: 90px;
-        margin: 3px;
+        margin: 5px;
+    }
+}
+
+@media (max-width:375px) {
+
+    #commonUse,
+    #sideBarButton,
+    #sideBar {
+        display: none;
     }
 }

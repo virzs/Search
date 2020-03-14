@@ -1,0 +1,6 @@
+[{
+    "apiName": "bingImage",
+    "description": "必应壁纸API",
+    "url": "https://bing.ioliu.cn/v1/",
+    "callback": "window.bing.bg"
+}]

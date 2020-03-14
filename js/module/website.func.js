@@ -28,6 +28,7 @@ function createWebsite() {
     if (getStorage("sideBarWebsiteData") == undefined) {
         websiteData.forEach(item => {
             customizeData.push({
+                name: item.name,
                 value: item.value,
                 content: []
             })
@@ -39,23 +40,13 @@ function createWebsite() {
             websiteInfo += `<p><i class="${item.icon}"></i>  ${item.name}</p>`;
             item.content.forEach(inner => {
                 if (inner.show) {
-                    sideBarHtml += `
-                        <a id='${inner.name}' href='${inner.url}' target="_blank" class="capsule" style="border:2px solid ${inner.color};">
-                            <div style="color:${inner.color};">
-                                <span>${inner.name}</span>
-                            </div>
-                        </a>`;
+                    sideBarHtml += renderCapsule(inner);
                 }
             })
             JSON.parse(getStorage("sideBarWebsiteData")).forEach(outer => {
                 if (outer.value == item.value) {
                     outer.content.forEach(insite => {
-                        sideBarHtml += `
-                            <a id='${insite.name}' href='${insite.url}' target="_blank" class="capsule" style="border:2px solid ${insite.color};">
-                                <div style="color:${insite.color};">
-                                    <span>${insite.name}</span>
-                                </div>
-                            </a>`;
+                        sideBarHtml += renderCapsule(insite);
                     })
                 }
             })
@@ -65,7 +56,10 @@ function createWebsite() {
                         <span><i class="fa fa-plus"></i>&nbsp;添加</span>
                     </div>
                 </a>`;
-            websiteInfo = websiteInfo + sideBarHtml;
+            websiteInfo = websiteInfo + `
+                <div class="capsule-content">
+                    ${sideBarHtml}
+                </div>`;
             sideBarHtml = "";
         }
     })
@@ -213,6 +207,16 @@ function iconLoadError() {
             }
         }
     })
+}
+
+//胶囊样式模板
+function renderCapsule(data) {
+    return `
+        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule" style="border:2px solid ${data.color};">
+            <div style="color:${data.color};">
+                <span>${data.name}</span>
+            </div>
+        </a>`;
 }
 
 //自定义网址模板
