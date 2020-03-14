@@ -10,10 +10,14 @@ import {
     getStorage,
     setStorage
 } from './storage.func.js';
+
 import {
     body
 } from "./dom.constant.js";
 
+import {
+    removeElement
+} from "./global.func.js";
 //切换ui风格
 function changeUI(uiName, value) {
     if (getStorage("uistyle") == value) {
@@ -26,6 +30,7 @@ function changeUI(uiName, value) {
     }
     let setHref = () => {
         uiTag.href = value;
+        removeElement("#customFillet");
     }
     setStorageBefore(setHref, uiName, value);
 }

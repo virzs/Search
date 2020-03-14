@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-13 21:08:56
+ * @Last Modified time: 2020-03-14 14:51:18
  */
 
 //配置变量
@@ -72,7 +72,8 @@ import {
 //本地存储相关函数
 import {
     setStorage,
-    getStorage
+    getStorage,
+    removeStorage
 } from './module/storage.func.js';
 
 //消息提示函数
@@ -479,6 +480,7 @@ sideBarContent.addEventListener("click", (e) => {
             // 选择UI
         case (e.target.id.indexOf("uistyle") !== -1):
             changeUI("uistyle", findSettingInfo(e.target.id));
+            removeStorage("customFilletValue");
             break;
             // 开启关闭常用网址功能
         case (e.target.id.indexOf("website") !== -1):
@@ -625,6 +627,7 @@ scrollContent.addEventListener("change", function (e) {
     }
     if (e.target.parentNode.className == "advanced-settings-input") {
         customFillet(e.target.value);
+        setStorage("uistyle", "null");
     }
 })
 
