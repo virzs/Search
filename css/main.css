@@ -61,8 +61,7 @@ span {
     justify-content: center;
     align-items: center;
     font-size: 48px;
-    width: 40%;
-    height: 80%;
+    padding: 20px 40px;
     color: #ffffff;
     background: hsl(0, 50%, 45%);
     text-shadow: 1px 1px black, 2px 2px black,
