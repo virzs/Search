@@ -46,9 +46,9 @@ https://search.virs.xyz
 
 ### 联系方式：
 
-**qq群：**859791575
+**qq群：** 859791575
 
-**邮箱：**virs2018@outlook.com
+**邮箱：** virs2018@outlook.com
 
 ### 近期计划：
 
