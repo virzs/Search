@@ -1,6 +1,7 @@
 import {
     selectEngine,
-    searchInput
+    searchInput,
+    searchList
 } from "./dom.constant.js";
 import {
     jsonData
@@ -15,7 +16,7 @@ function goSearch() {
             searchHref = item.href;
         }
     })
-    window.location.href = searchHref + value; //拼接搜索链接
+    window.open(searchHref + value);//拼接搜索链接
 }
 
 //渲染搜索引擎备选项
@@ -24,6 +25,7 @@ function setEngine(engineValue) {
         <img src='${engineValue.icon}' alt="${engineValue.value}">
         <span>${engineValue.name}</span><i class="fa fa-sort"></i>`;
     selectOption.style.display = "none";
+    searchList.style.display = "none";
 }
 export {
     goSearch,
