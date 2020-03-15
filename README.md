@@ -18,23 +18,23 @@ https://search.virs.xyz
 
 **主页：**
 
-![](http://imgs.virs.xyz/2020-03-15.png)
+![](http://imgs.virs.xyz/index.png)
 
 **侧边栏：**
 
-![](http://imgs.virs.xyz/2020-03-15 (3).png)
+![](http://imgs.virs.xyz/sidebar.png)
 
 **设置：**
 
-![](http://imgs.virs.xyz/2020-03-15 (4).png)
+![](http://imgs.virs.xyz/setting.png)
 
 **每日更换壁纸：**
 
-![](http://imgs.virs.xyz/2020-03-15 (6).png)
+![](http://imgs.virs.xyz/bingimg.png)
 
 **弹窗添加数据：**
 
-![](http://imgs.virs.xyz/2020-03-15 (5).png)
+![](http://imgs.virs.xyz/dialog.png)
 
 **以及更多... ...**
 
