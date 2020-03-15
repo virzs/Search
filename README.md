@@ -14,6 +14,30 @@
 
 https://search.virs.xyz
 
+### 页面展示：
+
+**主页：**
+
+![](http://imgs.virs.xyz/2020-03-15.png)
+
+**侧边栏：**
+
+![](http://imgs.virs.xyz/2020-03-15 (3).png)
+
+**设置：**
+
+![](http://imgs.virs.xyz/2020-03-15 (4).png)
+
+**每日更换壁纸：**
+
+![](http://imgs.virs.xyz/2020-03-15 (6).png)
+
+**弹窗添加数据：**
+
+![](http://imgs.virs.xyz/2020-03-15 (5).png)
+
+**以及更多... ...**
+
 ### 使用说明：
 
 建议使用 **VS Code（Visual Studio Code）** 并安装 **Live Server** 插件，否则无法处理json文件
