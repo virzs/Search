@@ -60,14 +60,32 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     font-size: 48px;
-    padding: 20px 40px;
+    padding: 15px 60px;
     color: #ffffff;
     background: hsl(0, 50%, 45%);
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
     text-shadow: 1px 1px black, 2px 2px black,
         3px 3px black, 4px 4px black,
         5px 5px black, 6px 6px black,
         7px 7px black, 8px 8px black;
+}
+
+.text-logo p {
+    margin: 0;
+    letter-spacing: 18px;
+}
+
+.text-logo p:nth-child(2) {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: lighter;
+    letter-spacing: 8px;
+    text-shadow: 1px 1px black, 2px 2px black;
+    text-decoration: underline;
+    text-decoration-color: #ffffff;
+    text-underline-position: under;
 }
 
 .search-logo img {
