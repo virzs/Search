@@ -9,7 +9,7 @@ import {
 //搜索事件
 function goSearch() {
     let value = searchInput.value; //获取输入框的值
-    let engineValue = selectEngine.childNodes[0].alt; //获取选择的搜索引擎
+    let engineValue = selectEngine.children[0].alt; //获取选择的搜索引擎
     let searchHref = ''; //定义搜索链接变量
     jsonData.engine.forEach((item) => {
         if (item.value == engineValue) {
