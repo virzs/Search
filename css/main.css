@@ -1047,7 +1047,7 @@ span {
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto
+    margin: auto;
 }
 
 #loading .pic i {
@@ -1058,27 +1058,29 @@ span {
     background: #399;
     margin: 0 2px;
     transform: scaleY(0.4);
-    animation: load 1.2s infinite;
+    border-radius: 3px;
+    background-color: #f66;
+    animation: load 1.4s ease-in-out infinite;
 }
 
 #loading .pic i:nth-child(1) {
-    animation-delay: 0.1s
+    animation-delay: 0.2s;
 }
 
 #loading .pic i:nth-child(2) {
-    animation-delay: 0.2s
+    animation-delay: 0.4s;
 }
 
 #loading .pic i:nth-child(3) {
-    animation-delay: 0.3s
+    animation-delay: 0.6s;
 }
 
 #loading .pic i:nth-child(4) {
-    animation-delay: 0.4s
+    animation-delay: 0.8s;
 }
 
 #loading .pic i:nth-child(5) {
-    animation-delay: 0.5s
+    animation-delay: 1s;
 }
 
 @keyframes moveLeft {
