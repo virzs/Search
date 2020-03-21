@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-21 16:29:53
+ * @Last Modified time: 2020-03-21 17:37:25
  */
 
 //配置变量
@@ -384,6 +384,7 @@ document.addEventListener("click", function (e) {
                     <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                 </tr>`;
             })
+            setCommomUse(source);
         } else if (e.target.getAttribute("source") == "sideBarWebsiteData") {
             source.forEach(item => {
                 if (item.value == category) {
@@ -408,9 +409,6 @@ document.addEventListener("click", function (e) {
         }
         setStorage(e.target.getAttribute("source"), JSON.stringify(source));
         tBody.innerHTML = inHtml;
-        if (e.target.getAttribute("source") == "commonUseData") {
-            setCommomUse(JSON.parse(getStorage(e.target.getAttribute("source"))));
-        }
         openMessage({
             title: "提示",
             type: "success",
@@ -501,7 +499,7 @@ sideBarContent.addEventListener("click", (e) => {
             thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
-                commonData: commonData
+                commonData: JSON.parse(getStorage("commonUseData"))
             });
             return;
         }
@@ -512,7 +510,7 @@ sideBarContent.addEventListener("click", (e) => {
             thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
-                commonData: commonData
+                commonData: JSON.parse(getStorage("commonUseData"))
             });
             return;
         }
