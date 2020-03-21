@@ -151,6 +151,7 @@ function commonWebsite(json) {
     })
     setCommomUse(commonData, status);
     setStorage("commonUseData", JSON.stringify(commonData));
+    console.log(commonData)
     if (status == undefined && (add !== undefined || change !== undefined || del !== undefined)) {
         openMessage({
             title: "提示",
