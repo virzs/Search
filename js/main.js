@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-14 14:51:18
+ * @Last Modified time: 2020-03-21 16:29:53
  */
 
 //配置变量
@@ -363,6 +363,60 @@ document.addEventListener("click", function (e) {
     if (e.target.id == "dialogWrapper") {
         closeDialog();
     }
+
+    //删除网址数据
+    if (e.target.className == "deleteData") {
+        let key = e.target.getAttribute("data");
+        let source = JSON.parse(getStorage(e.target.getAttribute("source")));
+        let category = e.target.getAttribute("category");
+        let tBody = document.querySelector(".show-data-table").children[1];
+        let inHtml = "";
+        if (e.target.getAttribute("source") == "commonUseData") {
+            source.splice(key, 1);
+            source.forEach((item, index) => {
+                inHtml += `
+                <tr>
+                    <td>${index+1}</td>
+                    <td>${item.name}</td>
+                    <td><a href="${item.url}" target="_blank">${item.url}</a></td>
+                    <td>${item.color}</td>
+                    <td>${item.count}次</td>
+                    <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
+                </tr>`;
+            })
+        } else if (e.target.getAttribute("source") == "sideBarWebsiteData") {
+            source.forEach(item => {
+                if (item.value == category) {
+                    item.content.splice(key, 1);
+                }
+            })
+            source.forEach(item => {
+                if (item.content.length > 0) {
+                    item.content.forEach((inner, index) => {
+                        inHtml += `
+                            <tr>
+                                <td>${index+1}</td>
+                                <td>${inner.name}</td>
+                                <td><a href="${inner.url}" target="_blank">${inner.url}</a></td>
+                                <td>${inner.color}</td>
+                                <td>${item.name}</td>
+                                <td><span class="deleteData" data="${index}" category="${item.name}" source="sideBarWebsiteData">删除</span></td>
+                            </tr>`;
+                    })
+                }
+            })
+        }
+        setStorage(e.target.getAttribute("source"), JSON.stringify(source));
+        tBody.innerHTML = inHtml;
+        if (e.target.getAttribute("source") == "commonUseData") {
+            setCommomUse(JSON.parse(getStorage(e.target.getAttribute("source"))));
+        }
+        openMessage({
+            title: "提示",
+            type: "success",
+            content: `删除数据成功！！！`
+        })
+    }
 });
 
 //点击选择搜索引擎事件
@@ -522,9 +576,10 @@ sideBarContent.addEventListener("click", (e) => {
                     <tr>
                         <td>${index+1}</td>
                         <td>${item.name}</td>
-                        <td>${item.url}</td>
-                        <td>${item.color}</td>
+                        <td><a href="${item.url}" target="_blank">${item.url}</a></td>
+                        <td><i class="tab-color" style="background-color:${item.color};"></i></td>
                         <td>${item.count}次</td>
+                        <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                     </tr>`;
             })
             if (cinHtml == "") {
@@ -547,13 +602,14 @@ sideBarContent.addEventListener("click", (e) => {
                                     <th>URL</th>
                                     <th>颜色</th>
                                     <th>使用次数</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>${cinHtml}</tbody>
                         </table>
                     </div>`,
                 button: [{
-                    name: "取消",
+                    name: "关闭",
                     value: "cancel"
                 }]
             })
@@ -568,9 +624,10 @@ sideBarContent.addEventListener("click", (e) => {
                             <tr>
                                 <td>${index+1}</td>
                                 <td>${inner.name}</td>
-                                <td>${inner.url}</td>
-                                <td>${inner.color}</td>
+                                <td><a href="${inner.url}" target="_blank">${inner.url}</a></td>
+                                <td><i class="tab-color" style="background-color:${item.color};"></i></td>
                                 <td>${item.name}</td>
+                                <td><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
                             </tr>`;
                     })
                 }
@@ -595,13 +652,14 @@ sideBarContent.addEventListener("click", (e) => {
                                     <th>URL</th>
                                     <th>颜色</th>
                                     <th>类别</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>${sinHtml}</tbody>
                         </table>
                     </div>`,
                 button: [{
-                    name: "取消",
+                    name: "关闭",
                     value: "cancel"
                 }]
             })
