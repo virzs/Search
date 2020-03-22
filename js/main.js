@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-21 17:37:25
+ * @Last Modified time: 2020-03-22 16:35:25
  */
 
 //配置变量
@@ -572,12 +572,12 @@ sideBarContent.addEventListener("click", (e) => {
             cData.forEach((item, index) => {
                 cinHtml += `
                     <tr>
-                        <td>${index+1}</td>
-                        <td>${item.name}</td>
-                        <td><a href="${item.url}" target="_blank">${item.url}</a></td>
-                        <td><i class="tab-color" style="background-color:${item.color};"></i></td>
-                        <td>${item.count}次</td>
-                        <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
+                        <td data-label="序号">${index+1}</td>
+                        <td data-label="名称">${item.name}</td>
+                        <td data-label="URL"><a href="${item.url}" target="_blank">${item.url}</a></td>
+                        <td data-label="颜色"><i class="tab-color" style="background-color:${item.color};"></i></td>
+                        <td data-label="使用次数">${item.count}次</td>
+                        <td data-label="操作"><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                     </tr>`;
             })
             if (cinHtml == "") {
@@ -620,12 +620,12 @@ sideBarContent.addEventListener("click", (e) => {
                     item.content.forEach((inner, index) => {
                         sinHtml += `
                             <tr>
-                                <td>${index+1}</td>
-                                <td>${inner.name}</td>
-                                <td><a href="${inner.url}" target="_blank">${inner.url}</a></td>
-                                <td><i class="tab-color" style="background-color:${item.color};"></i></td>
-                                <td>${item.name}</td>
-                                <td><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
+                                <td data-label="序号">${index+1}</td>
+                                <td data-label="名称">${inner.name}</td>
+                                <td data-label="URL"><a href="${inner.url}" target="_blank">${inner.url}</a></td>
+                                <td data-label="颜色"><i class="tab-color" style="background-color:${item.color};"></i></td>
+                                <td data-label="类别">${item.name}</td>
+                                <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
                             </tr>`;
                     })
                 }
