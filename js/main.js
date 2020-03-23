@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-22 16:35:25
+ * @Last Modified time: 2020-03-23 16:21:41
  */
 
 //配置变量
@@ -573,9 +573,7 @@ sideBarContent.addEventListener("click", (e) => {
                 cinHtml += `
                     <tr>
                         <td data-label="序号">${index+1}</td>
-                        <td data-label="名称">${item.name}</td>
-                        <td data-label="URL"><a href="${item.url}" target="_blank">${item.url}</a></td>
-                        <td data-label="颜色"><i class="tab-color" style="background-color:${item.color};"></i></td>
+                        <td data-label="名称"><a href="${item.url}" target="_blank" style="color:${item.color}">${item.name}</a></td>
                         <td data-label="使用次数">${item.count}次</td>
                         <td data-label="操作"><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                     </tr>`;
@@ -597,8 +595,6 @@ sideBarContent.addEventListener("click", (e) => {
                                 <tr>
                                     <th>#</th>
                                     <th>名称</th>
-                                    <th>URL</th>
-                                    <th>颜色</th>
                                     <th>使用次数</th>
                                     <th>操作</th>
                                 </tr>
@@ -621,9 +617,7 @@ sideBarContent.addEventListener("click", (e) => {
                         sinHtml += `
                             <tr>
                                 <td data-label="序号">${index+1}</td>
-                                <td data-label="名称">${inner.name}</td>
-                                <td data-label="URL"><a href="${inner.url}" target="_blank">${inner.url}</a></td>
-                                <td data-label="颜色"><i class="tab-color" style="background-color:${item.color};"></i></td>
+                                <td data-label="名称"><a href="${inner.url}" target="_blank" style="color:${inner.color}">${inner.name}</a></td>
                                 <td data-label="类别">${item.name}</td>
                                 <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
                             </tr>`;
@@ -647,8 +641,6 @@ sideBarContent.addEventListener("click", (e) => {
                                 <tr>
                                     <th>#</th>
                                     <th>名称</th>
-                                    <th>URL</th>
-                                    <th>颜色</th>
                                     <th>类别</th>
                                     <th>操作</th>
                                 </tr>
