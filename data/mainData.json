@@ -435,6 +435,12 @@
                     "icon": "aliyun",
                     "color": "#FF6A00",
                     "show": true
+                }, {
+                    "name": "WEB骇客",
+                    "url": "https://www.webhek.com/",
+                    "icon": "webhek",
+                    "color": "#333333",
+                    "show": true
                 }]
             }, {
                 "name": "工具",
