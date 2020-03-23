@@ -43,6 +43,12 @@
     #searchList li:hover,
     .selectSug {
         background-color: $hoverColor;
+        color: $secondaryColor;
+    }
+
+    #searchList li:hover a,
+    .selectSug a {
+        color: $secondaryColor;
     }
 
     .capsule:hover,

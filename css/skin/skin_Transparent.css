@@ -42,6 +42,12 @@ a:hover,
 #searchList li:hover,
 .selectSug {
   background-color: #707070;
+  color: transparent;
+}
+
+#searchList li:hover a,
+.selectSug a {
+  color: transparent;
 }
 
 .capsule:hover,
