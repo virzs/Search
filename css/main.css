@@ -155,6 +155,87 @@ span {
     padding: 5px;
 }
 
+.option-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.option-title span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.switch-box {
+    position: relative;
+    border-radius: 20px;
+    width: 40px;
+    height: 20px;
+    margin: 0 5px;
+    background: #ffffff;
+    display: inline-block;
+    box-shadow: 5px 5px 5px #888888 inset;
+}
+
+.switch-content {
+    position: absolute;
+    border: 0 none !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    width: 1px !important;
+}
+
+.switch-label {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    top: 0px;
+    left: 0px;
+}
+
+@keyframes labelON {
+    0% {
+        top: 0px;
+        left: 0px;
+    }
+
+    100% {
+        top: 0px;
+        left: 20px;
+    }
+}
+
+@keyframes labelOFF {
+    0% {
+        top: 0px;
+        left: 20px;
+    }
+
+    100% {
+        top: 0px;
+        left: 0px;
+    }
+}
+
+.switch-content:checked+.switch-label {
+    top: 0px;
+    left: 20px;
+    animation: labelON 0.2s ease-in 0s 1;
+    box-shadow: #244766 -1px 0px 3px;
+}
+
+.switch-content+.switch-label {
+    top: 0px;
+    left: 0px;
+    animation: labelOFF 0.2s ease-in 0s 1;
+    box-shadow: #244766 1px 0px 3px;
+}
+
 .search-option ul {
     margin: 0;
 }

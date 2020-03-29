@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-29 15:58:27
+ * @Last Modified time: 2020-03-29 17:34:57
  */
 
 //配置变量
@@ -11,6 +11,7 @@ var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
 var advancedSettingsFlag = true;
+var sug = true;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -19,6 +20,7 @@ const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
 const customFilletValue = getStorage("customFilletValue");
+const sugFlag = getStorage("sugFlag");
 
 /*
     导入模块
@@ -138,6 +140,12 @@ import {
 /*
     加载本地存储区域/自动加载区域
  */
+if (sugFlag && sugFlag !== null) {
+    sug = JSON.parse(getStorage("sugFlag"));
+} else {
+    setStorage("sugFlag", true);
+}
+
 if (bg && bg !== null && bg !== "setBingImage") {
     globalImage(bg);
     WoolGlass(bg);
@@ -213,15 +221,23 @@ document.onreadystatechange = function () {
 /*
     事件监听/事件委托相关
  */
+document.querySelector(".switch-box").addEventListener("click", (e) => {
+    if (e.target.className == "switch-label") {
+        document.querySelector(".switch-content").checked = !sug
+        sug = !sug
+        setStorage("sugFlag", sug)
+    }
+})
+
 //监听点击事件
 document.addEventListener("click", function (e) {
     //判断选择引擎
-    if (e.target !== selectOption && !searchFlag&&e.target.parentNode.id!=="selectOption") {
+    if (e.target !== selectOption && !searchFlag && e.target.parentNode.className !== "option-title"&&e.target.className!=="switch-box"&&e.target.className!=="switch-label") {
         selectOption.style.display = "none";
         searchFlag = !searchFlag;
     }
 
-    if (e.target == document.querySelector("#search")) {
+    if (e.target == document.querySelector("#search")&&sug) {
         getSugValue();
     }
 
@@ -415,6 +431,7 @@ document.addEventListener("click", function (e) {
 selectEngine.addEventListener("click", () => {
     if (searchFlag) {
         selectOption.style.display = "block";
+        document.querySelector(".switch-content").checked = sug;
         searchFlag = !searchFlag;
     } else {
         selectOption.style.display = "none";
@@ -756,7 +773,9 @@ searchContent.onkeydown = function (e) {
 
 //监听搜索框输入函数，获取提示信息
 searchInput.onkeyup = () => {
-    getSugValue();
+    if (sug) {
+        getSugValue();
+    }
 }
 
 /*

@@ -35,7 +35,15 @@ function renderEngineOption(){
             </li>`;
     });
     selectOption.innerHTML = `
-        <p>请选择搜索引擎：</p>
+        <div class="option-title">
+            <span>请选择搜索引擎：</span>
+            <span>搜索热词
+                <div class="switch-box">
+                    <input name="switch-content" class="switch-content" type="checkbox" />
+                    <label for="switch-content" class="switch-label"></label>
+                </div>
+            </span>
+        </div>
         <ul>${searchEngine}</ul>`;
 }
 
