@@ -175,51 +175,25 @@ span {
     background: #ffffff;
     display: inline-block;
     box-shadow: 5px 5px 5px #888888 inset;
+    overflow: hidden;
 }
 
 .switch-content {
-    position: absolute;
     border: 0 none !important;
-    clip: rect(1px, 1px, 1px, 1px);
     height: 1px !important;
-    overflow: hidden !important;
     position: absolute !important;
     width: 1px !important;
+    transition: 0.3s ease;
 }
 
 .switch-label {
+    cursor: pointer;
     position: absolute;
     display: block;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    background: #fff;
     top: 0px;
     left: 0px;
-}
-
-@keyframes labelON {
-    0% {
-        top: 0px;
-        left: 0px;
-    }
-
-    100% {
-        top: 0px;
-        left: 20px;
-    }
-}
-
-@keyframes labelOFF {
-    0% {
-        top: 0px;
-        left: 20px;
-    }
-
-    100% {
-        top: 0px;
-        left: 0px;
-    }
 }
 
 .switch-content:checked+.switch-label {
@@ -233,7 +207,29 @@ span {
     top: 0px;
     left: 0px;
     animation: labelOFF 0.2s ease-in 0s 1;
+    box-shadow: #244766 1px 1px 3px;
+}
+
+.switch-content+.switch-label::before {
+    content: "";
+    background-color: #fff;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    z-index: 10;
+    top: 0;
+    bottom: 0;
     box-shadow: #244766 1px 0px 3px;
+}
+
+.switch-content+.switch-label::after {
+    content: "";
+    background-image: linear-gradient(to left, red 30px, green 30px);
+    position: absolute;
+    left: -20px;
+    width: 60px;
+    height: 20px;
 }
 
 .search-option ul {
@@ -1232,6 +1228,30 @@ span {
 
     to {
         right: -380px;
+    }
+}
+
+@keyframes labelON {
+    0% {
+        top: 0px;
+        left: 0px;
+    }
+
+    100% {
+        top: 0px;
+        left: 20px;
+    }
+}
+
+@keyframes labelOFF {
+    0% {
+        top: 0px;
+        left: 20px;
+    }
+
+    100% {
+        top: 0px;
+        left: 0px;
     }
 }
 
