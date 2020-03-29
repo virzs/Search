@@ -19,6 +19,26 @@ function goSearch() {
     window.open(searchHref + value);//拼接搜索链接
 }
 
+function renderEngineOption(){
+    let searchEngine = "";
+    jsonData.engine.forEach(element => {
+        if (element.select == "selected") {
+            selectEngine.innerHTML = `
+            <img src='${element.icon}' alt="${element.value}">
+            <span>${element.name}</span>
+            <i class="fa fa-sort"></i>`;
+        }
+        searchEngine += `
+            <li id="${element.value}">
+                <img src='${element.icon}'>
+                <span>${element.name}</span>
+            </li>`;
+    });
+    selectOption.innerHTML = `
+        <p>请选择搜索引擎：</p>
+        <ul>${searchEngine}</ul>`;
+}
+
 //渲染搜索引擎备选项
 function setEngine(engineValue) {
     selectEngine.innerHTML = `
@@ -29,5 +49,6 @@ function setEngine(engineValue) {
 }
 export {
     goSearch,
-    setEngine
+    setEngine,
+    renderEngineOption
 }

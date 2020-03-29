@@ -2,11 +2,10 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-23 16:21:41
+ * @Last Modified time: 2020-03-29 15:58:27
  */
 
 //配置变量
-var searchEngine = ""; //搜索框左侧选择搜索引擎数据
 var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
@@ -60,7 +59,8 @@ import {
 //搜索相关函数
 import {
     goSearch,
-    setEngine
+    setEngine,
+    renderEngineOption
 } from "./module/search.func.js";
 
 //搜索智能提示函数
@@ -173,13 +173,7 @@ if (commonUseData && commonUseData !== null) {
 }
 
 //拼接搜索栏左侧选择引擎
-jsonData.engine.forEach(element => {
-    if (element.select == "selected") {
-        selectEngine.innerHTML = `<img src='${element.icon}'  alt="${element.value}"><span>${element.name}</span><i class="fa fa-sort"></i>`
-    }
-    searchEngine += `<li id="${element.value}"><img src='${element.icon}'><span>${element.name}</span></li>`;
-});
-selectOption.innerHTML = `<p>请选择搜索引擎：</p><ul>${searchEngine}</ul>`;
+renderEngineOption();
 
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
@@ -222,7 +216,7 @@ document.onreadystatechange = function () {
 //监听点击事件
 document.addEventListener("click", function (e) {
     //判断选择引擎
-    if (e.target !== selectOption && !searchFlag) {
+    if (e.target !== selectOption && !searchFlag&&e.target.parentNode.id!=="selectOption") {
         selectOption.style.display = "none";
         searchFlag = !searchFlag;
     }
