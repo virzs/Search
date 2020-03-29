@@ -227,9 +227,10 @@ span {
     content: "";
     background-image: linear-gradient(to left, red 30px, green 30px);
     position: absolute;
+    top: 0;
+    bottom: 0;
     left: -20px;
     width: 60px;
-    height: 20px;
 }
 
 .search-option ul {
