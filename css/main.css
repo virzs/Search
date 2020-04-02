@@ -7,6 +7,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+    counter-reset: item-count;
 }
 
 html {
@@ -324,7 +325,7 @@ span {
 
 /* 备选项前序号 */
 #searchList li::before {
-    content: "";
+    content: counter(item-count);
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -335,50 +336,30 @@ span {
     font-size: 12px;
     border-radius: 9px;
     margin-right: 5px;
+    counter-increment: item-count;
 }
 
 #searchList li:first-child:before {
-    content: "1";
     background: #FD8C84;
 }
 
 #searchList li:nth-child(2):before {
-    content: "2";
     background: #FFCC99;
 }
 
 #searchList li:nth-child(3):before {
-    content: "3";
     background: #7FD75A;
 }
 
 #searchList li:nth-child(4):before {
-    content: "4";
     background: #CCCCFF;
 }
 
 #searchList li:nth-child(5):before {
-    content: "5";
     background: #60C4FD;
 }
 
-#searchList li:nth-child(6):before {
-    content: "6";
-}
-
-#searchList li:nth-child(7):before {
-    content: "7";
-}
-
-#searchList li:nth-child(8):before {
-    content: "8";
-}
-
-#searchList li:nth-child(9):before {
-    content: "9";
-}
-
-#searchList li:nth-child(10):before {
+#searchList li:last-child:before {
     content: "..";
 }
 
@@ -1116,6 +1097,64 @@ span {
     width: 10px;
     height: 10px;
     margin: auto;
+}
+
+/* 代办 */
+#toDoTabs {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    border: 1px ridge #ccc;
+    padding: 5px 0;
+}
+
+#toDoTabs span {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#toDoContent {
+    height: 100%;
+    font-size: 12px;
+}
+
+#toDoContent .list-item {
+    height: 50px;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px solid #ccc;
+    margin: 5px 0;
+    border-radius: 5px;
+    position: relative;
+}
+
+#toDoContent .list-item span {
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#toDoContent .list-item .item-del {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    opacity: .2;
+    transition: .3s;
+}
+
+#toDoContent .list-item .item-del:hover {
+    opacity: 1;
+}
+
+#addToDo {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    left: 5px;
 }
 
 #loading {
