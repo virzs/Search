@@ -178,7 +178,7 @@ function setCommomUse(data, status) {
     }
     if (getStorage("showCommonUse") == "website_open" || status == "website_open") {
         display = () => {
-            commonUse.style.display = "flex";
+            commonUse.style.display = "grid";
         }
     } else if (getStorage("showCommonUse") == "website_close" || status == "website_close") {
         display = () => {
