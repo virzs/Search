@@ -19,6 +19,10 @@ import {
     setStorageBefore
 } from "./animation.func.js";
 
+import {
+    generateId
+} from "./global.func.js";
+
 //创建书签数据
 function createWebsite() {
     let websiteInfo = "",
@@ -89,7 +93,7 @@ function commonWebsite(json) {
         "url": url,
         "color": color,
         "count": 1,
-        "id": Math.random().toString(36).substr(-8)
+        "id": generateId()
     };
     let operate = "";
     if (status !== undefined && status == getStorage("showCommonUse")) {
