@@ -42,9 +42,14 @@ function removeElement(element) {
     }
 }
 
+function generateId(){
+    return Math.random().toString(36).substr(-8);
+}
+
 export {
     stopPropagation,
     findSettingInfo,
     getRandomColor,
-    removeElement
+    removeElement,
+    generateId
 }
