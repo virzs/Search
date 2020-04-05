@@ -20,7 +20,8 @@ import {
 } from "./animation.func.js";
 
 import {
-    generateId
+    generateId,
+    quickSort
 } from "./global.func.js";
 
 //创建书签数据
@@ -147,15 +148,8 @@ function commonWebsite(json) {
             })
         }
     }
-    //根据打开次数排序
-    commonData.sort(function (obj1, obj2) {
-        let minCount = obj1["count"];
-        let maxCount = obj2["count"];
-        return maxCount - minCount;
-    })
-    setCommomUse(commonData, status);
+    setCommomUse(quickSort(commonData), status);
     setStorage("commonUseData", JSON.stringify(commonData));
-    console.log(commonData)
     if (status == undefined && (add !== undefined || change !== undefined || del !== undefined)) {
         openMessage({
             title: "提示",
