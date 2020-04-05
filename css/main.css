@@ -1140,6 +1140,7 @@ span {
     position: relative;
     font-size: 12px;
     overflow: auto;
+    transition: .3s;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -1157,7 +1158,7 @@ span {
 
 #toDoContent .list-item {
     width: 100%;
-    min-height: 50px;
+    min-height: 60px;
     padding: 10px 20px 5px;
     display: flex;
     justify-content: center;
