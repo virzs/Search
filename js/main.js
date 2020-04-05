@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-04-05 17:17:09
+ * @Last Modified time: 2020-04-05 20:34:25
  */
 
 //配置变量
@@ -768,15 +768,11 @@ sideBarContent.addEventListener("click", (e) => {
             let tabs = document.querySelector("#toDoTabs");
             clearData.forEach((item, index) => {
                 if (item.status == "2") {
-                    clearData.splice(index,1);
+                    clearData.splice(index, 1);
                 }
             })
             setStorage("todoData", JSON.stringify(clearData));
-            tabs.children[1].className = "defaultToDoTab";
-            tabs.children[0].className = "clickToDoTab";
-            toDoStatus = 1;
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(clearData);
-            document.querySelector("#operationToDo").innerHTML = submitToDo();
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(clearData);
             break;
     }
 });
