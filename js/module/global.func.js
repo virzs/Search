@@ -42,14 +42,23 @@ function removeElement(element) {
     }
 }
 
-function generateId(){
+function generateId() {
     return Math.random().toString(36).substr(-8);
 }
 
+function quickSort(array) {
+    array.sort(function (obj1, obj2) {
+        let minCount = obj1["count"];
+        let maxCount = obj2["count"];
+        return maxCount - minCount;
+    })
+    return array;
+}
 export {
     stopPropagation,
     findSettingInfo,
     getRandomColor,
     removeElement,
-    generateId
+    generateId,
+    quickSort
 }
