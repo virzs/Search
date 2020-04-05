@@ -1,5 +1,5 @@
 //获取的DOM元素/全局静态DOM元素
-const body = document.querySelector("body");//文档整体
+const body = document.querySelector("body"); //文档整体
 const linkTag = document.querySelector("#skinTag");
 const uiTag = document.querySelector("#uiTag");
 const searchContent = document.querySelectorAll(".search-content")[0]
@@ -19,6 +19,9 @@ const jinrishiciTitle = document.querySelector("#jinrishiciTitle"); //诗词名
 const copyright = document.querySelector("#copyright"); //版权说明
 const loading = document.querySelector("#loading"); //加载动画元素
 const messageList = document.querySelector("#messageList"); //弹窗列表
+const toDoTabs = document.querySelector("#toDoTabs"); //待办tab
+const toDoContent = document.querySelector("#toDoContent") //待办内容
+const addToDo = document.querySelector("#addToDo") //添加待办
 
 export {
     body,
@@ -40,5 +43,8 @@ export {
     jinrishiciTitle,
     copyright,
     loading,
-    messageList
+    messageList,
+    toDoTabs,
+    toDoContent,
+    addToDo
 }

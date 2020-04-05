@@ -58,12 +58,6 @@
     }],
     "sideBar": {
         "content": [{
-            "name": "Gaming",
-            "icon": "fa fa-star",
-            "color": "#FFB11B",
-            "show": false,
-            "content": []
-        }, {
             "name": "书签",
             "value": "Website",
             "icon": "fa fa-tags",
@@ -486,7 +480,14 @@
                     "show": true
                 }]
             }]
-        }, {
+        },{
+            "name": "待办",
+            "value":"ToDo",
+            "icon": "fa fa-star",
+            "color": "#FFB11B",
+            "show": true,
+            "content": []
+        },  {
             "name": "设置",
             "value": "Setting",
             "icon": "fa fa-cog",

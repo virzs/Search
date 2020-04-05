@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-29 22:00:24
+ * @Last Modified time: 2020-04-05 17:17:09
  */
 
 //配置变量
@@ -12,6 +12,7 @@ var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
 var advancedSettingsFlag = true;
 var sug = true;
+var toDoStatus = 1;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -21,6 +22,7 @@ const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
 const customFilletValue = getStorage("customFilletValue");
 const sugFlag = getStorage("sugFlag");
+const todoData = getStorage("todoData");
 
 /*
     导入模块
@@ -51,7 +53,10 @@ import {
     jinrishiciTitle,
     copyright,
     loading,
-    messageList
+    messageList,
+    toDoTabs,
+    toDoContent,
+    addToDo
 } from "./module/dom.constant.js";
 
 import {
@@ -88,7 +93,8 @@ import {
     stopPropagation,
     findSettingInfo,
     getRandomColor,
-    removeElement
+    removeElement,
+    generateId
 } from "./module/global.func.js";
 
 //网址相关函数
@@ -132,6 +138,13 @@ import {
 import {
     createAdvancedSettings
 } from "./module/setting.func.js";
+
+import {
+    renderToDoItem,
+    renderCompleteItem,
+    submitToDo,
+    clearToDo
+} from "./module/todo.func.js";
 /*
     导入模块结束
  */
@@ -144,6 +157,10 @@ if (sugFlag && sugFlag !== null) {
     sug = JSON.parse(getStorage("sugFlag"));
 } else {
     setStorage("sugFlag", true);
+}
+
+if (!todoData && todoData == null) {
+    setStorage("todoData", "[]");
 }
 
 if (bg && bg !== null && bg !== "setBingImage") {
@@ -232,12 +249,12 @@ document.querySelector(".switch-box").addEventListener("click", (e) => {
 //监听点击事件
 document.addEventListener("click", function (e) {
     //判断选择引擎
-    if (e.target !== selectOption && !searchFlag && e.target.parentNode.className !== "option-title"&&e.target.className!=="switch-box"&&e.target.className!=="switch-label") {
+    if (e.target !== selectOption && !searchFlag && e.target.parentNode.className !== "option-title" && e.target.className !== "switch-box" && e.target.className !== "switch-label") {
         selectOption.style.display = "none";
         searchFlag = !searchFlag;
     }
 
-    if (e.target == document.querySelector("#search")&&sug) {
+    if (e.target == document.querySelector("#search") && sug) {
         getSugValue();
     }
 
@@ -489,6 +506,13 @@ sideBarTitle.addEventListener("click", (e) => {
         e.target.style.background = e.target.style.borderColor;
         e.target.style.color = "#fff";
         renderSideBarContent(e.target.id);
+        if (e.target.id == "ToDo") {
+            sideBarContent.style.overflow = "hidden";
+            sideBarContent.scrollTop = 0;
+            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
+        } else {
+            sideBarContent.style.overflow = "auto";
+        }
         sideBarIconFlag = e.target.id;
     } else {
         sideBarButton.className = "sideBarButtonMoveRight";
@@ -674,6 +698,85 @@ sideBarContent.addEventListener("click", (e) => {
                 removeElement(".advanced-settings-content");
                 advancedSettingsFlag = !advancedSettingsFlag;
             }
+            break;
+            //提交待办事项
+        case e.target.id == "submitToDo":
+            let data = JSON.parse(getStorage("todoData"));
+            data.push({
+                id: generateId(),
+                content: e.target.parentNode.children[0].value,
+                time: new Date().toLocaleString(),
+                status: "1"
+            })
+            setStorage("todoData", JSON.stringify(data));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(data);
+            e.target.parentNode.children[0].value = "";
+            break;
+            //点击完成待办事项
+        case (e.target.className == "list-item" && toDoStatus == 1):
+            let changeData = JSON.parse(getStorage("todoData"));
+            let itemId = e.target.getAttribute("data-id");
+            let thisIndex = changeData.findIndex(item => item.id == itemId);
+            let thisItem = changeData.find(item => item.id == itemId);
+            e.target.style.textDecoration = "line-through";
+            thisItem.status = "2";
+            changeData.splice(thisIndex, 1, thisItem);
+            setStorage("todoData", JSON.stringify(changeData));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(changeData);
+            break;
+            //切换待办
+        case e.target.getAttribute("status") == 1:
+            e.target.parentNode.children[1].className = "defaultToDoTab";
+            e.target.className = "clickToDoTab";
+            toDoStatus = 1;
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#operationToDo").innerHTML = submitToDo();
+            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
+            break;
+            //切换至已完成
+        case e.target.getAttribute("status") == 2:
+            e.target.parentNode.children[0].className = "defaultToDoTab";
+            e.target.className = "clickToDoTab";
+            toDoStatus = 2;
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#operationToDo").innerHTML = clearToDo();
+            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 104}px`;
+            break;
+            //删除待办
+        case e.target.className == "item-del":
+            let delData = JSON.parse(getStorage("todoData"));
+            let delId = e.target.getAttribute("data-id");
+            let delItem = delData.findIndex(item => item.id == delId);
+            delData.splice(delItem, 1);
+            setStorage("todoData", JSON.stringify(delData));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(delData);
+            break;
+            //撤销待办
+        case e.target.className == "item-cancel":
+            let cancelData = JSON.parse(getStorage("todoData"));
+            let cancelId = e.target.getAttribute("data-id");
+            let cancelIndex = cancelData.findIndex(item => item.id == cancelId);
+            let cancelItem = cancelData.find(item => item.id == cancelId);
+            cancelItem.status = "1";
+            cancelData.splice(cancelIndex, 1, cancelItem);
+            setStorage("todoData", JSON.stringify(cancelData));
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(cancelData);
+            break;
+            //清空已完成内容
+        case e.target.id == "clearToDo":
+            let clearData = JSON.parse(getStorage("todoData"));
+            let tabs = document.querySelector("#toDoTabs");
+            clearData.forEach((item, index) => {
+                if (item.status == "2") {
+                    clearData.splice(index,1);
+                }
+            })
+            setStorage("todoData", JSON.stringify(clearData));
+            tabs.children[1].className = "defaultToDoTab";
+            tabs.children[0].className = "clickToDoTab";
+            toDoStatus = 1;
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(clearData);
+            document.querySelector("#operationToDo").innerHTML = submitToDo();
             break;
     }
 });
