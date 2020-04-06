@@ -86,6 +86,7 @@ span {
     text-decoration: underline;
     text-decoration-color: #ffffff;
     text-underline-position: under;
+    text-transform: uppercase;
 }
 
 .search-logo img {
