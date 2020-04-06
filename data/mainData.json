@@ -480,14 +480,14 @@
                     "show": true
                 }]
             }]
-        },{
+        }, {
             "name": "待办",
-            "value":"ToDo",
+            "value": "ToDo",
             "icon": "fa fa-star",
             "color": "#FFB11B",
             "show": true,
             "content": []
-        },  {
+        }, {
             "name": "设置",
             "value": "Setting",
             "icon": "fa fa-cog",
@@ -642,6 +642,32 @@
                     "name": "侧边栏数据",
                     "value": "sidebarData",
                     "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
+                "name": "备份与恢复",
+                "value": "backupAndRecovery",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-download",
+                "show": true,
+                "content": [{
+                    "name": "备份数据",
+                    "value": "backupData",
+                    "type": "backupAndRecovery",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "恢复数据",
+                    "value": "recoveryData",
+                    "type": "backupAndRecovery",
                     "href": "",
                     "color": "",
                     "icon": "",
