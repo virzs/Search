@@ -170,9 +170,9 @@ span {
 
 .switch-box {
     position: relative;
-    border-radius: 20px;
-    width: 40px;
-    height: 20px;
+    border-radius: 18px;
+    width: 36px;
+    height: 18px;
     margin: 0 5px;
     background: #ffffff;
     display: inline-block;
@@ -192,47 +192,39 @@ span {
     cursor: pointer;
     position: absolute;
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 36px;
+    height: 18px;
     top: 0px;
     left: 0px;
+    background-color: red;
+    transition: .5s;
 }
 
 .switch-content:checked+.switch-label {
-    top: 0px;
-    left: 20px;
-    animation: labelON 0.2s ease-in 0s 1;
-    box-shadow: #244766 -1px 0px 3px;
+    background-color: green;
 }
 
-.switch-content+.switch-label {
-    top: 0px;
-    left: 0px;
-    animation: labelOFF 0.2s ease-in 0s 1;
-    box-shadow: #244766 1px 1px 3px;
+.switch-content:checked+.switch-label::before {
+    top: 0;
+    left: 17px;
+    animation: labelON 0.2s ease-in 0s 1;
+    box-shadow: #244766 -1px 0px 3px;
 }
 
 .switch-content+.switch-label::before {
     content: "";
     background-color: #fff;
+    top: 0;
+    left: 0;
+    animation: labelOFF 0.2s ease-in 0s 1;
+    box-shadow: #244766 1px 1px 3px;
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     z-index: 10;
-    top: 0;
-    bottom: 0;
+    margin: 2px;
     box-shadow: #244766 1px 0px 3px;
-}
-
-.switch-content+.switch-label::after {
-    content: "";
-    background-image: linear-gradient(to left, red 30px, green 30px);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -20px;
-    width: 60px;
 }
 
 .search-option ul {
