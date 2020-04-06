@@ -41,10 +41,7 @@ function settingCapsule(inner) {
     if (inner.type == "changebg" && inner.value !== "changebg") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
-    if (inner.type == "changeCommonUse") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "dataManagement") {
+    if (inner.type == "changeCommonUse" || inner.type == "dataManagement" || inner.type == "backupAndRecovery") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "thanks") {

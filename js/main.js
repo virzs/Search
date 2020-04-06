@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-04-05 20:34:25
+ * @Last Modified time: 2020-04-06 18:16:03
  */
 
 //配置变量
@@ -145,6 +145,11 @@ import {
     submitToDo,
     clearToDo
 } from "./module/todo.func.js";
+
+import {
+    saveDATA,
+    getDATA
+} from "./module/dataOperations.func.js";
 /*
     导入模块结束
  */
@@ -687,6 +692,43 @@ sideBarContent.addEventListener("click", (e) => {
                     name: "关闭",
                     value: "cancel"
                 }]
+            })
+            break;
+            //备份数据
+        case e.target.id == "backupData":
+            saveDATA({
+                uistyle: getStorage("uistyle"),
+                sugFlag: getStorage("sugFlag"),
+                skin: getStorage("skin"),
+                showCommonUse: getStorage("showCommonUse"),
+                commonUseData: JSON.parse(getStorage("commonUseData")),
+                sideBarWebsiteData: JSON.parse(getStorage("sideBarWebsiteData")),
+                todoData: JSON.parse(getStorage("todoData"))
+            })
+            break;
+            //恢复数据
+        case e.target.id == "recoveryData":
+            getDATA().then(resolve => {
+                let data = JSON.parse(resolve.data);
+                setStorage("uistyle", data.uistyle);
+                setStorage("sugFlag", data.sugFlag);
+                setStorage("skin", data.skin);
+                setStorage("showCommonUse", JSON.stringify(data.showCommonUse));
+                setStorage("commonUseData", JSON.stringify(data.commonUseData));
+                setStorage("sideBarWebsiteData", JSON.stringify(data.sideBarWebsiteData));
+                setStorage("todoData", JSON.stringify(data.todoData));
+                location.reload(true); //刷新页面
+                openMessage({
+                    title: "提示",
+                    type: "success",
+                    content: `${resolve.msg}`
+                })
+            }).catch(reject => {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `${reject.msg}`
+                })
             })
             break;
             // 高级设置显示隐藏
