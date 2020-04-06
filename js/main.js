@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-04-06 18:16:03
+ * @Last Modified time: 2020-04-06 22:11:55
  */
 
 //配置变量
@@ -208,7 +208,11 @@ renderEngineOption();
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
     if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i><span>${jsonData.sideBar.content[item].name}</spa></div>`
+        sideBarTitle.innerHTML += `
+            <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};">
+                <i class="${jsonData.sideBar.content[item].icon}"></i>
+                <span>${jsonData.sideBar.content[item].name}</span>
+            </div>`;
     }
 }
 
@@ -254,7 +258,11 @@ document.querySelector(".switch-box").addEventListener("click", (e) => {
 //监听点击事件
 document.addEventListener("click", function (e) {
     //判断选择引擎
-    if (e.target !== selectOption && !searchFlag && e.target.parentNode.className !== "option-title" && e.target.className !== "switch-box" && e.target.className !== "switch-label") {
+    if (e.target !== selectOption &&
+        !searchFlag &&
+        e.target.parentNode.className !== "option-title" &&
+        e.target.className !== "switch-box" &&
+        e.target.className !== "switch-label") {
         selectOption.style.display = "none";
         searchFlag = !searchFlag;
     }
@@ -268,7 +276,12 @@ document.addEventListener("click", function (e) {
     }
 
     //判断侧边栏
-    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1 && document.querySelector("#dialog") == null) {
+    if (e.target !== sideBarTitle.children &&
+        e.target !== sideBarContent &&
+        sideBarIconFlag !== -1 &&
+        document.querySelector("#dialog") == null &&
+        e.target.nodeName !== "A" &&
+        e.target.nodeName !== "INPUT") {
         sideBar.className = "moveRight";
         sideBarButton.className = "sideBarButtonMoveRight";
         sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
