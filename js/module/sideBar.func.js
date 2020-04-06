@@ -15,11 +15,15 @@ import {
     createSetting
 } from "./setting.func.js";
 
+import {
+    createToDo
+} from "./todo.func.js";
+
 //依据选中id渲染侧边栏内容函数
 function renderSideBarContent(id) {
     switch (id) {
-        case "Gaming":
-            scrollContent.innerHTML = "加班加点摸鱼中，敬请期待";
+        case "ToDo":
+            scrollContent.innerHTML = createToDo();
             break;
         case "Website":
             scrollContent.innerHTML = createWebsite();

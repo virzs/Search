@@ -19,6 +19,11 @@ import {
     setStorageBefore
 } from "./animation.func.js";
 
+import {
+    generateId,
+    quickSort
+} from "./global.func.js";
+
 //创建书签数据
 function createWebsite() {
     let websiteInfo = "",
@@ -89,7 +94,7 @@ function commonWebsite(json) {
         "url": url,
         "color": color,
         "count": 1,
-        "id": Math.random().toString(36).substr(-8)
+        "id": generateId()
     };
     let operate = "";
     if (status !== undefined && status == getStorage("showCommonUse")) {
@@ -143,15 +148,8 @@ function commonWebsite(json) {
             })
         }
     }
-    //根据打开次数排序
-    commonData.sort(function (obj1, obj2) {
-        let minCount = obj1["count"];
-        let maxCount = obj2["count"];
-        return maxCount - minCount;
-    })
-    setCommomUse(commonData, status);
+    setCommomUse(quickSort(commonData), status);
     setStorage("commonUseData", JSON.stringify(commonData));
-    console.log(commonData)
     if (status == undefined && (add !== undefined || change !== undefined || del !== undefined)) {
         openMessage({
             title: "提示",
@@ -178,7 +176,7 @@ function setCommomUse(data, status) {
     }
     if (getStorage("showCommonUse") == "website_open" || status == "website_open") {
         display = () => {
-            commonUse.style.display = "flex";
+            commonUse.style.display = "grid";
         }
     } else if (getStorage("showCommonUse") == "website_close" || status == "website_close") {
         display = () => {

@@ -2,16 +2,17 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-03-21 17:37:25
+ * @Last Modified time: 2020-04-06 22:11:55
  */
 
 //配置变量
-var searchEngine = ""; //搜索框左侧选择搜索引擎数据
 var searchFlag = true; //搜索引标记
 var sideBarIconFlag = -1; //侧边栏按钮标记
 var commonData = []; //常用网址数据
 var changeWebsiteUrl = "";
 var advancedSettingsFlag = true;
+var sug = true;
+var toDoStatus = 1;
 
 //获取本地数据
 const skinHref = getStorage("skin");
@@ -20,6 +21,8 @@ const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
 const showCommonUse = getStorage("showCommonUse");
 const customFilletValue = getStorage("customFilletValue");
+const sugFlag = getStorage("sugFlag");
+const todoData = getStorage("todoData");
 
 /*
     导入模块
@@ -50,7 +53,10 @@ import {
     jinrishiciTitle,
     copyright,
     loading,
-    messageList
+    messageList,
+    toDoTabs,
+    toDoContent,
+    addToDo
 } from "./module/dom.constant.js";
 
 import {
@@ -60,7 +66,8 @@ import {
 //搜索相关函数
 import {
     goSearch,
-    setEngine
+    setEngine,
+    renderEngineOption
 } from "./module/search.func.js";
 
 //搜索智能提示函数
@@ -86,7 +93,8 @@ import {
     stopPropagation,
     findSettingInfo,
     getRandomColor,
-    removeElement
+    removeElement,
+    generateId
 } from "./module/global.func.js";
 
 //网址相关函数
@@ -130,6 +138,18 @@ import {
 import {
     createAdvancedSettings
 } from "./module/setting.func.js";
+
+import {
+    renderToDoItem,
+    renderCompleteItem,
+    submitToDo,
+    clearToDo
+} from "./module/todo.func.js";
+
+import {
+    saveDATA,
+    getDATA
+} from "./module/dataOperations.func.js";
 /*
     导入模块结束
  */
@@ -138,6 +158,16 @@ import {
 /*
     加载本地存储区域/自动加载区域
  */
+if (sugFlag && sugFlag !== null) {
+    sug = JSON.parse(getStorage("sugFlag"));
+} else {
+    setStorage("sugFlag", true);
+}
+
+if (!todoData && todoData == null) {
+    setStorage("todoData", "[]");
+}
+
 if (bg && bg !== null && bg !== "setBingImage") {
     globalImage(bg);
     WoolGlass(bg);
@@ -173,18 +203,16 @@ if (commonUseData && commonUseData !== null) {
 }
 
 //拼接搜索栏左侧选择引擎
-jsonData.engine.forEach(element => {
-    if (element.select == "selected") {
-        selectEngine.innerHTML = `<img src='${element.icon}'  alt="${element.value}"><span>${element.name}</span><i class="fa fa-sort"></i>`
-    }
-    searchEngine += `<li id="${element.value}"><img src='${element.icon}'><span>${element.name}</span></li>`;
-});
-selectOption.innerHTML = `<p>请选择搜索引擎：</p><ul>${searchEngine}</ul>`;
+renderEngineOption();
 
 // 动态创建侧边栏图标
 for (let item in jsonData.sideBar.content) {
     if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `<div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};"><i class="${jsonData.sideBar.content[item].icon}"></i><span>${jsonData.sideBar.content[item].name}</spa></div>`
+        sideBarTitle.innerHTML += `
+            <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};">
+                <i class="${jsonData.sideBar.content[item].icon}"></i>
+                <span>${jsonData.sideBar.content[item].name}</span>
+            </div>`;
     }
 }
 
@@ -219,15 +247,27 @@ document.onreadystatechange = function () {
 /*
     事件监听/事件委托相关
  */
+document.querySelector(".switch-box").addEventListener("click", (e) => {
+    if (e.target.className == "switch-label") {
+        document.querySelector(".switch-content").checked = !sug
+        sug = !sug
+        setStorage("sugFlag", sug)
+    }
+})
+
 //监听点击事件
 document.addEventListener("click", function (e) {
     //判断选择引擎
-    if (e.target !== selectOption && !searchFlag) {
+    if (e.target !== selectOption &&
+        !searchFlag &&
+        e.target.parentNode.className !== "option-title" &&
+        e.target.className !== "switch-box" &&
+        e.target.className !== "switch-label") {
         selectOption.style.display = "none";
         searchFlag = !searchFlag;
     }
 
-    if (e.target == document.querySelector("#search")) {
+    if (e.target == document.querySelector("#search") && sug) {
         getSugValue();
     }
 
@@ -236,7 +276,12 @@ document.addEventListener("click", function (e) {
     }
 
     //判断侧边栏
-    if (e.target !== sideBarTitle.children && e.target !== sideBarContent && sideBarIconFlag !== -1 && document.querySelector("#dialog") == null) {
+    if (e.target !== sideBarTitle.children &&
+        e.target !== sideBarContent &&
+        sideBarIconFlag !== -1 &&
+        document.querySelector("#dialog") == null &&
+        e.target.nodeName !== "A" &&
+        e.target.nodeName !== "INPUT") {
         sideBar.className = "moveRight";
         sideBarButton.className = "sideBarButtonMoveRight";
         sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
@@ -421,6 +466,7 @@ document.addEventListener("click", function (e) {
 selectEngine.addEventListener("click", () => {
     if (searchFlag) {
         selectOption.style.display = "block";
+        document.querySelector(".switch-content").checked = sug;
         searchFlag = !searchFlag;
     } else {
         selectOption.style.display = "none";
@@ -478,6 +524,13 @@ sideBarTitle.addEventListener("click", (e) => {
         e.target.style.background = e.target.style.borderColor;
         e.target.style.color = "#fff";
         renderSideBarContent(e.target.id);
+        if (e.target.id == "ToDo") {
+            sideBarContent.style.overflow = "hidden";
+            sideBarContent.scrollTop = 0;
+            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
+        } else {
+            sideBarContent.style.overflow = "auto";
+        }
         sideBarIconFlag = e.target.id;
     } else {
         sideBarButton.className = "sideBarButtonMoveRight";
@@ -572,12 +625,10 @@ sideBarContent.addEventListener("click", (e) => {
             cData.forEach((item, index) => {
                 cinHtml += `
                     <tr>
-                        <td>${index+1}</td>
-                        <td>${item.name}</td>
-                        <td><a href="${item.url}" target="_blank">${item.url}</a></td>
-                        <td><i class="tab-color" style="background-color:${item.color};"></i></td>
-                        <td>${item.count}次</td>
-                        <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
+                        <td data-label="序号">${index+1}</td>
+                        <td data-label="名称"><a href="${item.url}" target="_blank" style="color:${item.color}">${item.name}</a></td>
+                        <td data-label="使用次数">${item.count}次</td>
+                        <td data-label="操作"><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                     </tr>`;
             })
             if (cinHtml == "") {
@@ -597,8 +648,6 @@ sideBarContent.addEventListener("click", (e) => {
                                 <tr>
                                     <th>#</th>
                                     <th>名称</th>
-                                    <th>URL</th>
-                                    <th>颜色</th>
                                     <th>使用次数</th>
                                     <th>操作</th>
                                 </tr>
@@ -620,12 +669,10 @@ sideBarContent.addEventListener("click", (e) => {
                     item.content.forEach((inner, index) => {
                         sinHtml += `
                             <tr>
-                                <td>${index+1}</td>
-                                <td>${inner.name}</td>
-                                <td><a href="${inner.url}" target="_blank">${inner.url}</a></td>
-                                <td><i class="tab-color" style="background-color:${item.color};"></i></td>
-                                <td>${item.name}</td>
-                                <td><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
+                                <td data-label="序号">${index+1}</td>
+                                <td data-label="名称"><a href="${inner.url}" target="_blank" style="color:${inner.color}">${inner.name}</a></td>
+                                <td data-label="类别">${item.name}</td>
+                                <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
                             </tr>`;
                     })
                 }
@@ -647,8 +694,6 @@ sideBarContent.addEventListener("click", (e) => {
                                 <tr>
                                     <th>#</th>
                                     <th>名称</th>
-                                    <th>URL</th>
-                                    <th>颜色</th>
                                     <th>类别</th>
                                     <th>操作</th>
                                 </tr>
@@ -662,6 +707,43 @@ sideBarContent.addEventListener("click", (e) => {
                 }]
             })
             break;
+            //备份数据
+        case e.target.id == "backupData":
+            saveDATA({
+                uistyle: getStorage("uistyle"),
+                sugFlag: getStorage("sugFlag"),
+                skin: getStorage("skin"),
+                showCommonUse: getStorage("showCommonUse"),
+                commonUseData: JSON.parse(getStorage("commonUseData")),
+                sideBarWebsiteData: JSON.parse(getStorage("sideBarWebsiteData")),
+                todoData: JSON.parse(getStorage("todoData"))
+            })
+            break;
+            //恢复数据
+        case e.target.id == "recoveryData":
+            getDATA().then(resolve => {
+                let data = JSON.parse(resolve.data);
+                setStorage("uistyle", data.uistyle);
+                setStorage("sugFlag", data.sugFlag);
+                setStorage("skin", data.skin);
+                setStorage("showCommonUse", JSON.stringify(data.showCommonUse));
+                setStorage("commonUseData", JSON.stringify(data.commonUseData));
+                setStorage("sideBarWebsiteData", JSON.stringify(data.sideBarWebsiteData));
+                setStorage("todoData", JSON.stringify(data.todoData));
+                location.reload(true); //刷新页面
+                openMessage({
+                    title: "提示",
+                    type: "success",
+                    content: `${resolve.msg}`
+                })
+            }).catch(reject => {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `${reject.msg}`
+                })
+            })
+            break;
             // 高级设置显示隐藏
         case e.target.id == "advancedSettings":
             if (advancedSettingsFlag == true) {
@@ -671,6 +753,81 @@ sideBarContent.addEventListener("click", (e) => {
                 removeElement(".advanced-settings-content");
                 advancedSettingsFlag = !advancedSettingsFlag;
             }
+            break;
+            //提交待办事项
+        case e.target.id == "submitToDo":
+            let data = JSON.parse(getStorage("todoData"));
+            data.push({
+                id: generateId(),
+                content: e.target.parentNode.children[0].value,
+                time: new Date().toLocaleString(),
+                status: "1"
+            })
+            setStorage("todoData", JSON.stringify(data));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(data);
+            e.target.parentNode.children[0].value = "";
+            break;
+            //点击完成待办事项
+        case (e.target.className == "list-item" && toDoStatus == 1):
+            let changeData = JSON.parse(getStorage("todoData"));
+            let itemId = e.target.getAttribute("data-id");
+            let thisIndex = changeData.findIndex(item => item.id == itemId);
+            let thisItem = changeData.find(item => item.id == itemId);
+            e.target.style.textDecoration = "line-through";
+            thisItem.status = "2";
+            changeData.splice(thisIndex, 1, thisItem);
+            setStorage("todoData", JSON.stringify(changeData));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(changeData);
+            break;
+            //切换待办
+        case e.target.getAttribute("status") == 1:
+            e.target.parentNode.children[1].className = "defaultToDoTab";
+            e.target.className = "clickToDoTab";
+            toDoStatus = 1;
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#operationToDo").innerHTML = submitToDo();
+            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
+            break;
+            //切换至已完成
+        case e.target.getAttribute("status") == 2:
+            e.target.parentNode.children[0].className = "defaultToDoTab";
+            e.target.className = "clickToDoTab";
+            toDoStatus = 2;
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#operationToDo").innerHTML = clearToDo();
+            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 104}px`;
+            break;
+            //删除待办
+        case e.target.className == "item-del":
+            let delData = JSON.parse(getStorage("todoData"));
+            let delId = e.target.getAttribute("data-id");
+            let delItem = delData.findIndex(item => item.id == delId);
+            delData.splice(delItem, 1);
+            setStorage("todoData", JSON.stringify(delData));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(delData);
+            break;
+            //撤销待办
+        case e.target.className == "item-cancel":
+            let cancelData = JSON.parse(getStorage("todoData"));
+            let cancelId = e.target.getAttribute("data-id");
+            let cancelIndex = cancelData.findIndex(item => item.id == cancelId);
+            let cancelItem = cancelData.find(item => item.id == cancelId);
+            cancelItem.status = "1";
+            cancelData.splice(cancelIndex, 1, cancelItem);
+            setStorage("todoData", JSON.stringify(cancelData));
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(cancelData);
+            break;
+            //清空已完成内容
+        case e.target.id == "clearToDo":
+            let clearData = JSON.parse(getStorage("todoData"));
+            let tabs = document.querySelector("#toDoTabs");
+            clearData.forEach((item, index) => {
+                if (item.status == "2") {
+                    clearData.splice(index, 1);
+                }
+            })
+            setStorage("todoData", JSON.stringify(clearData));
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(clearData);
             break;
     }
 });
@@ -770,7 +927,9 @@ searchContent.onkeydown = function (e) {
 
 //监听搜索框输入函数，获取提示信息
 searchInput.onkeyup = () => {
-    getSugValue();
+    if (sug) {
+        getSugValue();
+    }
 }
 
 /*

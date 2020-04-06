@@ -7,6 +7,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+    counter-reset: item-count;
 }
 
 html {
@@ -85,6 +86,7 @@ span {
     text-decoration: underline;
     text-decoration-color: #ffffff;
     text-underline-position: under;
+    text-transform: uppercase;
 }
 
 .search-logo img {
@@ -153,6 +155,76 @@ span {
     z-index: 600;
     transition: 0.3s;
     padding: 5px;
+}
+
+.option-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.option-title span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.switch-box {
+    position: relative;
+    border-radius: 18px;
+    width: 36px;
+    height: 18px;
+    margin: 0 5px;
+    background: #ffffff;
+    display: inline-block;
+    box-shadow: 5px 5px 5px #888888 inset;
+    overflow: hidden;
+}
+
+.switch-content {
+    border: 0 none !important;
+    height: 1px !important;
+    position: absolute !important;
+    width: 1px !important;
+    transition: 0.3s ease;
+}
+
+.switch-label {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    width: 36px;
+    height: 18px;
+    top: 0px;
+    left: 0px;
+    background-color: red;
+    transition: .5s;
+}
+
+.switch-content:checked+.switch-label {
+    background-color: green;
+}
+
+.switch-content:checked+.switch-label::before {
+    top: 0;
+    left: 17px;
+    animation: labelON 0.2s ease-in 0s 1;
+    box-shadow: #244766 -1px 0px 3px;
+}
+
+.switch-content+.switch-label::before {
+    content: "";
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    animation: labelOFF 0.2s ease-in 0s 1;
+    box-shadow: #244766 1px 1px 3px;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    z-index: 10;
+    margin: 2px;
+    box-shadow: #244766 1px 0px 3px;
 }
 
 .search-option ul {
@@ -246,7 +318,7 @@ span {
 
 /* 备选项前序号 */
 #searchList li::before {
-    content: "";
+    content: counter(item-count);
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -257,50 +329,30 @@ span {
     font-size: 12px;
     border-radius: 9px;
     margin-right: 5px;
+    counter-increment: item-count;
 }
 
 #searchList li:first-child:before {
-    content: "1";
     background: #FD8C84;
 }
 
 #searchList li:nth-child(2):before {
-    content: "2";
     background: #FFCC99;
 }
 
 #searchList li:nth-child(3):before {
-    content: "3";
     background: #7FD75A;
 }
 
 #searchList li:nth-child(4):before {
-    content: "4";
     background: #CCCCFF;
 }
 
 #searchList li:nth-child(5):before {
-    content: "5";
     background: #60C4FD;
 }
 
-#searchList li:nth-child(6):before {
-    content: "6";
-}
-
-#searchList li:nth-child(7):before {
-    content: "7";
-}
-
-#searchList li:nth-child(8):before {
-    content: "8";
-}
-
-#searchList li:nth-child(9):before {
-    content: "9";
-}
-
-#searchList li:nth-child(10):before {
+#searchList li:last-child:before {
     content: "..";
 }
 
@@ -1040,6 +1092,149 @@ span {
     margin: auto;
 }
 
+/* 代办 */
+#toDoTabs {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    padding: 5px 0;
+}
+
+#toDoTabs span {
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+}
+
+/* 默认背景色 */
+.defaultToDoTab {
+    background-color: #fff;
+}
+
+/* 选中背景色 */
+.clickToDoTab {
+    background-color: aquamarine;
+}
+
+#toDoTabs span::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#toDoContent {
+    position: relative;
+    font-size: 12px;
+    overflow: auto;
+    transition: .3s;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#toDoContent::-webkit-scrollbar {
+    display: none;
+}
+
+#noListItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#toDoContent .list-item {
+    width: 100%;
+    min-height: 60px;
+    padding: 10px 20px 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    margin: 5px 0;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
+}
+
+#toDoContent .list-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#toDoContent .list-item span {
+    display: block;
+    text-align: left;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#toDoContent .list-item span:nth-child(2) {
+    text-align: right;
+    font-size: 10px;
+    opacity: .3;
+}
+
+#toDoContent .list-item .item-del,
+#toDoContent .list-item .item-cancel {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    background-color: #ccc;
+    border-bottom-left-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .3s;
+    opacity: .3;
+    font-size: 10px;
+}
+
+#toDoContent .list-item .item-del i,
+#toDoContent .list-item .item-cancel i {
+    display: inline-block;
+    margin: 0 3px;
+}
+
+#toDoContent .list-item .item-del:hover,
+#toDoContent .list-item .item-cancel:hover {
+    opacity: 1;
+    width: 38px;
+}
+
+#toDoContent .list-item .item-del::after,
+#toDoContent .list-item .item-cancel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#operationToDo {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    left: 5px;
+}
+
 #loading {
     width: 100%;
     height: 100%;
@@ -1154,6 +1349,30 @@ span {
     }
 }
 
+@keyframes labelON {
+    0% {
+        top: 0px;
+        left: 0px;
+    }
+
+    100% {
+        top: 0px;
+        left: 20px;
+    }
+}
+
+@keyframes labelOFF {
+    0% {
+        top: 0px;
+        left: 20px;
+    }
+
+    100% {
+        top: 0px;
+        left: 0px;
+    }
+}
+
 @media (max-width: 768px) {
     .poetry {
         width: 80%;
@@ -1193,5 +1412,39 @@ span {
     #sideBarButton,
     #sideBar {
         display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        margin-bottom: 10px;
+        display: block;
+        border-bottom: 2px solid #ddd;
+    }
+
+    table td {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px dotted #ccc;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    table td:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 }
