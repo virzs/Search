@@ -7,11 +7,11 @@ function setStorage(name, value) {
 function getStorage(key) {
     let value = window.localStorage.getItem(key);
     let method = new Object;
-    method.value = value;
-    method.toBoolean = function () {
+    method.value = value; //默认值
+    method.toBoolean = function () { //转布尔值
         return value !== "false";
     }
-    method.toJSON = function () {
+    method.toJSON = function () { //转JSON
         return JSON.parse(value);
     }
     return method;
