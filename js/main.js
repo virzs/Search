@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-11 18:23:26
+ * @Last Modified time: 2020-04-11 22:03:24
  */
 
 //配置变量
@@ -570,6 +570,9 @@ sideBarContent.addEventListener("click", (e) => {
     }
     // 监听设置操作
     switch (true) {
+        case e.target.id == "changebg":
+            setCustomizeImage();
+            break;
         // 选择必应壁纸
         case e.target.id == "setBingImage":
             setBingImage(false);

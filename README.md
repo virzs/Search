@@ -19,7 +19,13 @@
 
 ### 近期更新：
 
-待办事项功能更新！！！
+历史搜索记录！！！
+
+### 重要问题：
+
+- Mozilla/5.0 (Linux; U; Android 9; zh-cn; MIX 2 Build/PKQ1.190118.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/71.0.3578.141 Mobile Safari/537.36 XiaoMi/MiuiBrowser/11.11.17
+  小米浏览器中加载报错
+  原因未知
 
 ### 版本：
 
