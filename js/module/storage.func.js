@@ -6,7 +6,15 @@ function setStorage(name, value) {
 // 获取本地存储内容
 function getStorage(key) {
     let value = window.localStorage.getItem(key);
-    return value;
+    let method = new Object;
+    method.value = value;
+    method.toBoolean = function () {
+        return value !== "false";
+    }
+    method.toJSON = function () {
+        return JSON.parse(value);
+    }
+    return method;
 }
 
 //删除本地存储函数

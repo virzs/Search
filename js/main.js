@@ -2,7 +2,7 @@
  * @Author: VirZhang
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-04-06 22:11:55
+ * @Last Modified time: 2020-04-11 18:03:41
  */
 
 //配置变量
@@ -15,14 +15,14 @@ var sug = true;
 var toDoStatus = 1;
 
 //获取本地数据
-const skinHref = getStorage("skin");
-const uiHref = getStorage("uistyle");
-const bg = getStorage("bg");
-const commonUseData = getStorage("commonUseData");
-const showCommonUse = getStorage("showCommonUse");
-const customFilletValue = getStorage("customFilletValue");
-const sugFlag = getStorage("sugFlag");
-const todoData = getStorage("todoData");
+const skinHref = getStorage("skin").value;
+const uiHref = getStorage("uistyle").value;
+const bg = getStorage("bg").value;
+const commonUseData = getStorage("commonUseData").toJSON();
+const showCommonUse = getStorage("showCommonUse").value;
+const customFilletValue = getStorage("customFilletValue").value;
+const sugFlag = getStorage("sugFlag").toBoolean();
+const todoData = getStorage("todoData").toJSON();
 
 /*
     导入模块
@@ -159,7 +159,7 @@ import {
     加载本地存储区域/自动加载区域
  */
 if (sugFlag && sugFlag !== null) {
-    sug = JSON.parse(getStorage("sugFlag"));
+    sug = getStorage("sugFlag").toBoolean();
 } else {
     setStorage("sugFlag", true);
 }
@@ -198,8 +198,8 @@ if (commonUseData == undefined) {
 }
 
 if (commonUseData && commonUseData !== null) {
-    commonData = JSON.parse(commonUseData);
-    setCommomUse(commonData);
+    commonData = commonUseData;
+    setCommomUse(commonUseData);
 }
 
 //拼接搜索栏左侧选择引擎
@@ -369,7 +369,7 @@ document.addEventListener("click", function (e) {
         if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
             url = `https://${url}`;
         }
-        let websiteData = JSON.parse(getStorage("sideBarWebsiteData"));
+        let websiteData = getStorage("sideBarWebsiteData").toJSON();
         let thisClassify = websiteData.find(item => {
             if (classify.indexOf(item.value) !== -1) {
                 return item;
@@ -412,7 +412,7 @@ document.addEventListener("click", function (e) {
     //删除网址数据
     if (e.target.className == "deleteData") {
         let key = e.target.getAttribute("data");
-        let source = JSON.parse(getStorage(e.target.getAttribute("source")));
+        let source = getStorage(e.target.getAttribute("source")).toJSON();
         let category = e.target.getAttribute("category");
         let tBody = document.querySelector(".show-data-table").children[1];
         let inHtml = "";
@@ -552,18 +552,18 @@ sideBarContent.addEventListener("click", (e) => {
             thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
-                commonData: JSON.parse(getStorage("commonUseData"))
+                commonData: getStorage("commonUseData").toJSON()
             });
             return;
         }
     }
-    for (let item of JSON.parse(getStorage("sideBarWebsiteData"))) {
+    for (let item of getStorage("sideBarWebsiteData").toJSON()) {
         thisWebsite = item.content.find(inner => inner.name == e.target.id);
         if (thisWebsite !== undefined && thisWebsite !== {}) {
             thisWebsite.count = 1;
             commonWebsite({
                 thisWebsite: thisWebsite,
-                commonData: JSON.parse(getStorage("commonUseData"))
+                commonData: getStorage("commonUseData").toJSON()
             });
             return;
         }
@@ -620,7 +620,7 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
         case e.target.id == "commonUseData":
-            let cData = JSON.parse(getStorage("commonUseData"));
+            let cData = getStorage("commonUseData").toJSON();
             let cinHtml = "";
             cData.forEach((item, index) => {
                 cinHtml += `
@@ -662,7 +662,7 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
         case e.target.id == "sidebarData":
-            let sData = JSON.parse(getStorage("sideBarWebsiteData"));
+            let sData = getStorage("sideBarWebsiteData").toJSON();
             let sinHtml = "";
             sData.forEach(item => {
                 if (item.content.length > 0) {
@@ -710,13 +710,13 @@ sideBarContent.addEventListener("click", (e) => {
             //备份数据
         case e.target.id == "backupData":
             saveDATA({
-                uistyle: getStorage("uistyle"),
-                sugFlag: getStorage("sugFlag"),
-                skin: getStorage("skin"),
-                showCommonUse: getStorage("showCommonUse"),
-                commonUseData: JSON.parse(getStorage("commonUseData")),
-                sideBarWebsiteData: JSON.parse(getStorage("sideBarWebsiteData")),
-                todoData: JSON.parse(getStorage("todoData"))
+                uistyle: getStorage("uistyle").value,
+                sugFlag: getStorage("sugFlag").value,
+                skin: getStorage("skin").value,
+                showCommonUse: getStorage("showCommonUse").value,
+                commonUseData: getStorage("commonUseData").toJSON(),
+                sideBarWebsiteData: getStorage("sideBarWebsiteData").toJSON(),
+                todoData: getStorage("todoData").toJSON()
             })
             break;
             //恢复数据
@@ -756,7 +756,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //提交待办事项
         case e.target.id == "submitToDo":
-            let data = JSON.parse(getStorage("todoData"));
+            let data = getStorage("todoData").toJSON();
             data.push({
                 id: generateId(),
                 content: e.target.parentNode.children[0].value,
@@ -769,7 +769,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //点击完成待办事项
         case (e.target.className == "list-item" && toDoStatus == 1):
-            let changeData = JSON.parse(getStorage("todoData"));
+            let changeData = getStorage("todoData").toJSON();
             let itemId = e.target.getAttribute("data-id");
             let thisIndex = changeData.findIndex(item => item.id == itemId);
             let thisItem = changeData.find(item => item.id == itemId);
@@ -784,7 +784,7 @@ sideBarContent.addEventListener("click", (e) => {
             e.target.parentNode.children[1].className = "defaultToDoTab";
             e.target.className = "clickToDoTab";
             toDoStatus = 1;
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#toDoContent").innerHTML = renderToDoItem(getStorage("todoData").toJSON());
             document.querySelector("#operationToDo").innerHTML = submitToDo();
             document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
             break;
@@ -793,13 +793,13 @@ sideBarContent.addEventListener("click", (e) => {
             e.target.parentNode.children[0].className = "defaultToDoTab";
             e.target.className = "clickToDoTab";
             toDoStatus = 2;
-            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(JSON.parse(getStorage("todoData")));
+            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(getStorage("todoData").toJSON());
             document.querySelector("#operationToDo").innerHTML = clearToDo();
             document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 104}px`;
             break;
             //删除待办
         case e.target.className == "item-del":
-            let delData = JSON.parse(getStorage("todoData"));
+            let delData = getStorage("todoData").toJSON();
             let delId = e.target.getAttribute("data-id");
             let delItem = delData.findIndex(item => item.id == delId);
             delData.splice(delItem, 1);
@@ -808,7 +808,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //撤销待办
         case e.target.className == "item-cancel":
-            let cancelData = JSON.parse(getStorage("todoData"));
+            let cancelData = getStorage("todoData").toJSON();
             let cancelId = e.target.getAttribute("data-id");
             let cancelIndex = cancelData.findIndex(item => item.id == cancelId);
             let cancelItem = cancelData.find(item => item.id == cancelId);
@@ -819,7 +819,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //清空已完成内容
         case e.target.id == "clearToDo":
-            let clearData = JSON.parse(getStorage("todoData"));
+            let clearData = getStorage("todoData").toJSON();
             let tabs = document.querySelector("#toDoTabs");
             clearData.forEach((item, index) => {
                 if (item.status == "2") {
@@ -940,28 +940,28 @@ searchInput.onkeyup = () => {
 /*
     错误监听开始
  */
-window.onerror = function (message, source, lineno, colno, error) {
-    /* 错误信息（字符串）：message
-    发生错误的脚本URL（字符串）：source
-    发生错误的行号（数字）：lineno
-    发生错误的列号（数字）：colno
-    Error对象（对象）：error
-    https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
-    openDialog({
-        html: true,
-        title: "抱歉，出现错误！！",
-        content: `
-            <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
-            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
-            <br/>
-            <code>${navigator.userAgent}</code>`,
-        button: [{
-            name: "取消",
-            value: "cancel"
-        }]
-    })
-    return true;
-}
+// window.onerror = function (message, source, lineno, colno, error) {
+//     /* 错误信息（字符串）：message
+//     发生错误的脚本URL（字符串）：source
+//     发生错误的行号（数字）：lineno
+//     发生错误的列号（数字）：colno
+//     Error对象（对象）：error
+//     https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
+//     openDialog({
+//         html: true,
+//         title: "抱歉，出现错误！！",
+//         content: `
+//             <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
+//             <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
+//             <br/>
+//             <code>${navigator.userAgent}</code>`,
+//         button: [{
+//             name: "取消",
+//             value: "cancel"
+//         }]
+//     })
+//     return true;
+// }
 /*
     错误监听结束
  */

@@ -30,7 +30,7 @@ function createWebsite() {
         sideBarHtml = "";
     let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
     let customizeData = [];
-    if (getStorage("sideBarWebsiteData") == undefined) {
+    if (getStorage("sideBarWebsiteData").value == undefined) {
         websiteData.forEach(item => {
             customizeData.push({
                 name: item.name,
@@ -48,7 +48,7 @@ function createWebsite() {
                     sideBarHtml += renderCapsule(inner);
                 }
             })
-            JSON.parse(getStorage("sideBarWebsiteData")).forEach(outer => {
+            getStorage("sideBarWebsiteData").toJSON().forEach(outer => {
                 if (outer.value == item.value) {
                     outer.content.forEach(insite => {
                         sideBarHtml += renderCapsule(insite);
@@ -97,7 +97,7 @@ function commonWebsite(json) {
         "id": generateId()
     };
     let operate = "";
-    if (status !== undefined && status == getStorage("showCommonUse")) {
+    if (status !== undefined && status == getStorage("showCommonUse").value) {
         let info = "";
         switch (status) {
             case "website_open":
@@ -164,6 +164,7 @@ function setCommomUse(data, status) {
     let commonHtml = "";
     let display = "";
     let isShow = (status !== undefined) ? true : false;
+    let showCommonUse = getStorage("showCommonUse").value;
     if (status !== undefined) {
         setStorage("showCommonUse", status);
     }
@@ -174,18 +175,18 @@ function setCommomUse(data, status) {
             }
         })
     }
-    if (getStorage("showCommonUse") == "website_open" || status == "website_open") {
+    if (showCommonUse == "website_open" || status == "website_open") {
         display = () => {
             commonUse.style.display = "grid";
         }
-    } else if (getStorage("showCommonUse") == "website_close" || status == "website_close") {
+    } else if (showCommonUse == "website_close" || status == "website_close") {
         display = () => {
             commonUse.style.display = "none";
         }
     }
     if (isShow) {
         setStorageBefore(display);
-    } else if (getStorage("showCommonUse") == "website_close" && !isShow) {
+    } else if (showCommonUse == "website_close" && !isShow) {
         commonUse.style.display = "none";
     }
     commonUse.innerHTML = commonHtml + addCommonsData();
