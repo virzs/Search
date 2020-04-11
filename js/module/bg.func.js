@@ -90,7 +90,6 @@ function setCustomizeImage() {
     input.click();
     input.addEventListener("change", (e) => {
         file = input.files[0];
-        console.log(file)
         if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
             openMessage({
                 title: "提示",
@@ -115,8 +114,8 @@ function setCustomizeImage() {
             changeSkin("skin", skin_Transparent);
         };
         reader.readAsDataURL(file);
-        document.body.removeChild(input);
     })
+    document.body.removeChild(input);
 }
 
 //恢复默认
