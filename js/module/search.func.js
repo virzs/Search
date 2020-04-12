@@ -3,23 +3,29 @@ import {
     searchInput,
     searchList
 } from "./dom.constant.js";
+
 import {
     jsonData
 } from "./all.data.js";
+
+import {
+    setStorage,
+    getStorage
+} from "./storage.func.js";
+
 //搜索事件
 function goSearch() {
     let value = searchInput.value; //获取输入框的值
     let engineValue = selectEngine.children[0].alt; //获取选择的搜索引擎
-    let searchHref = ''; //定义搜索链接变量
-    jsonData.engine.forEach((item) => {
-        if (item.value == engineValue) {
-            searchHref = item.href;
-        }
-    })
-    window.open(searchHref + value);//拼接搜索链接
+    let engine = jsonData.engine.find(item => item.value == engineValue);
+    window.open(engine.href + value); //拼接搜索链接
+    searchHistory({
+        engine: engine,
+        content: value
+    });
 }
 
-function renderEngineOption(){
+function renderEngineOption() {
     let searchEngine = "";
     jsonData.engine.forEach(element => {
         if (element.select == "selected") {
@@ -54,6 +60,20 @@ function setEngine(engineValue) {
         <span>${engineValue.name}</span><i class="fa fa-sort"></i>`;
     selectOption.style.display = "none";
     searchList.style.display = "none";
+}
+
+//搜索记录
+function searchHistory(value) {
+    if (!getStorage("searchHistory").value) {
+        setStorage("searchHistory", "[]");
+    }
+    let history = getStorage("searchHistory").toJSON();
+    history.push({
+        engine: value.engine,
+        content: value.content,
+        time: new Date().toLocaleString()
+    })
+    setStorage("searchHistory", JSON.stringify(history));
 }
 export {
     goSearch,

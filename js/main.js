@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-11 22:03:24
+ * @Last Modified time: 2020-04-12 21:38:45
  */
 
 //配置变量
@@ -573,7 +573,7 @@ sideBarContent.addEventListener("click", (e) => {
         case e.target.id == "changebg":
             setCustomizeImage();
             break;
-        // 选择必应壁纸
+            // 选择必应壁纸
         case e.target.id == "setBingImage":
             setBingImage(false);
             break;
@@ -719,7 +719,8 @@ sideBarContent.addEventListener("click", (e) => {
                 showCommonUse: getStorage("showCommonUse").value,
                 commonUseData: getStorage("commonUseData").toJSON(),
                 sideBarWebsiteData: getStorage("sideBarWebsiteData").toJSON(),
-                todoData: getStorage("todoData").toJSON()
+                todoData: getStorage("todoData").toJSON(),
+                searchHistory: getStorage("searchHistory").toJSON()
             })
             break;
             //恢复数据
@@ -733,6 +734,7 @@ sideBarContent.addEventListener("click", (e) => {
                 setStorage("commonUseData", JSON.stringify(data.commonUseData));
                 setStorage("sideBarWebsiteData", JSON.stringify(data.sideBarWebsiteData));
                 setStorage("todoData", JSON.stringify(data.todoData));
+                setStorage("searchHistory", JSON.stringify(data.searchHistory));
                 location.reload(true); //刷新页面
                 openMessage({
                     title: "提示",
