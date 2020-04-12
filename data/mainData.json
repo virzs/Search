@@ -647,6 +647,15 @@
                     "icon": "",
                     "show": true,
                     "content": ""
+                }, {
+                    "name": "搜索历史",
+                    "value": "searchData",
+                    "type": "dataManagement",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
                 }]
             }, {
                 "name": "备份与恢复",

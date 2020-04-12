@@ -30,13 +30,7 @@ function settingCapsule(inner) {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};">
-                <div style="color:${inner.color}">
-                    <span>更换背景</span>
-                    <a href="javascript:;" class="changebg"><input id="setBackGround" type="file"></a>
-                </div>
-            </div>`;
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
     if (inner.type == "changebg" && inner.value !== "changebg") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);

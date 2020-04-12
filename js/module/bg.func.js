@@ -75,24 +75,28 @@ function setBingImage(status) {
     setStorage("bg", "setBingImage");
 }
 
-function setCustomizeImage(setBackGround) {
-    let file = setBackGround.files[0];
+function setCustomizeImage() {
+    let input = document.createElement("input");
     let reader = new FileReader();
-    reader.onload = function (e) {
-        let data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
-        let func = () => {
-            globalImage(data);
-            WoolGlass(data);
-        }
-        // 将文件大小转化成MB
-        let size = (file.size / (1024 * 1024)).toFixed(2);
+    let file = "";
+    let data = "";
+    let func = () => {
+        globalImage(data);
+        WoolGlass(data);
+    }
+    input.type = "file";
+    input.style.display = "none";
+    document.body.appendChild(input);
+    input.click();
+    input.addEventListener("change", (e) => {
+        file = input.files[0];
         if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
             openMessage({
                 title: "提示",
                 type: "error",
                 content: `不是有效的图片文件!`
             })
-            setBackGround.value = "";
+            input.value = "";
             return;
         }
         if (file.size > 3145728) {
@@ -101,14 +105,17 @@ function setCustomizeImage(setBackGround) {
                 type: "error",
                 content: `当前文件大小为${size}MB，建议不超过3MB！`
             })
-            setBackGround.value = "";
+            input.value = "";
             return;
         }
-        setStorageBefore(func, "bg", data);
-        changeSkin("skin", skin_Transparent);
-    };
-    // 以DataURL的形式读取文件:
-    reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            data = e.target.result;
+            setStorageBefore(func, "bg", data);
+            changeSkin("skin", skin_Transparent);
+        };
+        reader.readAsDataURL(file);
+    })
+    document.body.removeChild(input);
 }
 
 //恢复默认

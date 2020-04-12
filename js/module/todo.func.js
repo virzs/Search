@@ -3,7 +3,7 @@ import {
 } from "./storage.func.js";
 
 function createToDo() {
-    let data = JSON.parse(getStorage("todoData"));
+    let data = getStorage("todoData").toJSON();
     return `
         <div id="toDoTabs">
             <span status="1" class="clickToDoTab"><i class="fa fa-clock-o"></i> 代办</span>
@@ -31,7 +31,7 @@ function renderToDoItem(data) {
                 </div>`;
         }
     })
-    if(flag == 0){
+    if (flag == 0) {
         content = `
             <div id="noListItem">还没有待办事项</div>`;
     }
@@ -52,7 +52,7 @@ function renderCompleteItem(data) {
                 </div>`;
         }
     })
-    if(flag == 0){
+    if (flag == 0) {
         content = `
             <div id="noListItem">还没有完成的事项</div>`;
     }
