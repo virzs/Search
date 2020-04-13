@@ -36,21 +36,24 @@ function openDialog(data) {
             </span>`
     })
     let dialog = `
-        <div id="dialog" class="${data.id}">
+        <div class="dialog" id="${data.id}">
             <div class="dialog-header">${title}<span id="closeDialog"><i class="fa fa-close"></i></span></div>
             <div class="dialog-body">${content}</div>
             <div class="dialog-footer">${btns}</div>
         </div>`;
     let dialogWrapper = document.createElement("div");
-    dialogWrapper.setAttribute("id", "dialogWrapper");
+    dialogWrapper.setAttribute("class", "dialogWrapper");
     dialogWrapper.innerHTML = dialog;
     body.appendChild(dialogWrapper);
 }
 
 //关闭模态框函数
 function closeDialog() {
-    let dialog = document.querySelector("#dialogWrapper");
-    dialog.remove();
+    let dialog = document.querySelector(".dialogWrapper");
+    dialog.classList.add("dialogWrapperClose");
+    setTimeout(() => {
+        dialog.remove();
+    }, 500);
 }
 
 export {

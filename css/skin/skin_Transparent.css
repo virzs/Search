@@ -11,7 +11,7 @@ body,
 }
 
 #searchList,
-#dialog,
+.dialog,
 #sideBarButton,
 #sideBarContent {
   background-color: transparent;
