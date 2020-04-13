@@ -932,7 +932,18 @@ span {
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.34);
-    transition: 0.3s;
+    opacity: 0;
+    animation: dialog 0.2s ease-in-out 1 forwards;
+}
+
+@keyframes dialog {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .dialog {
