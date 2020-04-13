@@ -921,7 +921,7 @@ span {
     color: red;
 }
 
-#dialogWrapper {
+.dialogWrapper {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -935,7 +935,7 @@ span {
     transition: 0.3s;
 }
 
-#dialog {
+.dialog {
     position: relative;
     overflow: hidden;
     min-width: 400px;
@@ -944,7 +944,7 @@ span {
     margin: 10px;
 }
 
-#dialog>.dialog-header {
+.dialog>.dialog-header {
     box-sizing: border-box;
     padding: 20px 20px 10px;
     text-align: left;
@@ -952,18 +952,18 @@ span {
     justify-content: space-between;
 }
 
-#dialog>.dialog-header #closeDialog {
+.dialog>.dialog-header #closeDialog {
     color: #909399;
     cursor: pointer;
     transition: 0.2s;
     position: relative;
 }
 
-#dialog>.dialog-header #closeDialog:hover {
+.dialog>.dialog-header #closeDialog:hover {
     color: #2B2B2B;
 }
 
-#dialog>.dialog-header #closeDialog::after {
+.dialog>.dialog-header #closeDialog::after {
     content: "";
     position: absolute;
     top: 0;
@@ -972,12 +972,12 @@ span {
     right: 0;
 }
 
-#dialog>.dialog-body {
+.dialog>.dialog-body {
     box-sizing: border-box;
     padding: 30px 20px;
 }
 
-#dialog .content-label {
+.dialog .content-label {
     display: inline-flex;
     box-sizing: border-box;
     justify-content: center;
@@ -990,7 +990,7 @@ span {
     color: #606266;
 }
 
-#dialog input {
+.dialog input {
     border-radius: 4px;
     border: 1px solid #dcdfe6;
     box-sizing: border-box;
@@ -1005,26 +1005,26 @@ span {
     width: 60%;
 }
 
-#dialog input:hover {
+.dialog input:hover {
     cursor: pointer;
     border: 1px solid #c2c4ca;
 }
 
-#dialog p {
+.dialog p {
     margin: 0;
 }
 
-#dialog>.dialog-footer {
+.dialog>.dialog-footer {
     box-sizing: border-box;
     padding: 10px 20px 20px;
     text-align: right;
 }
 
-#dialog>.dialog-footer span {
+.dialog>.dialog-footer span {
     margin: 0 3px;
 }
 
-#dialog button {
+.dialog button {
     padding: 7px 15px;
     font-size: 12px;
     border-radius: 3px;
@@ -1043,7 +1043,7 @@ span {
     font-weight: 500;
 }
 
-#dialog button:hover {
+.dialog button:hover {
     border: 1px solid #c2c4ca;
 }
 
