@@ -56,7 +56,7 @@ function createWebsite() {
                 }
             })
             sideBarHtml += `
-                <a id='${item.value}AddCapsule' class="capsule" style="border:2px solid ${item.color};">
+                <a id='${item.value}AddCapsule' class="capsule">
                     <div style="color:${item.color};">
                         <span><i class="fa fa-plus"></i>&nbsp;添加</span>
                     </div>
@@ -212,7 +212,7 @@ function iconLoadError() {
 //胶囊样式模板
 function renderCapsule(data) {
     return `
-        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule" style="border:2px solid ${data.color};">
+        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule">
             <div style="color:${data.color};">
                 <span>${data.name}</span>
             </div>

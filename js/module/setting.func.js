@@ -13,14 +13,14 @@ function settingCapsule(inner) {
     let sideBarHtml = "";
     if (!inner.type) {
         sideBarHtml = `
-            <div id="${inner.value}" class="setlist" style="border:2px solid ${inner.color};color:${inner.color};">
+            <div id="${inner.value}" class="setlist" style="color:${inner.color};">
                 <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
                 <span>${inner.content}</span>
             </div>`;
     }
     if (inner.type == "skin" && inner.value !== "skin_Transparent") {
         sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="border:2px solid ${inner.color};color:${inner.color};">
+            <div id="${inner.value}" class="capsule" style="color:${inner.color};">
                 <div>
                     <span><i class="${inner.icon}"></i>  ${inner.name}</span>
                 </div>
@@ -41,7 +41,7 @@ function settingCapsule(inner) {
     if (inner.type == "thanks") {
         sideBarHtml = `
             <a href="${inner.href}" target="_blank">
-                <div class="setlist" style="border:2px solid ${inner.color};">${inner.name}</div>
+                <div class="setlist">${inner.name}</div>
             </a>`;
     }
     return sideBarHtml;
@@ -117,7 +117,7 @@ function createAdvancedSettings() {
 //可复用渲染项函数
 function renderSetting(id, color, name) {
     return `
-        <div id="${id}" class="capsule" style="border:2px solid ${color};">
+        <div id="${id}" class="capsule">
             <div style="color:${color};">
                 <span>${name}</span>
             </div>
@@ -147,7 +147,7 @@ function renderAbout(data) {
         }
     })
     return `
-        <div class="about-content" style="border:2px solid ${data.color};">
+        <div class="about-content">
             ${sideBarHtml}
             <div class="about-info">
                 <span><i class="fa fa-window-maximize"></i>  浏览器信息：</span>
