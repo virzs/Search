@@ -50,7 +50,10 @@ function openDialog(data) {
 //关闭模态框函数
 function closeDialog() {
     let dialog = document.querySelector(".dialogWrapper");
-    dialog.remove();
+    dialog.classList.add("dialogWrapperClose");
+    setTimeout(() => {
+        dialog.remove();
+    }, 500);
 }
 
 export {
