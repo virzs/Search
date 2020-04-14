@@ -175,11 +175,12 @@ function setCommomUse(data, status) {
             }
         })
     }
-    if (showCommonUse == "website_open" || status == "website_open") {
+    //依据本地存储判断
+    if (showCommonUse !== "website_open") {
         display = () => {
             commonUse.style.display = "grid";
         }
-    } else if (showCommonUse == "website_close" || status == "website_close") {
+    } else if (showCommonUse !== "website_close") {
         display = () => {
             commonUse.style.display = "none";
         }
