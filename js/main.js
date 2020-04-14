@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-13 14:12:27
+ * @Last Modified time: 2020-04-14 17:14:34
  */
 
 //配置变量
@@ -15,14 +15,14 @@ var sug = true;
 var toDoStatus = 1;
 
 //获取本地数据
-const skinHref = getStorage("skin").value;
-const uiHref = getStorage("uistyle").value;
-const bg = getStorage("bg").value;
-const commonUseData = getStorage("commonUseData").toJSON();
-const showCommonUse = getStorage("showCommonUse").value;
-const customFilletValue = getStorage("customFilletValue").value;
-const sugFlag = getStorage("sugFlag").toBoolean();
-const todoData = getStorage("todoData").toJSON();
+const skinHref = getStorage("skin");
+const uiHref = getStorage("uistyle");
+const bg = getStorage("bg");
+const commonUseData = getStorage("commonUseData");
+const showCommonUse = getStorage("showCommonUse");
+const customFilletValue = getStorage("customFilletValue");
+const sugFlag = getStorage("sugFlag");
+const todoData = getStorage("todoData");
 
 /*
     导入模块
@@ -158,48 +158,48 @@ import {
 /*
     加载本地存储区域/自动加载区域
  */
-if (sugFlag && sugFlag !== null) {
+if (sugFlag.value !== null) {
     sug = getStorage("sugFlag").toBoolean();
 } else {
     setStorage("sugFlag", true);
 }
 
-if (!todoData && todoData == null) {
+if (todoData.value == null) {
     setStorage("todoData", "[]");
 }
 
-if (bg && bg !== null && bg !== "setBingImage") {
-    globalImage(bg);
-    WoolGlass(bg);
+if (bg.value !== null && bg.value !== "setBingImage") {
+    globalImage(bg.value);
+    WoolGlass(bg.value);
 }
 
-if (bg == "setBingImage") {
+if (bg.value == "setBingImage") {
     setBingImage(true);
 }
 
-if (skinHref && skinHref !== null) {
-    linkTag.href = skinHref;
+if (skinHref.value !== null) {
+    linkTag.href = skinHref.value;
 }
 
-if (uiHref && uiHref !== null && customFilletValue == null) {
-    uiTag.href = uiHref;
+if (uiHref.value !== null && customFilletValue.value == null) {
+    uiTag.href = uiHref.value;
 }
-if (customFilletValue !== null) {
-    customFillet(customFilletValue)
+if (customFilletValue.value !== null) {
+    customFillet(customFilletValue.value)
 }
 //默认设置开启显示常用网址功能
-if (showCommonUse == "undefined" || showCommonUse == undefined) {
+if (showCommonUse.value == null) {
     setStorage("showCommonUse", "website_open");
 }
 
-if (commonUseData == undefined) {
+if (commonUseData.value == null) {
     setStorage("commonUseData", "[]");
-    setCommomUse(commonData);
+    setCommomUse(commonData.toJSON());
 }
 
-if (commonUseData && commonUseData !== null) {
-    commonData = commonUseData;
-    setCommomUse(commonUseData);
+if (commonUseData.value !== null) {
+    commonData = commonUseData.toJSON();
+    setCommomUse(commonUseData.toJSON());
 }
 
 //拼接搜索栏左侧选择引擎
