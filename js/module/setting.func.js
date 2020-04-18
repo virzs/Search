@@ -154,8 +154,3 @@ const renderAbout = (data) => {
             </div>
         </div>`;
 }
-
-export {
-    createSetting,
-    createAdvancedSettings
-}
