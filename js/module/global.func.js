@@ -32,7 +32,7 @@ export const findSettingInfo = (value) => {
 
 //生成随机颜色值
 export const getRandomColor = () => {
-    let color = `#${Math.random().toString(16).splice(2,8)}`;
+    let color = `#${Math.random().toString(16).substring(2,8)}`;
     return color;
 }
 
