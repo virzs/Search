@@ -4,14 +4,15 @@ import {
 
 //开启模态框函数
 function openDialog(data) {
-    let [title, content, btns] = ["", "", "", ""];
-    if (data == undefined || data.title == undefined) {
-        title = "提示";
-    } else {
-        title = data.title;
-    }
-    if (!data.html) {
-        data.content.forEach(item => {
+    let [title, option, button, btns, content] = ["", "", "", "", ""];
+    title = data.title !== undefined ? data.title : "提示";
+    option = data.option !== undefined ? data.option : "";
+    button = data.button !== undefined ? data.button : [{
+        name: "取消",
+        value: "cancel"
+    }];
+    if (option.type == "form") {
+        option.content.forEach(item => {
             if (item.type == "input") {
                 content += `
                     <div id="${item.value}Dialog">
@@ -26,10 +27,10 @@ function openDialog(data) {
                     </div>`;
             }
         })
-    } else {
+    } else if (option.type == "table") {
         content = data.content;
     }
-    data.button.forEach(item => {
+    button.forEach(item => {
         btns += `
             <span>
                 <button id="${item.value}Dialog">${item.name}</button>
@@ -55,7 +56,6 @@ function closeDialog() {
         dialog.remove();
     }, 500);
 }
-
 export {
     openDialog,
     closeDialog

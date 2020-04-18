@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-14 17:14:34
+ * @Last Modified time: 2020-04-18 18:55:45
  */
 
 //配置变量
@@ -327,7 +327,7 @@ document.addEventListener("click", function (e) {
 
     //模态框修改
     if (e.target.id == "changeDialog") {
-        let id = document.querySelector("#dialog").className;
+        let id = document.querySelector(".dialog").id;
         let name = document.querySelector("#nameDialog").children[1].value;
         commonWebsite({
             thisWebsite: {
@@ -342,7 +342,7 @@ document.addEventListener("click", function (e) {
 
     //模态框删除
     if (e.target.id == "deleteDialog") {
-        let id = document.querySelector("#dialog").className;
+        let id = document.querySelector(".dialog").id;
         commonWebsite({
             thisWebsite: {
                 id: id
@@ -355,7 +355,7 @@ document.addEventListener("click", function (e) {
 
     //侧边栏保存自定义网址
     if (e.target.id == "saveDialog") {
-        let classify = document.querySelector("#dialog").className;
+        let classify = document.querySelector(".dialog").id;
         let name = document.querySelector("#nameDialog").children[1].value;
         let url = document.querySelector("#urlDialog").children[1].value;
         if (name == "" || url == "") {
@@ -451,6 +451,23 @@ document.addEventListener("click", function (e) {
                     })
                 }
             })
+        } else if (e.target.getAttribute("source") == "searchHistory") {
+            source.splice(key, 1);
+            source.forEach((item, index) => {
+                inHtml += `
+                    <tr>
+                        <td data-label="序号">${index+1}</td>
+                        <td data-label="搜索内容"><a href="${item.engine.href}${item.content}" target="_blank"">${item.content}</a></td>
+                        <td data-label="时间">${item.time}</td>
+                        <td data-label="操作"><span class="deleteData" data="${index}" source="searchHistoryData">删除</span></td>
+                    </tr>`;
+            })
+        }
+        if (source == [] || source == null || source.length == 0) {
+            inHtml = `
+                <tr class="no-data">
+                    <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
+                </tr>`
         }
         setStorage(e.target.getAttribute("source"), JSON.stringify(source));
         tBody.innerHTML = inHtml;
@@ -602,17 +619,20 @@ sideBarContent.addEventListener("click", (e) => {
             openDialog({
                 id: e.target.id,
                 title: "添加自定义网址",
-                content: [{
-                    name: "名称",
-                    value: "name",
-                    type: "input",
-                    defaultValue: ""
-                }, {
-                    name: "URL",
-                    value: "url",
-                    type: "input",
-                    defaultValue: ""
-                }],
+                option: {
+                    type: "form",
+                    content: [{
+                        name: "名称",
+                        value: "name",
+                        type: "input",
+                        defaultValue: ""
+                    }, {
+                        name: "URL",
+                        value: "url",
+                        type: "input",
+                        defaultValue: ""
+                    }]
+                },
                 button: [{
                     name: "保存",
                     value: "save"
@@ -641,9 +661,11 @@ sideBarContent.addEventListener("click", (e) => {
                     </tr>`
             }
             openDialog({
-                html: true,
                 id: e.target.id,
                 title: "常用网址数据",
+                option: {
+                    type: "table"
+                },
                 content: `
                     <div class="show-data">
                         <table class="show-data-table">
@@ -687,9 +709,11 @@ sideBarContent.addEventListener("click", (e) => {
                     </tr>`
             }
             openDialog({
-                html: true,
                 id: e.target.id,
                 title: "侧边栏数据",
+                option: {
+                    type: "table"
+                },
                 content: `
                     <div class="show-data">
                         <table class="show-data-table">
@@ -702,6 +726,52 @@ sideBarContent.addEventListener("click", (e) => {
                                 </tr>
                             </thead>
                             <tbody>${sinHtml}</tbody>
+                        </table>
+                    </div>`,
+                button: [{
+                    name: "关闭",
+                    value: "cancel"
+                }]
+            })
+            break;
+        case e.target.id == "searchData":
+            let searchData = getStorage("searchHistory").toJSON();
+            let searchHtml = "";
+            if (searchData.length > 0) {
+                searchData.forEach((item, index) => {
+                    searchHtml += `
+                        <tr>
+                            <td data-label="序号">${index+1}</td>
+                            <td data-label="搜索内容"><a href="${item.engine.href}${item.content}" target="_blank"">${item.content}</a></td>
+                            <td data-label="时间">${item.time}</td>
+                            <td data-label="操作"><span class="deleteData" data="${index}" source="searchHistory">删除</span></td>
+                        </tr>`;
+                })
+            }
+            if (searchHtml == "") {
+                searchHtml = `
+                    <tr class="no-data">
+                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
+                    </tr>`
+            }
+            openDialog({
+                id: e.target.id,
+                title: "搜索历史数据",
+                option: {
+                    type: "table"
+                },
+                content: `
+                    <div class="show-data">
+                        <table class="show-data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>搜索内容</th>
+                                    <th>时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>${searchHtml}</tbody>
                         </table>
                     </div>`,
                 button: [{
@@ -860,17 +930,20 @@ commonUse.addEventListener("click", (e) => {
     if (e.target.className == "commons-addbtn") {
         openDialog({
             title: "添加常用网址",
-            content: [{
-                name: "名称",
-                value: "name",
-                type: "input",
-                defaultValue: ""
-            }, {
-                name: "URl",
-                value: "url",
-                type: "input",
-                defaultValue: ""
-            }],
+            option: {
+                type: "form",
+                content: [{
+                    name: "名称",
+                    value: "name",
+                    type: "input",
+                    defaultValue: ""
+                }, {
+                    name: "URl",
+                    value: "url",
+                    type: "input",
+                    defaultValue: ""
+                }]
+            },
             button: [{
                 name: "确定",
                 value: "submit"
@@ -886,12 +959,15 @@ commonUse.addEventListener("click", (e) => {
         openDialog({
             id: changeWebsiteUrl.id,
             title: "修改常用网址",
-            content: [{
-                name: "名称",
-                value: "name",
-                type: "input",
-                defaultValue: changeWebsiteUrl.innerHTML
-            }],
+            option: {
+                type: "form",
+                content: [{
+                    name: "名称",
+                    value: "name",
+                    type: "input",
+                    defaultValue: changeWebsiteUrl.innerHTML
+                }],
+            },
             button: [{
                 name: "修改",
                 value: "change"
@@ -965,7 +1041,7 @@ window.onerror = function (message, source, lineno, colno, error) {
             value: "cancel"
         }]
     })
-    return true;
+    return false;
 }
 /*
     错误监听结束
