@@ -7,9 +7,8 @@ import {
 } from "./storage.func.js";
 
 //加载动画
-function toggle(elemt, speed) {
-    speed = speed || 16.6; //默认速度为16.6ms
-    elemt.style.display = "block"
+export const toggle = (elemt, speed = 16.6) => {
+    elemt.style.display = 'block';
     if (elemt.style.opacity == 1 || elemt.style.opacity != null) {
         let num = 20;
         let timer = setInterval(function () {
@@ -17,42 +16,36 @@ function toggle(elemt, speed) {
             elemt.style.opacity = num / 20;
             if (num <= 0) {
                 clearInterval(timer);
-                elemt.style.display = "none"
+                elemt.style.display = 'none';
             }
         }, speed);
     }
 }
 
-//执行本地存储前动画效果
-function setStorageBefore(set, name, href) {
-    let num = 0;
-    let speed = 60;
-
-    function opacity() {
+//执行本地存储前的缓冲动画
+export const setStorageBefore = (set, name, href) => {
+    let [num, speed] = [0, 60];
+    let changeOpacity = () => {
         loading.style.opacity = num / 20;
     }
-    loading.style.display = "block"
+    loading.style.display = 'block';
     let timer = setInterval(function () {
         num++;
-        opacity();
+        changeOpacity();
         if (num >= 20) {
             let timer2 = setInterval(function () {
                 num--;
-                opacity();
+                changeOpacity();
                 if (num <= 0) {
                     clearInterval(timer2);
-                    loading.style.display = "none";
+                    loading.style.display = 'none';
                 }
-            }, speed);
+            }, speed)
             clearInterval(timer);
             setTimeout(set, speed);
             if (name && href) {
                 setStorage(name, href);
             }
         }
-    }, speed);
-}
-export {
-    toggle,
-    setStorageBefore
+    })
 }
