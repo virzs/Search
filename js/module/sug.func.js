@@ -12,11 +12,10 @@ var sugIndex = -1; //备选项下标
 var sugFlag = true; //备选项标记
 
 //获取智能提示数据
-function getSugValue() {
+export const getSugValue = () => {
     let engineValue = selectEngine.children[0].alt; //获取选择的搜索引擎
     let engine = jsonData.engine.find(item => item.value == engineValue);
-    let [href, sugurl] = [engine.href, engine.sugurl];
-    let value = searchInput.value; //获取输入框的值
+    let [href, sugurl, value] = [engine.href, engine.sugurl, searchInput.value];
     if (!sugFlag) {
         sugFlag = !sugFlag;
         return;
@@ -83,11 +82,9 @@ function getSugValue() {
 }
 
 //备选项/智能提示函数
-function sugValue(href, value) {
+export const sugValue = (href, value) => {
     let sugList = "";
-    if (value == undefined || value.length == 0) {
-        return;
-    }
+    if (value == undefined || value.length == 0) return;
     value.forEach(item => {
         if (typeof item == "string") {
             sugList += renderSug(href, item);
@@ -104,7 +101,7 @@ function sugValue(href, value) {
 }
 
 //选择备选搜索
-function changeSug(keyCode) {
+export const changeSug = (keyCode) => {
     sugFlag = false;
     Array.prototype.forEach.call(searchList.children, (item, index) => {
         searchList.children[index].className = "";
@@ -128,11 +125,6 @@ function changeSug(keyCode) {
     searchInput.value = searchList.children[sugIndex].children[0].text;
 }
 
-function renderSug(url, content) {
-    return `<li><a href="${url}${content}">${content}</a></li>`
-}
-export {
-    getSugValue,
-    sugValue,
-    changeSug
+export const renderSug = (url, content) => {
+    return `<li><a href="${url}${content}">${content}</a></li>`;
 }

@@ -19,7 +19,7 @@ import {
     removeElement
 } from "./global.func.js";
 //切换ui风格
-function changeUI(uiName, value) {
+export const changeUI = (uiName, value) => {
     if (getStorage("uistyle") == value) {
         openMessage({
             title: "提示",
@@ -35,7 +35,7 @@ function changeUI(uiName, value) {
     setStorageBefore(setHref, uiName, value);
 }
 
-function customFillet(value) {
+export const customFillet = (value) => {
     let style = document.createElement("style");
     style.setAttribute("id", "customFillet");
     style.setAttribute("type", "text/css");
@@ -68,8 +68,4 @@ function customFillet(value) {
         document.querySelector("#customFillet").innerHTML = styles;
     }
     setStorage("customFilletValue", value);
-}
-export {
-    changeUI,
-    customFillet
 }

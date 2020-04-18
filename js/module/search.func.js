@@ -14,7 +14,7 @@ import {
 } from "./storage.func.js";
 
 //搜索事件
-function goSearch() {
+export const goSearch = () => {
     let value = searchInput.value; //获取输入框的值
     let engineValue = selectEngine.children[0].alt; //获取选择的搜索引擎
     let engine = jsonData.engine.find(item => item.value == engineValue);
@@ -25,7 +25,7 @@ function goSearch() {
     });
 }
 
-function renderEngineOption() {
+export const renderEngineOption = () => {
     let searchEngine = "";
     jsonData.engine.forEach(element => {
         if (element.select == "selected") {
@@ -54,7 +54,7 @@ function renderEngineOption() {
 }
 
 //渲染搜索引擎备选项
-function setEngine(engineValue) {
+export const setEngine = (engineValue) => {
     selectEngine.innerHTML = `
         <img src='${engineValue.icon}' alt="${engineValue.value}">
         <span>${engineValue.name}</span><i class="fa fa-sort"></i>`;
@@ -63,10 +63,8 @@ function setEngine(engineValue) {
 }
 
 //搜索记录
-function searchHistory(value) {
-    if (!getStorage("searchHistory").value) {
-        setStorage("searchHistory", "[]");
-    }
+export const searchHistory = (value) => {
+    if (!getStorage("searchHistory").value) setStorage("searchHistory", "[]");
     let history = getStorage("searchHistory").toJSON();
     history.push({
         engine: value.engine,
@@ -74,9 +72,4 @@ function searchHistory(value) {
         time: new Date().toLocaleString()
     })
     setStorage("searchHistory", JSON.stringify(history));
-}
-export {
-    goSearch,
-    setEngine,
-    renderEngineOption
 }

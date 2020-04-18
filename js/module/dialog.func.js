@@ -3,7 +3,7 @@ import {
 } from "./dom.constant.js";
 
 //开启模态框函数
-function openDialog(data) {
+export const openDialog = (data) => {
     let [title, option, button, btns, content] = ["", "", "", "", ""];
     title = data.title !== undefined ? data.title : "提示";
     option = data.option !== undefined ? data.option : "";
@@ -49,14 +49,10 @@ function openDialog(data) {
 }
 
 //关闭模态框函数
-function closeDialog() {
+export const closeDialog = () => {
     let dialog = document.querySelector(".dialogWrapper");
     dialog.classList.add("dialogWrapperClose");
     setTimeout(() => {
         dialog.remove();
     }, 500);
-}
-export {
-    openDialog,
-    closeDialog
 }

@@ -2,16 +2,10 @@ import {
     format
 } from "./global.func.js";
 
-function saveDATA(data, filename) {
-    if (data.length == 0) {
-        return;
-    }
-    if (!filename) {
-        filename = `simpleSearchData_${format(new Date(),'yyyy-MM-dd')}.json`;
-    }
-    if (typeof data === 'object') {
-        data = JSON.stringify(data);
-    }
+export const saveDATA = (data, filename) => {
+    if (data.length == 0) return;
+    if (!filename) filename = `simpleSearchData_${format(new Date(),'yyyy-MM-dd')}.json`;
+    if (typeof data === 'object') data = JSON.stringify(data);
     let link = document.createElement("a");
     let blob = new Blob([data], {
         type: 'text/json'
@@ -24,12 +18,11 @@ function saveDATA(data, filename) {
     document.body.removeChild(link);
 }
 
-function getDATA() {
+export const getDATA = () => {
     return new Promise((resolve, reject) => {
         let input = document.createElement("input");
+        let [file, data] = ['', ''];
         let reader = new FileReader();
-        let file = "";
-        let data = "";
         input.type = "file";
         input.style.display = "none";
         document.body.appendChild(input);
@@ -56,9 +49,4 @@ function getDATA() {
         })
         document.body.removeChild(input);
     })
-}
-
-export {
-    saveDATA,
-    getDATA
 }

@@ -24,7 +24,7 @@ import {
 } from "./global.func.js";
 
 //切换配色
-function changeSkin(skinName, value) {
+export const changeSkin = (skinName, value) => {
     if (getStorage("skin") == value && value !== "./css/skin/skin_Transparent.css") {
         openMessage({
             title: "提示",
@@ -42,7 +42,4 @@ function changeSkin(skinName, value) {
         }
     }
     setStorageBefore(setHref, skinName, value);
-}
-export {
-    changeSkin
 }

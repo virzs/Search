@@ -30,7 +30,7 @@ import {
 var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
 
 //设置必应壁纸为背景
-function setBingImage(status) {
+export const setBingImage = (status) => {
     if (getStorage("bg") == "setBingImage" && !status) {
         openMessage({
             title: "提示",
@@ -75,11 +75,10 @@ function setBingImage(status) {
     setStorage("bg", "setBingImage");
 }
 
-function setCustomizeImage() {
+export const setCustomizeImage = () => {
     let input = document.createElement("input");
+    let [file, data] = ['', ''];
     let reader = new FileReader();
-    let file = "";
-    let data = "";
     let func = () => {
         globalImage(data);
         WoolGlass(data);
@@ -119,7 +118,7 @@ function setCustomizeImage() {
 }
 
 //恢复默认
-function setdefault(type) {
+export const setdefault = (type) => {
     if (type == "changebg" && getStorage("skin") !== './css/skin/skin_SunsetBeach.css') {
         let defaultSkin = () => {
             linkTag.href = './css/skin/skin_SunsetBeach.css';
@@ -138,7 +137,7 @@ function setdefault(type) {
     }
 }
 
-function globalImage(url) {
+export const globalImage = (url) => {
     let style = document.createElement("style");
     style.setAttribute("id", "globalImage");
     style.innerHTML = `
@@ -149,7 +148,7 @@ function globalImage(url) {
     document.querySelector("head").appendChild(style);
 }
 
-function WoolGlass(url) {
+export const WoolGlass = (url) => {
     let style = document.createElement("style");
     style.setAttribute("id", "WoolGlass");
     style.innerHTML = `
@@ -176,11 +175,4 @@ function WoolGlass(url) {
             background-attachment: fixed;
         }`;
     document.querySelector("head").appendChild(style);
-}
-export {
-    setBingImage,
-    setCustomizeImage,
-    setdefault,
-    globalImage,
-    WoolGlass
 }
