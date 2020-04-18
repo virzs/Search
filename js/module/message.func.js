@@ -1,12 +1,12 @@
 //弹窗开启事件
-function openMessage(value) {
-    let iconType = ""
+export const openMessage = (value) => {
+    let iconType = "";
     switch (value.type) {
         case "success":
-            iconType = "fa-check"
+            iconType = "fa-check";
             break;
         case "error":
-            iconType = "fa-close"
+            iconType = "fa-close";
         default:
             break;
     }
@@ -36,25 +36,18 @@ function openMessage(value) {
     messageList.appendChild(li);
     if (!value.timing || value.timing !== null) {
         setTimeout(() => {
-            closeMessage(li)
+            closeMessage(li);
         }, 3000)
     }
-    // messageList.innerHTML = `<li class="messageMoveLeft">${icon}<div><p>${value.title}</p><p>${value.content}</p></div><i onclick="closeMessage()" class="close fa fa-close"></i></li>`;
 }
 
 //弹窗关闭事件
-function closeMessage(elemt) {
+export const closeMessage = (elemt) => {
     elemt.className = "messageMoveRight";
-    if (!elemt) {
-        stopPropagation();
-    }
+    if (!elemt) stopPropagation();
     if (elemt.parentNode) {
         setTimeout(() => {
             elemt.parentNode.removeChild(elemt)
         }, 500)
     }
-}
-export {
-    openMessage,
-    closeMessage
 }

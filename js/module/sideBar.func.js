@@ -20,7 +20,7 @@ import {
 } from "./todo.func.js";
 
 //依据选中id渲染侧边栏内容函数
-function renderSideBarContent(id) {
+export const renderSideBarContent = (id) => {
     switch (id) {
         case "ToDo":
             scrollContent.innerHTML = createToDo();
@@ -34,7 +34,4 @@ function renderSideBarContent(id) {
     }
     sideBar.className = "moveLeft";
     stopPropagation();
-}
-export {
-    renderSideBarContent
 }

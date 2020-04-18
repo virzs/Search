@@ -25,11 +25,9 @@ import {
 } from "./global.func.js";
 
 //创建书签数据
-function createWebsite() {
-    let websiteInfo = "",
-        sideBarHtml = "";
+export const createWebsite = () => {
+    let [websiteInfo, sideBarHtml, customizeData] = ['', '', []];
     let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
-    let customizeData = [];
     if (getStorage("sideBarWebsiteData").value == undefined) {
         websiteData.forEach(item => {
             customizeData.push({
@@ -72,23 +70,15 @@ function createWebsite() {
 }
 
 //添加常用书签
-function commonWebsite(json) {
-    let id = "",
-        name = "",
-        url = "",
-        color = "";
-    let flag = true;
+export const commonWebsite = (json) => {
+    let [id, name, url, color, flag, operate] = ['', '', '', '', true, ''];
+    let [commonData, status, add, change, del] = [json.commonData, json.status, json.add, json.change, json.del];
     if (json.thisWebsite !== undefined) {
         id = json.thisWebsite.id;
         name = json.thisWebsite.name;
         url = json.thisWebsite.url;
         color = json.thisWebsite.color;
     }
-    let commonData = json.commonData,
-        status = json.status,
-        add = json.add,
-        change = json.change,
-        del = json.del;
     let data = {
         "name": name,
         "url": url,
@@ -96,7 +86,6 @@ function commonWebsite(json) {
         "count": 1,
         "id": generateId()
     };
-    let operate = "";
     if (status !== undefined && status == getStorage("showCommonUse").value) {
         let info = "";
         switch (status) {
@@ -160,14 +149,11 @@ function commonWebsite(json) {
 }
 
 //记录常用网址
-function setCommomUse(data, status) {
-    let commonHtml = "";
-    let display = "";
+export const setCommomUse = (data, status) => {
+    let [commonHtml, display] = ['', ''];
     let isShow = (status !== undefined) ? true : false;
     let showCommonUse = getStorage("showCommonUse").value;
-    if (status !== undefined) {
-        setStorage("showCommonUse", status);
-    }
+    if (status !== undefined) setStorage("showCommonUse", status);
     if (data !== null) {
         data.forEach((item, index) => {
             if (index < 7) {
@@ -195,7 +181,7 @@ function setCommomUse(data, status) {
 }
 
 //图标加载失败替换文字函数
-function iconLoadError() {
+const iconLoadError = () => {
     Array.prototype.forEach.call(commonUse.children, item => {
         if (item.children[0].className == "commons-content") {
             item.children[0].children[0].onerror = () => {
@@ -211,7 +197,7 @@ function iconLoadError() {
 }
 
 //胶囊样式模板
-function renderCapsule(data) {
+const renderCapsule = (data) => {
     return `
         <a id='${data.name}' href='${data.url}' target="_blank" class="capsule">
             <div style="color:${data.color};">
@@ -221,7 +207,7 @@ function renderCapsule(data) {
 }
 
 //自定义网址模板
-function renderData(id, name, url, color) {
+const renderData = (id, name, url, color) => {
     return `
     <div class="commons">
         <div class="commons-content">
@@ -235,16 +221,11 @@ function renderData(id, name, url, color) {
 }
 
 //添加网址模板
-function addCommonsData() {
+const addCommonsData = () => {
     return `
     <div class="commons">
         <div class="commons-addbtn">
             <i class="fa fa-plus"></i>
         </div>
     </div>`
-}
-export {
-    createWebsite,
-    commonWebsite,
-    setCommomUse
 }

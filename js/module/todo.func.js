@@ -2,7 +2,7 @@ import {
     getStorage
 } from "./storage.func.js";
 
-function createToDo() {
+export const createToDo = () => {
     let data = getStorage("todoData").toJSON();
     return `
         <div id="toDoTabs">
@@ -14,12 +14,11 @@ function createToDo() {
         </div>
         <div id="operationToDo">
             ${submitToDo()}
-        </div>`
+        </div>`;
 }
 
-function renderToDoItem(data) {
-    let flag = 0;
-    let content = "";
+export const renderToDoItem = (data) => {
+    let [flag, content] = [0, ''];
     data.forEach(item => {
         if (item.status == "1") {
             flag++;
@@ -31,16 +30,12 @@ function renderToDoItem(data) {
                 </div>`;
         }
     })
-    if (flag == 0) {
-        content = `
-            <div id="noListItem">还没有待办事项</div>`;
-    }
+    if (flag == 0) content = `<div id="noListItem">还没有待办事项</div>`;
     return content;
 }
 
-function renderCompleteItem(data) {
-    let flag = 0;
-    let content = "";
+export const renderCompleteItem = (data) => {
+    let [flag, content] = [0, ''];
     data.forEach(item => {
         if (item.status == "2") {
             flag++;
@@ -52,26 +47,16 @@ function renderCompleteItem(data) {
                 </div>`;
         }
     })
-    if (flag == 0) {
-        content = `
-            <div id="noListItem">还没有完成的事项</div>`;
-    }
+    if (flag == 0) content = `<div id="noListItem">还没有完成的事项</div>`;
     return content;
 }
 
-function submitToDo() {
+export const submitToDo = () => {
     return `
         <textarea placeholder="今天做点什么？" class="form-control form-control-sm" id="exampleFormControlTextarea1" rows="3"></textarea>
         <button style="width:100%" id="submitToDo" class="btn btn-info">保存</button>`;
 }
 
-function clearToDo() {
+export const clearToDo = () => {
     return `<button style="width:100%" id="clearToDo" class="btn btn-warning">清除已完成</button>`;
-}
-export {
-    createToDo,
-    renderToDoItem,
-    renderCompleteItem,
-    submitToDo,
-    clearToDo
 }

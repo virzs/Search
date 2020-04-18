@@ -8,49 +8,9 @@ import {
 
 var skin_Transparent = ""; //透明皮肤数据
 
-//判断渲染设置项
-function settingCapsule(inner) {
-    let sideBarHtml = "";
-    if (!inner.type) {
-        sideBarHtml = `
-            <div id="${inner.value}" class="setlist" style="color:${inner.color};">
-                <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
-                <span>${inner.content}</span>
-            </div>`;
-    }
-    if (inner.type == "skin" && inner.value !== "skin_Transparent") {
-        sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="color:${inner.color};">
-                <div>
-                    <span><i class="${inner.icon}"></i>  ${inner.name}</span>
-                </div>
-            </div>`;
-    }
-    if (inner.type == "uistyle") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "changebg" && inner.value !== "changebg") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "changeCommonUse" || inner.type == "dataManagement" || inner.type == "backupAndRecovery") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "thanks") {
-        sideBarHtml = `
-            <a href="${inner.href}" target="_blank">
-                <div class="setlist">${inner.name}</div>
-            </a>`;
-    }
-    return sideBarHtml;
-}
-
 //创建设置项数据
-function createSetting() {
-    let settingInfo = "",
-        sideBarHtml = "";
+export const createSetting = () => {
+    let [settingInfo, sideBarHtml] = ['', ''];
     let settingData = jsonData.sideBar.content.find(item => item.value == "Setting").content;
     settingData.forEach(item => {
         if (item.show) {
@@ -96,7 +56,46 @@ function createSetting() {
     return settingInfo;
 }
 
-function createAdvancedSettings() {
+//判断渲染设置项
+const settingCapsule = (inner) => {
+    let sideBarHtml = "";
+    if (!inner.type) {
+        sideBarHtml = `
+            <div id="${inner.value}" class="setlist" style="color:${inner.color};">
+                <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
+                <span>${inner.content}</span>
+            </div>`;
+    }
+    if (inner.type == "skin" && inner.value !== "skin_Transparent") {
+        sideBarHtml = `
+            <div id="${inner.value}" class="capsule" style="color:${inner.color};">
+                <div>
+                    <span><i class="${inner.icon}"></i>  ${inner.name}</span>
+                </div>
+            </div>`;
+    }
+    if (inner.type == "uistyle") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
+    if (inner.type == "changebg" && inner.value == "changebg") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
+    if (inner.type == "changebg" && inner.value !== "changebg") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
+    if (inner.type == "changeCommonUse" || inner.type == "dataManagement" || inner.type == "backupAndRecovery") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
+    if (inner.type == "thanks") {
+        sideBarHtml = `
+            <a href="${inner.href}" target="_blank">
+                <div class="setlist">${inner.name}</div>
+            </a>`;
+    }
+    return sideBarHtml;
+}
+
+export const createAdvancedSettings = () => {
     let advancedSettingsData = jsonData.sideBar.content.find(item => item.value == "advancedSettings");
     let content = document.createElement("div");
     content.setAttribute("class", "advanced-settings-content");
@@ -115,7 +114,7 @@ function createAdvancedSettings() {
 }
 
 //可复用渲染项函数
-function renderSetting(id, color, name) {
+const renderSetting = (id, color, name) => {
     return `
         <div id="${id}" class="capsule">
             <div style="color:${color};">
@@ -124,7 +123,7 @@ function renderSetting(id, color, name) {
         </div>`;
 }
 
-function renderAbout(data) {
+const renderAbout = (data) => {
     let sideBarHtml = "";
     data.content.forEach(item => {
         if (item.show) {
