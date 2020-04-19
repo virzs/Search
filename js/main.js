@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-19 20:17:30
+ * @Last Modified time: 2020-04-19 20:48:48
  */
 
 //配置变量
@@ -136,6 +136,7 @@ import {
 
 //侧边栏渲染函数
 import {
+    renderSideBarIcon,
     renderSideBarContent
 } from "./module/sideBar.func.js";
 
@@ -206,21 +207,14 @@ if (commonUseData.value !== null) {
     setCommomUse(commonUseData.toJSON());
 }
 
+//渲染Logo
 showLogo();
 
 //拼接搜索栏左侧选择引擎
 renderEngineOption();
 
 // 动态创建侧边栏图标
-for (let item in jsonData.sideBar.content) {
-    if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `
-            <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};">
-                <i class="${jsonData.sideBar.content[item].icon}"></i>
-                <span>${jsonData.sideBar.content[item].name}</span>
-            </div>`;
-    }
-}
+renderSideBarIcon();
 
 //诗词渲染
 jinrishici.load(function (result) {

@@ -1,10 +1,15 @@
 import {
+    jsonData
+} from './all.data.js';
+
+import {
     stopPropagation
 } from "./global.func.js";
 
 import {
-    scrollContent,
-    sideBar
+    sideBar,
+    sideBarTitle,
+    scrollContent
 } from "./dom.constant.js";
 
 import {
@@ -18,6 +23,19 @@ import {
 import {
     createToDo
 } from "./todo.func.js";
+
+//创建侧边栏图标
+export const renderSideBarIcon = () => {
+    for (let item in jsonData.sideBar.content) {
+        if (jsonData.sideBar.content[item].show) {
+            sideBarTitle.innerHTML += `
+                <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};">
+                    <i class="${jsonData.sideBar.content[item].icon}"></i>
+                    <span>${jsonData.sideBar.content[item].name}</span>
+                </div>`;
+        }
+    }
+}
 
 //依据选中id渲染侧边栏内容函数
 export const renderSideBarContent = (id) => {
