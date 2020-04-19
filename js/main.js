@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-18 18:55:45
+ * @Last Modified time: 2020-04-19 20:17:30
  */
 
 //配置变量
@@ -62,6 +62,10 @@ import {
 import {
     toggle
 } from './module/animation.func.js';
+
+import {
+    showLogo
+} from './module/title.func.js';
 
 //搜索相关函数
 import {
@@ -201,6 +205,8 @@ if (commonUseData.value !== null) {
     commonData = commonUseData.toJSON();
     setCommomUse(commonUseData.toJSON());
 }
+
+showLogo();
 
 //拼接搜索栏左侧选择引擎
 renderEngineOption();
@@ -1029,8 +1035,10 @@ window.onerror = function (message, source, lineno, colno, error) {
     Error对象（对象）：error
     https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
     openDialog({
-        html: true,
         title: "抱歉，出现错误！！",
+        option: {
+            type: "text"
+        },
         content: `
             <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
             <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
@@ -1041,7 +1049,7 @@ window.onerror = function (message, source, lineno, colno, error) {
             value: "cancel"
         }]
     })
-    return false;
+    return true;
 }
 /*
     错误监听结束

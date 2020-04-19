@@ -1,4 +1,11 @@
 {
+    "info": {
+        "title": "简单搜索",
+        "icon": "",
+        "mainTitle": "简单搜索",
+        "subTitle": "Simple Search",
+        "logo": ""
+    },
     "engine": [{
         "name": "谷歌",
         "value": "google",

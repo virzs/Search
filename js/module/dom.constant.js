@@ -1,5 +1,6 @@
 //获取的DOM元素/全局静态DOM元素
 export const body = document.querySelector("body"); //文档整体
+export const searchLogo = document.querySelector(".search-logo");
 export const linkTag = document.querySelector("#skinTag");
 export const uiTag = document.querySelector("#uiTag");
 export const searchContent = document.querySelectorAll(".search-content")[0]
