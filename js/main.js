@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-18 18:55:45
+ * @Last Modified time: 2020-04-19 22:29:43
  */
 
 //配置变量
@@ -62,6 +62,10 @@ import {
 import {
     toggle
 } from './module/animation.func.js';
+
+import {
+    showLogo
+} from './module/title.func.js';
 
 //搜索相关函数
 import {
@@ -132,6 +136,7 @@ import {
 
 //侧边栏渲染函数
 import {
+    renderSideBarIcon,
     renderSideBarContent
 } from "./module/sideBar.func.js";
 
@@ -154,6 +159,8 @@ import {
     导入模块结束
  */
 
+import windowError from './event/error.event.js';
+import onkey from './event/keyCode.event.js';
 
 /*
     加载本地存储区域/自动加载区域
@@ -202,19 +209,14 @@ if (commonUseData.value !== null) {
     setCommomUse(commonUseData.toJSON());
 }
 
+//渲染Logo
+showLogo();
+
 //拼接搜索栏左侧选择引擎
 renderEngineOption();
 
 // 动态创建侧边栏图标
-for (let item in jsonData.sideBar.content) {
-    if (jsonData.sideBar.content[item].show) {
-        sideBarTitle.innerHTML += `
-            <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};">
-                <i class="${jsonData.sideBar.content[item].icon}"></i>
-                <span>${jsonData.sideBar.content[item].name}</span>
-            </div>`;
-    }
-}
+renderSideBarIcon();
 
 //诗词渲染
 jinrishici.load(function (result) {
@@ -991,27 +993,7 @@ commonUse.addEventListener("click", (e) => {
     键盘监听事件
  */
 //监听按下键盘事件，实现按下Enter跳转搜索
-document.onkeydown = function (e) {
-    let event = e || event;
-    if (event.keyCode == 13 && searchInput.value !== "") {
-        goSearch();
-    }
-}
-
-//监听箭头上下，选择提示函数
-searchContent.onkeydown = function (e) {
-    let event = e || event;
-    if (searchList.children.length != 0 && (event.keyCode == 38 || event.keyCode == 40)) {
-        changeSug(event.keyCode)
-    }
-}
-
-//监听搜索框输入函数，获取提示信息
-searchInput.onkeyup = () => {
-    if (sug) {
-        getSugValue();
-    }
-}
+onkey(sug);
 
 /*
     键盘监听事件结束
@@ -1021,28 +1003,7 @@ searchInput.onkeyup = () => {
 /*
     错误监听开始
  */
-window.onerror = function (message, source, lineno, colno, error) {
-    /* 错误信息（字符串）：message
-    发生错误的脚本URL（字符串）：source
-    发生错误的行号（数字）：lineno
-    发生错误的列号（数字）：colno
-    Error对象（对象）：error
-    https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror */
-    openDialog({
-        html: true,
-        title: "抱歉，出现错误！！",
-        content: `
-            <p style="color:red;font-weight:bold">请复制以下代码进行反馈：</p>
-            <code>${message} at ${source} in ${lineno} rows, ${colno} columns.</code>
-            <br/>
-            <code>${navigator.userAgent}</code>`,
-        button: [{
-            name: "取消",
-            value: "cancel"
-        }]
-    })
-    return false;
-}
+windowError();
 /*
     错误监听结束
  */

@@ -1,4 +1,11 @@
 {
+    "info": {
+        "title": "简单搜索",
+        "icon": "",
+        "mainTitle": "简单搜索",
+        "subTitle": "Simple Search",
+        "logo": ""
+    },
     "engine": [{
         "name": "谷歌",
         "value": "google",
@@ -736,7 +743,7 @@
                         "type": "innerlist",
                         "href": "https://jq.qq.com/?_wv=1027&k=5k3MR20",
                         "color": "#24292E",
-                        "icon": "fa fa-github-alt",
+                        "icon": "fa fa-qq",
                         "show": true,
                         "content": "859791575"
                     }]
@@ -762,6 +769,15 @@
                     "type": "thanks",
                     "href": "https://bing.ioliu.cn/",
                     "color": "#006d21",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "一言 API",
+                    "value": "hitokoto",
+                    "type": "thanks",
+                    "href": "https://developer.hitokoto.cn/",
+                    "color": "#3EAF7C",
                     "icon": "",
                     "show": true,
                     "content": ""
