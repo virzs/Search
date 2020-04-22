@@ -604,6 +604,111 @@
                     "content": ""
                 }]
             }, {
+                "name": "Logo样式",
+                "value": "logoStyle",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-ticket",
+                "show": true,
+                "content": [{
+                    "name": "文字",
+                    "value": "textLogo",
+                    "type": "logoStyle",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "时间",
+                    "value": "timeLogo",
+                    "type": "logoStyle",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "隐藏",
+                    "value": "closeLogo",
+                    "type": "logoStyle",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
+                "name": "随机语句",
+                "value": "sentence",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-ticket",
+                "show": true,
+                "content": [{
+                    "name": "今日诗词",
+                    "value": "jinrishici",
+                    "type": "sentence",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "一言",
+                    "value": "hitokoto",
+                    "type": "sentence",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "隐藏",
+                    "value": "closeLogo",
+                    "type": "sentence",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
+                "name": "布局",
+                "value": "layout",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-ticket",
+                "show": true,
+                "content": [{
+                    "name": "常规",
+                    "value": "commonLayout",
+                    "type": "layout",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "分离",
+                    "value": "SeparateLayout",
+                    "type": "layout",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "极简",
+                    "value": "miniLayout",
+                    "type": "layout",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
                 "name": "常用网址",
                 "value": "commonUse",
                 "href": "",

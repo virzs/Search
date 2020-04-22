@@ -77,6 +77,15 @@ const settingCapsule = (inner) => {
     if (inner.type == "uistyle") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
+    if (inner.type == "logoStyle") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
+    if (inner.type == "sentence") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
+    if (inner.type == "layout") {
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+    }
     if (inner.type == "changebg" && inner.value == "changebg") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }

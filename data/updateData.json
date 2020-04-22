@@ -37,7 +37,121 @@
 }, {
     "time": "2019/11/27",
     "content": [{
+        "type": "debug",
+        "content": "错误代码"
+    }]
+}, {
+    "time": "2019/11/28",
+    "content": [{
         "type": "change",
-        "content": "更正错误代码"
+        "content": "输入文字后的备选框列表样式"
+    }, {
+        "type": "add",
+        "content": "搜索引擎链接"
+    }, {
+        "type": "change",
+        "content": "json数据"
+    }, {
+        "type": "change",
+        "content": "规范变量名"
+    }, {
+        "type": "add",
+        "content": "配置信息"
+    }]
+}, {
+    "time": "2019/11/30",
+    "content": [{
+        "type": "change",
+        "content": "获取数据方式"
+    }, {
+        "type": "change",
+        "content": "文件路径"
+    }, {
+        "type": "add",
+        "content": "切换选择搜索引擎"
+    }, {
+        "type": "add",
+        "content": "数据信息"
+    }]
+}, {
+    "time": "2019/12/3",
+    "content": [{
+        "type": "add",
+        "content": "数据格式说明"
+    }, {
+        "type": "add",
+        "content": "侧边栏样式"
+    }, {
+        "type": "add",
+        "content": "侧边栏点击事件"
+    }, {
+        "type": "change",
+        "content": "获取标签方式"
+    }]
+}, {
+    "time": "2019/12/4",
+    "content": [{
+        "type": "add",
+        "content": "关闭侧边栏按钮"
+    }, {
+        "type": "change",
+        "content": "侧边栏切换样式"
+    }]
+}, {
+    "time": "2019/12/7",
+    "content": [{
+        "type": "debug",
+        "content": "数据格式"
+    }, {
+        "type": "add",
+        "content": "动态渲染侧边栏导航数据"
+    }]
+}, {
+    "time": "2019/12/13",
+    "content": [{
+        "type": "change",
+        "content": "页面结构"
+    }, {
+        "type": "change",
+        "content": "侧边栏动画效果"
+    }, {
+        "type": "del",
+        "content": "冗余样式"
+    }, {
+        "type": "add",
+        "content": "谷歌搜索链接"
+    }, {
+        "type": "debug",
+        "content": "页面初次加载时侧边栏弹出问题"
+    }]
+}, {
+    "time": "2019/12/14",
+    "content": [{
+        "type": "change",
+        "content": "命名规则"
+    }, {
+        "type": "debug",
+        "content": "数据重复加载"
+    }, {
+        "type": "add",
+        "content": "渲染书签图标"
+    }, {
+        "type": "change",
+        "content": "侧边栏内容样式"
+    }, {
+        "type": "change",
+        "content": "胶囊样式"
+    }, {
+        "type": "add",
+        "content": "自定义滚动条样式"
+    }]
+}, {
+    "time": "2019/12/15",
+    "content": [{
+        "type": "add",
+        "content": "渲染颜色样式"
+    }, {
+        "type": "change",
+        "content": "滚动条样式"
     }]
 }]
