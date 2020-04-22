@@ -1,0 +1,43 @@
+[{
+    "time": "2019/11/21",
+    "content": [{
+        "type": "add",
+        "content": "README文档"
+    }, {
+        "type": "add",
+        "content": "页面文件"
+    }, {
+        "type": "add",
+        "content": "项目依赖文件"
+    }]
+}, {
+    "time": "2019/11/22",
+    "content": [{
+        "type": "change",
+        "content": "README文档"
+    }]
+}, {
+    "time": "2019/11/25",
+    "content": [{
+        "type": "add",
+        "content": "搜索框"
+    }, {
+        "type": "change",
+        "content": "搜索框样式"
+    }, {
+        "type": "change",
+        "content": "默认搜索引擎"
+    }, {
+        "type": "change",
+        "content": "页面样式"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }]
+}, {
+    "time": "2019/11/27",
+    "content": [{
+        "type": "change",
+        "content": "更正错误代码"
+    }]
+}]
