@@ -502,6 +502,7 @@
             "show": true,
             "content": [{
                 "name": "背景",
+                "type": "button",
                 "value": "changebg",
                 "href": "",
                 "color": "#cbcbcb",
@@ -537,6 +538,7 @@
                 }]
             }, {
                 "name": "皮肤",
+                "type": "button",
                 "value": "skin",
                 "href": "",
                 "icon": "fa fa-smile-o",
@@ -580,6 +582,7 @@
                 }]
             }, {
                 "name": "UI风格",
+                "type": "button",
                 "value": "uistyle",
                 "href": "",
                 "icon": "fa fa-snowflake-o",
@@ -605,6 +608,7 @@
                 }]
             }, {
                 "name": "Logo样式",
+                "type": "button",
                 "value": "logoStyle",
                 "href": "",
                 "color": "",
@@ -640,6 +644,7 @@
                 }]
             }, {
                 "name": "随机语句",
+                "type": "button",
                 "value": "sentence",
                 "href": "",
                 "color": "",
@@ -675,6 +680,7 @@
                 }]
             }, {
                 "name": "布局",
+                "type": "button",
                 "value": "layout",
                 "href": "",
                 "color": "",
@@ -710,6 +716,7 @@
                 }]
             }, {
                 "name": "常用网址",
+                "type": "button",
                 "value": "commonUse",
                 "href": "",
                 "color": "",
@@ -736,6 +743,7 @@
                 }]
             }, {
                 "name": "数据管理",
+                "type": "button",
                 "value": "dataManagement",
                 "href": "",
                 "color": "",
@@ -771,6 +779,7 @@
                 }]
             }, {
                 "name": "备份与恢复",
+                "type": "button",
                 "value": "backupAndRecovery",
                 "href": "",
                 "color": "",
@@ -797,6 +806,7 @@
                 }]
             }, {
                 "name": "关于",
+                "type": "content",
                 "value": "about",
                 "href": "",
                 "icon": "fa fa-question-circle-o",
@@ -855,6 +865,7 @@
                 }]
             }, {
                 "name": "感谢",
+                "type": "link",
                 "value": "thanks",
                 "href": "",
                 "icon": "fa fa-thumbs-o-up",
