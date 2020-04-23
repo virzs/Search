@@ -470,7 +470,7 @@ span {
     content: "";
     position: absolute;
     width: 100%;
-    height: 100px;
+    height: 20px;
 }
 
 .advanced-settings-content {
