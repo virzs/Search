@@ -20,7 +20,7 @@ import {
 } from "./global.func.js";
 //切换ui风格
 export const changeUI = (uiName, value) => {
-    if (getStorage("uistyle") == value) {
+    if (getStorage("uistyle").value == value) {
         openMessage({
             title: "提示",
             type: "error",

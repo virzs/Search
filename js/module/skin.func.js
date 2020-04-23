@@ -25,7 +25,7 @@ import {
 
 //切换配色
 export const changeSkin = (skinName, value) => {
-    if (getStorage("skin") == value && value !== "./css/skin/skin_Transparent.css") {
+    if (getStorage("skin").value == value && value !== "./css/skin/skin_Transparent.css") {
         openMessage({
             title: "提示",
             type: "error",
