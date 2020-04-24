@@ -26,7 +26,7 @@ export const toggle = (elemt, speed = 16.6) => {
 export const setStorageBefore = (set, name, href) => {
     let [num, speed] = [0, 60];
     let changeOpacity = () => {
-        loading.style.opacity = num / 10;
+        loading.style.opacity = num / 20;
     }
     loading.style.display = 'block';
     let timer = setInterval(function () {
@@ -47,5 +47,5 @@ export const setStorageBefore = (set, name, href) => {
                 setStorage(name, href);
             }
         }
-    })
+    }, speed)
 }
