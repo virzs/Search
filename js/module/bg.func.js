@@ -31,7 +31,7 @@ var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
 
 //设置必应壁纸为背景
 export const setBingImage = (status) => {
-    if (getStorage("bg") == "setBingImage" && !status) {
+    if (getStorage("bg").value == "setBingImage" && !status) {
         openMessage({
             title: "提示",
             type: "error",
@@ -119,7 +119,7 @@ export const setCustomizeImage = () => {
 
 //恢复默认
 export const setdefault = (type) => {
-    if (type == "changebg" && getStorage("skin") !== './css/skin/skin_SunsetBeach.css') {
+    if (type == "changebg" && getStorage("skin").value !== './css/skin/skin_SunsetBeach.css') {
         let defaultSkin = () => {
             linkTag.href = './css/skin/skin_SunsetBeach.css';
             removeStorage("bg");
