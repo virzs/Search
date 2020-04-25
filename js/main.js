@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-25 12:28:54
+ * @Last Modified time: 2020-04-25 14:43:01
  */
 
 //配置变量
@@ -40,7 +40,6 @@ import {
     searchContent,
     selectEngine,
     selectOption,
-    searchInput,
     searchList,
     sideBarButton,
     sideBar,
@@ -53,10 +52,7 @@ import {
     jinrishiciTitle,
     copyright,
     loading,
-    messageList,
-    toDoTabs,
-    toDoContent,
-    addToDo
+    messageList
 } from "./module/dom.constant.js";
 
 import {
@@ -76,8 +72,7 @@ import {
 
 //搜索智能提示函数
 import {
-    getSugValue,
-    changeSug
+    getSugValue
 } from "./module/sug.func.js";
 
 //本地存储相关函数
@@ -145,13 +140,6 @@ import {
 } from "./module/setting.func.js";
 
 import {
-    renderToDoItem,
-    renderCompleteItem,
-    submitToDo,
-    clearToDo
-} from "./module/todo.func.js";
-
-import {
     saveDATA,
     getDATA
 } from "./module/dataOperations.func.js";
@@ -160,7 +148,14 @@ import {
  */
 
 import windowError from './event/error.event.js';
-import onkey from './event/keyCode.event.js';
+import keyEvent from './event/keyCode.event.js';
+import {
+    addToDoItem,
+    completeToDoItem,
+    changeToDoItemState,
+    changeToDoState,
+    clearToDoItem
+} from './event/toDo.event.js';
 
 /*
     加载本地存储区域/自动加载区域
@@ -833,78 +828,31 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             //提交待办事项
         case e.target.id == "submitToDo":
-            let data = getStorage("todoData").toJSON();
-            data.push({
-                id: generateId(),
-                content: e.target.parentNode.children[0].value,
-                time: new Date().toLocaleString(),
-                status: "1"
-            })
-            setStorage("todoData", JSON.stringify(data));
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(data);
-            e.target.parentNode.children[0].value = "";
+            addToDoItem(e.target);
             break;
             //点击完成待办事项
         case (e.target.className == "list-item" && toDoStatus == 1):
-            let changeData = getStorage("todoData").toJSON();
-            let itemId = e.target.getAttribute("data-id");
-            let thisIndex = changeData.findIndex(item => item.id == itemId);
-            let thisItem = changeData.find(item => item.id == itemId);
-            e.target.style.textDecoration = "line-through";
-            thisItem.status = "2";
-            changeData.splice(thisIndex, 1, thisItem);
-            setStorage("todoData", JSON.stringify(changeData));
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(changeData);
+            completeToDoItem(e.target);
             break;
             //切换待办
         case e.target.getAttribute("status") == 1:
-            e.target.parentNode.children[1].className = "defaultToDoTab";
-            e.target.className = "clickToDoTab";
-            toDoStatus = 1;
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(getStorage("todoData").toJSON());
-            document.querySelector("#operationToDo").innerHTML = submitToDo();
-            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
+            toDoStatus = changeToDoState(e.target, 1);
             break;
             //切换至已完成
         case e.target.getAttribute("status") == 2:
-            e.target.parentNode.children[0].className = "defaultToDoTab";
-            e.target.className = "clickToDoTab";
-            toDoStatus = 2;
-            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(getStorage("todoData").toJSON());
-            document.querySelector("#operationToDo").innerHTML = clearToDo();
-            document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 104}px`;
+            toDoStatus = changeToDoState(e.target, 2);
             break;
             //删除待办
         case e.target.className == "item-del":
-            let delData = getStorage("todoData").toJSON();
-            let delId = e.target.getAttribute("data-id");
-            let delItem = delData.findIndex(item => item.id == delId);
-            delData.splice(delItem, 1);
-            setStorage("todoData", JSON.stringify(delData));
-            document.querySelector("#toDoContent").innerHTML = renderToDoItem(delData);
+            changeToDoItemState(e.target, 'delete');
             break;
             //撤销待办
         case e.target.className == "item-cancel":
-            let cancelData = getStorage("todoData").toJSON();
-            let cancelId = e.target.getAttribute("data-id");
-            let cancelIndex = cancelData.findIndex(item => item.id == cancelId);
-            let cancelItem = cancelData.find(item => item.id == cancelId);
-            cancelItem.status = "1";
-            cancelData.splice(cancelIndex, 1, cancelItem);
-            setStorage("todoData", JSON.stringify(cancelData));
-            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(cancelData);
+            changeToDoItemState(e.target, 'cancel');
             break;
             //清空已完成内容
         case e.target.id == "clearToDo":
-            let clearData = getStorage("todoData").toJSON();
-            let tabs = document.querySelector("#toDoTabs");
-            clearData.forEach((item, index) => {
-                if (item.status == "2") {
-                    clearData.splice(index, 1);
-                }
-            })
-            setStorage("todoData", JSON.stringify(clearData));
-            document.querySelector("#toDoContent").innerHTML = renderCompleteItem(clearData);
+            clearToDoItem()
             break;
     }
 });
@@ -993,7 +941,7 @@ commonUse.addEventListener("click", (e) => {
     键盘监听事件
  */
 //监听按下键盘事件，实现按下Enter跳转搜索
-onkey(sug);
+keyEvent(sug);
 
 /*
     键盘监听事件结束
