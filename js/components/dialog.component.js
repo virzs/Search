@@ -1,6 +1,6 @@
 import {
     body
-} from "./dom.constant.js";
+} from "../module/dom.constant.js";
 
 //开启模态框函数
 export const openDialog = (data) => {

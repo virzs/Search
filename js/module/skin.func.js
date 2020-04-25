@@ -4,7 +4,7 @@ import {
 
 import {
     openMessage
-} from "./message.func.js";
+} from "../components/message.component.js";
 
 import {
     getStorage,

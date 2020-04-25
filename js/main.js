@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-19 22:29:43
+ * @Last Modified time: 2020-04-25 12:28:54
  */
 
 //配置变量
@@ -90,7 +90,7 @@ import {
 //消息提示函数
 import {
     openMessage
-} from "./module/message.func.js";
+} from "./components/message.component.js";
 
 //阻止事件冒泡函数
 import {
@@ -132,7 +132,7 @@ import {
 import {
     openDialog,
     closeDialog
-} from "./module/dialog.func.js";
+} from "./components/dialog.component.js";
 
 //侧边栏渲染函数
 import {
