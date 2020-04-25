@@ -29,6 +29,8 @@ export const openDialog = (data) => {
         })
     } else if (option.type == "table") {
         content = data.content;
+    } else {
+        content = data.content;
     }
     button.forEach(item => {
         btns += `
