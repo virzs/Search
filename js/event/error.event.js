@@ -1,6 +1,6 @@
 import {
     openDialog
-} from "../module/dialog.func.js";
+} from "../components/dialog.component.js";
 
 const windowError = () => {
     window.onerror = function (message, source, lineno, colno, error) {

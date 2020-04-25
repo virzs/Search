@@ -20,10 +20,10 @@ export const createSetting = () => {
                     if (inner.show) {
                         if (typeof inner.content === "string" && inner.content !== "") {
                             //content不为空且为字符串时
-                            sideBarHtml += settingCapsule(inner);
+                            sideBarHtml += settingCapsule(inner, item.type);
                         } else {
                             //content为空时的内容
-                            sideBarHtml += settingCapsule(inner);
+                            sideBarHtml += settingCapsule(inner, item.type);
                         }
                     } else {
                         if (inner.type == "skin" && inner.value == "skin_Transparent") {
@@ -31,7 +31,7 @@ export const createSetting = () => {
                         }
                     }
                 })
-            } else if (item.value == "about") {
+            } else if (item.type == "content") {
                 sideBarHtml += renderAbout(item);
             }
             if (item.value == "about") {
@@ -57,36 +57,12 @@ export const createSetting = () => {
 }
 
 //判断渲染设置项
-const settingCapsule = (inner) => {
+const settingCapsule = (inner, type) => {
     let sideBarHtml = "";
-    if (!inner.type) {
-        sideBarHtml = `
-            <div id="${inner.value}" class="setlist" style="color:${inner.color};">
-                <span><i class="${inner.icon}"></i>  ${inner.name}：</span>
-                <span>${inner.content}</span>
-            </div>`;
-    }
-    if (inner.type == "skin" && inner.value !== "skin_Transparent") {
-        sideBarHtml = `
-            <div id="${inner.value}" class="capsule" style="color:${inner.color};">
-                <div>
-                    <span><i class="${inner.icon}"></i>  ${inner.name}</span>
-                </div>
-            </div>`;
-    }
-    if (inner.type == "uistyle") {
+    if (type == "button") {
         sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
     }
-    if (inner.type == "changebg" && inner.value == "changebg") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "changebg" && inner.value !== "changebg") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "changeCommonUse" || inner.type == "dataManagement" || inner.type == "backupAndRecovery") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
-    }
-    if (inner.type == "thanks") {
+    if (type == "link") {
         sideBarHtml = `
             <a href="${inner.href}" target="_blank">
                 <div class="setlist">${inner.name}</div>

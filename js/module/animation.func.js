@@ -47,5 +47,5 @@ export const setStorageBefore = (set, name, href) => {
                 setStorage(name, href);
             }
         }
-    })
+    }, speed)
 }

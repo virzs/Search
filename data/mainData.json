@@ -502,6 +502,7 @@
             "show": true,
             "content": [{
                 "name": "背景",
+                "type": "button",
                 "value": "changebg",
                 "href": "",
                 "color": "#cbcbcb",
@@ -537,6 +538,7 @@
                 }]
             }, {
                 "name": "皮肤",
+                "type": "button",
                 "value": "skin",
                 "href": "",
                 "icon": "fa fa-smile-o",
@@ -580,6 +582,7 @@
                 }]
             }, {
                 "name": "UI风格",
+                "type": "button",
                 "value": "uistyle",
                 "href": "",
                 "icon": "fa fa-snowflake-o",
@@ -604,7 +607,116 @@
                     "content": ""
                 }]
             }, {
+                "name": "Logo样式",
+                "type": "button",
+                "value": "logoStyle",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-ticket",
+                "show": true,
+                "content": [{
+                    "name": "文字",
+                    "value": "textLogo",
+                    "type": "logoStyle",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "时间",
+                    "value": "timeLogo",
+                    "type": "logoStyle",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "隐藏",
+                    "value": "closeLogo",
+                    "type": "logoStyle",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
+                "name": "随机语句",
+                "type": "button",
+                "value": "sentence",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-ticket",
+                "show": true,
+                "content": [{
+                    "name": "今日诗词",
+                    "value": "jinrishici",
+                    "type": "sentence",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "一言",
+                    "value": "hitokoto",
+                    "type": "sentence",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "隐藏",
+                    "value": "closeLogo",
+                    "type": "sentence",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
+                "name": "布局",
+                "type": "button",
+                "value": "layout",
+                "href": "",
+                "color": "",
+                "icon": "fa fa-ticket",
+                "show": true,
+                "content": [{
+                    "name": "常规",
+                    "value": "commonLayout",
+                    "type": "layout",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "分离",
+                    "value": "SeparateLayout",
+                    "type": "layout",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "极简",
+                    "value": "miniLayout",
+                    "type": "layout",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
                 "name": "常用网址",
+                "type": "button",
                 "value": "commonUse",
                 "href": "",
                 "color": "",
@@ -631,6 +743,7 @@
                 }]
             }, {
                 "name": "数据管理",
+                "type": "button",
                 "value": "dataManagement",
                 "href": "",
                 "color": "",
@@ -666,6 +779,7 @@
                 }]
             }, {
                 "name": "备份与恢复",
+                "type": "button",
                 "value": "backupAndRecovery",
                 "href": "",
                 "color": "",
@@ -692,6 +806,7 @@
                 }]
             }, {
                 "name": "关于",
+                "type": "content",
                 "value": "about",
                 "href": "",
                 "icon": "fa fa-question-circle-o",
@@ -750,6 +865,7 @@
                 }]
             }, {
                 "name": "感谢",
+                "type": "link",
                 "value": "thanks",
                 "href": "",
                 "icon": "fa fa-thumbs-o-up",

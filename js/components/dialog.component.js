@@ -1,6 +1,6 @@
 import {
     body
-} from "./dom.constant.js";
+} from "../module/dom.constant.js";
 
 //开启模态框函数
 export const openDialog = (data) => {
@@ -28,6 +28,8 @@ export const openDialog = (data) => {
             }
         })
     } else if (option.type == "table") {
+        content = data.content;
+    } else {
         content = data.content;
     }
     button.forEach(item => {
