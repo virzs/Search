@@ -670,7 +670,7 @@
                     "content": ""
                 }, {
                     "name": "隐藏",
-                    "value": "closeLogo",
+                    "value": "hideSentence",
                     "type": "sentence",
                     "href": "",
                     "color": "",

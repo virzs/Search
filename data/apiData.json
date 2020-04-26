@@ -3,4 +3,9 @@
     "description": "必应壁纸API",
     "url": "https://bing.ioliu.cn/v1/",
     "callback": "window.bing.bg"
+}, {
+    "apiName": "hitokoto",
+    "description": "一言API",
+    "url": "https://v1.hitokoto.cn",
+    "callback": ""
 }]
