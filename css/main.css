@@ -95,6 +95,11 @@ span {
     margin-bottom: 20px;
 }
 
+.time-logo {
+    font-size: 48px;
+    font-weight: 700;
+}
+
 .search-content {
     width: 100%;
     display: flex;

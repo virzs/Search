@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-26 21:22:34
+ * @Last Modified time: 2020-04-27 22:56:28
  */
 
 //配置变量
@@ -61,7 +61,8 @@ import {
 } from './module/animation.func.js';
 
 import {
-    showLogo
+    showLogo,
+    showTime
 } from './module/title.func.js';
 
 //搜索相关函数
@@ -220,6 +221,7 @@ if (commonUseData.value !== null) {
 
 //渲染Logo
 showLogo();
+showTime();
 
 //拼接搜索栏左侧选择引擎
 renderEngineOption();
