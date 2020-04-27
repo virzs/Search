@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-25 14:43:01
+ * @Last Modified time: 2020-04-26 21:22:34
  */
 
 //配置变量
@@ -23,6 +23,7 @@ const showCommonUse = getStorage("showCommonUse");
 const customFilletValue = getStorage("customFilletValue");
 const sugFlag = getStorage("sugFlag");
 const todoData = getStorage("todoData");
+const sentence = getStorage('sentence');
 
 /*
     导入模块
@@ -156,6 +157,9 @@ import {
     changeToDoState,
     clearToDoItem
 } from './event/toDo.event.js';
+import {
+    sentenceSetting
+} from "./event/setting.event.js";
 
 /*
     加载本地存储区域/自动加载区域
@@ -168,6 +172,16 @@ if (sugFlag.value !== null) {
 
 if (todoData.value == null) {
     setStorage("todoData", "[]");
+}
+
+//添加语句本地存储
+if (sentence.value == null) {
+    setStorage('sentence', 'jinrishici');
+    sentenceSetting(sentence.value, jinrishici, false);
+}
+
+if (sentence.value !== null) {
+    sentenceSetting(sentence.value, jinrishici, false);
 }
 
 if (bg.value !== null && bg.value !== "setBingImage") {
@@ -214,11 +228,7 @@ renderEngineOption();
 renderSideBarIcon();
 
 //诗词渲染
-jinrishici.load(function (result) {
-    jinrishiciSentence.innerHTML = result.data.content
-    jinrishiciAuthor.innerHTML = `― ${result.data.origin.author}`
-    jinrishiciTitle.innerHTML = `《${result.data.origin.title}》`
-});
+
 
 //版权信息渲染
 if (jsonData.copyright.show) {
@@ -603,6 +613,18 @@ sideBarContent.addEventListener("click", (e) => {
         case (e.target.id.indexOf("uistyle") !== -1):
             changeUI("uistyle", findSettingInfo(e.target.id));
             removeStorage("customFilletValue");
+            break;
+            //切换为今日诗词
+        case e.target.id == 'jinrishici':
+            sentenceSetting(e.target.id, jinrishici, true);
+            break;
+            //切换为一言
+        case e.target.id == 'hitokoto':
+            sentenceSetting(e.target.id, jinrishici, true);
+            break;
+            //切换为隐藏句子
+        case e.target.id == 'hideSentence':
+            sentenceSetting(e.target.id, jinrishici, true);
             break;
             // 开启关闭常用网址功能
         case (e.target.id.indexOf("website") !== -1):
