@@ -100,6 +100,15 @@ span {
     font-weight: 700;
 }
 
+.time-logo p:nth-child(1) span:last-child {
+    font-size: 24px;
+}
+
+.time-logo p:nth-child(2) {
+    font-size: 14px;
+    text-align: center;
+}
+
 .search-content {
     width: 100%;
     display: flex;
