@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-26 21:22:34
+ * @Last Modified time: 2020-04-28 16:13:32
  */
 
 //配置变量
@@ -24,6 +24,7 @@ const customFilletValue = getStorage("customFilletValue");
 const sugFlag = getStorage("sugFlag");
 const todoData = getStorage("todoData");
 const sentence = getStorage('sentence');
+const logo = getStorage('logo');
 
 /*
     导入模块
@@ -48,9 +49,6 @@ import {
     sideBarContent,
     scrollContent,
     commonUse,
-    jinrishiciSentence,
-    jinrishiciAuthor,
-    jinrishiciTitle,
     copyright,
     loading,
     messageList
@@ -61,7 +59,8 @@ import {
 } from './module/animation.func.js';
 
 import {
-    showLogo
+    showLogo,
+    showTime
 } from './module/title.func.js';
 
 //搜索相关函数
@@ -148,8 +147,13 @@ import {
     导入模块结束
  */
 
+//错误事件
 import windowError from './event/error.event.js';
+
+//键盘事件
 import keyEvent from './event/keyCode.event.js';
+
+//待办事件
 import {
     addToDoItem,
     completeToDoItem,
@@ -157,8 +161,11 @@ import {
     changeToDoState,
     clearToDoItem
 } from './event/toDo.event.js';
+
+//语句事件
 import {
-    sentenceSetting
+    sentenceSetting,
+    logoSetting
 } from "./event/setting.event.js";
 
 /*
@@ -182,6 +189,15 @@ if (sentence.value == null) {
 
 if (sentence.value !== null) {
     sentenceSetting(sentence.value, jinrishici, false);
+}
+
+if (logo.value == null) {
+    setStorage('logo', 'textLogo');
+    logoSetting(logo.value, false);
+}
+
+if (logo.value !== null) {
+    logoSetting(logo.value, false);
 }
 
 if (bg.value !== null && bg.value !== "setBingImage") {
@@ -217,9 +233,6 @@ if (commonUseData.value !== null) {
     commonData = commonUseData.toJSON();
     setCommomUse(commonUseData.toJSON());
 }
-
-//渲染Logo
-showLogo();
 
 //拼接搜索栏左侧选择引擎
 renderEngineOption();
@@ -614,6 +627,16 @@ sideBarContent.addEventListener("click", (e) => {
             changeUI("uistyle", findSettingInfo(e.target.id));
             removeStorage("customFilletValue");
             break;
+            //切换Logo样式
+        case (e.target.id == 'textLogo'):
+            logoSetting(e.target.id, true);
+            break;
+        case (e.target.id == 'timeLogo'):
+            logoSetting(e.target.id, true);
+            break;
+        case (e.target.id == 'closeLogo'):
+            logoSetting(e.target.id, true);
+            break;
             //切换为今日诗词
         case e.target.id == 'jinrishici':
             sentenceSetting(e.target.id, jinrishici, true);
@@ -755,6 +778,7 @@ sideBarContent.addEventListener("click", (e) => {
             break;
         case e.target.id == "searchData":
             let searchData = getStorage("searchHistory").toJSON();
+            if (!searchData) setStorage('searchHistory', '[]');
             let searchHtml = "";
             if (searchData.length > 0) {
                 searchData.forEach((item, index) => {
