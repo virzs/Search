@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-28 16:13:32
+ * @Last Modified time: 2020-04-29 15:53:22
  */
 
 //配置变量
@@ -57,11 +57,6 @@ import {
 import {
     toggle
 } from './module/animation.func.js';
-
-import {
-    showLogo,
-    showTime
-} from './module/title.func.js';
 
 //搜索相关函数
 import {
