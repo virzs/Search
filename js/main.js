@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-30 23:10:53
+ * @Last Modified time: 2020-04-30 23:30:47
  */
 
 //配置变量
@@ -622,14 +622,8 @@ sideBarContent.addEventListener("click", (e) => {
             changeUI("uistyle", findSettingInfo(e.target.id));
             removeStorage("customFilletValue");
             break;
-            //切换Logo样式
-        case (e.target.id == 'textLogo'):
-            logoSetting(e.target.id, true);
-            break;
-        case (e.target.id == 'timeLogo'):
-            logoSetting(e.target.id, true);
-            break;
-        case (e.target.id == 'closeLogo'):
+            //Logo设置
+        case e.target.getAttribute('item-type') == 'logoStyle':
             logoSetting(e.target.id, true);
             break;
             //语句设置
