@@ -509,7 +509,7 @@
                 "icon": "fa fa-photo",
                 "show": true,
                 "content": [{
-                    "name": "设置背景图片",
+                    "name": "上传图片",
                     "type": "changebg",
                     "value": "changebg",
                     "href": "",
@@ -601,6 +601,15 @@
                     "type": "uistyle",
                     "value": "uistyle_square",
                     "href": "./css/uistyle/square.min.css",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }, {
+                    "name": "拟态",
+                    "type": "uistyle",
+                    "value": "uistyle_neumorphism",
+                    "href": "./css/uistyle/neumorphism.min.css",
                     "color": "",
                     "icon": "",
                     "show": true,

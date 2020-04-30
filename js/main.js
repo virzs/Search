@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-28 16:13:32
+ * @Last Modified time: 2020-04-30 23:30:47
  */
 
 //配置变量
@@ -57,11 +57,6 @@ import {
 import {
     toggle
 } from './module/animation.func.js';
-
-import {
-    showLogo,
-    showTime
-} from './module/title.func.js';
 
 //搜索相关函数
 import {
@@ -627,26 +622,12 @@ sideBarContent.addEventListener("click", (e) => {
             changeUI("uistyle", findSettingInfo(e.target.id));
             removeStorage("customFilletValue");
             break;
-            //切换Logo样式
-        case (e.target.id == 'textLogo'):
+            //Logo设置
+        case e.target.getAttribute('item-type') == 'logoStyle':
             logoSetting(e.target.id, true);
             break;
-        case (e.target.id == 'timeLogo'):
-            logoSetting(e.target.id, true);
-            break;
-        case (e.target.id == 'closeLogo'):
-            logoSetting(e.target.id, true);
-            break;
-            //切换为今日诗词
-        case e.target.id == 'jinrishici':
-            sentenceSetting(e.target.id, jinrishici, true);
-            break;
-            //切换为一言
-        case e.target.id == 'hitokoto':
-            sentenceSetting(e.target.id, jinrishici, true);
-            break;
-            //切换为隐藏句子
-        case e.target.id == 'hideSentence':
+            //语句设置
+        case e.target.getAttribute('item-type') == 'sentence':
             sentenceSetting(e.target.id, jinrishici, true);
             break;
             // 开启关闭常用网址功能

@@ -22,6 +22,7 @@ import {
     openMessage
 } from "../components/message.component.js";
 
+//语句设置
 export const sentenceSetting = (value, callback, state) => {
     let error = eventError('sentence', value, state);
     if (!error && state) return;
@@ -37,6 +38,7 @@ export const sentenceSetting = (value, callback, state) => {
     }
 }
 
+//Logo设置
 export const logoSetting = (value, state) => {
     let error = eventError('logo', value, state);
     if (!error && state) return;
@@ -52,6 +54,7 @@ export const logoSetting = (value, state) => {
     }
 }
 
+//重复设置事件
 const eventError = (name, value, state) => {
     let storage = getStorage(name)
     if (storage.value == value && state) {

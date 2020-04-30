@@ -60,7 +60,7 @@ export const createSetting = () => {
 const settingCapsule = (inner, type) => {
     let sideBarHtml = "";
     if (type == "button") {
-        sideBarHtml = renderSetting(inner.value, inner.color, inner.name);
+        sideBarHtml = renderSetting(inner.value, inner.color, inner.name, inner.type);
     }
     if (type == "link") {
         sideBarHtml = `
@@ -90,9 +90,9 @@ export const createAdvancedSettings = () => {
 }
 
 //可复用渲染项函数
-const renderSetting = (id, color, name) => {
+const renderSetting = (id, color, name, type) => {
     return `
-        <div id="${id}" class="capsule">
+        <div id="${id}" class="capsule" item-type="${type}">
             <div style="color:${color};">
                 <span>${name}</span>
             </div>
