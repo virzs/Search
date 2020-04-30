@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-29 15:53:22
+ * @Last Modified time: 2020-04-30 23:10:53
  */
 
 //配置变量
@@ -632,16 +632,8 @@ sideBarContent.addEventListener("click", (e) => {
         case (e.target.id == 'closeLogo'):
             logoSetting(e.target.id, true);
             break;
-            //切换为今日诗词
-        case e.target.id == 'jinrishici':
-            sentenceSetting(e.target.id, jinrishici, true);
-            break;
-            //切换为一言
-        case e.target.id == 'hitokoto':
-            sentenceSetting(e.target.id, jinrishici, true);
-            break;
-            //切换为隐藏句子
-        case e.target.id == 'hideSentence':
+            //语句设置
+        case e.target.getAttribute('item-type') == 'sentence':
             sentenceSetting(e.target.id, jinrishici, true);
             break;
             // 开启关闭常用网址功能
