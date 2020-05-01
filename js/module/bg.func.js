@@ -30,17 +30,21 @@ import {
 var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
 
 //设置必应壁纸为背景
-export const setBingImage = (status) => {
-    if (getStorage("bg").value == "setBingImage" && !status) {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "请勿重复选择！！！"
-        })
-        return;
-    }
-    let [clientWidth, clientHeight] = [document.body.clientWidth, document.body.clientHeight];
-    let [w, h] = ["", ""];
+export const setBingImage = () => {
+    let [
+        clientWidth,
+        clientHeight
+    ] = [
+        document.body.clientWidth,
+        document.body.clientHeight
+    ];
+    let [
+        w,
+        h
+    ] = [
+        "",
+        ""
+    ];
     if (clientWidth > clientHeight) {
         w = 1920;
         h = 1080;
@@ -55,17 +59,9 @@ export const setBingImage = (status) => {
     let bingApi = `${bingApiData.url}?d=0&w=${w}&h=${h}&callback=${bingApiData.callback}`;
     window.bing = {
         bg: function (data) {
-            let func = () => {
-                globalImage(data.data.url);
-                WoolGlass(data.data.url);
-            }
-            if (status) {
-                globalImage(data.data.url);
-                WoolGlass(data.data.url);
-            } else {
-                setStorageBefore(func);
-                changeSkin("skin", skin_Transparent);
-            }
+            globalImage(data.data.url);
+            WoolGlass(data.data.url);
+            changeSkin(skin_Transparent);
         }
     }
     let script = document.createElement("script");
@@ -73,6 +69,7 @@ export const setBingImage = (status) => {
     document.querySelector("head").appendChild(script);
     document.querySelector("head").removeChild(script);
     setStorage("bg", "setBingImage");
+    setStorage('skin', skin_Transparent);
 }
 
 export const setCustomizeImage = () => {
@@ -110,7 +107,8 @@ export const setCustomizeImage = () => {
         reader.onload = function (e) {
             data = e.target.result;
             setStorageBefore(func, "bg", data);
-            changeSkin("skin", skin_Transparent);
+            changeSkin(skin_Transparent);
+            setStorage('skin', skin_Transparent);
         };
         reader.readAsDataURL(file);
     })
@@ -118,23 +116,12 @@ export const setCustomizeImage = () => {
 }
 
 //恢复默认
-export const setdefault = (type) => {
-    if (type == "changebg" && getStorage("skin").value !== './css/skin/skin_SunsetBeach.css') {
-        let defaultSkin = () => {
-            linkTag.href = './css/skin/skin_SunsetBeach.css';
-            removeStorage("bg");
-            removeElement("#globalImage");
-            removeElement("#WoolGlass");
-            setStorage('skin', './css/skin/skin_SunsetBeach.css');
-        }
-        setStorageBefore(defaultSkin);
-    } else {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "当前已为默认！"
-        })
-    }
+export const setdefault = () => {
+    linkTag.href = './css/skin/skin_SunsetBeach.css';
+    removeStorage("bg");
+    removeElement("#globalImage");
+    removeElement("#WoolGlass");
+    setStorage('skin', './css/skin/skin_SunsetBeach.css');
 }
 
 export const globalImage = (url) => {

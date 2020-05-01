@@ -44,10 +44,13 @@ import {
 export const bgSetting = (value, state) => {
     let error = eventError('bg', value, state);
     if (!error && state) return;
+    if (value == 'changebg') {
+        setCustomizeImage();
+        return;
+    }
     let func = () => {
-        if (value == 'changebg') setCustomizeImage();
-        if (value == 'setBingImage') setBingImage(false);
-        if (value == 'setdefault') setdefault(value);
+        if (value == 'setBingImage') setBingImage();
+        if (value == 'setdefault' && getStorage("skin").value !== './css/skin/skin_SunsetBeach.css') setdefault();
     }
     if (state) {
         setStorageBefore(func, 'bg', value);

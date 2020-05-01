@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-01 20:50:57
+ * @Last Modified time: 2020-05-01 22:36:45
  */
 
 //配置变量
@@ -198,13 +198,13 @@ if (logo.value !== null) {
     logoSetting(logo.value, false);
 }
 
-if (bg.value !== null && bg.value !== "setBingImage") {
+if (bg.value !== null && bg.value !== "setBingImage" && bg.value !== "setdefault") {
     globalImage(bg.value);
     WoolGlass(bg.value);
 }
 
 if (bg.value == "setBingImage") {
-    setBingImage(true);
+    setBingImage();
 }
 
 if (skinHref.value !== null) {
