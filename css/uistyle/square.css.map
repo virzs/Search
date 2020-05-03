@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEI;qBACsB;EAClB,aAAa,ECJF,GAAG;;ADOlB,QAAS;EACL,aAAa,ECNN,GAAG;;ADSd;cACe;EACX,aAAa,ECVN,GAAG;;ADad;qBACsB;EAClB,aAAa,ECjBD,GAAG;;ADoBnB,WAAY;EACR,aAAa,EAAE,KAAsB;;AAGzC,cAAe;EACX,aAAa,EAAE,GAAsB",
+"sources": ["../../sass/uistyle/_template.scss","../../sass/uistyle/square.scss"],
+"names": [],
+"file": "square.css"
+}

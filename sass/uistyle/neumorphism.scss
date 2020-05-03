@@ -1,0 +1,76 @@
+$mainColor1:#f4f8fa;
+$mainColor2:#dcdfe1;
+$shadowColor1:#cfd3d5;
+$shadowColor2:#ffffff;
+
+@mixin mainCss {
+    border-radius: 10px;
+    background: $mainColor1;
+    box-shadow: 5px 5px 15px $shadowColor1,
+        -5px -5px 15px $shadowColor2;
+}
+
+@mixin hoverCss {
+    background: linear-gradient(145deg, $mainColor2, $shadowColor2);
+    box-shadow: none;
+}
+
+body {
+    background: $mainColor1;
+}
+
+.search-group {
+    @include mainCss;
+}
+
+.search-group:hover {
+    @include hoverCss;
+}
+
+.search-option {
+    @include mainCss;
+}
+
+.search-option li {
+    @include hoverCss;
+}
+
+.search-option li:hover {
+    @include mainCss;
+}
+
+.commons {
+    @include mainCss;
+}
+
+#sideBarButton {
+    @include mainCss;
+}
+
+.capsule {
+    @include mainCss;
+}
+
+.capsule:hover {
+    @include hoverCss;
+}
+
+.setlist {
+    @include mainCss;
+}
+
+.setlist:hover {
+    @include hoverCss;
+}
+
+.about-content {
+    @include mainCss;
+}
+
+#toDoContent .list-item {
+    @include mainCss;
+}
+
+#toDoContent .list-item:hover {
+    @include hoverCss;
+}

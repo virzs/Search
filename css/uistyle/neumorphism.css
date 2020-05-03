@@ -1,0 +1,82 @@
+body {
+  background: #f4f8fa;
+}
+
+.search-group {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.search-group:hover {
+  background: linear-gradient(145deg, #dcdfe1, #ffffff);
+  box-shadow: none;
+}
+
+.search-option {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.search-option li {
+  background: linear-gradient(145deg, #dcdfe1, #ffffff);
+  box-shadow: none;
+}
+
+.search-option li:hover {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.commons {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#sideBarButton {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.capsule {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.capsule:hover {
+  background: linear-gradient(145deg, #dcdfe1, #ffffff);
+  box-shadow: none;
+}
+
+.setlist {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.setlist:hover {
+  background: linear-gradient(145deg, #dcdfe1, #ffffff);
+  box-shadow: none;
+}
+
+.about-content {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#toDoContent .list-item {
+  border-radius: 10px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#toDoContent .list-item:hover {
+  background: linear-gradient(145deg, #dcdfe1, #ffffff);
+  box-shadow: none;
+}

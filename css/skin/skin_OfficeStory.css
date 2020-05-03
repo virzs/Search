@@ -27,7 +27,6 @@ a,
 
 .commons,
 .search-group,
-.search-btn,
 .search-option {
   background-color: #7E7E7E;
   color: #FF5A09;
@@ -38,7 +37,6 @@ a:hover,
   color: #FF9900;
 }
 
-.search-option li:hover,
 #searchList li:hover,
 .selectSug {
   background-color: #FF9900;
