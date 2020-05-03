@@ -38,17 +38,6 @@
         color: $hoverColor;
     }
 
-    #searchList li:hover,
-    .selectSug {
-        background-color: $hoverColor;
-        color: $secondaryColor;
-    }
-
-    #searchList li:hover a,
-    .selectSug a {
-        color: $secondaryColor;
-    }
-
     .capsule:hover,
     .setlist:hover {
         box-shadow: 1px 1px 5px 1px $shadowColor;

@@ -37,17 +37,6 @@ a:hover,
   color: #FF9900;
 }
 
-#searchList li:hover,
-.selectSug {
-  background-color: #FF9900;
-  color: #393939;
-}
-
-#searchList li:hover a,
-.selectSug a {
-  color: #393939;
-}
-
 .capsule:hover,
 .setlist:hover {
   box-shadow: 1px 1px 5px 1px #F3843E;
