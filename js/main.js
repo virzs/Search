@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-04-30 23:30:47
+ * @Last Modified time: 2020-05-01 22:36:45
  */
 
 //配置变量
@@ -160,7 +160,10 @@ import {
 //语句事件
 import {
     sentenceSetting,
-    logoSetting
+    logoSetting,
+    uiStyleSetting,
+    skinSetting,
+    bgSetting
 } from "./event/setting.event.js";
 
 /*
@@ -177,12 +180,12 @@ if (todoData.value == null) {
 }
 
 //添加语句本地存储
-if (sentence.value == null) {
+if (sentence.value == null && jinrishici) {
     setStorage('sentence', 'jinrishici');
     sentenceSetting(sentence.value, jinrishici, false);
 }
 
-if (sentence.value !== null) {
+if (sentence.value !== null && jinrishici) {
     sentenceSetting(sentence.value, jinrishici, false);
 }
 
@@ -195,13 +198,13 @@ if (logo.value !== null) {
     logoSetting(logo.value, false);
 }
 
-if (bg.value !== null && bg.value !== "setBingImage") {
+if (bg.value !== null && bg.value !== "setBingImage" && bg.value !== "setdefault") {
     globalImage(bg.value);
     WoolGlass(bg.value);
 }
 
 if (bg.value == "setBingImage") {
-    setBingImage(true);
+    setBingImage();
 }
 
 if (skinHref.value !== null) {
@@ -602,25 +605,16 @@ sideBarContent.addEventListener("click", (e) => {
     }
     // 监听设置操作
     switch (true) {
-        case e.target.id == "changebg":
-            setCustomizeImage();
+        case e.target.getAttribute('item-type') == 'changebg':
+            bgSetting(e.target.id, true);
             break;
-            // 选择必应壁纸
-        case e.target.id == "setBingImage":
-            setBingImage(false);
+            // 配色设置
+        case e.target.getAttribute('item-type') == 'skin':
+            skinSetting(e.target.id, true);
             break;
-            // 恢复默认壁纸
-        case e.target.id == "setdefault":
-            setdefault("changebg");
-            break;
-            // 选择配色
-        case (e.target.id.indexOf("skin") !== -1):
-            changeSkin("skin", findSettingInfo(e.target.id));
-            break;
-            // 选择UI
-        case (e.target.id.indexOf("uistyle") !== -1):
-            changeUI("uistyle", findSettingInfo(e.target.id));
-            removeStorage("customFilletValue");
+            // UI设置
+        case e.target.getAttribute('item-type') == 'uistyle':
+            uiStyleSetting(e.target.id, true);
             break;
             //Logo设置
         case e.target.getAttribute('item-type') == 'logoStyle':

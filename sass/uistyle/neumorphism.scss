@@ -1,0 +1,128 @@
+$mainColor1:#f4f8fa;
+$mainColor2:#dcdfe1;
+$shadowColor1:#cfd3d5;
+$shadowColor2:#ffffff;
+
+$searchGroupRadius:8px;
+$searchOptionRadius:4px;
+$capsuleRadius:5px;
+$setlistRadius:3px;
+
+@mixin Flat {
+    background: $mainColor1;
+    box-shadow: 5px 5px 15px $shadowColor1,
+        -5px -5px 15px $shadowColor2;
+}
+
+@mixin Concave {
+    background: linear-gradient(145deg, $shadowColor2, $mainColor2);
+    box-shadow: 5px 5px 10px $shadowColor1,
+        -5px -5px 10px $shadowColor2;
+}
+
+@mixin Conves {
+    background: linear-gradient(145deg, $mainColor2, $shadowColor2);
+    box-shadow: 5px 5px 10px $shadowColor1,
+        -5px -5px 10px $shadowColor2;
+}
+
+@mixin Pressed {
+    background: $mainColor1;
+    box-shadow: inset 5px 5px 10px $shadowColor1,
+        inset -5px -5px 10px $shadowColor2;
+}
+
+body {
+    background: $mainColor1;
+}
+
+.text-logo {
+    @include Flat;
+}
+
+.search-group {
+    border-radius: $searchGroupRadius;
+    @include Flat;
+}
+
+.search-option {
+    border-radius: $searchOptionRadius;
+    @include Flat;
+}
+
+.search-option li {
+    @include Pressed;
+}
+
+.search-option li:hover {
+    @include Concave;
+}
+
+.commons {
+    @include Flat;
+}
+
+#sideBarButton {
+    @include Flat;
+}
+
+#sideBarContent p {
+    border-radius: $setlistRadius;
+    @include Flat;
+}
+
+.capsule {
+    border-radius: $capsuleRadius;
+    @include Flat;
+}
+
+.capsule:hover {
+    @include Pressed;
+}
+
+.setlist {
+    border-radius: $setlistRadius;
+    @include Flat;
+}
+
+.setlist:hover {
+    @include Pressed;
+}
+
+.about-content {
+    border-radius: $setlistRadius;
+    @include Flat;
+}
+
+#toDoContent .list-item {
+    @include Flat;
+}
+
+.clickToDoTab {
+    @include Conves;
+}
+
+.defaultToDoTab {
+    @include Flat;
+}
+
+#searchList {
+    border-radius: $searchGroupRadius*0.6;
+    @include Flat;
+}
+
+#searchList li {
+    border-radius: $searchGroupRadius*0.5;
+}
+
+#searchList li:hover {
+    @include Concave;
+}
+
+.selectSug {
+    @include Concave;
+}
+
+#sideBarContent {
+    @include Flat;
+}

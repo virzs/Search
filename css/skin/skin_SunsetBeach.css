@@ -27,7 +27,6 @@ a,
 
 .commons,
 .search-group,
-.search-btn,
 .search-option {
   background-color: #F5F5F5;
   color: #333;
@@ -36,18 +35,6 @@ a,
 a:hover,
 #copyright a:hover {
   color: #5f5f5f;
-}
-
-.search-option li:hover,
-#searchList li:hover,
-.selectSug {
-  background-color: #5f5f5f;
-  color: #F5F5F5;
-}
-
-#searchList li:hover a,
-.selectSug a {
-  color: #F5F5F5;
 }
 
 .capsule:hover,

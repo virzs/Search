@@ -1,0 +1,114 @@
+body {
+  background: #f4f8fa;
+}
+
+.text-logo {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.search-group {
+  border-radius: 8px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.search-option {
+  border-radius: 4px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.search-option li {
+  background: #f4f8fa;
+  box-shadow: inset 5px 5px 10px #cfd3d5, inset -5px -5px 10px #ffffff;
+}
+
+.search-option li:hover {
+  background: linear-gradient(145deg, #ffffff, #dcdfe1);
+  box-shadow: 5px 5px 10px #cfd3d5, -5px -5px 10px #ffffff;
+}
+
+.commons {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#sideBarButton {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#sideBarContent p {
+  border-radius: 3px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.capsule {
+  border-radius: 5px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.capsule:hover {
+  background: #f4f8fa;
+  box-shadow: inset 5px 5px 10px #cfd3d5, inset -5px -5px 10px #ffffff;
+}
+
+.setlist {
+  border-radius: 3px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.setlist:hover {
+  background: #f4f8fa;
+  box-shadow: inset 5px 5px 10px #cfd3d5, inset -5px -5px 10px #ffffff;
+}
+
+.about-content {
+  border-radius: 3px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#toDoContent .list-item {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+.clickToDoTab {
+  background: linear-gradient(145deg, #dcdfe1, #ffffff);
+  box-shadow: 5px 5px 10px #cfd3d5, -5px -5px 10px #ffffff;
+}
+
+.defaultToDoTab {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#searchList {
+  border-radius: 4.8px;
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
+
+#searchList li {
+  border-radius: 4px;
+}
+
+#searchList li:hover {
+  background: linear-gradient(145deg, #ffffff, #dcdfe1);
+  box-shadow: 5px 5px 10px #cfd3d5, -5px -5px 10px #ffffff;
+}
+
+.selectSug {
+  background: linear-gradient(145deg, #ffffff, #dcdfe1);
+  box-shadow: 5px 5px 10px #cfd3d5, -5px -5px 10px #ffffff;
+}
+
+#sideBarContent {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}

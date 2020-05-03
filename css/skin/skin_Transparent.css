@@ -27,7 +27,6 @@ a,
 
 .commons,
 .search-group,
-.search-btn,
 .search-option {
   background-color: transparent;
   color: #DDD4BC;
@@ -36,18 +35,6 @@ a,
 a:hover,
 #copyright a:hover {
   color: #707070;
-}
-
-.search-option li:hover,
-#searchList li:hover,
-.selectSug {
-  background-color: #707070;
-  color: transparent;
-}
-
-#searchList li:hover a,
-.selectSug a {
-  color: transparent;
 }
 
 .capsule:hover,

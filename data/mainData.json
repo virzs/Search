@@ -542,7 +542,7 @@
                 "value": "skin",
                 "href": "",
                 "icon": "fa fa-smile-o",
-                "show": true,
+                "show": false,
                 "content": [{
                     "name": "浅灰",
                     "type": "skin",

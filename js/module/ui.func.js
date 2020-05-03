@@ -19,20 +19,9 @@ import {
     removeElement
 } from "./global.func.js";
 //切换ui风格
-export const changeUI = (uiName, value) => {
-    if (getStorage("uistyle").value == value) {
-        openMessage({
-            title: "提示",
-            type: "error",
-            content: "请勿重复选择UI风格！！！"
-        })
-        return;
-    }
-    let setHref = () => {
-        uiTag.href = value;
-        removeElement("#customFillet");
-    }
-    setStorageBefore(setHref, uiName, value);
+export const changeUI = (value) => {
+    uiTag.href = value;
+    removeElement("#customFillet");
 }
 
 export const customFillet = (value) => {

@@ -128,7 +128,7 @@ span {
     height: 44px;
     margin: 0 auto;
     font-size: small;
-    transition: 0.3s;
+    transition: 0.3s linear;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 
 }
@@ -167,7 +167,7 @@ span {
     position: absolute;
     top: 45px;
     z-index: 600;
-    transition: 0.3s;
+    transition: 0.3s linear;
     padding: 5px;
 }
 
@@ -258,8 +258,9 @@ span {
     height: 25px;
     justify-content: center;
     align-items: center;
-    transition: 0.3s;
+    transition: 0.3s linear;
     border-radius: 5px;
+    margin: 0 2px;
 }
 
 /* 解决点击冒泡问题 */
@@ -322,7 +323,7 @@ span {
 
 #searchList li {
     margin: 5px;
-    transition: 0.3s;
+    transition: 0.3s linear;
     position: relative;
     height: 32px;
     padding: 0 8px;
@@ -373,6 +374,7 @@ span {
 #searchList li a {
     width: 100%;
     font-size: 14px;
+    transition: 0.3s linear;
 }
 
 .poetry {
@@ -436,9 +438,9 @@ span {
     top: 10px;
     font-size: 32px;
     transform: scale(0.8);
-    transition: .3s;
     overflow: hidden;
     border-radius: 5px;
+    transition: 0.3s linear;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
 
@@ -537,8 +539,11 @@ span {
 
 #sideBarContent p {
     box-sizing: border-box;
-    margin: 0 10px 5px;
-    padding-bottom: 5px;
+    margin: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
     border-bottom: 2px solid #8F8F8F;
     font-size: 16px;
     color: #8F8F8F;
@@ -621,7 +626,7 @@ span {
     height: auto;
     margin: 5px;
     padding: 2px;
-    transition: 0.3s;
+    transition: 0.3s linear;
     position: relative;
     display: flex;
     align-items: center;
@@ -1205,6 +1210,7 @@ span {
     margin: 5px 0;
     border-radius: 5px;
     position: relative;
+    transition: 0.3s;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13), 0px 0.3px 0.9px rgba(0, 0, 0, 0.11);
 }
 
