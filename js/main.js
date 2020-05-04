@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-04 17:30:17
+ * @Last Modified time: 2020-05-04 17:33:57
  */
 
 //配置变量
@@ -190,8 +190,8 @@ if (sentence.value !== null && jinrishici) {
 }
 
 if (logo.value == null) {
-    setStorage('logo', 'textLogo');
-    logoSetting(logo.value, false);
+    setStorage('logo', 'timeLogo');
+    logoSetting(getStorage('logo').value, false);
 }
 
 if (logo.value !== null) {
