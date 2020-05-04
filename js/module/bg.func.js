@@ -1,8 +1,4 @@
 import {
-    linkTag
-} from "./dom.constant.js";
-
-import {
     setStorage,
     getStorage,
     removeStorage
@@ -11,10 +7,6 @@ import {
 import {
     setStorageBefore
 } from "./animation.func.js";
-
-import {
-    changeSkin
-} from "./skin.func.js";
 
 import {
     openMessage
@@ -123,7 +115,6 @@ export const setCustomizeImage = () => {
 
 //恢复默认
 export const setdefault = () => {
-    linkTag.href = neumorphism;
     removeStorage("bg");
     removeElement("#globalImage");
     // removeElement("#WoolGlass");

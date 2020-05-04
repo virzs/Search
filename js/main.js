@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-04 17:33:57
+ * @Last Modified time: 2020-05-04 21:14:23
  */
 
 //配置变量
@@ -200,16 +200,16 @@ if (logo.value !== null) {
 
 if (bg.value !== null && bg.value !== "setBingImage" && bg.value !== "setdefault") {
     globalImage(bg.value);
-    WoolGlass(bg.value);
+    // WoolGlass(bg.value);
 }
 
 if (bg.value == "setBingImage") {
     setBingImage();
 }
 
-if (skinHref.value !== null) {
-    linkTag.href = skinHref.value;
-}
+// if (skinHref.value !== null) {
+//     linkTag.href = skinHref.value;
+// }
 
 if (uiHref.value !== null && customFilletValue.value == null) {
     uiTag.href = uiHref.value;
