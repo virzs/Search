@@ -50,7 +50,7 @@ export const bgSetting = (value, state) => {
     }
     let func = () => {
         if (value == 'setBingImage') setBingImage();
-        if (value == 'setdefault' && getStorage("skin").value !== './css/skin/skin_SunsetBeach.css') setdefault();
+        if (value == 'setdefault' && getStorage("uistyle").value !== './css/uistyle/neumorphism.min.css') setdefault();
     }
     if (state) {
         setStorageBefore(func, 'bg', value);

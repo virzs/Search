@@ -27,7 +27,11 @@ import {
 import {
     apiData
 } from "./all.data.js";
-var skin_Transparent = "./css/skin/skin_Transparent.css"; //透明皮肤数据
+import {
+    changeUI
+} from "./ui.func.js";
+var skin_Transparent = "./css/uistyle/transparent.min.css"; //透明皮肤数据
+var neumorphism = './css/uistyle/neumorphism.min.css';
 
 //设置必应壁纸为背景
 export const setBingImage = () => {
@@ -60,8 +64,9 @@ export const setBingImage = () => {
     window.bing = {
         bg: function (data) {
             globalImage(data.data.url);
-            WoolGlass(data.data.url);
-            changeSkin(skin_Transparent);
+            // WoolGlass(data.data.url);
+            // changeSkin(skin_Transparent);
+            changeUI(skin_Transparent);
         }
     }
     let script = document.createElement("script");
@@ -69,7 +74,7 @@ export const setBingImage = () => {
     document.querySelector("head").appendChild(script);
     document.querySelector("head").removeChild(script);
     setStorage("bg", "setBingImage");
-    setStorage('skin', skin_Transparent);
+    setStorage('uistyle', skin_Transparent);
 }
 
 export const setCustomizeImage = () => {
@@ -78,7 +83,7 @@ export const setCustomizeImage = () => {
     let reader = new FileReader();
     let func = () => {
         globalImage(data);
-        WoolGlass(data);
+        // WoolGlass(data);
     }
     input.type = "file";
     input.style.display = "none";
@@ -107,8 +112,9 @@ export const setCustomizeImage = () => {
         reader.onload = function (e) {
             data = e.target.result;
             setStorageBefore(func, "bg", data);
-            changeSkin(skin_Transparent);
-            setStorage('skin', skin_Transparent);
+            // changeSkin(skin_Transparent);
+            changeUI(skin_Transparent);
+            setStorage('uistyle', skin_Transparent);
         };
         reader.readAsDataURL(file);
     })
@@ -117,11 +123,12 @@ export const setCustomizeImage = () => {
 
 //恢复默认
 export const setdefault = () => {
-    linkTag.href = './css/skin/skin_SunsetBeach.css';
+    linkTag.href = neumorphism;
     removeStorage("bg");
     removeElement("#globalImage");
-    removeElement("#WoolGlass");
-    setStorage('skin', './css/skin/skin_SunsetBeach.css');
+    // removeElement("#WoolGlass");
+    changeUI(neumorphism);
+    setStorage('uistyle', neumorphism);
 }
 
 export const globalImage = (url) => {

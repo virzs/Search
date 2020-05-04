@@ -1,0 +1,59 @@
+$mainColor:transparent;
+$secondaryColor:transparent;
+$groupColor:transparent;
+$textColor:#DDD4BC;
+$hoverColor:#707070;
+$shadowColor:#FFC549;
+
+$searchGroupRadius:8px;
+$searchOptionRadius:4px;
+$capsuleRadius:5px;
+$setlistRadius:3px;
+
+body {
+    color: $textColor;
+}
+
+body,
+.capsule,
+.setlist,
+.about-content,
+#messageList li {
+    background-color: $mainColor;
+}
+
+#searchList,
+.dialog,
+#sideBarButton,
+#sideBarContent {
+    background-color: $secondaryColor;
+}
+
+a,
+.title-icon,
+#sideBarButton,
+.poetry,
+#messageList li {
+    color: $textColor;
+}
+
+.commons,
+.search-group,
+.search-option {
+    background-color: $groupColor;
+    color: $textColor;
+}
+
+a:hover,
+#copyright a:hover {
+    color: $hoverColor;
+}
+
+.capsule:hover,
+.setlist:hover {
+    box-shadow: 1px 1px 5px 1px $shadowColor;
+}
+
+#messageList li {
+    box-shadow: 0 2px 12px 0 $shadowColor;
+}
