@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-01 22:36:45
+ * @Last Modified time: 2020-05-04 17:30:17
  */
 
 //配置变量
@@ -529,13 +529,13 @@ sideBarButton.addEventListener("click", () => {
     let icon = sideBarTitle.querySelectorAll(".title-icon");
     Array.prototype.forEach.call(icon, item => {
         item.style.background = "";
-        item.style.color = item.style.borderColor;
+        item.style.color = item.getAttribute('color');
     })
     if (sideBarIconFlag == -1) {
         sideBarButton.className = "sideBarButtonMoveLeft";
         sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
         sideBar.className = "moveLeft";
-        icon[0].style.background = icon[0].style.borderColor;
+        icon[0].style.background = icon[0].getAttribute('color');
         icon[0].style.color = "#fff";
         sideBarIconFlag = "Website";
         renderSideBarContent("Website");
@@ -554,9 +554,9 @@ sideBarTitle.addEventListener("click", (e) => {
     if (e.target.className == "title-icon") {
         Array.prototype.forEach.call(icon, item => {
             item.style.background = "";
-            item.style.color = item.style.borderColor;
+            item.style.color = item.getAttribute('color');
         })
-        e.target.style.background = e.target.style.borderColor;
+        e.target.style.background = e.target.getAttribute('color');
         e.target.style.color = "#fff";
         renderSideBarContent(e.target.id);
         if (e.target.id == "ToDo") {

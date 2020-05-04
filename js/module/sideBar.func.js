@@ -29,7 +29,7 @@ export const renderSideBarIcon = () => {
     for (let item in jsonData.sideBar.content) {
         if (jsonData.sideBar.content[item].show) {
             sideBarTitle.innerHTML += `
-                <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};border:3px solid ${jsonData.sideBar.content[item].color};">
+                <div id="${jsonData.sideBar.content[item].value}" class="title-icon" style="color:${jsonData.sideBar.content[item].color};" color="${jsonData.sideBar.content[item].color}">
                     <i class="${jsonData.sideBar.content[item].icon}"></i>
                     <span>${jsonData.sideBar.content[item].name}</span>
                 </div>`;
