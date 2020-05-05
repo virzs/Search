@@ -26,7 +26,7 @@ import {
 //切换配色
 export const changeSkin = (value) => {
     linkTag.href = value;
-    if (value !== "./css/skin/skin_Transparent.css") {
+    if (value !== "./css/uistyle/transparent.min.css") {
         removeStorage("bg");
         removeElement("#globalImage");
         removeElement("#WoolGlass");

@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-01 22:36:45
+ * @Last Modified time: 2020-05-04 21:14:23
  */
 
 //配置变量
@@ -190,8 +190,8 @@ if (sentence.value !== null && jinrishici) {
 }
 
 if (logo.value == null) {
-    setStorage('logo', 'textLogo');
-    logoSetting(logo.value, false);
+    setStorage('logo', 'timeLogo');
+    logoSetting(getStorage('logo').value, false);
 }
 
 if (logo.value !== null) {
@@ -200,16 +200,16 @@ if (logo.value !== null) {
 
 if (bg.value !== null && bg.value !== "setBingImage" && bg.value !== "setdefault") {
     globalImage(bg.value);
-    WoolGlass(bg.value);
+    // WoolGlass(bg.value);
 }
 
 if (bg.value == "setBingImage") {
     setBingImage();
 }
 
-if (skinHref.value !== null) {
-    linkTag.href = skinHref.value;
-}
+// if (skinHref.value !== null) {
+//     linkTag.href = skinHref.value;
+// }
 
 if (uiHref.value !== null && customFilletValue.value == null) {
     uiTag.href = uiHref.value;
@@ -529,13 +529,13 @@ sideBarButton.addEventListener("click", () => {
     let icon = sideBarTitle.querySelectorAll(".title-icon");
     Array.prototype.forEach.call(icon, item => {
         item.style.background = "";
-        item.style.color = item.style.borderColor;
+        item.style.color = item.getAttribute('color');
     })
     if (sideBarIconFlag == -1) {
         sideBarButton.className = "sideBarButtonMoveLeft";
         sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
         sideBar.className = "moveLeft";
-        icon[0].style.background = icon[0].style.borderColor;
+        icon[0].style.background = icon[0].getAttribute('color');
         icon[0].style.color = "#fff";
         sideBarIconFlag = "Website";
         renderSideBarContent("Website");
@@ -554,9 +554,9 @@ sideBarTitle.addEventListener("click", (e) => {
     if (e.target.className == "title-icon") {
         Array.prototype.forEach.call(icon, item => {
             item.style.background = "";
-            item.style.color = item.style.borderColor;
+            item.style.color = item.getAttribute('color');
         })
-        e.target.style.background = e.target.style.borderColor;
+        e.target.style.background = e.target.getAttribute('color');
         e.target.style.color = "#fff";
         renderSideBarContent(e.target.id);
         if (e.target.id == "ToDo") {

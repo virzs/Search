@@ -126,3 +126,8 @@ body {
 #sideBarContent {
     @include Flat;
 }
+
+.title-icon {
+    border-radius: $capsuleRadius;
+    @include Flat;
+}

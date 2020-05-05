@@ -3,9 +3,9 @@
 export const body = document.querySelector("body");
 //Logo
 export const searchLogo = document.querySelector(".search-logo");
-
+//皮肤样式
 export const linkTag = document.querySelector("#skinTag");
-
+//UI样式
 export const uiTag = document.querySelector("#uiTag");
 //搜索框区域
 export const searchContent = document.querySelectorAll(".search-content")[0]

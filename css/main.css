@@ -590,8 +590,8 @@ span {
     flex-direction: column;
     font-size: 22px;
     box-sizing: border-box;
+    margin: 5px 0;
     padding: 3px 0;
-    border-bottom-left-radius: 8px;
 }
 
 .title-icon i {
