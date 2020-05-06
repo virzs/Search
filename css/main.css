@@ -1316,6 +1316,40 @@ span {
     left: 5px;
 }
 
+.timeLine-item .item-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.timeLine-item .item-content {
+    font-size: 14px;
+    margin: 5px 0 5px 15px;
+}
+
+.timeLine-item .label {
+    width: 50px;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.timeLine-item .add {
+    background: #67C23A;
+}
+
+.timeLine-item .change {
+    background: #E6A23C;
+}
+
+.timeLine-item .del {
+    background: #F56C6C;
+}
+
+.timeLine-item .debug {
+    background: #409EFF;
+}
+
 #loading {
     width: 100%;
     height: 100%;
