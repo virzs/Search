@@ -1024,7 +1024,37 @@ span {
 
 .dialog>.dialog-body {
     box-sizing: border-box;
-    padding: 30px 20px;
+    margin: 30px 10px;
+    padding: 0 10px;
+}
+
+.dialog>.dialog-body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 197, 73, .6);
+}
+
+/*鼠标悬浮在该类指向的控件上时滑块的样式*/
+.dialog>.dialog-body:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 197, 73, .6);
+    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
+}
+
+/*鼠标悬浮在滑块上时滑块的样式*/
+.dialog>.dialog-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 197, 73, .6);
+    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
+}
+
+/*正常时候的主干部分/滑轨部分*/
+.dialog>.dialog-body::-webkit-scrollbar-track {
+    /* border-radius: 10px; */
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
+    background-color: rgba(231, 231, 231, .01);
+}
+
+/*鼠标悬浮在滚动条上的主干部分/滑轨部分*/
+.dialog>.dialog-body::-webkit-scrollbar-track:hover {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
+    background-color: rgba(231, 231, 231, .01);
 }
 
 .dialog .content-label {
@@ -1286,6 +1316,40 @@ span {
     left: 5px;
 }
 
+.timeLine-item .item-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.timeLine-item .item-content {
+    font-size: 14px;
+    margin: 5px 0 5px 15px;
+}
+
+.timeLine-item .label {
+    width: 50px;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.timeLine-item .add {
+    background: #67C23A;
+}
+
+.timeLine-item .change {
+    background: #E6A23C;
+}
+
+.timeLine-item .del {
+    background: #F56C6C;
+}
+
+.timeLine-item .debug {
+    background: #409EFF;
+}
+
 #loading {
     width: 100%;
     height: 100%;
@@ -1498,4 +1562,79 @@ span {
         text-transform: uppercase;
         font-weight: bold;
     }
+}
+
+/* 滚动条有滑块的轨道部分 */
+::-webkit-scrollbar-track-piece {
+    background-color: #ffffff;
+    border-radius: 1px;
+}
+
+/* 整个滚动条 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 100%;
+}
+
+/* 滚动条竖向滑块 */
+::-webkit-scrollbar-thumb:vertical {
+    width: 6px;
+    height: 6px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 1px;
+}
+
+/* 滚动条竖向滑块hover */
+::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+/* 滚动条横向滑块 */
+::-webkit-scrollbar-thumb:horizontal {
+    width: 6px;
+    height: 6px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 1px;
+}
+
+/* 滚动条横向滑块hover */
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+/* 同时有垂直和水平滚动条时交汇的部分 */
+::-webkit-scrollbar-corner {
+    display: block;
+    /* 修复交汇时出现的白块 */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 197, 73, .6);
+}
+
+/*鼠标悬浮在该类指向的控件上时滑块的样式*/
+:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 197, 73, .6);
+    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
+}
+
+/*鼠标悬浮在滑块上时滑块的样式*/
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 197, 73, .6);
+    box-shadow: inset 1px 1px 0 rgba(255, 197, 73, .1);
+}
+
+/*正常时候的主干部分/滑轨部分*/
+::-webkit-scrollbar-track {
+    /* border-radius: 10px; */
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
+    background-color: rgba(231, 231, 231, .01);
+}
+
+/*鼠标悬浮在滚动条上的主干部分/滑轨部分*/
+::-webkit-scrollbar-track:hover {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
+    background-color: rgba(231, 231, 231, .01);
 }

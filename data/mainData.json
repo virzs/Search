@@ -873,6 +873,24 @@
                     }]
                 }]
             }, {
+                "name": "更新记录",
+                "type": "button",
+                "value": "updateRecord",
+                "href": "",
+                "icon": "fa fa-calendar-check-o",
+                "color": "",
+                "show": true,
+                "content": [{
+                    "name": "查看记录",
+                    "value": "showUpdate",
+                    "type": "updateRecord",
+                    "href": "",
+                    "color": "",
+                    "icon": "",
+                    "show": true,
+                    "content": ""
+                }]
+            }, {
                 "name": "感谢",
                 "type": "link",
                 "value": "thanks",

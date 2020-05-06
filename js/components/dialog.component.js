@@ -5,12 +5,12 @@ import {
 //开启模态框函数
 export const openDialog = (data) => {
     let [title, option, button, btns, content] = ["", "", "", "", ""];
-    title = data.title !== undefined ? data.title : "提示";
-    option = data.option !== undefined ? data.option : "";
+    title = data.title !== undefined ? data.title : "提示"; //模态框标题
+    option = data.option !== undefined ? data.option : {}; //模态框配置数据
     button = data.button !== undefined ? data.button : [{
         name: "取消",
         value: "cancel"
-    }];
+    }]; //模态框按钮
     if (option.type == "form") {
         option.content.forEach(item => {
             if (item.type == "input") {
@@ -41,7 +41,7 @@ export const openDialog = (data) => {
     let dialog = `
         <div class="dialog" id="${data.id}">
             <div class="dialog-header">${title}<span id="closeDialog"><i class="fa fa-close"></i></span></div>
-            <div class="dialog-body">${content}</div>
+            <div class="dialog-body" style="height:${option.height};overflow:auto;">${content}</div>
             <div class="dialog-footer">${btns}</div>
         </div>`;
     let dialogWrapper = document.createElement("div");
@@ -51,7 +51,7 @@ export const openDialog = (data) => {
 }
 
 //关闭模态框函数
-export const closeDialog = () => {
+export const closeDialog = (id) => {
     let dialog = document.querySelector(".dialogWrapper");
     dialog.classList.add("dialogWrapperClose");
     setTimeout(() => {
