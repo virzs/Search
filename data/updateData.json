@@ -154,4 +154,244 @@
         "type": "change",
         "content": "滚动条样式"
     }]
+}, {
+    "time": "2019/12/16",
+    "content": [{
+        "type": "add",
+        "content": "说明文档"
+    }, {
+        "type": "change",
+        "content": "滚动条样式"
+    }, {
+        "type": "add",
+        "content": "关于页数据"
+    }, {
+        "type": "add",
+        "content": "侧边栏内胶囊样式"
+    }, {
+        "type": "add",
+        "content": "设置项数据"
+    }]
+}, {
+    "time": "2019/12/18",
+    "content": [{
+        "type": "add",
+        "content": "近期计划"
+    }]
+}, {
+    "time": "2019/12/19",
+    "content": [{
+        "type": "add",
+        "content": "弹性布局"
+    }, {
+        "type": "debug",
+        "content": "兼容性"
+    }]
+}, {
+    "time": "2020/1/7",
+    "content": [{
+        "type": "add",
+        "content": "Logo图片及样式"
+    }, {
+        "type": "change",
+        "content": "滚动条样式"
+    }, {
+        "type": "del",
+        "content": "备选搜索列表"
+    }, {
+        "type": "change",
+        "content": "数据及样式格式"
+    }, {
+        "type": "debug",
+        "content": "移动端兼容测试"
+    }, {
+        "type": "add",
+        "content": "随机诗词"
+    }, {
+        "type": "add",
+        "content": "书签新闻数据"
+    }, {
+        "type": "add",
+        "content": "随机诗词函数"
+    }, {
+        "type": "add",
+        "content": "移动端样式"
+    }, {
+        "type": "del",
+        "content": "bootstrap栅格样式"
+    }, {
+        "type": "add",
+        "content": "输入框样式"
+    }, {
+        "type": "debug",
+        "content": "点击空白处关闭侧边栏后无法打开的问题"
+    }]
+}, {
+    "time": "2020/1/8",
+    "content": [{
+        "type": "add",
+        "content": "图标动态渲染，版权说明"
+    }, {
+        "type": "change",
+        "content": "图标栏宽度"
+    }, {
+        "type": "add",
+        "content": "侧边栏样式及渲染方式"
+    }, {
+        "type": "add",
+        "content": "设置项数据"
+    }, {
+        "type": "del",
+        "content": "冗余样式"
+    }, {
+        "type": "add",
+        "content": "设置项样式"
+    }, {
+        "type": "debug",
+        "content": "错别字"
+    }, {
+        "type": "add",
+        "content": "书签音乐数据"
+    }, {
+        "type": "add",
+        "content": "配色说明"
+    }]
+}, {
+    "time": "2020/1/9",
+    "content": [{
+        "type": "add",
+        "content": "配色方案"
+    }, {
+        "type": "add",
+        "content": "加载动画"
+    }, {
+        "type": "change",
+        "content": "动画加载时间"
+    }, {
+        "type": "add",
+        "content": "更新计划"
+    }]
+}, {
+    "time": "2020/1/10",
+    "content": [{
+        "type": "add",
+        "content": "MIT开源许可证"
+    }, {
+        "type": "change",
+        "content": "数据结构"
+    }, {
+        "type": "add",
+        "content": "数据隐藏"
+    }]
+}, {
+    "time": "2020/1/11",
+    "content": [{
+        "type": "add",
+        "content": "搜索引擎图标数据"
+    }, {
+        "type": "change",
+        "content": "搜索框样式"
+    }, {
+        "type": "add",
+        "content": "自定义选择框样式"
+    }, {
+        "type": "add",
+        "content": "阻止事件冒泡函数，监听点击事件代码"
+    }, {
+        "type": "debug",
+        "content": "侧边栏内部点击隐藏的问题"
+    }, {
+        "type": "del",
+        "content": "冗余变量"
+    }, {
+        "type": "add",
+        "content": "注释说明"
+    }]
+}, {
+    "time": "2020/1/13",
+    "content": [{
+        "type": "change",
+        "content": "图标"
+    }, {
+        "type": "add",
+        "content": "UI样式"
+    }, {
+        "type": "add",
+        "content": "设置背景相关代码"
+    }, {
+        "type": "add",
+        "content": "dev分支"
+    }]
+}, {
+    "time": "2020/1/14",
+    "content": [{
+        "type": "change",
+        "content": "说明文档"
+    }, {
+        "type": "add",
+        "content": "UI数据"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }, {
+        "type": "add",
+        "content": "配色样式，搜索引擎样式"
+    }, {
+        "type": "change",
+        "content": "滚动条样式"
+    }, {
+        "type": "add",
+        "content": "透明配色"
+    }, {
+        "type": "change",
+        "content": "渲染常用网址内容"
+    }]
+}, {
+    "time": "2020/1/15",
+    "content": [{
+        "type": "add",
+        "content": "显示隐藏常用网址设置项"
+    }, {
+        "type": "add",
+        "content": "常用网站图标样式"
+    }, {
+        "type": "debug",
+        "content": "频闪及动画调用问题"
+    }]
+}, {
+    "time": "2020/1/16",
+    "content": [{
+        "type": "add",
+        "content": "文档说明"
+    }, {
+        "type": "change",
+        "content": "渲染与加载动画同步"
+    }]
+}, {
+    "time": "2020/1/17",
+    "content": [{
+        "type": "change",
+        "content": "代码顺序，注释说明"
+    }, {
+        "type": "add",
+        "content": "消息提示"
+    }]
+}, {
+    "time": "2020/1/18",
+    "content": [{
+        "type": "add",
+        "content": "上传文件限制大小"
+    }, {
+        "type": "add",
+        "content": "错误提示"
+    }, {
+        "type": "add",
+        "content": "搜索备选项"
+    }]
+}, {
+    "time": "2020/1/19",
+    "content": [{
+        "type": "add",
+        "content": "键盘上下键选择搜索备选项"
+    }]
 }]
