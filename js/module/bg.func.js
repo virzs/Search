@@ -114,12 +114,12 @@ export const setCustomizeImage = () => {
 }
 
 //恢复默认
-export const setdefault = () => {
+export const setdefault = (value = neumorphism) => {
     setStorage("bg", 'setdefault');
     removeElement("#globalImage");
     // removeElement("#WoolGlass");
-    changeUI(neumorphism);
-    setStorage('uistyle', neumorphism);
+    changeUI(value);
+    setStorage('uistyle', value);
 }
 
 export const globalImage = (url) => {

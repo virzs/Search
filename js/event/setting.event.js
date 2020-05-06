@@ -80,7 +80,7 @@ export const uiStyleSetting = (value, state) => {
     let error = eventError('uistyle', href, state);
     if (!error && state) return;
     let func = () => {
-        changeUI(href);
+        setdefault(href);
     }
     if (state) {
         setStorageBefore(func, 'uistyle', href);
