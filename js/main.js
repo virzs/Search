@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-04 21:14:23
+ * @Last Modified time: 2020-05-06 11:06:05
  */
 
 //配置变量
@@ -32,7 +32,8 @@ const logo = getStorage('logo');
 
 //所有数据
 import {
-    jsonData
+    jsonData,
+    updateData
 } from "./module/all.data.js";
 
 //DOM元素
@@ -165,6 +166,9 @@ import {
     skinSetting,
     bgSetting
 } from "./event/setting.event.js";
+import {
+    timeLine
+} from "./components/timeLine.component.js";
 
 /*
     加载本地存储区域/自动加载区域
@@ -623,6 +627,18 @@ sideBarContent.addEventListener("click", (e) => {
             //语句设置
         case e.target.getAttribute('item-type') == 'sentence':
             sentenceSetting(e.target.id, jinrishici, true);
+            break;
+        case e.target.getAttribute('item-type') == 'updateRecord':
+            console.log(updateData)
+            openDialog({
+                id: e.target.id,
+                title: '更新记录',
+                option: {
+                    type: 'text',
+                    height: '300px'
+                },
+                content: timeLine(updateData, 'inverted')
+            })
             break;
             // 开启关闭常用网址功能
         case (e.target.id.indexOf("website") !== -1):
