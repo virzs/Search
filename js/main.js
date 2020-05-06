@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-06 11:06:05
+ * @Last Modified time: 2020-05-06 17:38:58
  */
 
 //配置变量
@@ -629,7 +629,6 @@ sideBarContent.addEventListener("click", (e) => {
             sentenceSetting(e.target.id, jinrishici, true);
             break;
         case e.target.getAttribute('item-type') == 'updateRecord':
-            console.log(updateData)
             openDialog({
                 id: e.target.id,
                 title: '更新记录',

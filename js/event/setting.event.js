@@ -76,8 +76,8 @@ export const skinSetting = (value, state) => {
 
 //UI设置
 export const uiStyleSetting = (value, state) => {
-    let error = eventError('uistyle', value, state);
     let href = findSettingInfo(value);
+    let error = eventError('uistyle', href, state);
     if (!error && state) return;
     let func = () => {
         changeUI(href);

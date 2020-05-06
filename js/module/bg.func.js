@@ -115,7 +115,7 @@ export const setCustomizeImage = () => {
 
 //恢复默认
 export const setdefault = () => {
-    removeStorage("bg");
+    setStorage("bg", 'setdefault');
     removeElement("#globalImage");
     // removeElement("#WoolGlass");
     changeUI(neumorphism);
