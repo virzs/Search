@@ -1332,6 +1332,7 @@ span {
     color: #FFF;
     text-align: center;
     border-radius: 3px;
+    display: inline-block;
 }
 
 .timeLine-item .add {
