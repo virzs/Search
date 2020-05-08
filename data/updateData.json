@@ -1141,4 +1141,19 @@
         "type": "debug",
         "content": "时间线错误换行的问题"
     }]
+},{
+    "time":"2020/5/8",
+    "content":[{
+        "type":"change",
+        "content":"模态框背景色"
+    },{
+        "type":"change",
+        "content":"消息提示背景色"
+    },{
+        "type":"del",
+        "content":"配色标签"
+    },{
+        "type":"change",
+        "content":"a标签文字颜色"
+    }]
 }]
