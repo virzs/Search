@@ -118,3 +118,12 @@ body {
   background: #f4f8fa;
   box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
 }
+
+.dialog {
+  background: #f4f8fa;
+}
+
+#messageList li {
+  background: #f4f8fa;
+  box-shadow: 5px 5px 15px #cfd3d5, -5px -5px 15px #ffffff;
+}
