@@ -20,6 +20,7 @@ body {
 
 a {
     transition: .3s;
+    color: #333;
 }
 
 a:hover {
