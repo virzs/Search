@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-06 17:38:58
+ * @Last Modified time: 2020-05-07 09:51:48
  */
 
 //配置变量
@@ -427,7 +427,7 @@ document.addEventListener("click", function (e) {
     }
 
     //模态框点击背景隐藏
-    if (e.target.id == "dialogWrapper") {
+    if (e.target.className == "dialogWrapper") {
         closeDialog();
     }
 

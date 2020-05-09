@@ -131,3 +131,11 @@ body {
     border-radius: $capsuleRadius;
     @include Flat;
 }
+
+.dialog {
+    background: $mainColor1;
+}
+
+#messageList li {
+    @include Flat;
+}

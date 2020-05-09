@@ -394,4 +394,766 @@
         "type": "add",
         "content": "键盘上下键选择搜索备选项"
     }]
+}, {
+    "time": "2020/1/21",
+    "content": [{
+        "type": "debug",
+        "content": "常用网址设置及渲染有误的问题"
+    }]
+}, {
+    "time": "2020/1/23",
+    "content": [{
+        "type": "add",
+        "content": "设计思路导图"
+    }]
+}, {
+    "time": "2020/1/25",
+    "content": [{
+        "type": "add",
+        "content": "更新说明文档"
+    }]
+}, {
+    "time": "2020/1/27",
+    "content": [{
+        "type": "add",
+        "content": "自定义网址说明"
+    }]
+}, {
+    "time": "2020/1/28",
+    "content": [{
+        "type": "add",
+        "content": "配置项"
+    }, {
+        "type": "add",
+        "content": "自定义网址"
+    }, {
+        "type": "change",
+        "content": "搜索备选项样式"
+    }, {
+        "type": "add",
+        "content": "搜索引擎数据"
+    }, {
+        "type": "add",
+        "content": "更新说明文档"
+    }]
+}, {
+    "time": "2020/1/29",
+    "content": [{
+        "type": "debug",
+        "content": "点击设置时会添加空白数据的问题"
+    }, {
+        "type": "add",
+        "content": "弹窗按钮按钮样式"
+    }, {
+        "type": "add",
+        "content": "网址保存和取消隐藏弹窗"
+    }]
+}, {
+    "time": "2020/1/31",
+    "content": [{
+        "type": "change",
+        "content": "样式调整"
+    }, {
+        "type": "del",
+        "content": "自定义配置项"
+    }, {
+        "type": "debug",
+        "content": "输入内容后添加时报错的问题"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }, {
+        "type": "debug",
+        "content": "点击关闭常用网址动画未加载时隐藏的问题"
+    }]
+}, {
+    "time": "2020/2/1",
+    "content": [{
+        "type": "add",
+        "content": "常用网址样式"
+    }, {
+        "type": "add",
+        "content": "常用网址重命名"
+    }]
+}, {
+    "time": "2020/2/3",
+    "content": [{
+        "type": "add",
+        "content": "好搜搜索引擎数据"
+    }, {
+        "type": "change",
+        "content": "样式调整"
+    }]
+}, {
+    "time": "2020/2/4",
+    "content": [{
+        "type": "add",
+        "content": "夸克搜索引擎数据"
+    }, {
+        "type": "debug",
+        "content": "常用网址不存在时未渲染添加网址的问题"
+    }]
+}, {
+    "time": "2020/2/5",
+    "content": [{
+        "type": "add",
+        "content": "必应壁纸设置项"
+    }]
+}, {
+    "time": "2020/2/6",
+    "content": [{
+        "type": "change",
+        "content": "选择搜索引擎样式"
+    }, {
+        "type": "change",
+        "content": "文件模块化"
+    }]
+}, {
+    "time": "2020/2/8",
+    "content": [{
+        "type": "change",
+        "content": "分离JS文件"
+    }, {
+        "type": "add",
+        "content": "更新说明文档"
+    }]
+}, {
+    "time": "2020/2/9",
+    "content": [{
+        "type": "del",
+        "content": "添加网址/修改网站弹窗"
+    }, {
+        "type": "del",
+        "content": "修改/添加网址样式"
+    }]
+}, {
+    "time": "2020/2/10",
+    "content": [{
+        "type": "add",
+        "content": "模态框样式"
+    }, {
+        "type": "add",
+        "content": "添加/修改/删除网址代码"
+    }, {
+        "type": "add",
+        "content": "模态框模块"
+    }]
+}, {
+    "time": "2020/2/11",
+    "content": [{
+        "type": "add",
+        "content": "点击空白处关闭模态框"
+    }]
+}, {
+    "time": "2020/2/13",
+    "content": [{
+        "type": "change",
+        "content": "代码结构"
+    }, {
+        "type": "add",
+        "content": "设置背景时UI毛玻璃效果"
+    }, {
+        "type": "debug",
+        "content": "背景图片无自适应的问题"
+    }, {
+        "type": "del",
+        "content": "多余字符"
+    }, {
+        "type": "change",
+        "content": "背景判断条件"
+    }]
+}, {
+    "time": "2020/2/15",
+    "content": [{
+        "type": "add",
+        "content": "独立侧边栏开启/关闭按钮"
+    }, {
+        "type": "change",
+        "content": "侧边栏样式"
+    }, {
+        "type": "add",
+        "content": "侧边栏监听事件"
+    }, {
+        "type": "change",
+        "content": "mjs文件更改为js文件"
+    }]
+}, {
+    "time": "2020/2/16",
+    "content": [{
+        "type": "change",
+        "content": "数据结构"
+    }, {
+        "type": "change",
+        "content": "常用网址逻辑"
+    }, {
+        "type": "add",
+        "content": "渲染项"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }, {
+        "type": "change",
+        "content": "判断逻辑"
+    }, {
+        "type": "add",
+        "content": "颜色样式"
+    }, {
+        "type": "add",
+        "content": "图片加载失败替换文字icon函数"
+    }, {
+        "type": "add",
+        "content": "模态框相关功能"
+    }]
+}, {
+    "time": "2020/2/17",
+    "content": [{
+        "type": "change",
+        "content": "侧边栏按钮效果"
+    }, {
+        "type": "add",
+        "content": "针对更换背景后的文字效果"
+    }, {
+        "type": "change",
+        "content": "背景应用方式"
+    }, {
+        "type": "debug",
+        "content": "FireFox中背景被拦截的问题"
+    }]
+}, {
+    "time": "2020/2/18",
+    "content": [{
+        "type": "debug",
+        "content": "自定义图片时毛玻璃效果未加载的问题"
+    }]
+}, {
+    "time": "2020/2/19",
+    "content": [{
+        "type": "add",
+        "content": "针对模态框中p标签样式"
+    }, {
+        "type": "add",
+        "content": "全局捕获错误事件"
+    }, {
+        "type": "add",
+        "content": "自定义样式"
+    }, {
+        "type": "add",
+        "content": "操作后的提示信息"
+    }, {
+        "type": "del",
+        "content": "未应用模块"
+    }, {
+        "type": "del",
+        "content": "重复代码"
+    }, {
+        "type": "change",
+        "content": "错误代码支持获取浏览器信息"
+    }, {
+        "type": "change",
+        "content": "更改自定义网址时无法获取图标时的文字图标颜色"
+    }, {
+        "type": "debug",
+        "content": "输入网址时产生多个协议字段报错的问题"
+    }, {
+        "type": "change",
+        "content": "判断方式"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }]
+}, {
+    "time": "2020/2/20",
+    "content": [{
+        "type": "add",
+        "content": "网址胶囊效果鼠标放置样式"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }, {
+        "type": "add",
+        "content": "自定义添加侧边栏内书签功能"
+    }, {
+        "type": "debug",
+        "content": "更正错误代码"
+    }]
+}, {
+    "time": "2020/2/21",
+    "content": [{
+        "type": "change",
+        "content": "渲染结构"
+    }, {
+        "type": "add",
+        "content": "自定义的侧边栏网址支持常用网址计数"
+    }, {
+        "type": "debug",
+        "content": "自动添加时弹出提示框的问题"
+    }]
+}, {
+    "time": "2020/2/22",
+    "content": [{
+        "type": "add",
+        "content": "增加注释"
+    }, {
+        "type": "change",
+        "content": "侧边栏中书签胶囊效果"
+    }]
+}, {
+    "time": "2020/2/23",
+    "content": [{
+        "type": "add",
+        "content": "说明文档"
+    }, {
+        "type": "debug",
+        "content": "低分辨率下的显示效果"
+    }, {
+        "type": "change",
+        "content": "模态框内容"
+    }]
+}, {
+    "time": "2020/2/24",
+    "content": [{
+        "type": "change",
+        "content": "设置项样式"
+    }, {
+        "type": "change",
+        "content": "版权说明样式"
+    }, {
+        "type": "add",
+        "content": "关于项首行缩进"
+    }]
+}, {
+    "time": "2020/2/25",
+    "content": [{
+        "type": "add",
+        "content": "书签数据"
+    }, {
+        "type": "debug",
+        "content": "备选项列表在设置壁纸后下方出现透明的问题"
+    }, {
+        "type": "add",
+        "content": "设置项颜色"
+    }]
+}, {
+    "time": "2020/2/26",
+    "content": [{
+        "type": "change",
+        "content": "代码结构"
+    }, {
+        "type": "change",
+        "content": "关于项样式"
+    }, {
+        "type": "add",
+        "content": "scss文件"
+    }]
+}, {
+    "time": "2020/2/27",
+    "content": [{
+        "type": "change",
+        "content": "透明配色"
+    }, {
+        "type": "add",
+        "content": "透明配色scss模板"
+    }, {
+        "type": "add",
+        "content": "简白配色"
+    }]
+}, {
+    "time": "2020/2/28",
+    "content": [{
+        "type": "add",
+        "content": "数据查看"
+    }, {
+        "type": "debug",
+        "content": "切换搜索引擎报错的问题"
+    }]
+}, {
+    "time": "2020/3/4",
+    "content": [{
+        "type": "change",
+        "content": "文档说明"
+    }]
+}, {
+    "time": "2020/3/5",
+    "content": [{
+        "type": "change",
+        "content": "侧边栏渲染书签部分更改为grid布局"
+    }, {
+        "type": "change",
+        "content": "侧边栏数据渲染格式"
+    }, {
+        "type": "add",
+        "content": "针对小屏幕设备优化"
+    }]
+}, {
+    "time": "2020/3/6",
+    "content": [{
+        "type": "change",
+        "content": "设置项渲染方式"
+    }, {
+        "type": "change",
+        "content": "命名方式"
+    }, {
+        "type": "add",
+        "content": "增加api数据"
+    }]
+}, {
+    "time": "2020/3/7",
+    "content": [{
+        "type": "add",
+        "content": "高级设置项"
+    }]
+}, {
+    "time": "2020/3/8",
+    "content": [{
+        "type": "add",
+        "content": "高级设置自由选择圆角功能"
+    }]
+}, {
+    "time": "2020/3/13",
+    "content": [{
+        "type": "debug",
+        "content": "查看侧边栏数据为空的问题"
+    }, {
+        "type": "debug",
+        "content": "高级设置重复渲染的问题"
+    }, {
+        "type": "add",
+        "content": "关于项显示浏览器信息"
+    }]
+}, {
+    "time": "2020/3/14",
+    "content": [{
+        "type": "debug",
+        "content": "自定义圆角时更改ui风格重复选择的问题"
+    }, {
+        "type": "add",
+        "content": "文档说明"
+    }, {
+        "type": "change",
+        "content": "Logo显示效果"
+    }, {
+        "type": "add",
+        "content": "联系信息"
+    }]
+}, {
+    "time": "2020/3/15",
+    "content": [{
+        "type": "change",
+        "content": "图标样式"
+    }, {
+        "type": "change",
+        "content": "搜索打开新标签页"
+    }, {
+        "type": "debug",
+        "content": "图片不可用的问题"
+    }, {
+        "type": "change",
+        "content": "页面布局"
+    }]
+}, {
+    "time": "2020/3/19",
+    "content": [{
+        "type": "debug",
+        "content": "更改搜索引擎跳转错误的问题"
+    }]
+}, {
+    "time": "2020/3/20",
+    "content": [{
+        "type": "change",
+        "content": "过渡动画"
+    }]
+}, {
+    "time": "2020/3/21",
+    "content": [{
+        "type": "change",
+        "content": "数据管理"
+    }, {
+        "type": "debug",
+        "content": "删除数据后点击侧边栏内导致数据重新加载的问题"
+    }]
+}, {
+    "time": "2020/3/22",
+    "content": [{
+        "type": "change",
+        "content": "表格渲染方式"
+    }]
+}, {
+    "time": "2020/3/23",
+    "content": [{
+        "type": "add",
+        "content": "网址数据"
+    }, {
+        "type": "change",
+        "content": "数据管理样式"
+    }, {
+        "type": "change",
+        "content": "鼠标放置效果"
+    }]
+}, {
+    "time": "2020/3/29",
+    "content": [{
+        "type": "change",
+        "content": "选择搜索引擎事件监听及渲染函数"
+    }, {
+        "type": "add",
+        "content": "搜索热词开关"
+    }]
+}, {
+    "time": "2020/4/2",
+    "content": [{
+        "type": "change",
+        "content": "备选序号生成方式"
+    }, {
+        "type": "debug",
+        "content": "关闭常用网址再次开启时错误渲染为flex布局的问题"
+    }]
+}, {
+    "time": "2020/4/4",
+    "content": [{
+        "type": "add",
+        "content": "随机ID函数"
+    }]
+}, {
+    "time": "2020/4/5",
+    "content": [{
+        "type": "add",
+        "content": "待办事项功能"
+    }, {
+        "type": "change",
+        "content": "部分事件业务逻辑"
+    }, {
+        "type": "add",
+        "content": "快速排序函数"
+    }]
+}, {
+    "time": "2020/4/6",
+    "content": [{
+        "type": "change",
+        "content": "Logo副标题样式"
+    }, {
+        "type": "add",
+        "content": "数据导入导出"
+    }, {
+        "type": "change",
+        "content": "开关样式"
+    }, {
+        "type": "debug",
+        "content": "点击备份按钮侧边栏隐藏的问题"
+    }]
+}, {
+    "time": "2020/4/11",
+    "content": [{
+        "type": "change",
+        "content": "本地存储函数"
+    }, {
+        "type": "change",
+        "content": "上传壁纸函数"
+    }, {
+        "type": "del",
+        "content": "冗余注释"
+    }]
+}, {
+    "time": "2020/4/12",
+    "content": [{
+        "type": "add",
+        "content": "搜索历史纪录功能"
+    }]
+}, {
+    "time": "2020/4/13",
+    "content": [{
+        "type": "change",
+        "content": "模态框内容"
+    }, {
+        "type": "change",
+        "content": "侧边栏书签样式"
+    }]
+}, {
+    "time": "2020/4/14",
+    "content": [{
+        "type": "debug",
+        "content": "网页报错无法加载的问题"
+    }]
+}, {
+    "time": "2020/4/18",
+    "content": [{
+        "type": "change",
+        "content": "代码结构"
+    }, {
+        "type": "add",
+        "content": "搜索记录弹窗"
+    }]
+}, {
+    "time": "2020/4/19",
+    "content": [{
+        "type": "add",
+        "content": "Logo可配置"
+    }, {
+        "type": "change",
+        "content": "项目结构"
+    }]
+}, {
+    "time": "2020/4/22",
+    "content": [{
+        "type": "add",
+        "content": "更新记录数据文件"
+    }, {
+        "type": "add",
+        "content": "历史更新数据"
+    }, {
+        "type": "add",
+        "content": "随即语句设置项数据"
+    }]
+}, {
+    "time": "2020/4/23",
+    "content": [{
+        "type": "change",
+        "content": "设置项渲染代码"
+    }, {
+        "type": "add",
+        "content": "会话存储函数"
+    }, {
+        "type": "change",
+        "content": "动画过渡效果"
+    }]
+}, {
+    "time": "2020/4/24",
+    "content": [{
+        "type": "debug",
+        "content": "动画加载错误的问题"
+    }, {
+        "type": "debug",
+        "content": "背景重复设置的问题"
+    }]
+}, {
+    "time": "2020/4/25",
+    "content": [{
+        "type": "change",
+        "content": "弹窗渲染方式"
+    }, {
+        "type": "change",
+        "content": "调整部分函数为组件"
+    }, {
+        "type": "change",
+        "content": "调整待办相关代码"
+    }]
+}, {
+    "time": "2020/4/26",
+    "content": [{
+        "type": "add",
+        "content": "设置语句api功能"
+    }]
+}, {
+    "time": "2020/4/27",
+    "content": [{
+        "type": "add",
+        "content": "时间Logo样式"
+    }]
+}, {
+    "time": "2020/4/28",
+    "content": [{
+        "type": "add",
+        "content": "设置Logo样式功能"
+    }, {
+        "type": "add",
+        "content": "防重事件"
+    }]
+}, {
+    "time": "2020/4/29",
+    "content": [{
+        "type": "change",
+        "content": "部分代码"
+    }]
+}, {
+    "time": "2020/4/30",
+    "content": [{
+        "type": "change",
+        "content": "事件监听方式"
+    }, {
+        "type": "change",
+        "content": "Logo设置方式"
+    }]
+}, {
+    "time": "2020/5/1",
+    "content": [{
+        "type": "change",
+        "content": "设置项更改"
+    }, {
+        "type": "change",
+        "content": "背景设置代码"
+    }]
+}, {
+    "time": "2020/5/2",
+    "content": [{
+        "type": "change",
+        "content": "说明文档"
+    }]
+}, {
+    "time": "2020/5/3",
+    "content": [{
+        "type": "add",
+        "content": "新拟态风格UI"
+    }, {
+        "type": "del",
+        "content": "配色设置"
+    }, {
+        "type": "add",
+        "content": "文字Logo UI样式"
+    }]
+}, {
+    "time": "2020/5/4",
+    "content": [{
+        "type": "change",
+        "content": "默认Logo调整为时间样式"
+    }, {
+        "type": "change",
+        "content": "必应壁纸及默认设置效果更改"
+    }]
+}, {
+    "time": "2020/5/5",
+    "content": [{
+        "type": "change",
+        "content": "说明文档项目演示图"
+    }]
+}, {
+    "time": "2020/5/6",
+    "content": [{
+        "type": "add",
+        "content": "全局滚动条样式"
+    }, {
+        "type": "add",
+        "content": "时间线样式"
+    }, {
+        "type": "add",
+        "content": "查看更新记录功能"
+    }, {
+        "type": "change",
+        "content": "模态框内容"
+    }, {
+        "type": "debug",
+        "content": "可重复恢复默认效果的问题"
+    }, {
+        "type": "debug",
+        "content": "设置背景后切换UI背景未清空的问题"
+    }]
+}, {
+    "time": "2020/5/7",
+    "content": [{
+        "type": "debug",
+        "content": "时间线错误换行的问题"
+    }]
+},{
+    "time":"2020/5/8",
+    "content":[{
+        "type":"change",
+        "content":"模态框背景色"
+    },{
+        "type":"change",
+        "content":"消息提示背景色"
+    },{
+        "type":"del",
+        "content":"配色标签"
+    },{
+        "type":"change",
+        "content":"a标签文字颜色"
+    }]
 }]

@@ -19,7 +19,7 @@ export const timeLine = (value, order = 'positive') => {
                     <span class="label ${inner.type}">
                         ${inner.type}
                     </span>
-                    <span>${inner.content}</span>
+                    ${inner.content}
                 </p>`;
         })
         html += `<div class="timeLine-item">${time}${content}</div>`;
