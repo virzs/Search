@@ -180,6 +180,22 @@ export const setCommomUse = (data, status) => {
     iconLoadError();
 }
 
+//更改常用网址次数
+export const changeCommonCount = (id, state = 'add') => {
+    let data = getStorage('commonUseData').toJSON();
+    data.forEach((item, index) => {
+        if (item.id == id && state == 'add') {
+            item.count += 1;
+        } else if (item.id == id && state == 'sub') {
+            item.count -= 1;
+        }
+        if (item.count < 0) {
+            item.count = 0;
+        }
+    })
+    setStorage('commonUseData', JSON.stringify(quickSort(data)));
+}
+
 //图标加载失败替换文字函数
 const iconLoadError = () => {
     Array.prototype.forEach.call(commonUse.children, item => {
@@ -212,7 +228,7 @@ const renderData = (id, name, url, color) => {
     <div class="commons">
         <div class="commons-content">
             <img src="https://favicon.link/${url}"></img>
-            <a id="${id}" style="color:${color};" href="${url}" target="_blank">${name}</a>
+            <a id="${id}" item-type="commons" style="color:${color};" href="${url}" target="_blank">${name}</a>
         </div>
         <div class="commons-btn">
             <i class="fa fa-ellipsis-h"></i>

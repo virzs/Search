@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-07 09:51:48
+ * @Last Modified time: 2020-05-17 22:14:59
  */
 
 //配置变量
@@ -96,7 +96,8 @@ import {
 import {
     commonWebsite,
     setCommomUse,
-    createWebsite
+    createWebsite,
+    changeCommonCount
 } from "./module/website.func.js";
 
 //背景相关函数
@@ -912,6 +913,10 @@ messageList.addEventListener("click", (e) => {
 
 // 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
+    if (e.target.getAttribute('item-type') == 'commons') {
+        console.log(e.target.id)
+        changeCommonCount(e.target.id);
+    }
     // 添加网址
     if (e.target.className == "commons-addbtn") {
         openDialog({
