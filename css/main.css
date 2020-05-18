@@ -1113,22 +1113,27 @@ span {
 
 .dialog>.dialog-footer .primary {
     background: #409eff;
+    border: 1px solid #409eff;
 }
 
 .dialog>.dialog-footer .success {
     background: #67c23a;
+    border: 1px solid #67c23a;
 }
 
 .dialog>.dialog-footer .info {
     background: #909399;
+    border: 1px solid #909399;
 }
 
 .dialog>.dialog-footer .warning {
     background: #ebb563;
+    border: 1px solid #ebb563;
 }
 
 .dialog>.dialog-footer .danger {
     background: #f56c6c;
+    border: 1px solid #f56c6c;
 }
 
 .dialog button {
@@ -1148,6 +1153,7 @@ span {
     margin: 0;
     transition: .1s;
     font-weight: 500;
+    box-sizing: border-box;
 }
 
 .dialog button:hover {

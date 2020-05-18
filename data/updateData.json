@@ -1176,5 +1176,8 @@
     }, {
         "type": "change",
         "content": "模态框渲染方式"
+    },{
+        "type":"debug",
+        "content":"解决不同按钮不统一的问题"
     }]
 }]
