@@ -1162,4 +1162,13 @@
         "type": "add",
         "content": "添加常用网址计数函数"
     }]
+}, {
+    "time": "2020/5/18",
+    "content": [{
+        "type": "change",
+        "content": "修改常用网址计数函数"
+    }, {
+        "type": "add",
+        "content": "渲染常用网址函数"
+    }]
 }]

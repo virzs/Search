@@ -180,19 +180,67 @@ export const setCommomUse = (data, status) => {
     iconLoadError();
 }
 
-//更改常用网址次数
-export const changeCommonCount = (id, state = 'add') => {
-    let data = getStorage('commonUseData').toJSON();
+export const renderCommonUse = (isSetting = true) => {
+    let data = getStorage('commonUseData').toJSON(); //数据源
+    let state = getStorage('showCommonUse').value; //是否显示常用网址
+    let commonHtml = ''; //渲染内容
+    let display = null; //加载动画匿名函数
     data.forEach((item, index) => {
-        if (item.id == id && state == 'add') {
-            item.count += 1;
-        } else if (item.id == id && state == 'sub') {
-            item.count -= 1;
-        }
-        if (item.count < 0) {
-            item.count = 0;
+        if (index < 7) {
+            commonHtml += renderData(item.id, item.name, item.url, item.color);
         }
     })
+    //依据本地存储判断是否显示
+    if (state == "website_open") {
+        display = () => {
+            commonUse.style.display = "grid";
+        }
+    } else if (state == "website_close") {
+        display = () => {
+            commonUse.style.display = "none";
+        }
+    }
+    if (isSetting) {
+        setStorageBefore(display);
+    } else if (state == "website_close" && !isSetting) {
+        commonUse.style.display = "none";
+    }
+    commonUse.innerHTML = commonHtml + addCommonsData();
+    iconLoadError();
+}
+
+//更改常用网址次数
+export const changeCommonCount = (key, state = 'add') => {
+    let data = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let dataSource = jsonData.sideBar.content.find(item => item.value == "Website").content;
+    let keys = Object.keys(key)[0]; //获取变量名
+    let recent = data.find(item => item[keys] == key[keys]); //查找是否存在
+    let source = ''; //查找文件中此项数据
+    if (!recent) {
+        //不存在则查找点击的书签数据
+        for (let item of dataSource) {
+            let thisWebsite = item.content.find(inner => inner[keys] == key[keys]);
+            if (thisWebsite) {
+                source = thisWebsite;
+                break;
+            }
+        }
+        source.id = generateId();
+        source.count = 1;
+        data.push(source);
+    } else {
+        //存在则更改count计数
+        data.forEach((item, index) => {
+            if (item[keys] == key[keys] && state == 'add') {
+                item.count += 1;
+            } else if (item[keys] == key[keys] && state == 'sub') {
+                item.count -= 1;
+            }
+            if (item.count < 0) {
+                item.count = 0;
+            }
+        })
+    }
     setStorage('commonUseData', JSON.stringify(quickSort(data)));
 }
 
@@ -215,7 +263,7 @@ const iconLoadError = () => {
 //胶囊样式模板
 const renderCapsule = (data) => {
     return `
-        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule">
+        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule" item-type="commons">
             <div style="color:${data.color};">
                 <span>${data.name}</span>
             </div>

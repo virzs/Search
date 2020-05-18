@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-17 22:14:59
+ * @Last Modified time: 2020-05-18 16:21:38
  */
 
 //配置变量
@@ -170,6 +170,9 @@ import {
 import {
     timeLine
 } from "./components/timeLine.component.js";
+import {
+    handleWebsite
+} from "./event/website.event.js";
 
 /*
     加载本地存储区域/自动加载区域
@@ -224,7 +227,8 @@ if (customFilletValue.value !== null) {
 }
 //默认设置开启显示常用网址功能
 if (showCommonUse.value == null) {
-    setStorage("showCommonUse", "website_open");
+    setStorage('showCommonUse', 'website_open')
+    handleWebsite({}, '', false);
 }
 
 if (commonUseData.value == null) {
@@ -583,33 +587,14 @@ sideBarTitle.addEventListener("click", (e) => {
 // 监听侧边栏内操作
 sideBarContent.addEventListener("click", (e) => {
     stopPropagation();
-    // 自动记录常用网址
-    let thisWebsite = {};
-    let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
-    for (let item of websiteData) {
-        thisWebsite = item.content.find(inner => inner.name == e.target.id);
-        if (thisWebsite !== undefined) {
-            thisWebsite.count = 1;
-            commonWebsite({
-                thisWebsite: thisWebsite,
-                commonData: getStorage("commonUseData").toJSON()
-            });
-            return;
-        }
-    }
-    for (let item of getStorage("sideBarWebsiteData").toJSON()) {
-        thisWebsite = item.content.find(inner => inner.name == e.target.id);
-        if (thisWebsite !== undefined && thisWebsite !== {}) {
-            thisWebsite.count = 1;
-            commonWebsite({
-                thisWebsite: thisWebsite,
-                commonData: getStorage("commonUseData").toJSON()
-            });
-            return;
-        }
-    }
-    // 监听设置操作
     switch (true) {
+        //侧边栏点击书签操作
+        case e.target.getAttribute('item-type') == 'commons':
+            //常用网址计数
+            handleWebsite({
+                name: e.target.id
+            }, 'count');
+            break;
         case e.target.getAttribute('item-type') == 'changebg':
             bgSetting(e.target.id, true);
             break;
@@ -641,11 +626,9 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
             // 开启关闭常用网址功能
-        case (e.target.id.indexOf("website") !== -1):
-            commonWebsite({
-                commonData: commonData,
-                status: e.target.id
-            });
+        case e.target.getAttribute('item-type') == 'changeCommonUse':
+            setStorage('showCommonUse', e.target.id);
+            handleWebsite({}, '', true);
             break;
             // 添加网址
         case (e.target.id.indexOf("AddCapsule") !== -1):
@@ -914,8 +897,9 @@ messageList.addEventListener("click", (e) => {
 // 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
     if (e.target.getAttribute('item-type') == 'commons') {
-        console.log(e.target.id)
-        changeCommonCount(e.target.id);
+        handleWebsite({
+            id: e.target.id
+        }, 'count');
     }
     // 添加网址
     if (e.target.className == "commons-addbtn") {
