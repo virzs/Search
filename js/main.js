@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-18 16:21:38
+ * @Last Modified time: 2020-05-18 22:20:08
  */
 
 //配置变量
@@ -631,7 +631,7 @@ sideBarContent.addEventListener("click", (e) => {
             handleWebsite({}, '', true);
             break;
             // 添加网址
-        case (e.target.id.indexOf("AddCapsule") !== -1):
+        case e.target.getAttribute('item-type') == 'addCapsule':
             openDialog({
                 id: e.target.id,
                 title: "添加自定义网址",
@@ -651,9 +651,11 @@ sideBarContent.addEventListener("click", (e) => {
                 },
                 button: [{
                     name: "保存",
+                    type: "primary",
                     value: "save"
                 }, {
                     name: "取消",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -698,6 +700,7 @@ sideBarContent.addEventListener("click", (e) => {
                     </div>`,
                 button: [{
                     name: "关闭",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -746,6 +749,7 @@ sideBarContent.addEventListener("click", (e) => {
                     </div>`,
                 button: [{
                     name: "关闭",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -793,6 +797,7 @@ sideBarContent.addEventListener("click", (e) => {
                     </div>`,
                 button: [{
                     name: "关闭",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -921,9 +926,11 @@ commonUse.addEventListener("click", (e) => {
             },
             button: [{
                 name: "确定",
+                type: "primary",
                 value: "submit"
             }, {
                 name: "取消",
+                type: "default",
                 value: "cancel"
             }]
         })
@@ -945,12 +952,15 @@ commonUse.addEventListener("click", (e) => {
             },
             button: [{
                 name: "修改",
+                type: "warning",
                 value: "change"
             }, {
                 name: "删除",
+                type: "danger",
                 value: "delete"
             }, {
                 name: "取消",
+                type: "default",
                 value: "cancel"
             }]
         })

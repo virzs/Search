@@ -9,6 +9,7 @@ export const openDialog = (data) => {
     option = data.option !== undefined ? data.option : {}; //模态框配置数据
     button = data.button !== undefined ? data.button : [{
         name: "取消",
+        type: "default",
         value: "cancel"
     }]; //模态框按钮
     if (option.type == "form") {
@@ -35,7 +36,7 @@ export const openDialog = (data) => {
     button.forEach(item => {
         btns += `
             <span>
-                <button id="${item.value}Dialog">${item.name}</button>
+                <button id="${item.value}Dialog" class="${item.type?item.type:'default'}">${item.name}</button>
             </span>`
     })
     let dialog = `

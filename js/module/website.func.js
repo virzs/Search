@@ -54,7 +54,7 @@ export const createWebsite = () => {
                 }
             })
             sideBarHtml += `
-                <a id='${item.value}AddCapsule' class="capsule">
+                <a id='${item.value}AddCapsule' class="capsule" item-type="addCapsule">
                     <div style="color:${item.color};">
                         <span><i class="fa fa-plus"></i>&nbsp;添加</span>
                     </div>

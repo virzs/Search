@@ -1170,5 +1170,11 @@
     }, {
         "type": "add",
         "content": "渲染常用网址函数"
+    }, {
+        "type": "add",
+        "content": "模态框按钮颜色"
+    }, {
+        "type": "change",
+        "content": "模态框渲染方式"
     }]
 }]
