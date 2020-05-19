@@ -37,6 +37,30 @@ export const renderSideBarIcon = () => {
     }
 }
 
+//侧边栏按钮点击
+export const sideBarButtonClick = (sideBarIconFlag) => {
+    let icon = sideBarTitle.querySelectorAll(".title-icon");
+    Array.prototype.forEach.call(icon, item => {
+        item.style.background = "";
+        item.style.color = item.getAttribute('color');
+    })
+    if (sideBarIconFlag == -1) {
+        sideBarButton.className = "sideBarButtonMoveLeft";
+        sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
+        sideBar.className = "moveLeft";
+        icon[0].style.background = icon[0].getAttribute('color');
+        icon[0].style.color = "#fff";
+        sideBarIconFlag = "Website";
+        renderSideBarContent("Website");
+    } else {
+        sideBarButton.className = "sideBarButtonMoveRight";
+        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
+        sideBar.className = "moveRight";
+        sideBarIconFlag = -1;
+    }
+    return sideBarIconFlag;
+}
+
 //依据选中id渲染侧边栏内容函数
 export const renderSideBarContent = (id) => {
     switch (id) {

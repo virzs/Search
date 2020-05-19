@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-18 22:20:08
+ * @Last Modified time: 2020-05-19 18:17:40
  */
 
 //配置变量
@@ -129,7 +129,8 @@ import {
 //侧边栏渲染函数
 import {
     renderSideBarIcon,
-    renderSideBarContent
+    renderSideBarContent,
+    sideBarButtonClick
 } from "./module/sideBar.func.js";
 
 import {
@@ -535,25 +536,7 @@ selectOption.addEventListener("click", (e) => {
 
 // 监听侧边栏开启，关闭按钮
 sideBarButton.addEventListener("click", () => {
-    let icon = sideBarTitle.querySelectorAll(".title-icon");
-    Array.prototype.forEach.call(icon, item => {
-        item.style.background = "";
-        item.style.color = item.getAttribute('color');
-    })
-    if (sideBarIconFlag == -1) {
-        sideBarButton.className = "sideBarButtonMoveLeft";
-        sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
-        sideBar.className = "moveLeft";
-        icon[0].style.background = icon[0].getAttribute('color');
-        icon[0].style.color = "#fff";
-        sideBarIconFlag = "Website";
-        renderSideBarContent("Website");
-    } else {
-        sideBarButton.className = "sideBarButtonMoveRight";
-        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
-        sideBar.className = "moveRight";
-        sideBarIconFlag = -1;
-    }
+    sideBarIconFlag = sideBarButtonClick(sideBarIconFlag);
 })
 
 // 监听侧边栏选项卡
