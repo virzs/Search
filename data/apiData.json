@@ -8,4 +8,9 @@
     "description": "一言API",
     "url": "https://v1.hitokoto.cn",
     "callback": ""
+}, {
+    "apiName": "favicon",
+    "description": "图标API",
+    "url": "https://favicon.link/",
+    "callback": ""
 }]
