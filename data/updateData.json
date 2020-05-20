@@ -1160,13 +1160,13 @@
     "time": "2020/5/17",
     "content": [{
         "type": "add",
-        "content": "添加常用网址计数函数"
+        "content": "常用网址计数函数"
     }]
 }, {
     "time": "2020/5/18",
     "content": [{
         "type": "change",
-        "content": "修改常用网址计数函数"
+        "content": "常用网址计数函数"
     }, {
         "type": "add",
         "content": "渲染常用网址函数"
@@ -1184,6 +1184,21 @@
     "time": "2020/5/19",
     "content": [{
         "type": "change",
-        "content": "修改侧边栏按钮监听事件"
+        "content": "侧边栏按钮监听事件"
+    }]
+}, {
+    "time": "2020/5/20",
+    "content": [{
+        "type": "change",
+        "content": "常用网址触发弹窗方式"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }, {
+        "type": "add",
+        "content": "获取网站图标API数据"
+    }, {
+        "type": "change",
+        "content": "常用网址新增业务逻辑"
     }]
 }]
