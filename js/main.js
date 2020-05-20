@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-19 18:17:40
+ * @Last Modified time: 2020-05-20 21:17:32
  */
 
 //配置变量
@@ -15,7 +15,6 @@ var sug = true;
 var toDoStatus = 1;
 
 //获取本地数据
-const skinHref = getStorage("skin");
 const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
@@ -38,7 +37,6 @@ import {
 
 //DOM元素
 import {
-    linkTag,
     uiTag,
     searchContent,
     selectEngine,
@@ -74,8 +72,7 @@ import {
 //本地存储相关函数
 import {
     setStorage,
-    getStorage,
-    removeStorage
+    getStorage
 } from './module/storage.func.js';
 
 //消息提示函数
@@ -86,37 +83,26 @@ import {
 //阻止事件冒泡函数
 import {
     stopPropagation,
-    findSettingInfo,
     getRandomColor,
-    removeElement,
-    generateId
+    removeElement
 } from "./module/global.func.js";
 
 //网址相关函数
 import {
     commonWebsite,
     setCommomUse,
-    createWebsite,
-    changeCommonCount
+    createWebsite
 } from "./module/website.func.js";
 
 //背景相关函数
 import {
     setBingImage,
     setCustomizeImage,
-    setdefault,
-    globalImage,
-    WoolGlass
+    globalImage
 } from "./module/bg.func.js";
-
-//皮肤相关函数
-import {
-    changeSkin
-} from "./module/skin.func.js";
 
 //UI相关函数
 import {
-    changeUI,
     customFillet
 } from "./module/ui.func.js";
 
@@ -174,6 +160,9 @@ import {
 import {
     handleWebsite
 } from "./event/website.event.js";
+import {
+    handleDialogBtn
+} from "./event/dialog.event.js";
 
 /*
     加载本地存储区域/自动加载区域
@@ -316,9 +305,31 @@ document.addEventListener("click", function (e) {
         sideBarIconFlag = -1;
     }
 
-    //监听模态框关闭图标
-    if (e.target.id == "closeDialog") {
-        closeDialog();
+    //监听模态框操作
+    if (e.target.getAttribute('source') == 'dialog-btn') {
+        let dialogId = e.target.getAttribute('dialog-id');
+        let itemSource = e.target.getAttribute('item-source');
+        let itemType = e.target.getAttribute('item-type');
+        let itemValue = e.target.getAttribute('item-value');
+        let inputName = null;
+        let inputUrl = null;
+        if (document.querySelector("#nameDialog")) {
+            inputName = document.querySelector("#nameDialog").children[1].value;
+        }
+        if (document.querySelector("#urlDialog")) {
+            inputUrl = document.querySelector("#urlDialog").children[1].value;
+        }
+        let option = {
+            id: dialogId,
+            source: itemSource,
+            type: itemType,
+            value: itemValue
+        }
+        let data = {
+            name: inputName,
+            url: inputUrl
+        }
+        handleDialogBtn(option, data);
     }
 
     //模态框提交
@@ -884,69 +895,76 @@ messageList.addEventListener("click", (e) => {
 
 // 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
-    if (e.target.getAttribute('item-type') == 'commons') {
-        handleWebsite({
-            id: e.target.id
-        }, 'count');
-    }
-    // 添加网址
-    if (e.target.className == "commons-addbtn") {
-        openDialog({
-            title: "添加常用网址",
-            option: {
-                type: "form",
-                content: [{
-                    name: "名称",
-                    value: "name",
-                    type: "input",
-                    defaultValue: ""
-                }, {
-                    name: "URl",
-                    value: "url",
-                    type: "input",
-                    defaultValue: ""
-                }]
-            },
-            button: [{
-                name: "确定",
-                type: "primary",
-                value: "submit"
-            }, {
-                name: "取消",
-                type: "default",
-                value: "cancel"
-            }]
-        })
-    }
-    // 编辑网址
-    if (e.target.className == "commons-btn") {
-        changeWebsiteUrl = e.target.parentNode.querySelector("a");
-        openDialog({
-            id: changeWebsiteUrl.id,
-            title: "修改常用网址",
-            option: {
-                type: "form",
-                content: [{
-                    name: "名称",
-                    value: "name",
-                    type: "input",
-                    defaultValue: changeWebsiteUrl.innerHTML
-                }],
-            },
-            button: [{
-                name: "修改",
-                type: "warning",
-                value: "change"
-            }, {
-                name: "删除",
-                type: "danger",
-                value: "delete"
-            }, {
-                name: "取消",
-                type: "default",
-                value: "cancel"
-            }]
-        })
+    switch (true) {
+        //点击常用网址计数
+        case e.target.getAttribute('item-type') == 'commons':
+            handleWebsite({
+                id: e.target.id
+            }, 'count');
+            break;
+            //常用网址弹窗
+        case e.target.getAttribute('item-type') == 'commons-btn':
+            let value = e.target.getAttribute('item-value');
+            changeWebsiteUrl = e.target.parentNode.querySelector("a");
+            if (value == 'add') {
+                openDialog({
+                    title: "添加常用网址",
+                    source: "commons",
+                    option: {
+                        type: "form",
+                        content: [{
+                            name: "名称",
+                            value: "name",
+                            type: "input",
+                            defaultValue: ""
+                        }, {
+                            name: "URl",
+                            value: "url",
+                            type: "input",
+                            defaultValue: ""
+                        }]
+                    },
+                    button: [{
+                        name: "确定",
+                        type: "primary",
+                        value: "submit"
+                    }, {
+                        name: "取消",
+                        type: "default",
+                        value: "cancel"
+                    }]
+                })
+            }
+            if (value == 'handle') {
+                openDialog({
+                    id: changeWebsiteUrl.id,
+                    source: "commons",
+                    title: "修改常用网址",
+                    option: {
+                        type: "form",
+                        content: [{
+                            name: "名称",
+                            value: "name",
+                            type: "input",
+                            defaultValue: changeWebsiteUrl.innerHTML
+                        }],
+                    },
+                    button: [{
+                        name: "修改",
+                        type: "warning",
+                        value: "change"
+                    }, {
+                        name: "删除",
+                        type: "danger",
+                        value: "delete"
+                    }, {
+                        name: "取消",
+                        type: "default",
+                        value: "cancel"
+                    }]
+                })
+            }
+            break;
     }
 })
 

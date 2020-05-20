@@ -1,5 +1,6 @@
 import {
-    jsonData
+    jsonData,
+    apiData
 } from "./all.data.js";
 
 import {
@@ -21,7 +22,8 @@ import {
 
 import {
     generateId,
-    quickSort
+    quickSort,
+    getRandomColor
 } from "./global.func.js";
 
 //创建书签数据
@@ -244,6 +246,40 @@ export const changeCommonCount = (key, state = 'add') => {
     setStorage('commonUseData', JSON.stringify(quickSort(data)));
 }
 
+//添加常用网址
+export const addCommon = (data) => {
+    let dataSource = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let name = data.name ? data.name : null;
+    let url = data.url ? data.url : null;
+    return new Promise((resolve, reject) => {
+        if (name == null || url == null) {
+            reject({
+                code: 500,
+                data: {},
+                msg: "名称或URL不能为空！！！"
+            })
+        }
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+            url = `https://${url}`;
+        }
+        dataSource.push({
+            name: name,
+            url: url,
+            count: 10000,
+            id: generateId(),
+            color: getRandomColor(),
+            show: true,
+            icon: ""
+        })
+        setStorage('commonUseData', JSON.stringify(quickSort(dataSource)));
+        resolve({
+            code: 200,
+            data: {},
+            msg: "添加常用网址成功"
+        })
+    })
+}
+
 //图标加载失败替换文字函数
 const iconLoadError = () => {
     Array.prototype.forEach.call(commonUse.children, item => {
@@ -272,13 +308,14 @@ const renderCapsule = (data) => {
 
 //自定义网址模板
 const renderData = (id, name, url, color) => {
+    let iconApi = apiData.find(item => item.apiName == 'favicon').url;
     return `
     <div class="commons">
         <div class="commons-content">
-            <img src="https://favicon.link/${url}"></img>
+            <img src="${iconApi}${url}"></img>
             <a id="${id}" item-type="commons" style="color:${color};" href="${url}" target="_blank">${name}</a>
         </div>
-        <div class="commons-btn">
+        <div class="commons-btn" item-type="commons-btn" item-value="handle">
             <i class="fa fa-ellipsis-h"></i>
         </div>
     </div>`
@@ -288,7 +325,7 @@ const renderData = (id, name, url, color) => {
 const addCommonsData = () => {
     return `
     <div class="commons">
-        <div class="commons-addbtn">
+        <div class="commons-addbtn" item-type="commons-btn" item-value="add">
             <i class="fa fa-plus"></i>
         </div>
     </div>`
