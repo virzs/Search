@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-07 09:51:48
+ * @Last Modified time: 2020-05-21 15:47:43
  */
 
 //配置变量
@@ -15,7 +15,6 @@ var sug = true;
 var toDoStatus = 1;
 
 //获取本地数据
-const skinHref = getStorage("skin");
 const uiHref = getStorage("uistyle");
 const bg = getStorage("bg");
 const commonUseData = getStorage("commonUseData");
@@ -38,7 +37,6 @@ import {
 
 //DOM元素
 import {
-    linkTag,
     uiTag,
     searchContent,
     selectEngine,
@@ -74,8 +72,7 @@ import {
 //本地存储相关函数
 import {
     setStorage,
-    getStorage,
-    removeStorage
+    getStorage
 } from './module/storage.func.js';
 
 //消息提示函数
@@ -86,36 +83,25 @@ import {
 //阻止事件冒泡函数
 import {
     stopPropagation,
-    findSettingInfo,
     getRandomColor,
-    removeElement,
-    generateId
+    removeElement
 } from "./module/global.func.js";
 
 //网址相关函数
 import {
-    commonWebsite,
-    setCommomUse,
-    createWebsite
+    createWebsite,
+    renderCommonUse
 } from "./module/website.func.js";
 
 //背景相关函数
 import {
     setBingImage,
     setCustomizeImage,
-    setdefault,
-    globalImage,
-    WoolGlass
+    globalImage
 } from "./module/bg.func.js";
-
-//皮肤相关函数
-import {
-    changeSkin
-} from "./module/skin.func.js";
 
 //UI相关函数
 import {
-    changeUI,
     customFillet
 } from "./module/ui.func.js";
 
@@ -128,7 +114,8 @@ import {
 //侧边栏渲染函数
 import {
     renderSideBarIcon,
-    renderSideBarContent
+    renderSideBarContent,
+    sideBarButtonClick
 } from "./module/sideBar.func.js";
 
 import {
@@ -169,6 +156,12 @@ import {
 import {
     timeLine
 } from "./components/timeLine.component.js";
+import {
+    handleWebsite
+} from "./event/website.event.js";
+import {
+    handleDialogBtn
+} from "./event/dialog.event.js";
 
 /*
     加载本地存储区域/自动加载区域
@@ -223,17 +216,18 @@ if (customFilletValue.value !== null) {
 }
 //默认设置开启显示常用网址功能
 if (showCommonUse.value == null) {
-    setStorage("showCommonUse", "website_open");
+    setStorage('showCommonUse', 'website_open')
+    handleWebsite({}, '', false);
 }
 
 if (commonUseData.value == null) {
     setStorage("commonUseData", "[]");
-    setCommomUse(commonData.toJSON());
+    renderCommonUse(false);
 }
 
 if (commonUseData.value !== null) {
     commonData = commonUseData.toJSON();
-    setCommomUse(commonUseData.toJSON());
+    renderCommonUse(false);
 }
 
 //拼接搜索栏左侧选择引擎
@@ -310,69 +304,31 @@ document.addEventListener("click", function (e) {
         sideBarIconFlag = -1;
     }
 
-    //监听模态框关闭图标
-    if (e.target.id == "closeDialog") {
-        closeDialog();
-    }
-
-    //模态框提交
-    if (e.target.id == "submitDialog") {
-        let name = document.querySelector("#nameDialog").children[1].value;
-        let url = document.querySelector("#urlDialog").children[1].value;
-        if (name == "" || url == "") {
-            openMessage({
-                title: "提示",
-                type: "error",
-                content: `名称或URL不能为空！！！`
-            })
-            return;
+    //监听模态框操作
+    if (e.target.getAttribute('source') == 'dialog-btn') {
+        let dialogId = e.target.getAttribute('dialog-id');
+        let itemSource = e.target.getAttribute('item-source');
+        let itemType = e.target.getAttribute('item-type');
+        let itemValue = e.target.getAttribute('item-value');
+        let inputName = null;
+        let inputUrl = null;
+        if (document.querySelector("#nameDialog")) {
+            inputName = document.querySelector("#nameDialog").children[1].value;
         }
-        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
-            url = `https://${url}`;
+        if (document.querySelector("#urlDialog")) {
+            inputUrl = document.querySelector("#urlDialog").children[1].value;
         }
-        commonWebsite({
-            thisWebsite: {
-                name: name,
-                url: url,
-                color: getRandomColor()
-            },
-            commonData: commonData,
-            add: true
-        })
-        closeDialog();
-    }
-
-    //模态框取消
-    if (e.target.id == "cancelDialog") {
-        closeDialog();
-    }
-
-    //模态框修改
-    if (e.target.id == "changeDialog") {
-        let id = document.querySelector(".dialog").id;
-        let name = document.querySelector("#nameDialog").children[1].value;
-        commonWebsite({
-            thisWebsite: {
-                id: id,
-                name: name
-            },
-            commonData: commonData,
-            change: true
-        })
-        closeDialog();
-    }
-
-    //模态框删除
-    if (e.target.id == "deleteDialog") {
-        let id = document.querySelector(".dialog").id;
-        commonWebsite({
-            thisWebsite: {
-                id: id
-            },
-            commonData: commonData,
-            del: true
-        })
-        closeDialog();
+        let option = {
+            id: dialogId,
+            source: itemSource,
+            type: itemType,
+            value: itemValue
+        }
+        let data = {
+            name: inputName,
+            url: inputUrl
+        }
+        handleDialogBtn(option, data);
     }
 
     //侧边栏保存自定义网址
@@ -451,7 +407,7 @@ document.addEventListener("click", function (e) {
                     <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                 </tr>`;
             })
-            setCommomUse(source);
+            renderCommonUse(false);
         } else if (e.target.getAttribute("source") == "sideBarWebsiteData") {
             source.forEach(item => {
                 if (item.value == category) {
@@ -530,25 +486,7 @@ selectOption.addEventListener("click", (e) => {
 
 // 监听侧边栏开启，关闭按钮
 sideBarButton.addEventListener("click", () => {
-    let icon = sideBarTitle.querySelectorAll(".title-icon");
-    Array.prototype.forEach.call(icon, item => {
-        item.style.background = "";
-        item.style.color = item.getAttribute('color');
-    })
-    if (sideBarIconFlag == -1) {
-        sideBarButton.className = "sideBarButtonMoveLeft";
-        sideBarButton.innerHTML = `<i class="fa fa-mail-forward"></i>`;
-        sideBar.className = "moveLeft";
-        icon[0].style.background = icon[0].getAttribute('color');
-        icon[0].style.color = "#fff";
-        sideBarIconFlag = "Website";
-        renderSideBarContent("Website");
-    } else {
-        sideBarButton.className = "sideBarButtonMoveRight";
-        sideBarButton.innerHTML = `<i class="fa fa-bars"></i>`;
-        sideBar.className = "moveRight";
-        sideBarIconFlag = -1;
-    }
+    sideBarIconFlag = sideBarButtonClick(sideBarIconFlag);
 })
 
 // 监听侧边栏选项卡
@@ -582,33 +520,14 @@ sideBarTitle.addEventListener("click", (e) => {
 // 监听侧边栏内操作
 sideBarContent.addEventListener("click", (e) => {
     stopPropagation();
-    // 自动记录常用网址
-    let thisWebsite = {};
-    let websiteData = jsonData.sideBar.content.find(item => item.value == "Website").content;
-    for (let item of websiteData) {
-        thisWebsite = item.content.find(inner => inner.name == e.target.id);
-        if (thisWebsite !== undefined) {
-            thisWebsite.count = 1;
-            commonWebsite({
-                thisWebsite: thisWebsite,
-                commonData: getStorage("commonUseData").toJSON()
-            });
-            return;
-        }
-    }
-    for (let item of getStorage("sideBarWebsiteData").toJSON()) {
-        thisWebsite = item.content.find(inner => inner.name == e.target.id);
-        if (thisWebsite !== undefined && thisWebsite !== {}) {
-            thisWebsite.count = 1;
-            commonWebsite({
-                thisWebsite: thisWebsite,
-                commonData: getStorage("commonUseData").toJSON()
-            });
-            return;
-        }
-    }
-    // 监听设置操作
     switch (true) {
+        //侧边栏点击书签操作
+        case e.target.getAttribute('item-type') == 'commons':
+            //常用网址计数
+            handleWebsite({
+                name: e.target.id
+            }, 'count');
+            break;
         case e.target.getAttribute('item-type') == 'changebg':
             bgSetting(e.target.id, true);
             break;
@@ -640,14 +559,20 @@ sideBarContent.addEventListener("click", (e) => {
             })
             break;
             // 开启关闭常用网址功能
-        case (e.target.id.indexOf("website") !== -1):
-            commonWebsite({
-                commonData: commonData,
-                status: e.target.id
-            });
+        case e.target.getAttribute('item-type') == 'changeCommonUse':
+            if (e.target.id == getStorage('showCommonUse').value) {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `请勿重复选择`
+                })
+                return;
+            }
+            setStorage('showCommonUse', e.target.id);
+            handleWebsite({}, '', true);
             break;
             // 添加网址
-        case (e.target.id.indexOf("AddCapsule") !== -1):
+        case e.target.getAttribute('item-type') == 'addCapsule':
             openDialog({
                 id: e.target.id,
                 title: "添加自定义网址",
@@ -667,9 +592,11 @@ sideBarContent.addEventListener("click", (e) => {
                 },
                 button: [{
                     name: "保存",
+                    type: "primary",
                     value: "save"
                 }, {
                     name: "取消",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -714,6 +641,7 @@ sideBarContent.addEventListener("click", (e) => {
                     </div>`,
                 button: [{
                     name: "关闭",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -762,6 +690,7 @@ sideBarContent.addEventListener("click", (e) => {
                     </div>`,
                 button: [{
                     name: "关闭",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -809,6 +738,7 @@ sideBarContent.addEventListener("click", (e) => {
                     </div>`,
                 button: [{
                     name: "关闭",
+                    type: "default",
                     value: "cancel"
                 }]
             })
@@ -912,59 +842,76 @@ messageList.addEventListener("click", (e) => {
 
 // 监听常用网址中相关操作
 commonUse.addEventListener("click", (e) => {
-    // 添加网址
-    if (e.target.className == "commons-addbtn") {
-        openDialog({
-            title: "添加常用网址",
-            option: {
-                type: "form",
-                content: [{
-                    name: "名称",
-                    value: "name",
-                    type: "input",
-                    defaultValue: ""
-                }, {
-                    name: "URl",
-                    value: "url",
-                    type: "input",
-                    defaultValue: ""
-                }]
-            },
-            button: [{
-                name: "确定",
-                value: "submit"
-            }, {
-                name: "取消",
-                value: "cancel"
-            }]
-        })
-    }
-    // 编辑网址
-    if (e.target.className == "commons-btn") {
-        changeWebsiteUrl = e.target.parentNode.querySelector("a");
-        openDialog({
-            id: changeWebsiteUrl.id,
-            title: "修改常用网址",
-            option: {
-                type: "form",
-                content: [{
-                    name: "名称",
-                    value: "name",
-                    type: "input",
-                    defaultValue: changeWebsiteUrl.innerHTML
-                }],
-            },
-            button: [{
-                name: "修改",
-                value: "change"
-            }, {
-                name: "删除",
-                value: "delete"
-            }, {
-                name: "取消",
-                value: "cancel"
-            }]
-        })
+    switch (true) {
+        //点击常用网址计数
+        case e.target.getAttribute('item-type') == 'commons':
+            handleWebsite({
+                id: e.target.id
+            }, 'count');
+            break;
+            //常用网址弹窗
+        case e.target.getAttribute('item-type') == 'commons-btn':
+            let value = e.target.getAttribute('item-value');
+            changeWebsiteUrl = e.target.parentNode.querySelector("a");
+            if (value == 'add') {
+                openDialog({
+                    title: "添加常用网址",
+                    source: "commons",
+                    option: {
+                        type: "form",
+                        content: [{
+                            name: "名称",
+                            value: "name",
+                            type: "input",
+                            defaultValue: ""
+                        }, {
+                            name: "URl",
+                            value: "url",
+                            type: "input",
+                            defaultValue: ""
+                        }]
+                    },
+                    button: [{
+                        name: "确定",
+                        type: "primary",
+                        value: "submit"
+                    }, {
+                        name: "取消",
+                        type: "default",
+                        value: "cancel"
+                    }]
+                })
+            }
+            if (value == 'handle') {
+                openDialog({
+                    id: changeWebsiteUrl.id,
+                    source: "commons",
+                    title: "修改常用网址",
+                    option: {
+                        type: "form",
+                        content: [{
+                            name: "名称",
+                            value: "name",
+                            type: "input",
+                            defaultValue: changeWebsiteUrl.innerHTML
+                        }],
+                    },
+                    button: [{
+                        name: "修改",
+                        type: "warning",
+                        value: "change"
+                    }, {
+                        name: "删除",
+                        type: "danger",
+                        value: "delete"
+                    }, {
+                        name: "取消",
+                        type: "default",
+                        value: "cancel"
+                    }]
+                })
+            }
+            break;
     }
 })
 

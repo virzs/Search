@@ -1105,6 +1105,37 @@ span {
     margin: 0 3px;
 }
 
+.dialog>.dialog-footer .default {
+    background: transparent;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+}
+
+.dialog>.dialog-footer .primary {
+    background: #409eff;
+    border: 1px solid #409eff;
+}
+
+.dialog>.dialog-footer .success {
+    background: #67c23a;
+    border: 1px solid #67c23a;
+}
+
+.dialog>.dialog-footer .info {
+    background: #909399;
+    border: 1px solid #909399;
+}
+
+.dialog>.dialog-footer .warning {
+    background: #ebb563;
+    border: 1px solid #ebb563;
+}
+
+.dialog>.dialog-footer .danger {
+    background: #f56c6c;
+    border: 1px solid #f56c6c;
+}
+
 .dialog button {
     padding: 7px 15px;
     font-size: 12px;
@@ -1114,18 +1145,19 @@ span {
     white-space: nowrap;
     cursor: pointer;
     background: #fff;
-    border: 1px solid #dcdfe6;
-    color: #606266;
+    border: 0;
+    color: #fff;
     text-align: center;
     box-sizing: border-box;
     outline: none;
     margin: 0;
     transition: .1s;
     font-weight: 500;
+    box-sizing: border-box;
 }
 
 .dialog button:hover {
-    border: 1px solid #c2c4ca;
+    opacity: .8;
 }
 
 .show-data {

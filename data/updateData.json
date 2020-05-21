@@ -1141,19 +1141,76 @@
         "type": "debug",
         "content": "时间线错误换行的问题"
     }]
-},{
-    "time":"2020/5/8",
-    "content":[{
-        "type":"change",
-        "content":"模态框背景色"
-    },{
-        "type":"change",
-        "content":"消息提示背景色"
-    },{
-        "type":"del",
-        "content":"配色标签"
-    },{
-        "type":"change",
-        "content":"a标签文字颜色"
+}, {
+    "time": "2020/5/8",
+    "content": [{
+        "type": "change",
+        "content": "模态框背景色"
+    }, {
+        "type": "change",
+        "content": "消息提示背景色"
+    }, {
+        "type": "del",
+        "content": "配色标签"
+    }, {
+        "type": "change",
+        "content": "a标签文字颜色"
+    }]
+}, {
+    "time": "2020/5/17",
+    "content": [{
+        "type": "add",
+        "content": "常用网址计数函数"
+    }]
+}, {
+    "time": "2020/5/18",
+    "content": [{
+        "type": "change",
+        "content": "常用网址计数函数"
+    }, {
+        "type": "add",
+        "content": "渲染常用网址函数"
+    }, {
+        "type": "add",
+        "content": "模态框按钮颜色"
+    }, {
+        "type": "change",
+        "content": "模态框渲染方式"
+    }, {
+        "type": "debug",
+        "content": "解决不同按钮不统一的问题"
+    }]
+}, {
+    "time": "2020/5/19",
+    "content": [{
+        "type": "change",
+        "content": "侧边栏按钮监听事件"
+    }]
+}, {
+    "time": "2020/5/20",
+    "content": [{
+        "type": "change",
+        "content": "常用网址触发弹窗方式"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }, {
+        "type": "add",
+        "content": "获取网站图标API数据"
+    }, {
+        "type": "change",
+        "content": "常用网址新增业务逻辑"
+    }]
+}, {
+    "time": "2020/5/21",
+    "content": [{
+        "type": "add",
+        "content": "修改常用网址"
+    }, {
+        "type": "add",
+        "content": "删除常用网址"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
     }]
 }]

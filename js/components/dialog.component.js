@@ -4,11 +4,13 @@ import {
 
 //开启模态框函数
 export const openDialog = (data) => {
-    let [title, option, button, btns, content] = ["", "", "", "", ""];
+    let [title, option, source, button, btns, content] = ["", "", "", "", "", ""];
     title = data.title !== undefined ? data.title : "提示"; //模态框标题
+    source = data.source !== undefined ? data.source : null; //源信息
     option = data.option !== undefined ? data.option : {}; //模态框配置数据
     button = data.button !== undefined ? data.button : [{
         name: "取消",
+        type: "default",
         value: "cancel"
     }]; //模态框按钮
     if (option.type == "form") {
@@ -32,15 +34,16 @@ export const openDialog = (data) => {
     } else {
         content = data.content;
     }
+    //source 源信息； item-source 所属源信息； item-type 类型； item-value 值；
     button.forEach(item => {
         btns += `
             <span>
-                <button id="${item.value}Dialog">${item.name}</button>
+                <button dialog-id="${data.id}" source="dialog-btn" class="${item.type?item.type:'default'}" item-source="${source}" item-type="${item.type}" item-value="${item.value}">${item.name}</button>
             </span>`
     })
     let dialog = `
         <div class="dialog" id="${data.id}">
-            <div class="dialog-header">${title}<span id="closeDialog"><i class="fa fa-close"></i></span></div>
+            <div class="dialog-header">${title}<span id="closeDialog" source="dialog-btn" item-value="cancel"><i class="fa fa-close"></i></span></div>
             <div class="dialog-body" style="height:${option.height};overflow:auto;">${content}</div>
             <div class="dialog-footer">${btns}</div>
         </div>`;

@@ -1,5 +1,6 @@
 import {
-    jsonData
+    jsonData,
+    apiData
 } from "./all.data.js";
 
 import {
@@ -21,7 +22,8 @@ import {
 
 import {
     generateId,
-    quickSort
+    quickSort,
+    getRandomColor
 } from "./global.func.js";
 
 //创建书签数据
@@ -54,7 +56,7 @@ export const createWebsite = () => {
                 }
             })
             sideBarHtml += `
-                <a id='${item.value}AddCapsule' class="capsule">
+                <a id='${item.value}AddCapsule' class="capsule" item-type="addCapsule">
                     <div style="color:${item.color};">
                         <span><i class="fa fa-plus"></i>&nbsp;添加</span>
                     </div>
@@ -69,115 +71,195 @@ export const createWebsite = () => {
     return websiteInfo;
 }
 
-//添加常用书签
-export const commonWebsite = (json) => {
-    let [id, name, url, color, flag, operate] = ['', '', '', '', true, ''];
-    let [commonData, status, add, change, del] = [json.commonData, json.status, json.add, json.change, json.del];
-    if (json.thisWebsite !== undefined) {
-        id = json.thisWebsite.id;
-        name = json.thisWebsite.name;
-        url = json.thisWebsite.url;
-        color = json.thisWebsite.color;
-    }
-    let data = {
-        "name": name,
-        "url": url,
-        "color": color,
-        "count": 1,
-        "id": generateId()
-    };
-    if (status !== undefined && status == getStorage("showCommonUse").value) {
-        let info = "";
-        switch (status) {
-            case "website_open":
-                info = "开启";
-                break;
-            case "website_close":
-                info = "关闭";
-                break;
+//渲染常用网址
+export const renderCommonUse = (isSetting = true) => {
+    let data = getStorage('commonUseData').toJSON(); //数据源
+    let state = getStorage('showCommonUse').value; //是否显示常用网址
+    let commonHtml = ''; //渲染内容
+    let display = null; //加载动画匿名函数
+    data.forEach((item, index) => {
+        if (index < 7) {
+            commonHtml += renderData(item.id, item.name, item.url, item.color);
         }
-        let type = "error";
-        openMessage({
-            title: "提示",
-            type: type,
-            content: `请勿重复${info}！！！`
-        })
-        return;
-    }
-    if (add) {
-        data.count = 100000;
-        operate = "添加";
-    } else {
-        data.count = 1;
-    }
-    if (change) {
-        commonData.forEach(item => {
-            if (item.id == id) {
-                item.name = name;
-                item.count = 100000;
-            }
-        })
-        flag = false;
-        operate = "修改";
-    } else if (del) {
-        let delData = commonData.findIndex(item => item.id == id);
-        commonData.splice(delData, 1);
-        flag = false;
-        operate = "删除";
-    }
-    if (flag) {
-        let recent = commonData.find(item => item.name == name);
-        if (recent == undefined && status == undefined) {
-            commonData.push(data);
-        } else if (status == undefined && recent.count < 100000) {
-            commonData.forEach(item => {
-                if (item.name == recent.name) {
-                    item.count += 1;
-                }
-            })
-        }
-    }
-    setCommomUse(quickSort(commonData), status);
-    setStorage("commonUseData", JSON.stringify(commonData));
-    if (status == undefined && (add !== undefined || change !== undefined || del !== undefined)) {
-        openMessage({
-            title: "提示",
-            type: "success",
-            content: `${operate}成功！`
-        })
-    }
-}
-
-//记录常用网址
-export const setCommomUse = (data, status) => {
-    let [commonHtml, display] = ['', ''];
-    let isShow = (status !== undefined) ? true : false;
-    let showCommonUse = getStorage("showCommonUse").value;
-    if (status !== undefined) setStorage("showCommonUse", status);
-    if (data !== null) {
-        data.forEach((item, index) => {
-            if (index < 7) {
-                commonHtml += renderData(item.id, item.name, item.url, item.color);
-            }
-        })
-    }
-    //依据本地存储判断
-    if (showCommonUse !== "website_open") {
+    })
+    //依据本地存储判断是否显示
+    if (state == "website_open") {
         display = () => {
             commonUse.style.display = "grid";
         }
-    } else if (showCommonUse !== "website_close") {
+    } else if (state == "website_close") {
         display = () => {
             commonUse.style.display = "none";
         }
     }
-    if (isShow) {
+    if (isSetting) {
         setStorageBefore(display);
-    } else if (showCommonUse == "website_close" && !isShow) {
+    } else if (state == "website_close" && !isSetting) {
         commonUse.style.display = "none";
     }
     commonUse.innerHTML = commonHtml + addCommonsData();
     iconLoadError();
+}
+
+//更改常用网址次数
+export const changeCommonCount = (key, state = 'add') => {
+    let data = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let dataSource = jsonData.sideBar.content.find(item => item.value == "Website").content;
+    let keys = Object.keys(key)[0]; //获取变量名
+    let recent = data.find(item => item[keys] == key[keys]); //查找是否存在
+    let source = ''; //查找文件中此项数据
+    return new Promise((resolve, reject) => {
+        try {
+            if (!recent) {
+                //不存在则查找点击的书签数据
+                for (let item of dataSource) {
+                    let thisWebsite = item.content.find(inner => inner[keys] == key[keys]);
+                    if (thisWebsite) {
+                        source = thisWebsite;
+                        break;
+                    }
+                }
+                source.id = generateId();
+                source.count = 1;
+                data.push(source);
+            } else {
+                //存在则更改count计数
+                data.forEach((item, index) => {
+                    if (item[keys] == key[keys] && state == 'add') {
+                        item.count += 1;
+                    } else if (item[keys] == key[keys] && state == 'sub') {
+                        item.count -= 1;
+                    }
+                    if (item.count < 0) {
+                        item.count = 0;
+                    }
+                })
+            }
+            setStorage('commonUseData', JSON.stringify(quickSort(data)));
+            resolve({
+                code: 200,
+                data: {},
+                msg: "成功"
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
+    })
+}
+
+//添加常用网址
+export const addCommon = (data) => {
+    let dataSource = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let name = data.name ? data.name : null;
+    let url = data.url ? data.url : null;
+    return new Promise((resolve, reject) => {
+        if (name == null || url == null) {
+            reject({
+                code: 500,
+                data: {},
+                msg: "名称或URL不能为空！！！"
+            })
+        }
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+            url = `https://${url}`;
+        }
+        //异常处理
+        try {
+            dataSource.push({
+                name: name,
+                url: url,
+                count: 10000,
+                id: generateId(),
+                color: getRandomColor(),
+                show: true,
+                icon: ""
+            })
+            setStorage('commonUseData', JSON.stringify(quickSort(dataSource)));
+            resolve({
+                code: 200,
+                data: {},
+                msg: "添加常用网址成功"
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
+    })
+}
+
+//修改常用网址
+export const changeCommon = (data) => {
+    let dataSource = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let name = data.name ? data.name : null;
+    let id = data.id ? data.id : null;
+    let item = ''; //要修改的数据
+    let index = ''; //下标
+    return new Promise((resolve, reject) => {
+        if (name == null || id == null) {
+            reject({
+                code: 500,
+                data: {},
+                msg: "名称不能为空"
+            })
+        }
+        try {
+            item = dataSource.find(item => item.id == id);
+            index = dataSource.findIndex(item => item.id = id);
+            item.name = name;
+            dataSource.splice(index, 1, item);
+            setStorage('commonUseData', JSON.stringify(quickSort(dataSource)));
+            resolve({
+                code: 200,
+                data: {},
+                msg: "修改常用网址成功"
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
+    })
+}
+
+//删除常用网址
+export const deleteCommon = (data) => {
+    let dataSource = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let id = data.id ? data.id : null;
+    let index = ''; //下标
+    return new Promise((resolve, reject) => {
+        if (id == null) {
+            reject({
+                code: 500,
+                data: {},
+                msg: "名称不能为空"
+            })
+        }
+        try {
+            index = dataSource.findIndex(item => item.id = id);
+            dataSource.splice(index, 1);
+            setStorage('commonUseData', JSON.stringify(quickSort(dataSource)));
+            resolve({
+                code: 200,
+                data: {},
+                msg: "删除常用网址成功"
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
+    })
 }
 
 //图标加载失败替换文字函数
@@ -199,7 +281,7 @@ const iconLoadError = () => {
 //胶囊样式模板
 const renderCapsule = (data) => {
     return `
-        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule">
+        <a id='${data.name}' href='${data.url}' target="_blank" class="capsule" item-type="commons">
             <div style="color:${data.color};">
                 <span>${data.name}</span>
             </div>
@@ -208,13 +290,14 @@ const renderCapsule = (data) => {
 
 //自定义网址模板
 const renderData = (id, name, url, color) => {
+    let iconApi = apiData.find(item => item.apiName == 'favicon').url;
     return `
     <div class="commons">
         <div class="commons-content">
-            <img src="https://favicon.link/${url}"></img>
-            <a id="${id}" style="color:${color};" href="${url}" target="_blank">${name}</a>
+            <img src="${iconApi}${url}"></img>
+            <a id="${id}" item-type="commons" style="color:${color};" href="${url}" target="_blank">${name}</a>
         </div>
-        <div class="commons-btn">
+        <div class="commons-btn" item-type="commons-btn" item-value="handle">
             <i class="fa fa-ellipsis-h"></i>
         </div>
     </div>`
@@ -224,7 +307,7 @@ const renderData = (id, name, url, color) => {
 const addCommonsData = () => {
     return `
     <div class="commons">
-        <div class="commons-addbtn">
+        <div class="commons-addbtn" item-type="commons-btn" item-value="add">
             <i class="fa fa-plus"></i>
         </div>
     </div>`
