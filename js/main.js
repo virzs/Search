@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-21 15:47:43
+ * @Last Modified time: 2020-05-21 23:05:14
  */
 
 //配置变量
@@ -331,57 +331,6 @@ document.addEventListener("click", function (e) {
         handleDialogBtn(option, data);
     }
 
-    //侧边栏保存自定义网址
-    if (e.target.id == "saveDialog") {
-        let classify = document.querySelector(".dialog").id;
-        let name = document.querySelector("#nameDialog").children[1].value;
-        let url = document.querySelector("#urlDialog").children[1].value;
-        if (name == "" || url == "") {
-            openMessage({
-                title: "提示",
-                type: "error",
-                content: `名称或URL不能为空！！！`
-            })
-            return;
-        }
-        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
-            url = `https://${url}`;
-        }
-        let websiteData = getStorage("sideBarWebsiteData").toJSON();
-        let thisClassify = websiteData.find(item => {
-            if (classify.indexOf(item.value) !== -1) {
-                return item;
-            }
-        });
-        let thisWebsite = thisClassify.content.find(item => item.name == name);
-        if (thisWebsite == undefined) {
-            thisClassify.content.push({
-                name: name,
-                url: url,
-                color: getRandomColor()
-            })
-            websiteData.forEach(item => {
-                if (item.value == thisClassify.value) {
-                    item = thisClassify;
-                }
-            })
-            setStorage("sideBarWebsiteData", JSON.stringify(websiteData));
-            closeDialog();
-            openMessage({
-                title: "提示",
-                type: "success",
-                content: `添加成功！！！`
-            })
-            scrollContent.innerHTML = createWebsite();
-        } else {
-            openMessage({
-                title: "提示",
-                type: "error",
-                content: `请勿添加重复内容！！！`
-            })
-        }
-    }
-
     //模态框点击背景隐藏
     if (e.target.className == "dialogWrapper") {
         closeDialog();
@@ -575,6 +524,7 @@ sideBarContent.addEventListener("click", (e) => {
         case e.target.getAttribute('item-type') == 'addCapsule':
             openDialog({
                 id: e.target.id,
+                source: 'addCapsule',
                 title: "添加自定义网址",
                 option: {
                     type: "form",
@@ -593,7 +543,7 @@ sideBarContent.addEventListener("click", (e) => {
                 button: [{
                     name: "保存",
                     type: "primary",
-                    value: "save"
+                    value: "submit"
                 }, {
                     name: "取消",
                     type: "default",
