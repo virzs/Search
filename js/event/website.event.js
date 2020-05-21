@@ -1,7 +1,9 @@
 import {
     changeCommonCount,
     renderCommonUse,
-    addCommon
+    addCommon,
+    changeCommon,
+    deleteCommon
 } from "../module/website.func.js"
 
 export const handleWebsite = (data = {}, state = '', isSetting = false) => {
@@ -9,15 +11,38 @@ export const handleWebsite = (data = {}, state = '', isSetting = false) => {
         //修改常用网址计数 data数据 state状态 isSetting是否设置
         //计数
         if (state == 'count') {
-            changeCommonCount(data);
+            changeCommonCount(data)
+                .then(res => {
+                    resolve(res);
+                }).catch(err => {
+                    reject(err);
+                });
         }
         //添加
         if (state == 'add') {
             addCommon(data)
                 .then(res => {
-                    resolve(res)
+                    resolve(res);
                 }).catch(err => {
-                    reject(err)
+                    reject(err);
+                });
+        }
+        //修改
+        if (state == 'change') {
+            changeCommon(data)
+                .then(res => {
+                    resolve(res);
+                }).catch(err => {
+                    reject(err);
+                })
+        }
+        //删除
+        if (state == 'delete') {
+            deleteCommon(data)
+                .then(res => {
+                    resolve(res);
+                }).catch(err => {
+                    reject(err);
                 })
         }
         //渲染常用网址
