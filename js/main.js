@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-20 21:17:32
+ * @Last Modified time: 2020-05-21 15:47:43
  */
 
 //配置变量
@@ -89,9 +89,8 @@ import {
 
 //网址相关函数
 import {
-    commonWebsite,
-    setCommomUse,
-    createWebsite
+    createWebsite,
+    renderCommonUse
 } from "./module/website.func.js";
 
 //背景相关函数
@@ -223,12 +222,12 @@ if (showCommonUse.value == null) {
 
 if (commonUseData.value == null) {
     setStorage("commonUseData", "[]");
-    setCommomUse(commonData.toJSON());
+    renderCommonUse(false);
 }
 
 if (commonUseData.value !== null) {
     commonData = commonUseData.toJSON();
-    setCommomUse(commonUseData.toJSON());
+    renderCommonUse(false);
 }
 
 //拼接搜索栏左侧选择引擎
@@ -332,66 +331,6 @@ document.addEventListener("click", function (e) {
         handleDialogBtn(option, data);
     }
 
-    //模态框提交
-    if (e.target.id == "submitDialog") {
-        let name = document.querySelector("#nameDialog").children[1].value;
-        let url = document.querySelector("#urlDialog").children[1].value;
-        if (name == "" || url == "") {
-            openMessage({
-                title: "提示",
-                type: "error",
-                content: `名称或URL不能为空！！！`
-            })
-            return;
-        }
-        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
-            url = `https://${url}`;
-        }
-        commonWebsite({
-            thisWebsite: {
-                name: name,
-                url: url,
-                color: getRandomColor()
-            },
-            commonData: commonData,
-            add: true
-        })
-        closeDialog();
-    }
-
-    //模态框取消
-    if (e.target.id == "cancelDialog") {
-        closeDialog();
-    }
-
-    //模态框修改
-    if (e.target.id == "changeDialog") {
-        let id = document.querySelector(".dialog").id;
-        let name = document.querySelector("#nameDialog").children[1].value;
-        commonWebsite({
-            thisWebsite: {
-                id: id,
-                name: name
-            },
-            commonData: commonData,
-            change: true
-        })
-        closeDialog();
-    }
-
-    //模态框删除
-    if (e.target.id == "deleteDialog") {
-        let id = document.querySelector(".dialog").id;
-        commonWebsite({
-            thisWebsite: {
-                id: id
-            },
-            commonData: commonData,
-            del: true
-        })
-        closeDialog();
-    }
-
     //侧边栏保存自定义网址
     if (e.target.id == "saveDialog") {
         let classify = document.querySelector(".dialog").id;
@@ -468,7 +407,7 @@ document.addEventListener("click", function (e) {
                     <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
                 </tr>`;
             })
-            setCommomUse(source);
+            renderCommonUse(false);
         } else if (e.target.getAttribute("source") == "sideBarWebsiteData") {
             source.forEach(item => {
                 if (item.value == category) {
@@ -621,6 +560,14 @@ sideBarContent.addEventListener("click", (e) => {
             break;
             // 开启关闭常用网址功能
         case e.target.getAttribute('item-type') == 'changeCommonUse':
+            if (e.target.id == getStorage('showCommonUse').value) {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `请勿重复选择`
+                })
+                return;
+            }
             setStorage('showCommonUse', e.target.id);
             handleWebsite({}, '', true);
             break;
