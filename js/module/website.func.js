@@ -13,10 +13,6 @@ import {
 } from './storage.func.js';
 
 import {
-    openMessage
-} from "../components/message.component.js";
-
-import {
     setStorageBefore
 } from "./animation.func.js";
 
@@ -56,7 +52,7 @@ export const createWebsite = () => {
                 }
             })
             sideBarHtml += `
-                <a id='${item.value}AddCapsule' class="capsule" item-type="addCapsule">
+                <a id='${item.value}' class="capsule" item-type="addCapsule" item-value="${item.value}">
                     <div style="color:${item.color};">
                         <span><i class="fa fa-plus"></i>&nbsp;添加</span>
                     </div>
@@ -251,6 +247,54 @@ export const deleteCommon = (data) => {
                 code: 200,
                 data: {},
                 msg: "删除常用网址成功"
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
+    })
+}
+
+//侧边栏添加网址
+export const addSideBarWebsite = (data) => {
+    let dataSource = getStorage('sideBarWebsiteData').toJSON(); //网址数据源
+    let name = data.name ? data.name : null;
+    let url = data.url ? data.url : null;
+    let classValue = data.id;
+    let classify = null; //所属类别
+    let index = null; //所属类别下标
+    return new Promise((resolve, reject) => {
+        if (name == null || url == null) {
+            reject({
+                code: 500,
+                data: {},
+                msg: '名称或URL不能为空'
+            })
+        }
+        if (url.toLowerCase().slice(0, 8) !== "https://" && url.toLowerCase().slice(0, 7) !== "http://") {
+            url = `https://${url}`;
+        }
+        try {
+            classify = dataSource.find(item => item.value == classValue);
+            index = dataSource.findIndex(item => item.value == classValue);
+            if (classify) {
+                classify.content.push({
+                    name: name,
+                    url: url,
+                    color: getRandomColor(),
+                    show: true,
+                    icon: ""
+                })
+                dataSource.splice(index, 1, classify);
+                setStorage("sideBarWebsiteData", JSON.stringify(dataSource));
+            }
+            resolve({
+                code: 200,
+                data: {},
+                msg: "添加成功"
             })
         } catch (err) {
             reject({
