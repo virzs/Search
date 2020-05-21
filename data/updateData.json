@@ -1201,4 +1201,16 @@
         "type": "change",
         "content": "常用网址新增业务逻辑"
     }]
+}, {
+    "time": "2020/5/21",
+    "content": [{
+        "type": "add",
+        "content": "修改常用网址"
+    }, {
+        "type": "add",
+        "content": "删除常用网址"
+    }, {
+        "type": "del",
+        "content": "冗余代码"
+    }]
 }]
