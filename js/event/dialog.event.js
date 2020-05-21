@@ -9,6 +9,8 @@ import {
 } from "../components/message.component.js";
 
 export const handleDialogBtn = (option, data = null) => {
+    console.log(option, data)
+    data.source = option.source;
     //模态框关闭
     if (option.value == 'cancel') {
         closeDialog();
@@ -52,6 +54,24 @@ export const handleDialogBtn = (option, data = null) => {
     if (option.value == 'delete' && option.source == 'commons') {
         data.id = option.id;
         handleWebsite(data, 'delete').then(res => {
+            openMessage({
+                title: "提示",
+                type: "success",
+                content: `${res.msg}`
+            })
+            closeDialog();
+        }).catch(err => {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `${err.msg}`
+            })
+        });
+    }
+    //侧边栏网址添加
+    if (option.value == 'submit' && option.source == 'addCapsule') {
+        data.id = option.id;
+        handleWebsite(data, 'add').then(res => {
             openMessage({
                 title: "提示",
                 type: "success",
