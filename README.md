@@ -38,7 +38,7 @@
 
 ### 在线地址：
 
-https://search.virs.xyz
+https://search.virs.xyz（服务器重置，该地址暂时无法使用）
 
 ### 页面展示：
 
