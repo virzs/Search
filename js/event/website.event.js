@@ -5,7 +5,8 @@ import {
     changeCommon,
     deleteCommon,
     addSideBarWebsite,
-    createWebsite
+    createWebsite,
+    checkWebsite
 } from "../module/website.func.js"
 
 export const handleWebsite = (data = {}, state = '', isSetting = false) => {
@@ -47,8 +48,24 @@ export const handleWebsite = (data = {}, state = '', isSetting = false) => {
                     reject(err);
                 })
         }
+        if (state == 'check' && data.source == 'commons') {
+            checkWebsite(data)
+                .then(res => {
+                    resolve(res);
+                }).catch(err => {
+                    reject(err);
+                })
+        }
         if (state == 'add' && data.source == 'addCapsule') {
             addSideBarWebsite(data)
+                .then(res => {
+                    resolve(res);
+                }).catch(err => {
+                    reject(err);
+                })
+        }
+        if (state == 'check' && data.source == 'addCapsule') {
+            checkWebsite(data)
                 .then(res => {
                     resolve(res);
                 }).catch(err => {

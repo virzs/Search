@@ -68,6 +68,22 @@ export const handleDialogBtn = (option, data = null) => {
             })
         });
     }
+    //常用网址模态框检查
+    if (option.value == 'check' && option.source == 'commons') {
+        handleWebsite(data, 'check').then(res => {
+            openMessage({
+                title: "提示",
+                type: "success",
+                content: `${res.msg}`
+            })
+        }).catch(err => {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `${err.msg}`
+            })
+        });
+    }
     //侧边栏网址添加
     if (option.value == 'submit' && option.source == 'addCapsule') {
         data.id = option.id;
@@ -78,6 +94,22 @@ export const handleDialogBtn = (option, data = null) => {
                 content: `${res.msg}`
             })
             closeDialog();
+        }).catch(err => {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `${err.msg}`
+            })
+        });
+    }
+    //常用网址模态框检查
+    if (option.value == 'check' && option.source == 'addCapsule') {
+        handleWebsite(data, 'check').then(res => {
+            openMessage({
+                title: "提示",
+                type: "success",
+                content: `${res.msg}`
+            })
         }).catch(err => {
             openMessage({
                 title: "提示",

@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-21 23:05:14
+ * @Last Modified time: 2020-05-25 21:20:22
  */
 
 //配置变量
@@ -541,6 +541,10 @@ sideBarContent.addEventListener("click", (e) => {
                     }]
                 },
                 button: [{
+                    name: "检查",
+                    type: "warning",
+                    value: "check"
+                }, {
                     name: "保存",
                     type: "primary",
                     value: "submit"
@@ -822,6 +826,10 @@ commonUse.addEventListener("click", (e) => {
                         }]
                     },
                     button: [{
+                        name: "检查",
+                        type: "warning",
+                        value: "check"
+                    }, {
                         name: "确定",
                         type: "primary",
                         value: "submit"

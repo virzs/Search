@@ -306,6 +306,34 @@ export const addSideBarWebsite = (data) => {
     })
 }
 
+//检查网址是否有效
+export const checkWebsite = (data) => {
+    let url = data.url;
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: `http://${url}`,
+            dataType: "jsonp",
+            complete: function (response) {
+                console.log(response)
+                if (response.status == 200) {
+                    resolve({
+                        code: 200,
+                        data: {},
+                        msg: '此网址有效'
+                    })
+                } else {
+                    reject({
+                        code: 500,
+                        data: {},
+                        msg: '此网址无效'
+                    })
+                }
+            }
+        });
+    })
+}
+
 //图标加载失败替换文字函数
 const iconLoadError = () => {
     Array.prototype.forEach.call(commonUse.children, item => {
