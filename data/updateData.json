@@ -1222,4 +1222,10 @@
         "type": "add",
         "content": "检查url是否有效函数"
     }]
+}, {
+    "time": "2020/5/26",
+    "content": [{
+        "type": "add",
+        "content": "组件说明文档"
+    }]
 }]
