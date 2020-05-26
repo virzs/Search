@@ -1227,5 +1227,11 @@
     "content": [{
         "type": "add",
         "content": "组件说明文档"
+    }, {
+        "type": "change",
+        "content": "组件说明文档"
+    }, {
+        "type": "change",
+        "content": "时间线组件"
     }]
 }]
