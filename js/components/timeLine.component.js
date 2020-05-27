@@ -1,9 +1,9 @@
-export const timeLine = (value, order = 'positive') => {
+export const timeLine = (data = [], order = 'positive') => {
     //positive正序
     //inverted倒序
     let html = '';
     let timeLineData = [];
-    value.forEach(item => {
+    data.forEach(item => {
         if (order == 'inverted') {
             timeLineData.unshift(item);
         } else {

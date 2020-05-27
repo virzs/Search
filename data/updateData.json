@@ -1216,4 +1216,28 @@
         "type": "change",
         "content": "侧边栏添加网址"
     }]
+}, {
+    "time": "2020/05/25",
+    "content": [{
+        "type": "add",
+        "content": "检查url是否有效函数"
+    }]
+}, {
+    "time": "2020/5/26",
+    "content": [{
+        "type": "add",
+        "content": "组件说明文档"
+    }, {
+        "type": "change",
+        "content": "组件说明文档"
+    }, {
+        "type": "change",
+        "content": "时间线组件"
+    }]
+}, {
+    "time": "2020/5/27",
+    "content": [{
+        "type": "debug",
+        "content": "常用网址无法计数的问题"
+    }]
 }]

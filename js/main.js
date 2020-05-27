@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-21 23:05:14
+ * @Last Modified time: 2020-05-27 09:36:23
  */
 
 //配置变量
@@ -474,7 +474,8 @@ sideBarContent.addEventListener("click", (e) => {
         case e.target.getAttribute('item-type') == 'commons':
             //常用网址计数
             handleWebsite({
-                name: e.target.id
+                name: e.target.id,
+                source: e.target.getAttribute('item-type')
             }, 'count');
             break;
         case e.target.getAttribute('item-type') == 'changebg':
@@ -541,6 +542,10 @@ sideBarContent.addEventListener("click", (e) => {
                     }]
                 },
                 button: [{
+                    name: "检查",
+                    type: "warning",
+                    value: "check"
+                }, {
                     name: "保存",
                     type: "primary",
                     value: "submit"
@@ -796,7 +801,8 @@ commonUse.addEventListener("click", (e) => {
         //点击常用网址计数
         case e.target.getAttribute('item-type') == 'commons':
             handleWebsite({
-                id: e.target.id
+                id: e.target.id,
+                source: e.target.getAttribute('item-type')
             }, 'count');
             break;
             //常用网址弹窗
@@ -822,6 +828,10 @@ commonUse.addEventListener("click", (e) => {
                         }]
                     },
                     button: [{
+                        name: "检查",
+                        type: "warning",
+                        value: "check"
+                    }, {
                         name: "确定",
                         type: "primary",
                         value: "submit"
