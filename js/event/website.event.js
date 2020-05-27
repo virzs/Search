@@ -48,6 +48,7 @@ export const handleWebsite = (data = {}, state = '', isSetting = false) => {
                     reject(err);
                 })
         }
+        //检查
         if (state == 'check' && data.source == 'commons') {
             checkWebsite(data)
                 .then(res => {
@@ -56,6 +57,7 @@ export const handleWebsite = (data = {}, state = '', isSetting = false) => {
                     reject(err);
                 })
         }
+        //侧边栏新增
         if (state == 'add' && data.source == 'addCapsule') {
             addSideBarWebsite(data)
                 .then(res => {
@@ -64,6 +66,7 @@ export const handleWebsite = (data = {}, state = '', isSetting = false) => {
                     reject(err);
                 })
         }
+        //侧边栏检查
         if (state == 'check' && data.source == 'addCapsule') {
             checkWebsite(data)
                 .then(res => {
