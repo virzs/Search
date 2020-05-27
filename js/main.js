@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-27 09:36:23
+ * @Last Modified time: 2020-05-27 21:59:06
  */
 
 //配置变量
@@ -505,7 +505,9 @@ sideBarContent.addEventListener("click", (e) => {
                     type: 'text',
                     height: '300px'
                 },
-                content: timeLine(updateData, 'inverted')
+                content: timeLine(updateData, {
+                    order: 'inverted'
+                })
             })
             break;
             // 开启关闭常用网址功能
