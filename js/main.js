@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-27 09:36:23
+ * @Last Modified time: 2020-05-28 18:12:02
  */
 
 //配置变量
@@ -367,14 +367,12 @@ document.addEventListener("click", function (e) {
                 if (item.content.length > 0) {
                     item.content.forEach((inner, index) => {
                         inHtml += `
-                            <tr>
-                                <td>${index+1}</td>
-                                <td>${inner.name}</td>
-                                <td><a href="${inner.url}" target="_blank">${inner.url}</a></td>
-                                <td>${inner.color}</td>
-                                <td>${item.name}</td>
-                                <td><span class="deleteData" data="${index}" category="${item.name}" source="sideBarWebsiteData">删除</span></td>
-                            </tr>`;
+                        <tr>
+                            <td data-label="序号">${index+1}</td>
+                            <td data-label="名称"><a href="${inner.url}" target="_blank" style="color:${inner.color}">${inner.name}</a></td>
+                            <td data-label="类别">${item.name}</td>
+                            <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" item-value="${inner.id}" source="sideBarWebsiteData">删除</span></td>
+                        </tr>`;
                     })
                 }
             })
@@ -442,7 +440,7 @@ sideBarButton.addEventListener("click", () => {
 sideBarTitle.addEventListener("click", (e) => {
     stopPropagation();
     let icon = sideBarTitle.querySelectorAll(".title-icon");
-    if (e.target.className == "title-icon") {
+    if (Object.is(e.target.className, 'title-icon')) {
         Array.prototype.forEach.call(icon, item => {
             item.style.background = "";
             item.style.color = item.getAttribute('color');
@@ -450,7 +448,7 @@ sideBarTitle.addEventListener("click", (e) => {
         e.target.style.background = e.target.getAttribute('color');
         e.target.style.color = "#fff";
         renderSideBarContent(e.target.id);
-        if (e.target.id == "ToDo") {
+        if (Object.is(e.target.id, 'ToDo')) {
             sideBarContent.style.overflow = "hidden";
             sideBarContent.scrollTop = 0;
             document.querySelector("#toDoContent").style.height = `${document.body.clientHeight - 184}px`;
@@ -505,7 +503,9 @@ sideBarContent.addEventListener("click", (e) => {
                     type: 'text',
                     height: '300px'
                 },
-                content: timeLine(updateData, 'inverted')
+                content: timeLine(updateData, {
+                    order: 'inverted'
+                })
             })
             break;
             // 开启关闭常用网址功能
@@ -612,7 +612,7 @@ sideBarContent.addEventListener("click", (e) => {
                                 <td data-label="序号">${index+1}</td>
                                 <td data-label="名称"><a href="${inner.url}" target="_blank" style="color:${inner.color}">${inner.name}</a></td>
                                 <td data-label="类别">${item.name}</td>
-                                <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" source="sideBarWebsiteData">删除</span></td>
+                                <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" item-value="${inner.id}" source="sideBarWebsiteData">删除</span></td>
                             </tr>`;
                     })
                 }

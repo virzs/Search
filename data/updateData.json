@@ -1239,5 +1239,14 @@
     "content": [{
         "type": "debug",
         "content": "常用网址无法计数的问题"
+    }, {
+        "type": "change",
+        "content": "调整时间线组件"
+    }]
+}, {
+    "time": "2020/5/28",
+    "content": [{
+        "type": "debug",
+        "content": "侧边栏网址删除错误的问题"
     }]
 }]

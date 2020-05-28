@@ -26,10 +26,10 @@ Element.innerHTML = timeLine(data, 'inverted');
 
 **参数说明：**
 
-| 参数  |         说明         |  类型  |            可选值/格式             |  默认值  |
-| :---: | :------------------: | :----: | :--------------------------------: | :------: |
-| data  |   数据源，数组类型   | Array  |                                    |   [ ]    |
-| order | 排序类型，正序、倒序 | String | positive（正序）、inverted（倒序） | positive |
+|  参数  |       说明       |  类型  | 可选值/格式 | 默认值 |
+| :----: | :--------------: | :----: | :---------: | :----: |
+|  data  | 数据源，数组类型 | Array  |             |  [ ]   |
+| option |    自定义配置    | Object |             |   {}   |
 
 **示例**
 
@@ -45,7 +45,14 @@ let data = [{
         content:'说明文档'
     }]
 }]
+let option = {
+    order:'inverted',//排列顺序 positive正序、inverted倒序
+    type:[{//自定义type
+        name:'auto',//显示名称
+        color:'#f5f5f5'//颜色值
+    }]
+}
 let timeLineEle = document.querySelect('#timeLineBox');
-timeLineEle.innerHTML = timeLine(data, 'inverted');
+timeLineEle.innerHTML = timeLine(data, option);
 ```
 

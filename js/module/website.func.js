@@ -286,7 +286,8 @@ export const addSideBarWebsite = (data) => {
                     url: url,
                     color: getRandomColor(),
                     show: true,
-                    icon: ""
+                    icon: "",
+                    id: generateId()
                 })
                 dataSource.splice(index, 1, classify);
                 setStorage("sideBarWebsiteData", JSON.stringify(dataSource));
