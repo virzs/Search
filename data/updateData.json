@@ -1249,4 +1249,13 @@
         "type": "debug",
         "content": "侧边栏网址删除错误的问题"
     }]
+}, {
+    "time": "2020/5/29",
+    "content": [{
+        "type": "add",
+        "content": "表格组件beta1"
+    }, {
+        "type": "change",
+        "content": "查看侧边栏数据弹窗内容"
+    }]
 }]
