@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-28 18:12:02
+ * @Last Modified time: 2020-05-29 18:56:59
  */
 
 //配置变量
@@ -110,6 +110,11 @@ import {
     openDialog,
     closeDialog
 } from "./components/dialog.component.js";
+
+//table组件
+import {
+    openTable
+} from "./components/table.component.js";
 
 //侧边栏渲染函数
 import {
@@ -574,6 +579,25 @@ sideBarContent.addEventListener("click", (e) => {
                         <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
                     </tr>`
             }
+            let tableHtml = openTable(cData, {
+                index: true,
+                indexLabel: '序号',
+                menu: true,
+                menuSlot: (row, index) => {
+                    return `
+                        <span source="commonUseData" item-source="" item-type="delete" item-index="${index}" item-value="${row}">删除</span>`;
+                },
+                column: [{
+                    label: '名称',
+                    prop: 'name',
+                    slot: (row, index) => {
+                        return `<a href="${row.url}" target="_blank" style="color:${row.color}">${row.name}</a>`;
+                    }
+                }, {
+                    label: '使用次数',
+                    prop: 'count'
+                }]
+            })
             openDialog({
                 id: e.target.id,
                 title: "常用网址数据",
@@ -593,6 +617,7 @@ sideBarContent.addEventListener("click", (e) => {
                             </thead>
                             <tbody>${cinHtml}</tbody>
                         </table>
+                        ${tableHtml}
                     </div>`,
                 button: [{
                     name: "关闭",
