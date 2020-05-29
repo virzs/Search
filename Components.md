@@ -18,12 +18,6 @@ timeLine.component.js
 import timeLine from 'timeLine.component.js';
 ```
 
-**使用：**
-
-```js
-Element.innerHTML = timeLine(data, 'inverted');
-```
-
 **参数说明：**
 
 |  参数  |       说明       |  类型  | 可选值/格式 | 默认值 |
@@ -54,5 +48,66 @@ let option = {
 }
 let timeLineEle = document.querySelect('#timeLineBox');
 timeLineEle.innerHTML = timeLine(data, option);
+```
+
+## Table（表格）：
+
+**组件：**
+
+```javascript
+table.component.js
+```
+
+**导入：**
+
+```javascript
+import openTable from 'table.component.js';
+```
+
+**参数示例：**
+
+|  参数  |  说明  |  类型  | 可选值/格式 | 默认值 |
+| :----: | :----: | :----: | :---------: | :----: |
+|  data  | 数据源 | Array  |             |   []   |
+| option | 配置项 | Object |             |   {}   |
+
+**示例：**
+
+```javascript
+import openTable from 'table.component.js';
+let data = [{
+    name: '张三',
+    age: '18',
+    color: '#f8f8f8'
+}, {
+	name: '李四',
+    age: '22',
+    color: '#666666'
+}, {
+    name: '王五',
+    age: '34',
+    color: '#d3d3d3'
+}]
+let option = {
+    index: true,//是否显示序号，默认false
+    indexLabel: '序号',//序号显示的label，默认#
+    header: false,//是否显示表头，默认true
+    menu: true,//是否显示操作栏，默认false
+    menuSlot : (row, index) => {//自定义操作栏内容，默认显示删除
+        return `<span item-index="${index}">删除</span>`
+    },
+    column: [{
+    	label: '姓名',//表头
+    	prop: 'name',//绑定值
+        slot: (row, index) => {//自定义列回调函数，row为该行的所有值，index为该列的下标
+            return `<span style="color:${row.color};">${row.name}</span>`;
+        }
+    }, {
+    	label: '年龄',
+    	prop: 'age'
+    }]
+}
+let table = document.querySelect('#table');
+table.innerHTML = optionTable(data, option);
 ```
 
