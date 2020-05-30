@@ -89,19 +89,21 @@ let data = [{
     color: '#d3d3d3'
 }]
 let option = {
-    index: true,//是否显示序号，默认false
-    indexLabel: '序号',//序号显示的label，默认#
-    header: false,//是否显示表头，默认true
-    menu: true,//是否显示操作栏，默认false
+    index: true, //是否显示序号，默认false
+    indexLabel: '序号', //序号显示的label，默认#
+    header: false, //是否显示表头，默认true
+    menu: true, //是否显示操作栏，默认false
     menuSlot : (row, index) => {//自定义操作栏内容，默认显示删除
         return `<span item-index="${index}">删除</span>`
     },
+    align: 'center', //表格对齐方式，默认center
     column: [{
-    	label: '姓名',//表头
-    	prop: 'name',//绑定值
+    	label: '姓名', //表头
+    	prop: 'name', //绑定值
         slot: (row, index) => {//自定义列回调函数，row为该行的所有值，index为该列的下标
             return `<span style="color:${row.color};">${row.name}</span>`;
-        }
+        },
+        align: 'left' //列对齐方式，默认center
     }, {
     	label: '年龄',
     	prop: 'age'
