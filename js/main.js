@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-29 18:56:59
+ * @Last Modified time: 2020-05-30 23:02:24
  */
 
 //配置变量
@@ -592,7 +592,7 @@ sideBarContent.addEventListener("click", (e) => {
                     prop: 'name',
                     slot: (row, index) => {
                         return `<a href="${row.url}" target="_blank" style="color:${row.color}">${row.name}</a>`;
-                    }
+                    },
                 }, {
                     label: '使用次数',
                     prop: 'count'
