@@ -1272,5 +1272,11 @@
     }, {
         "type": "change",
         "content": "查看数据代码"
+    }, {
+        "type": "change",
+        "content": "表格组件宽度"
+    }, {
+        "type": "change",
+        "content": "模态框组件增加表格配置"
     }]
 }]
