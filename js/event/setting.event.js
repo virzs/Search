@@ -39,6 +39,13 @@ import {
     setBingImage,
     setdefault
 } from "../module/bg.func.js";
+import {
+    showCommonUseData,
+    showSidebarData
+} from "../module/website.func.js";
+import {
+    showSearchHistory
+} from "../module/search.func.js";
 
 //背景设置
 export const bgSetting = (value, state) => {
@@ -118,6 +125,24 @@ export const logoSetting = (value, state) => {
         setStorageBefore(func, 'logo', value);
     } else {
         func();
+    }
+}
+
+//数据设置
+export const dataSetting = (value) => {
+    switch (true) {
+        //常用网址设置
+        case Object.is(value, 'commonUseData'):
+            showCommonUseData();
+            break;
+            //侧边栏网址设置
+        case Object.is(value, 'sidebarData'):
+            showSidebarData();
+            break;
+            //搜索历史设置
+        case Object.is(value, 'searchData'):
+            showSearchHistory();
+            break;
     }
 }
 
