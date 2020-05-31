@@ -15,7 +15,7 @@ export const openTable = (data = [], option = {}) => {
     column.forEach((item, index) => {
         th += `
             <th
-                style="text-align:${item.align || ''} ${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}">
+                style="width:${100/(column.length+2)}%;text-align:"${item.align || ''} ${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}">
                 ${item.label}
             </th>`;
     })
@@ -25,13 +25,13 @@ export const openTable = (data = [], option = {}) => {
             <tr align=${tableAlign}>
                 ${showIndex ? `
                 <th
-                    style="${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}">
+                    style="width:${100/(column.length+2)}%;${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}">
                     ${indexLabel}
                 </th>` : ''}
                 ${th}
                 ${showMenu ? `
                 <th
-                    style="${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}">
+                    style="width:${100/(column.length+2)}%;${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}">
                     操作
                 </th>` : ''}
             </tr>`;
@@ -44,13 +44,13 @@ export const openTable = (data = [], option = {}) => {
                     //自定义列
                     tr += `
                         <td
-                            style="text-align:${inner.align || ''} ${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}" data-label="${inner.label}">
+                            style="width:${100/(column.length+2)}%;text-align:${inner.align || ''} ${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''} data-label="${inner.label}">
                             ${inner.slot(item,index)}
                         </td>`;
                 } else {
                     tr += `
                         <td
-                            style="text-align:${inner.align || ''} ${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''}" data-label="${inner.label}">
+                            style="width:${100/(column.length+2)}%;text-align:${inner.align || ''} ${tableBorder ? `border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;` : ''} data-label="${inner.label}">
                             ${item[inner.prop]}
                         </td>`;
                 }
@@ -85,7 +85,7 @@ export const openTable = (data = [], option = {}) => {
     }
     return `
         <div class="show-data">
-            <table class="show-data-table" ${tableBorder ? `style="border-bottom:1px solid #dee2e6;border-right:1px solid #dee2e6;` : ''}">
+            <table class="show-data-table" ${tableBorder ? `style="border-bottom:1px solid #dee2e6;border-right:1px solid #dee2e6;` : '""'}">
                 <thead>${thead}</thead>
                 <tbody>${tbody}</tbody>
             </table>
