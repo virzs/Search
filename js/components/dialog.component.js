@@ -1,6 +1,9 @@
 import {
     body
 } from "../module/dom.constant.js";
+import {
+    openTable
+} from "./table.component.js";
 
 //开启模态框函数
 export const openDialog = (data) => {
@@ -30,7 +33,7 @@ export const openDialog = (data) => {
             }
         })
     } else if (option.type == "table") {
-        content = data.content;
+        content = openTable(option.data, option.option);
     } else {
         content = data.content;
     }
