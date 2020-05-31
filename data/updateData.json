@@ -1269,5 +1269,8 @@
     "content": [{
         "type": "add",
         "content": "table组件边框设置"
+    }, {
+        "type": "change",
+        "content": "查看数据代码"
     }]
 }]
