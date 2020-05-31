@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-28 18:12:02
+ * @Last Modified time: 2020-05-31 21:02:20
  */
 
 //配置变量
@@ -111,6 +111,11 @@ import {
     closeDialog
 } from "./components/dialog.component.js";
 
+//table组件
+import {
+    openTable
+} from "./components/table.component.js";
+
 //侧边栏渲染函数
 import {
     renderSideBarIcon,
@@ -151,7 +156,8 @@ import {
     logoSetting,
     uiStyleSetting,
     skinSetting,
-    bgSetting
+    bgSetting,
+    dataSetting
 } from "./event/setting.event.js";
 import {
     timeLine
@@ -556,147 +562,9 @@ sideBarContent.addEventListener("click", (e) => {
                 }]
             })
             break;
-        case e.target.id == "commonUseData":
-            let cData = getStorage("commonUseData").toJSON();
-            let cinHtml = "";
-            cData.forEach((item, index) => {
-                cinHtml += `
-                    <tr>
-                        <td data-label="序号">${index+1}</td>
-                        <td data-label="名称"><a href="${item.url}" target="_blank" style="color:${item.color}">${item.name}</a></td>
-                        <td data-label="使用次数">${item.count}次</td>
-                        <td data-label="操作"><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
-                    </tr>`;
-            })
-            if (cinHtml == "") {
-                cinHtml = `
-                    <tr class="no-data">
-                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
-                    </tr>`
-            }
-            openDialog({
-                id: e.target.id,
-                title: "常用网址数据",
-                option: {
-                    type: "table"
-                },
-                content: `
-                    <div class="show-data">
-                        <table class="show-data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>名称</th>
-                                    <th>使用次数</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>${cinHtml}</tbody>
-                        </table>
-                    </div>`,
-                button: [{
-                    name: "关闭",
-                    type: "default",
-                    value: "cancel"
-                }]
-            })
-            break;
-        case e.target.id == "sidebarData":
-            let sData = getStorage("sideBarWebsiteData").toJSON();
-            let sinHtml = "";
-            sData.forEach(item => {
-                if (item.content.length > 0) {
-                    item.content.forEach((inner, index) => {
-                        sinHtml += `
-                            <tr>
-                                <td data-label="序号">${index+1}</td>
-                                <td data-label="名称"><a href="${inner.url}" target="_blank" style="color:${inner.color}">${inner.name}</a></td>
-                                <td data-label="类别">${item.name}</td>
-                                <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" item-value="${inner.id}" source="sideBarWebsiteData">删除</span></td>
-                            </tr>`;
-                    })
-                }
-            })
-            if (sinHtml == "") {
-                sinHtml = `
-                    <tr class="no-data">
-                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
-                    </tr>`
-            }
-            openDialog({
-                id: e.target.id,
-                title: "侧边栏数据",
-                option: {
-                    type: "table"
-                },
-                content: `
-                    <div class="show-data">
-                        <table class="show-data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>名称</th>
-                                    <th>类别</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>${sinHtml}</tbody>
-                        </table>
-                    </div>`,
-                button: [{
-                    name: "关闭",
-                    type: "default",
-                    value: "cancel"
-                }]
-            })
-            break;
-        case e.target.id == "searchData":
-            let searchData = getStorage("searchHistory").toJSON();
-            if (!searchData) setStorage('searchHistory', '[]');
-            let searchHtml = "";
-            if (searchData.length > 0) {
-                searchData.forEach((item, index) => {
-                    searchHtml += `
-                        <tr>
-                            <td data-label="序号">${index+1}</td>
-                            <td data-label="搜索内容"><a href="${item.engine.href}${item.content}" target="_blank"">${item.content}</a></td>
-                            <td data-label="时间">${item.time}</td>
-                            <td data-label="操作"><span class="deleteData" data="${index}" source="searchHistory">删除</span></td>
-                        </tr>`;
-                })
-            }
-            if (searchHtml == "") {
-                searchHtml = `
-                    <tr class="no-data">
-                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
-                    </tr>`
-            }
-            openDialog({
-                id: e.target.id,
-                title: "搜索历史数据",
-                option: {
-                    type: "table"
-                },
-                content: `
-                    <div class="show-data">
-                        <table class="show-data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>搜索内容</th>
-                                    <th>时间</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>${searchHtml}</tbody>
-                        </table>
-                    </div>`,
-                button: [{
-                    name: "关闭",
-                    type: "default",
-                    value: "cancel"
-                }]
-            })
+            //数据管理设置
+        case Object.is(e.target.getAttribute('item-type'), 'dataManagement'):
+            dataSetting(e.target.getAttribute('item-value'));
             break;
             //备份数据
         case e.target.id == "backupData":

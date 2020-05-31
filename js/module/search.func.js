@@ -12,6 +12,10 @@ import {
     setStorage,
     getStorage
 } from "./storage.func.js";
+import {
+    generateId
+} from "./global.func.js";
+import { openDialog } from "../components/dialog.component.js";
 
 //搜索事件
 export const goSearch = () => {
@@ -67,9 +71,49 @@ export const searchHistory = (value) => {
     if (!getStorage("searchHistory").value) setStorage("searchHistory", "[]");
     let history = getStorage("searchHistory").toJSON();
     history.push({
+        id: generateId(),
         engine: value.engine,
         content: value.content,
         time: new Date().toLocaleString()
     })
     setStorage("searchHistory", JSON.stringify(history));
+}
+
+//搜索历史数据
+export const showSearchHistory = () => {
+    let searchData = getStorage("searchHistory").toJSON();
+    if (!searchData) setStorage('searchHistory', '[]');
+    let searchOption = {
+        index: true,
+        indexLabel: '序号',
+        menu: true,
+        menuSlot: (row, index) => {
+            return `
+                <span source="searchHistory" item-type="delete" item-index="${index}" item-id="${row.id}">删除</span>`;
+        },
+        column: [{
+            label: '搜索内容',
+            prop: 'content',
+            slot: (row, index) => {
+                return `<a href="${row.engine.href}" target="_blank">${row.content}</a>`;
+            },
+        }, {
+            label: '时间',
+            prop: 'time'
+        }]
+    }
+    openDialog({
+        id: 'searchHistory',
+        title: "搜索历史数据",
+        option: {
+            type: "table",
+            data: searchData,
+            option: searchOption
+        },
+        button: [{
+            name: "关闭",
+            type: "default",
+            value: "cancel"
+        }]
+    })
 }

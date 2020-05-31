@@ -1249,4 +1249,34 @@
         "type": "debug",
         "content": "侧边栏网址删除错误的问题"
     }]
+}, {
+    "time": "2020/5/29",
+    "content": [{
+        "type": "add",
+        "content": "表格组件beta1"
+    }, {
+        "type": "change",
+        "content": "查看侧边栏数据弹窗内容"
+    }]
+}, {
+    "time": "2020/5/30",
+    "content": [{
+        "type": "add",
+        "content": "table组件对齐方式设置"
+    }]
+}, {
+    "time": "2020/5/31",
+    "content": [{
+        "type": "add",
+        "content": "table组件边框设置"
+    }, {
+        "type": "change",
+        "content": "查看数据代码"
+    }, {
+        "type": "change",
+        "content": "表格组件宽度"
+    }, {
+        "type": "change",
+        "content": "模态框组件增加表格配置"
+    }]
 }]

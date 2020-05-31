@@ -21,6 +21,9 @@ import {
     quickSort,
     getRandomColor
 } from "./global.func.js";
+import {
+    openDialog
+} from "../components/dialog.component.js";
 
 //创建书签数据
 export const createWebsite = () => {
@@ -348,6 +351,91 @@ const iconLoadError = () => {
                 item.children[0].replaceChild(textIcon, imageIcon);
             }
         }
+    })
+}
+
+//查看常用网址数据
+export const showCommonUseData = () => {
+    let commonUseData = getStorage("commonUseData").toJSON();
+    let commonUseOption = {
+        index: true,
+        indexLabel: '序号',
+        menu: true,
+        menuSlot: (row, index) => {
+            return `
+                <span source="commonUseData" item-source="${row.source}" item-type="delete" item-index="${index}" item-id="${row.id}">删除</span>`;
+        },
+        column: [{
+            label: '名称',
+            prop: 'name',
+            slot: (row, index) => {
+                return `<a href="${row.url}" target="_blank" style="color:${row.color}">${row.name}</a>`;
+            },
+        }, {
+            label: '使用次数',
+            prop: 'count'
+        }]
+    }
+    openDialog({
+        id: 'commonUseData',
+        title: "常用网址数据",
+        option: {
+            type: "table",
+            data: commonUseData,
+            option: commonUseOption
+        },
+        button: [{
+            name: "关闭",
+            type: "default",
+            value: "cancel"
+        }]
+    })
+}
+
+//查看侧边栏数据
+export const showSidebarData = () => {
+    let sideBarWebsiteData = getStorage("sideBarWebsiteData").toJSON();
+    let renderData = [];
+    let sidebarWebsiteOption = {
+        index: true,
+        indexLabel: '序号',
+        menu: true,
+        menuSlot: (row, index) => {
+            return `
+                <span source="sidebarData" item-source="${row.source}" item-type="delete" item-index="${index}" item-id="${row.id}">删除</span>`;
+        },
+        column: [{
+            label: '名称',
+            prop: 'name',
+            slot: (row, index) => {
+                return `<a href="${row.url}" target="_blank" style="color:${row.color}">${row.name}</a>`;
+            },
+        }, {
+            label: '类别',
+            prop: 'source'
+        }]
+    }
+    sideBarWebsiteData.forEach(item => {
+        if (item.content.length > 0) {
+            item.content.forEach(inner => {
+                inner.source = item.name;
+                renderData.push(inner);
+            })
+        }
+    })
+    openDialog({
+        id: 'sideBarWebsiteData',
+        title: "侧边栏数据",
+        option: {
+            type: "table",
+            data: renderData,
+            option: sidebarWebsiteOption
+        },
+        button: [{
+            name: "关闭",
+            type: "default",
+            value: "cancel"
+        }]
     })
 }
 
