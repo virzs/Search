@@ -1264,4 +1264,10 @@
         "type": "add",
         "content": "table组件对齐方式设置"
     }]
+}, {
+    "time": "2020/5/31",
+    "content": [{
+        "type": "add",
+        "content": "table组件边框设置"
+    }]
 }]

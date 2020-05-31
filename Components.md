@@ -97,6 +97,7 @@ let option = {
         return `<span item-index="${index}">删除</span>`
     },
     align: 'center', //表格对齐方式，默认center
+    border: true, //表格边框，默认false
     column: [{
     	label: '姓名', //表头
     	prop: 'name', //绑定值
