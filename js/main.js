@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-30 23:02:24
+ * @Last Modified time: 2020-05-31 17:12:21
  */
 
 //配置变量
@@ -563,22 +563,6 @@ sideBarContent.addEventListener("click", (e) => {
             break;
         case e.target.id == "commonUseData":
             let cData = getStorage("commonUseData").toJSON();
-            let cinHtml = "";
-            cData.forEach((item, index) => {
-                cinHtml += `
-                    <tr>
-                        <td data-label="序号">${index+1}</td>
-                        <td data-label="名称"><a href="${item.url}" target="_blank" style="color:${item.color}">${item.name}</a></td>
-                        <td data-label="使用次数">${item.count}次</td>
-                        <td data-label="操作"><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
-                    </tr>`;
-            })
-            if (cinHtml == "") {
-                cinHtml = `
-                    <tr class="no-data">
-                        <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
-                    </tr>`
-            }
             let tableHtml = openTable(cData, {
                 index: true,
                 indexLabel: '序号',
@@ -604,21 +588,7 @@ sideBarContent.addEventListener("click", (e) => {
                 option: {
                     type: "table"
                 },
-                content: `
-                    <div class="show-data">
-                        <table class="show-data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>名称</th>
-                                    <th>使用次数</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>${cinHtml}</tbody>
-                        </table>
-                        ${tableHtml}
-                    </div>`,
+                content: tableHtml,
                 button: [{
                     name: "关闭",
                     type: "default",
