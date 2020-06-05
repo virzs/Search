@@ -2,7 +2,7 @@
  * @Author: Vir
  * @Date: 2019-11-28 14:32:57
  * @Last Modified by: Vir
- * @Last Modified time: 2020-05-31 21:02:20
+ * @Last Modified time: 2020-06-05 16:26:33
  */
 
 //配置变量
@@ -89,7 +89,6 @@ import {
 
 //网址相关函数
 import {
-    createWebsite,
     renderCommonUse
 } from "./module/website.func.js";
 
@@ -223,7 +222,14 @@ if (customFilletValue.value !== null) {
 //默认设置开启显示常用网址功能
 if (showCommonUse.value == null) {
     setStorage('showCommonUse', 'website_open')
-    handleWebsite({}, '', false);
+    handleWebsite({}, '', false)
+        .catch(err => {
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `${err.msg}`
+            })
+        });
 }
 
 if (commonUseData.value == null) {
@@ -343,70 +349,24 @@ document.addEventListener("click", function (e) {
     }
 
     //删除网址数据
-    if (e.target.className == "deleteData") {
-        let key = e.target.getAttribute("data");
-        let source = getStorage(e.target.getAttribute("source")).toJSON();
-        let category = e.target.getAttribute("category");
-        let tBody = document.querySelector(".show-data-table").children[1];
-        let inHtml = "";
-        if (e.target.getAttribute("source") == "commonUseData") {
-            source.splice(key, 1);
-            source.forEach((item, index) => {
-                inHtml += `
-                <tr>
-                    <td>${index+1}</td>
-                    <td>${item.name}</td>
-                    <td><a href="${item.url}" target="_blank">${item.url}</a></td>
-                    <td>${item.color}</td>
-                    <td>${item.count}次</td>
-                    <td><span class="deleteData" data="${index}" source="commonUseData">删除</span></td>
-                </tr>`;
-            })
-            renderCommonUse(false);
-        } else if (e.target.getAttribute("source") == "sideBarWebsiteData") {
-            source.forEach(item => {
-                if (item.value == category) {
-                    item.content.splice(key, 1);
-                }
-            })
-            source.forEach(item => {
-                if (item.content.length > 0) {
-                    item.content.forEach((inner, index) => {
-                        inHtml += `
-                        <tr>
-                            <td data-label="序号">${index+1}</td>
-                            <td data-label="名称"><a href="${inner.url}" target="_blank" style="color:${inner.color}">${inner.name}</a></td>
-                            <td data-label="类别">${item.name}</td>
-                            <td data-label="操作"><span class="deleteData" data="${index}" category="${item.value}" item-value="${inner.id}" source="sideBarWebsiteData">删除</span></td>
-                        </tr>`;
-                    })
-                }
-            })
-        } else if (e.target.getAttribute("source") == "searchHistory") {
-            source.splice(key, 1);
-            source.forEach((item, index) => {
-                inHtml += `
-                    <tr>
-                        <td data-label="序号">${index+1}</td>
-                        <td data-label="搜索内容"><a href="${item.engine.href}${item.content}" target="_blank"">${item.content}</a></td>
-                        <td data-label="时间">${item.time}</td>
-                        <td data-label="操作"><span class="deleteData" data="${index}" source="searchHistoryData">删除</span></td>
-                    </tr>`;
-            })
+    if (Object.is(e.target.getAttribute('item-type'), 'delete')) {
+        let dialogId = e.target.getAttribute('dialog-id');
+        let source = e.target.getAttribute('source');
+        let itemSource = e.target.getAttribute('item-source');
+        let itemType = e.target.getAttribute('item-type');
+        let itemValue = e.target.getAttribute('item-value');
+        console.log(e.target)
+        let option = {
+            id: dialogId,
+            source: source,
+            type: itemType,
+            value: itemValue,
+            itemSource: itemSource
         }
-        if (source == [] || source == null || source.length == 0) {
-            inHtml = `
-                <tr class="no-data">
-                    <td colspan="5"><i class="fa fa-window-close"></i> 暂无数据</td>
-                </tr>`
+        let data = {
+            source: itemSource,
         }
-        setStorage(e.target.getAttribute("source"), JSON.stringify(source));
-        tBody.innerHTML = inHtml;
-        openMessage({
-            title: "提示",
-            type: "success",
-            content: `删除数据成功！！！`
-        })
+        handleDialogBtn(option, data);
     }
 });
 
@@ -480,7 +440,13 @@ sideBarContent.addEventListener("click", (e) => {
             handleWebsite({
                 name: e.target.id,
                 source: e.target.getAttribute('item-type')
-            }, 'count');
+            }, 'count').catch(err => {
+                openMessage({
+                    title: "提示",
+                    type: "error",
+                    content: `${err.msg}`
+                })
+            });
             break;
         case e.target.getAttribute('item-type') == 'changebg':
             bgSetting(e.target.id, true);
@@ -525,7 +491,14 @@ sideBarContent.addEventListener("click", (e) => {
                 return;
             }
             setStorage('showCommonUse', e.target.id);
-            handleWebsite({}, '', true);
+            handleWebsite({}, '', true)
+                .catch(err => {
+                    openMessage({
+                        title: "提示",
+                        type: "error",
+                        content: `${err.msg}`
+                    })
+                });
             break;
             // 添加网址
         case e.target.getAttribute('item-type') == 'addCapsule':
@@ -669,9 +642,16 @@ commonUse.addEventListener("click", (e) => {
         //点击常用网址计数
         case e.target.getAttribute('item-type') == 'commons':
             handleWebsite({
-                id: e.target.id,
-                source: e.target.getAttribute('item-type')
-            }, 'count');
+                    id: e.target.id,
+                    source: e.target.getAttribute('item-type')
+                }, 'count')
+                .catch(err => {
+                    openMessage({
+                        title: "提示",
+                        type: "error",
+                        content: `${err.msg}`
+                    })
+                });
             break;
             //常用网址弹窗
         case e.target.getAttribute('item-type') == 'commons-btn':
