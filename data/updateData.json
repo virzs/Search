@@ -1293,5 +1293,8 @@
     "content": [{
         "type": "change",
         "content": "侧边栏书签删除"
+    }, {
+        "type": "change",
+        "content": "搜索历史删除"
     }]
 }]
