@@ -103,6 +103,7 @@ export const renderCommonUse = (isSetting = true) => {
 //更改常用网址次数
 export const changeCommonCount = (key, state = 'add') => {
     let data = getStorage('commonUseData').toJSON(); //常用网址数据源
+    let sidebarData = getStorage('sideBarWebsiteData').toJSON(); //自定义添加的数据
     let dataSource = jsonData.sideBar.content.find(item => item.value == "Website").content;
     let keys = Object.keys(key)[0]; //获取变量名
     let recent = data.find(item => item[keys] == key[keys]); //查找是否存在
@@ -117,6 +118,17 @@ export const changeCommonCount = (key, state = 'add') => {
                         source = thisWebsite;
                         break;
                     }
+                }
+                if (!source) {
+                    sidebarData.forEach(item => {
+                        if (item.content.length > 0) {
+                            item.content.forEach(inner => {
+                                if (Object.is(inner[keys], key[keys])) {
+                                    source = inner;
+                                }
+                            })
+                        }
+                    })
                 }
                 source.id = generateId();
                 source.count = 1;
@@ -230,7 +242,8 @@ export const changeCommon = (data) => {
 }
 
 //删除常用网址
-export const deleteCommon = (data) => {
+export const deleteCommon = (data, state = 'single') => {
+    //state操作状态，single单个删除，all全部删除
     let dataSource = getStorage('commonUseData').toJSON(); //常用网址数据源
     let id = data.id ? data.id : null;
     let index = ''; //下标
@@ -243,7 +256,7 @@ export const deleteCommon = (data) => {
             })
         }
         try {
-            index = dataSource.findIndex(item => item.id = id);
+            index = dataSource.findIndex(item => item.id == id);
             dataSource.splice(index, 1);
             setStorage('commonUseData', JSON.stringify(quickSort(dataSource)));
             resolve({
@@ -252,6 +265,7 @@ export const deleteCommon = (data) => {
                 msg: "删除常用网址成功"
             })
         } catch (err) {
+            console.log(err)
             reject({
                 code: 500,
                 data: {},
@@ -363,7 +377,7 @@ export const showCommonUseData = () => {
         menu: true,
         menuSlot: (row, index) => {
             return `
-                <span source="commonUseData" item-source="${row.source}" item-type="delete" item-index="${index}" item-id="${row.id}">删除</span>`;
+                <span source="commonUseData" item-source="${row.source}" item-type="delete" item-index="${index}" item-value="${row.id}">删除</span>`;
         },
         column: [{
             label: '名称',
@@ -402,7 +416,7 @@ export const showSidebarData = () => {
         menu: true,
         menuSlot: (row, index) => {
             return `
-                <span source="sidebarData" item-source="${row.source}" item-type="delete" item-index="${index}" item-id="${row.id}">删除</span>`;
+                <span source="sidebarData" item-source="${row.source}" item-type="delete" item-index="${index}" item-value="${row.id}">删除</span>`;
         },
         column: [{
             label: '名称',
@@ -436,6 +450,38 @@ export const showSidebarData = () => {
             type: "default",
             value: "cancel"
         }]
+    })
+}
+
+//侧边栏数据删除
+export const deleteSideBarData = (data, state) => {
+    let sideBarWebsiteData = getStorage('sideBarWebsiteData').toJSON();
+    let id = data.id || null;
+    let source = data.source || null;
+    console.log(id, source)
+    return new Promise((resolve, reject) => {
+        try {
+            sideBarWebsiteData.forEach(item => {
+                if (Object.is(item.name, source)) {
+                    let index = item.content.findIndex(inner => Object.is(inner.id, id));
+                    if (!Object.is(index, undefined)) {
+                        item.content.splice(index, 1);
+                    }
+                }
+            })
+            setStorage('sideBarWebsiteData', JSON.stringify(sideBarWebsiteData));
+            resolve({
+                code: 200,
+                data: {},
+                msg: '操作成功'
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
     })
 }
 
