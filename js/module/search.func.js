@@ -15,7 +15,9 @@ import {
 import {
     generateId
 } from "./global.func.js";
-import { openDialog } from "../components/dialog.component.js";
+import {
+    openDialog
+} from "../components/dialog.component.js";
 
 //搜索事件
 export const goSearch = () => {
@@ -89,7 +91,7 @@ export const showSearchHistory = () => {
         menu: true,
         menuSlot: (row, index) => {
             return `
-                <span source="searchHistory" item-type="delete" item-index="${index}" item-id="${row.id}">删除</span>`;
+                <span source="searchHistory" item-type="delete" item-index="${index}" item-value="${row.id}">删除</span>`;
         },
         column: [{
             label: '搜索内容',
@@ -115,5 +117,32 @@ export const showSearchHistory = () => {
             type: "default",
             value: "cancel"
         }]
+    })
+}
+
+//删除历史
+export const deleteSearchHistory = (data) => {
+    let searchData = getStorage('searchHistory').toJSON();
+    let index = '';
+    let id = data.id || null;
+    return new Promise((resolve, reject) => {
+        try {
+            index = searchData.findIndex(item => Object.is(item.id, id));
+            if (!Object.is(index, undefined)) {
+                searchData.splice(index, 1);
+            }
+            setStorage('searchHistory', JSON.stringify(searchData));
+            resolve({
+                code: 200,
+                data: {},
+                msg: '操作成功'
+            })
+        } catch (err) {
+            reject({
+                code: 500,
+                data: {},
+                msg: err
+            })
+        }
     })
 }

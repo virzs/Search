@@ -18,6 +18,9 @@ import {
 import {
     getStorage
 } from "../module/storage.func.js";
+import {
+    deleteSearchHistory
+} from "../module/search.func.js";
 
 export const handleDialogBtn = (option, data = null) => {
     console.log(option, data);
@@ -195,7 +198,6 @@ export const handleDialogBtn = (option, data = null) => {
                 prop: 'source'
             }]
         }
-        console.log
         deleteSideBarData({
             id: option.value,
             source: option.itemSource
@@ -216,6 +218,49 @@ export const handleDialogBtn = (option, data = null) => {
             })
             renderCommonUse(false);
             body.innerHTML = openTable(sidebarData, sidebarWebsiteOption);
+        }).catch(err => {
+            console.log(err)
+            openMessage({
+                title: "提示",
+                type: "error",
+                content: `${err.msg}`
+            })
+        });
+    }
+    //搜索历史删除
+    if (Object.is(option.type, 'delete') && Object.is(option.source, 'searchHistory')) {
+        let body = document.querySelector('.dialog-body');
+        let searchData = [];
+        let searchOption = {
+            index: true,
+            indexLabel: '序号',
+            menu: true,
+            menuSlot: (row, index) => {
+                return `
+                    <span source="searchHistory" item-type="delete" item-index="${index}" item-value="${row.id}">删除</span>`;
+            },
+            column: [{
+                label: '搜索内容',
+                prop: 'content',
+                slot: (row, index) => {
+                    return `<a href="${row.engine.href}" target="_blank">${row.content}</a>`;
+                },
+            }, {
+                label: '时间',
+                prop: 'time'
+            }]
+        }
+        deleteSearchHistory({
+            id: option.value,
+            source: option.itemSource
+        }).then(res => {
+            openMessage({
+                title: "提示",
+                type: "success",
+                content: `${res.msg}`
+            })
+            searchData = getStorage("searchHistory").toJSON();
+            body.innerHTML = openTable(searchData, searchOption);
         }).catch(err => {
             console.log(err)
             openMessage({
