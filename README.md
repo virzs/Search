@@ -61,9 +61,3 @@ https://search.virs.xyz
 
 **邮箱：** zcccxyss@outlook.com
 
-
-### 后续计划：
-
-2. 使用react重写代码（有生之年系列）
-3. 使用nodejs部署服务器（有生之年系列）
-4. 账号登陆同步书签设置及其他信息功能（有生之年系列）
